@@ -1,0 +1,68 @@
+{
+  "name": "personamem-v2-text-clean-v1",
+  "dataset_snapshot_commit": "b7b42b78917157afed063527a1c959e98f6109f2",
+  "exclude_persona_ids_from_train_and_val": [
+    "78"
+  ],
+  "exclude_sample_ids_all_windows": [
+    "e9b64566c65886df1b3d",
+    "4fac4f3b381bae48762d",
+    "30d8d4ed5a8f40ae3258",
+    "7ea6851663c471fe0077",
+    "a82a0de2841dab3fe44b",
+    "5a84d2826cf5ad207002",
+    "e415bfca48efb86b50bb"
+  ],
+  "drop_invalid_mcq_instead_of_repairing": true,
+  "paper_dev": {
+    "hash": "sha256",
+    "salt": "personamem-v2-paper-dev-v1:",
+    "num_personas": 80
+  },
+  "quick_pilot_dev_persona_ids": [
+    "6",
+    "520",
+    "349",
+    "388",
+    "739",
+    "611",
+    "1",
+    "116",
+    "35",
+    "270",
+    "356",
+    "795",
+    "135",
+    "930",
+    "717",
+    "806",
+    "695",
+    "858",
+    "631",
+    "827",
+    "785",
+    "818",
+    "707",
+    "317",
+    "498",
+    "457",
+    "354",
+    "588",
+    "283",
+    "125",
+    "278",
+    "13"
+  ],
+  "throwaway_overfit_train_persona_ids": [
+    "500",
+    "565",
+    "113",
+    "147"
+  ],
+  "notes": [
+    "Official train and val share users; val is a seen-user query split.",
+    "Persona 78 occurs in train, val, and benchmark in this snapshot.",
+    "The seven excluded samples contain the full current query in a 32k or 128k history; no complete answer option overlap was found.",
+    "updated=True is identical to pref_type=ask_to_forget in this snapshot and must not be described as generic preference update."
+  ]
+}

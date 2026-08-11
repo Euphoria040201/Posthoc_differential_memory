@@ -1,0 +1,19 @@
+SHARDS_DONE_16384
+
+=== RULER-16384 (recall, mean over tasks; n=1300) ===
+            task   base    ours
+             cwe   0.736   0.735
+             fwe   0.983   0.990
+ niah_multikey_1   1.000   1.000
+ niah_multikey_2   1.000   1.000
+ niah_multikey_3   1.000   1.000
+ niah_multiquery   0.500   0.963
+ niah_multivalue   0.988   0.985
+   niah_single_1   1.000   1.000
+   niah_single_2   1.000   1.000
+   niah_single_3   1.000   1.000
+            qa_1   0.804   0.775
+            qa_2   0.610   0.600
+              vt   1.000   1.000
+         OVERALL   0.894   0.927
+RULER_16384_MERGED

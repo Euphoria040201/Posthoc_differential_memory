@@ -1,0 +1,97 @@
+# delta-mem prefix-memory: investigation bundle
+
+Frozen Qwen3-4B + attached SWA/prefix memory steering (delta_q/k/v/o corrections, gain 0.1),
+trained on Qasper, evaluated zero-shot on HotpotQA / LoCoMo. This bundle is the **curated,
+useful** subset — training/eval infra + the diagnostic scripts that produced real findings +
+the checkpoints they reference. Dead-end sweeps and wrong configs are NOT included.
+
+## Key findings (what the scripts here established)
+1. **No-context is where the memory has value.** With context in the prompt (backbone = full
+   attention) the memory is redundant; with-context prefix ≈ no-prefix. But drop the context and
+   read from the written prefix: base_noctx 0.036 → ours_noctx 0.138 (**+0.10, 6/6 seeds**).
+   Training FOR no-context (`--train-mode noctx`) lifts it to ~0.19; capacity (64/128/256 slots)
+   does NOT help → the attention-pool WRITE is the ceiling.  → `noctx_ours_hotpot.py`
+2. **prefix barely trains & is nearly inert.** init→trained cos ≈ 0.996 (prefix); the real
+   learning is in delta_q (biggest, norm 11.4) / delta_o. Per-layer prefR/R (prefix's share of
+   the read) is nonzero only at shallow L0/L3, exactly 0 at L12–L33.  → `vnorm_probe.py`,
+   `prefr_alllayers.py`
+3. **The seed=0 champion (0.6815) vs worst ms3 (0.618):** all seeds give mutually-orthogonal
+   weight solutions of equal norm; no weight/init/spectral stat predicts the champion. The gap
+   lives in ~31% divergent hard docs where the worst degenerates to Yes/No 6× more (781 vs 127).
+4. **ms3's degeneration is a localizable, ablatable L33 pathology.** ms3 (and ONLY ms3 of 7
+   seeds) saturates 100% of its final steer-layer (L33) memory-read onto the doc-independent
+   prefix (prefR/R=1.0; injection 0.63, its largest layer). Masking L33 prefix on ms3 flips 6/8
+   degeneration docs back to real answers (several correct). Harmless on easy docs (byte-identical),
+   causal on the hard/degeneration ones.  → `l33_allseeds.py`, `deg_test.py`, `three_cmp.py`
+
+## Layout
+```
+deltamem/            core package (model = core/prefix_steer.py; eval = eval/benchmark_compare.py)
+scripts/             training + eval + two repo diagnostics
+  qasper_prefix_steer.py   TRAIN (ctx / noctx modes); build_examples; --delta-heads qkvo
+  eval_ours_hotpotqa.py    HotpotQA eval (conds: base / ours / ours_window_only / ours_zero_read)
+  eval_ours_locomo.py      LoCoMo eval (auto-restores backbone_window from ckpt)
+  noctx_ours_hotpot.py     NO-CONTEXT test (write→drop→read); base_ctx/ours_ctx/base_noctx/ours_noctx
+  diag_locomo_prefix.py    prefix-read decomposition (prefR/R, pfx_mass, cos_across) HotpotQA vs LoCoMo
+investigation/       the L33 / prefix-contribution probes (see below)
+ckpts/               spread12_swa (champion, seed0, 0.6815) ; s0d_ms1..6 (same data, init seeds 1-6) ;
+                     nct_p64_s1 (noctx-trained example)
+eval_records/        saved per-question predictions (champion + ms3) for find_divergent_ids.py
+data/locomo10.json   LoCoMo eval data
+requirements.txt     pip deps (torch 2.6.0+cu124 — works on the 4080 / Ada sm_89)
+```
+
+## Investigation scripts (run from repo root, all CPU-friendly, n small)
+- `vnorm_probe.py`      per-layer Vp_RMS / read_RMS / prefR/R / injection (champion). Edit the last
+                        line to point at any ckpt.
+- `prefr_alllayers.py`  per-layer prefR/R for the middle seeds ms1/2/4/5/6 (12-layer table).
+- `l33_allseeds.py`     L33 prefR/R + injection + deep-max-mass across all 7 seeds vs F1.
+- `three_cmp.py`        raw outputs: champion vs worst vs worst-with-L33-masked, same docs.
+- `find_divergent_ids.py` → deg_ids.json : ids where ms3 degenerates but champion doesn't.
+- `deg_test.py`         L33-prefix ablation on those degeneration docs (needs deg_ids.json first).
+
+Typical run:
+```bash
+cd delta-mem
+source .venv/bin/activate
+export PYTHONPATH=.:scripts
+python investigation/l33_allseeds.py            # 7-seed L33 table (CPU ~25min, or GPU fast)
+python investigation/find_divergent_ids.py      # regen deg_ids.json
+python investigation/deg_test.py                # L33 causal ablation
+```
+NB: HotpotQA/Qasper load from the HF datasets cache (`~/.cache/huggingface/datasets`,
+`local_files_only=True`). Populate that cache once on the 4080 (remove `local_files_only=True`
+for the first download, or copy the cache over).
+
+## Setup on the 4080
+```bash
+bash setup.sh        # creates .venv (python3.10), installs requirements
+```
+Training (38GB footprint) does NOT fit 16GB — this box is for the ANALYSIS / inference
+diagnostics + small evals, which run on CPU or ~10GB GPU.
+
+## Training on 16GB cards (RTX 4080 etc.) — VERIFIED
+The single-card 38GB footprint is dominated by the 4500-token activation graph, not weights (8GB).
+`scripts/qasper_prefix_steer.py --grad-checkpointing` recomputes the frozen backbone in the backward
+(activations ~5-10x smaller); combined with `--max-ctx-tok 3500` peak is **~15.2GB** (tested on a
+4080 SUPER 16GB). Use one seed per GPU:
+```bash
+bash train_16gb.sh                    # seeds 1,2 on GPU 0,1
+GPUS="0 1" SEEDS="3 4" bash train_16gb.sh
+```
+Notes: needs `PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True` (the launcher sets it); ctx 4500
+peaks ~16.4GB (just over) so 3500 is the fit; drop to 3000 for more margin. ~30% slower than
+un-checkpointed. Qasper loads from the HF cache (transferred) — `datasets` can't run its loader
+script, so keep `~/.cache/huggingface/datasets/allenai___qasper`.
+
+## Keeping the FULL 4500 ctx on 2x16GB (pipeline) — VERIFIED
+4500 ctx peaks ~16.4GB — just over one 16GB card. To keep 4500, split ONE run across BOTH cards
+with `--device-map balanced` + `--grad-checkpointing`. The attached steer modules move their
+seg/valid/prefix to the local layer device in forward, so the custom attach is device-map-safe.
+```bash
+bash train_16gb_4500.sh              # one run uses GPU 0+1 (both cards), 4500 ctx
+SEEDS="1 2 3" bash train_16gb_4500.sh   # seeds run SEQUENTIALLY (both cards per run)
+```
+Tradeoff vs the single-card 3500 recipe: keeps full 4500 ctx but a run occupies BOTH cards
+(no 2-seeds-in-parallel). Needs `accelerate` (in requirements). device_map='auto' overfills GPU0
+(loss OOMs) — use 'balanced'.
