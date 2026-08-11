@@ -1,0 +1,58 @@
+Loading weights:   0%|          | 0/398 [00:00<?, ?it/s]Loading weights: 100%|██████████| 398/398 [00:00<00:00, 10411.86it/s]
+[preo_swa_steer_s2] steer sidecar on 12 layers (delta_heads=o gain=0.1 P=0 value=main_v fusion=fixed@pre_o)
+[preo_swa_steer_s2] variant=swa_steer sign=0.0 adapter=False train_attn=False layers=36 heads/layer=0 trainable=14,155,776 (adapter=0, attn=0, steer=14,155,776) anneal_T=78 lr=2e-05 steer_lr=0.0005 seed=2
+Using the latest cached version of the dataset since allenai/qasper couldn't be found on the Hugging Face Hub (offline mode is enabled).
+Found the latest cached dataset configuration 'default' at /home/mingze/.cache/huggingface/datasets/allenai___qasper/default/0.0.0/06806e4608976fc2fac0a090ac425d5b2b29caf4 (last modified on Tue Jul 28 03:00:47 2026).
+[compose] total=935 (target_n=935) yes/no=28 (3.0%) ; pool yn=282 other=1711
+Using the latest cached version of the dataset since allenai/qasper couldn't be found on the Hugging Face Hub (offline mode is enabled).
+Found the latest cached dataset configuration 'default' at /home/mingze/.cache/huggingface/datasets/allenai___qasper/default/0.0.0/06806e4608976fc2fac0a090ac425d5b2b29caf4 (last modified on Tue Jul 28 03:00:47 2026).
+[preo_swa_steer_s2] train=935 val=187
+[preo_swa_steer_s2] step 1/156 loss 4.6769 gnorm 0.277 lr 5.00e-04 (0.1m)
+[preo_swa_steer_s2] step 5/156 loss 2.4071 gnorm 0.137 lr 5.00e-04 (0.6m)
+[preo_swa_steer_s2] step 9/156 loss 2.0650 gnorm 0.272 lr 5.00e-04 (1.0m)
+[preo_swa_steer_s2] step 13/156 loss 2.1390 gnorm 0.104 lr 5.00e-04 (1.4m)
+[preo_swa_steer_s2] step 17/156 loss 1.5427 gnorm 0.134 lr 5.00e-04 (1.9m)
+[preo_swa_steer_s2] step 21/156 loss 1.6212 gnorm 0.132 lr 5.00e-04 (2.4m)
+[preo_swa_steer_s2] step 25/156 loss 1.4872 gnorm 0.135 lr 5.00e-04 (2.9m)
+[preo_swa_steer_s2] step 26 val_loss 0.8808
+[preo_swa_steer_s2] step 29/156 loss 1.4023 gnorm 0.195 lr 5.00e-04 (3.4m)
+[preo_swa_steer_s2] step 33/156 loss 1.2902 gnorm 0.107 lr 5.00e-04 (3.9m)
+[preo_swa_steer_s2] step 37/156 loss 1.0723 gnorm 0.111 lr 5.00e-04 (4.3m)
+[preo_swa_steer_s2] step 41/156 loss 1.3721 gnorm 0.101 lr 5.00e-04 (4.8m)
+[preo_swa_steer_s2] step 45/156 loss 1.0810 gnorm 0.363 lr 5.00e-04 (5.2m)
+[preo_swa_steer_s2] step 49/156 loss 0.9308 gnorm 0.130 lr 5.00e-04 (5.7m)
+[preo_swa_steer_s2] step 52 val_loss 0.7348
+[preo_swa_steer_s2] step 53/156 loss 1.1436 gnorm 0.115 lr 5.00e-04 (6.2m)
+[preo_swa_steer_s2] step 57/156 loss 0.9995 gnorm 0.088 lr 5.00e-04 (6.7m)
+[preo_swa_steer_s2] step 61/156 loss 1.1565 gnorm 0.098 lr 5.00e-04 (7.2m)
+[preo_swa_steer_s2] step 65/156 loss 1.0109 gnorm 0.162 lr 5.00e-04 (7.6m)
+[preo_swa_steer_s2] step 69/156 loss 1.3860 gnorm 0.131 lr 5.00e-04 (8.1m)
+[preo_swa_steer_s2] step 73/156 loss 1.0908 gnorm 0.132 lr 5.00e-04 (8.6m)
+[preo_swa_steer_s2] step 77/156 loss 0.8218 gnorm 0.110 lr 5.00e-04 (9.0m)
+[preo_swa_steer_s2] step 78 val_loss 0.7158
+[preo_swa_steer_s2] step 81/156 loss 1.0949 gnorm 0.079 lr 5.00e-04 (9.6m)
+[preo_swa_steer_s2] step 85/156 loss 1.1312 gnorm 0.105 lr 5.00e-04 (10.0m)
+[preo_swa_steer_s2] step 89/156 loss 1.0382 gnorm 0.123 lr 5.00e-04 (10.5m)
+[preo_swa_steer_s2] step 93/156 loss 1.0698 gnorm 0.388 lr 5.00e-04 (10.9m)
+[preo_swa_steer_s2] step 97/156 loss 1.1462 gnorm 0.092 lr 5.00e-04 (11.4m)
+[preo_swa_steer_s2] step 101/156 loss 0.7964 gnorm 0.111 lr 5.00e-04 (11.9m)
+[preo_swa_steer_s2] step 104 val_loss 0.7083
+[preo_swa_steer_s2] step 105/156 loss 1.1138 gnorm 0.135 lr 5.00e-04 (12.4m)
+[preo_swa_steer_s2] step 109/156 loss 0.8595 gnorm 0.228 lr 5.00e-04 (12.9m)
+[preo_swa_steer_s2] step 113/156 loss 0.9246 gnorm 0.085 lr 5.00e-04 (13.3m)
+[preo_swa_steer_s2] step 117/156 loss 0.8456 gnorm 0.098 lr 5.00e-04 (13.7m)
+[preo_swa_steer_s2] step 121/156 loss 1.0145 gnorm 0.104 lr 5.00e-04 (14.2m)
+[preo_swa_steer_s2] step 125/156 loss 1.1034 gnorm 0.138 lr 5.00e-04 (14.7m)
+[preo_swa_steer_s2] step 129/156 loss 0.7987 gnorm 0.076 lr 5.00e-04 (15.1m)
+[preo_swa_steer_s2] step 130 val_loss 0.6636
+[preo_swa_steer_s2] step 133/156 loss 1.1448 gnorm 0.147 lr 5.00e-04 (15.7m)
+[preo_swa_steer_s2] step 137/156 loss 1.0975 gnorm 0.124 lr 5.00e-04 (16.1m)
+[preo_swa_steer_s2] step 141/156 loss 0.7807 gnorm 0.103 lr 5.00e-04 (16.6m)
+[preo_swa_steer_s2] step 145/156 loss 0.9272 gnorm 0.169 lr 5.00e-04 (17.0m)
+[preo_swa_steer_s2] step 149/156 loss 0.7814 gnorm 0.094 lr 5.00e-04 (17.5m)
+[preo_swa_steer_s2] step 153/156 loss 0.9424 gnorm 0.094 lr 5.00e-04 (17.9m)
+[preo_swa_steer_s2] step 156/156 loss 1.0642 gnorm 0.107 lr 5.00e-04 (18.3m)
+[preo_swa_steer_s2] step 156 val_loss 0.6486
+[preo_swa_steer_s2] FINAL val_loss=0.6486 F1=0.2957 EM=0.0 n=187
+[preo_swa_steer_s2] saved 48 steer tensors
+[preo_swa_steer_s2] DONE in 27.4 min -> out_dex_fusion/preo_swa_steer_s2.json

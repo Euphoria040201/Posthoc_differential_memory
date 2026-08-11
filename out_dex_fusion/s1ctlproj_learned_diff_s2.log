@@ -1,0 +1,48 @@
+Loading weights:   0%|          | 0/398 [00:00<?, ?it/s]Loading weights: 100%|██████████| 398/398 [00:00<00:00, 10813.84it/s]
+[s1ctlproj_learned_diff_s2] arm=learned_diff fusion=learned_diff@post_o_projected loaded=48 tensors trainable=12 layers=12
+Using the latest cached version of the dataset since allenai/qasper couldn't be found on the Hugging Face Hub (offline mode is enabled).
+Found the latest cached dataset configuration 'default' at /home/mingze/.cache/huggingface/datasets/allenai___qasper/default/0.0.0/06806e4608976fc2fac0a090ac425d5b2b29caf4 (last modified on Tue Jul 28 03:00:47 2026).
+[compose] total=935 (target_n=935) yes/no=28 (3.0%) ; pool yn=282 other=1711
+Using the latest cached version of the dataset since allenai/qasper couldn't be found on the Hugging Face Hub (offline mode is enabled).
+Found the latest cached dataset configuration 'default' at /home/mingze/.cache/huggingface/datasets/allenai___qasper/default/0.0.0/06806e4608976fc2fac0a090ac425d5b2b29caf4 (last modified on Tue Jul 28 03:00:47 2026).
+[s1ctlproj_learned_diff_s2] step 1/156 loss 5.5105 lambda +0.1001
+[s1ctlproj_learned_diff_s2] step 5/156 loss 2.5146 lambda +0.0896
+[s1ctlproj_learned_diff_s2] step 9/156 loss 1.9937 lambda +0.0728
+[s1ctlproj_learned_diff_s2] step 13/156 loss 0.4254 lambda +0.0547
+[s1ctlproj_learned_diff_s2] step 17/156 loss 2.4527 lambda +0.0330
+[s1ctlproj_learned_diff_s2] step 21/156 loss 0.9315 lambda +0.0065
+[s1ctlproj_learned_diff_s2] step 25/156 loss 1.1246 lambda -0.0196
+[s1ctlproj_learned_diff_s2] step 29/156 loss 4.0057 lambda -0.0412
+[s1ctlproj_learned_diff_s2] step 33/156 loss 0.4024 lambda -0.0575
+[s1ctlproj_learned_diff_s2] step 37/156 loss 0.8906 lambda -0.0695
+[s1ctlproj_learned_diff_s2] step 41/156 loss 0.1053 lambda -0.0779
+[s1ctlproj_learned_diff_s2] step 45/156 loss 0.2611 lambda -0.0837
+[s1ctlproj_learned_diff_s2] step 49/156 loss 0.0525 lambda -0.0868
+[s1ctlproj_learned_diff_s2] step 53/156 loss 0.4276 lambda -0.0888
+[s1ctlproj_learned_diff_s2] step 57/156 loss 0.1797 lambda -0.0909
+[s1ctlproj_learned_diff_s2] step 61/156 loss 0.2078 lambda -0.0927
+[s1ctlproj_learned_diff_s2] step 65/156 loss 1.4937 lambda -0.0938
+[s1ctlproj_learned_diff_s2] step 69/156 loss 1.7862 lambda -0.0963
+[s1ctlproj_learned_diff_s2] step 73/156 loss 2.5210 lambda -0.0981
+[s1ctlproj_learned_diff_s2] step 77/156 loss 1.5942 lambda -0.0994
+[s1ctlproj_learned_diff_s2] step 81/156 loss 0.0307 lambda -0.1002
+[s1ctlproj_learned_diff_s2] step 85/156 loss 0.4533 lambda -0.1012
+[s1ctlproj_learned_diff_s2] step 89/156 loss 0.1290 lambda -0.1012
+[s1ctlproj_learned_diff_s2] step 93/156 loss 0.1958 lambda -0.1014
+[s1ctlproj_learned_diff_s2] step 97/156 loss 0.3443 lambda -0.1034
+[s1ctlproj_learned_diff_s2] step 101/156 loss 0.2176 lambda -0.1053
+[s1ctlproj_learned_diff_s2] step 105/156 loss 1.1700 lambda -0.1070
+[s1ctlproj_learned_diff_s2] step 109/156 loss 0.0917 lambda -0.1088
+[s1ctlproj_learned_diff_s2] step 113/156 loss 0.5219 lambda -0.1104
+[s1ctlproj_learned_diff_s2] step 117/156 loss 0.4456 lambda -0.1102
+[s1ctlproj_learned_diff_s2] step 121/156 loss 0.2459 lambda -0.1106
+[s1ctlproj_learned_diff_s2] step 125/156 loss 0.5739 lambda -0.1114
+[s1ctlproj_learned_diff_s2] step 129/156 loss 0.4569 lambda -0.1119
+[s1ctlproj_learned_diff_s2] step 133/156 loss 0.7598 lambda -0.1122
+[s1ctlproj_learned_diff_s2] step 137/156 loss 3.8226 lambda -0.1123
+[s1ctlproj_learned_diff_s2] step 141/156 loss 0.3660 lambda -0.1128
+[s1ctlproj_learned_diff_s2] step 145/156 loss 0.5269 lambda -0.1133
+[s1ctlproj_learned_diff_s2] step 149/156 loss 0.4563 lambda -0.1145
+[s1ctlproj_learned_diff_s2] step 153/156 loss 0.3045 lambda -0.1163
+[s1ctlproj_learned_diff_s2] step 156/156 loss 1.1429 lambda -0.1173
+[s1ctlproj_learned_diff_s2] FINAL arm=learned_diff@post_o_projected F1=0.2875 val_loss=0.6666 stats={'lambda': -0.11759440104166667, 'n_layers': 12} lambda=-0.11759440104166667 norms={'cos_WZ_WC': -0.0339308000014474, 'cos_Z_C': -0.005098358165317525, 'norm_C': 9.697747482607761, 'norm_WC': 19.711228022972744, 'norm_WZ': 20.053337454795837, 'norm_Z': 18.015881260236103, 'ratio_C_over_Z': 0.4958556877472251, 'ratio_WC_over_WZ': 1.0158634193266793, 'n_layers': 12} (22.4 min)

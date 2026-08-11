@@ -1,0 +1,48 @@
+Loading weights:   0%|          | 0/398 [00:00<?, ?it/s]Loading weights: 100%|██████████| 398/398 [00:00<00:00, 11287.67it/s]
+[s1preo_learned_diff_s2] arm=learned_diff fusion=learned_diff@pre_o loaded=48 tensors trainable=12 layers=12
+Using the latest cached version of the dataset since allenai/qasper couldn't be found on the Hugging Face Hub (offline mode is enabled).
+Found the latest cached dataset configuration 'default' at /home/mingze/.cache/huggingface/datasets/allenai___qasper/default/0.0.0/06806e4608976fc2fac0a090ac425d5b2b29caf4 (last modified on Tue Jul 28 03:00:47 2026).
+[compose] total=935 (target_n=935) yes/no=28 (3.0%) ; pool yn=282 other=1711
+Using the latest cached version of the dataset since allenai/qasper couldn't be found on the Hugging Face Hub (offline mode is enabled).
+Found the latest cached dataset configuration 'default' at /home/mingze/.cache/huggingface/datasets/allenai___qasper/default/0.0.0/06806e4608976fc2fac0a090ac425d5b2b29caf4 (last modified on Tue Jul 28 03:00:47 2026).
+[s1preo_learned_diff_s2] step 1/156 loss 5.4982 lambda +0.1001
+[s1preo_learned_diff_s2] step 5/156 loss 2.5148 lambda +0.0896
+[s1preo_learned_diff_s2] step 9/156 loss 1.9819 lambda +0.0732
+[s1preo_learned_diff_s2] step 13/156 loss 0.4283 lambda +0.0551
+[s1preo_learned_diff_s2] step 17/156 loss 2.4164 lambda +0.0336
+[s1preo_learned_diff_s2] step 21/156 loss 0.9331 lambda +0.0066
+[s1preo_learned_diff_s2] step 25/156 loss 1.1224 lambda -0.0197
+[s1preo_learned_diff_s2] step 29/156 loss 4.0015 lambda -0.0411
+[s1preo_learned_diff_s2] step 33/156 loss 0.4031 lambda -0.0568
+[s1preo_learned_diff_s2] step 37/156 loss 0.8959 lambda -0.0678
+[s1preo_learned_diff_s2] step 41/156 loss 0.0999 lambda -0.0756
+[s1preo_learned_diff_s2] step 45/156 loss 0.2671 lambda -0.0809
+[s1preo_learned_diff_s2] step 49/156 loss 0.0471 lambda -0.0839
+[s1preo_learned_diff_s2] step 53/156 loss 0.4270 lambda -0.0860
+[s1preo_learned_diff_s2] step 57/156 loss 0.1769 lambda -0.0881
+[s1preo_learned_diff_s2] step 61/156 loss 0.2061 lambda -0.0899
+[s1preo_learned_diff_s2] step 65/156 loss 1.4943 lambda -0.0909
+[s1preo_learned_diff_s2] step 69/156 loss 1.7931 lambda -0.0927
+[s1preo_learned_diff_s2] step 73/156 loss 2.5374 lambda -0.0942
+[s1preo_learned_diff_s2] step 77/156 loss 1.5952 lambda -0.0953
+[s1preo_learned_diff_s2] step 81/156 loss 0.0327 lambda -0.0961
+[s1preo_learned_diff_s2] step 85/156 loss 0.4568 lambda -0.0974
+[s1preo_learned_diff_s2] step 89/156 loss 0.1331 lambda -0.0973
+[s1preo_learned_diff_s2] step 93/156 loss 0.1863 lambda -0.0974
+[s1preo_learned_diff_s2] step 97/156 loss 0.3501 lambda -0.0992
+[s1preo_learned_diff_s2] step 101/156 loss 0.2083 lambda -0.1009
+[s1preo_learned_diff_s2] step 105/156 loss 1.1749 lambda -0.1025
+[s1preo_learned_diff_s2] step 109/156 loss 0.0906 lambda -0.1043
+[s1preo_learned_diff_s2] step 113/156 loss 0.5132 lambda -0.1061
+[s1preo_learned_diff_s2] step 117/156 loss 0.4364 lambda -0.1063
+[s1preo_learned_diff_s2] step 121/156 loss 0.2440 lambda -0.1068
+[s1preo_learned_diff_s2] step 125/156 loss 0.5714 lambda -0.1078
+[s1preo_learned_diff_s2] step 129/156 loss 0.4629 lambda -0.1078
+[s1preo_learned_diff_s2] step 133/156 loss 0.7522 lambda -0.1075
+[s1preo_learned_diff_s2] step 137/156 loss 3.8354 lambda -0.1071
+[s1preo_learned_diff_s2] step 141/156 loss 0.3621 lambda -0.1070
+[s1preo_learned_diff_s2] step 145/156 loss 0.5061 lambda -0.1071
+[s1preo_learned_diff_s2] step 149/156 loss 0.4386 lambda -0.1084
+[s1preo_learned_diff_s2] step 153/156 loss 0.3040 lambda -0.1102
+[s1preo_learned_diff_s2] step 156/156 loss 1.1264 lambda -0.1117
+[s1preo_learned_diff_s2] FINAL arm=learned_diff@pre_o F1=0.2835 val_loss=0.6670 stats={'lambda': -0.11214192708333333, 'n_layers': 12} lambda=-0.11214192708333333 norms={'cos_WZ_WC': -0.0339107372953246, 'cos_Z_C': -0.0051042065606452525, 'norm_C': 9.700420413166285, 'norm_WC': 19.714359293381374, 'norm_WZ': 20.055675983428955, 'norm_Z': 18.01468425989151, 'ratio_C_over_Z': 0.49625903954972334, 'ratio_WC_over_WZ': 1.0165404831833955, 'n_layers': 12} (22.2 min)

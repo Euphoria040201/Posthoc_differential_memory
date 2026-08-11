@@ -1,0 +1,8 @@
+Loading weights:   0%|          | 0/398 [00:00<?, ?it/s]Loading weights: 100%|██████████| 398/398 [00:00<00:00, 8734.16it/s]
+[s1ctlproj_fixed_sub_s1] arm=fixed_sub fusion=fixed_sub@post_o_projected loaded=48 tensors trainable=0 layers=12
+Using the latest cached version of the dataset since allenai/qasper couldn't be found on the Hugging Face Hub (offline mode is enabled).
+Found the latest cached dataset configuration 'default' at /home/mingze/.cache/huggingface/datasets/allenai___qasper/default/0.0.0/06806e4608976fc2fac0a090ac425d5b2b29caf4 (last modified on Tue Jul 28 03:00:47 2026).
+[compose] total=935 (target_n=935) yes/no=28 (3.0%) ; pool yn=282 other=1711
+Using the latest cached version of the dataset since allenai/qasper couldn't be found on the Hugging Face Hub (offline mode is enabled).
+Found the latest cached dataset configuration 'default' at /home/mingze/.cache/huggingface/datasets/allenai___qasper/default/0.0.0/06806e4608976fc2fac0a090ac425d5b2b29caf4 (last modified on Tue Jul 28 03:00:47 2026).
+[s1ctlproj_fixed_sub_s1] FINAL arm=fixed_sub@post_o_projected F1=0.2218 val_loss=4.2917 stats={} lambda=None norms={'cos_WZ_WC': -0.04987456129553417, 'cos_Z_C': -0.013933665167617923, 'norm_C': 9.577198531478643, 'norm_WC': 19.915603389342625, 'norm_WZ': 18.624501903851826, 'norm_Z': 16.96720665693283, 'ratio_C_over_Z': 0.4938346379194054, 'ratio_WC_over_WZ': 1.0204626664657104, 'n_layers': 12} (9.3 min)

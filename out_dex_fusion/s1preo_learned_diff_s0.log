@@ -1,0 +1,48 @@
+Loading weights:   0%|          | 0/398 [00:00<?, ?it/s]Loading weights: 100%|██████████| 398/398 [00:00<00:00, 10435.35it/s]
+[s1preo_learned_diff_s0] arm=learned_diff fusion=learned_diff@pre_o loaded=48 tensors trainable=12 layers=12
+Using the latest cached version of the dataset since allenai/qasper couldn't be found on the Hugging Face Hub (offline mode is enabled).
+Found the latest cached dataset configuration 'default' at /home/mingze/.cache/huggingface/datasets/allenai___qasper/default/0.0.0/06806e4608976fc2fac0a090ac425d5b2b29caf4 (last modified on Tue Jul 28 03:00:47 2026).
+[compose] total=935 (target_n=935) yes/no=28 (3.0%) ; pool yn=282 other=1711
+Using the latest cached version of the dataset since allenai/qasper couldn't be found on the Hugging Face Hub (offline mode is enabled).
+Found the latest cached dataset configuration 'default' at /home/mingze/.cache/huggingface/datasets/allenai___qasper/default/0.0.0/06806e4608976fc2fac0a090ac425d5b2b29caf4 (last modified on Tue Jul 28 03:00:47 2026).
+[s1preo_learned_diff_s0] step 1/156 loss 2.8984 lambda +0.1001
+[s1preo_learned_diff_s0] step 5/156 loss 1.7054 lambda +0.0804
+[s1preo_learned_diff_s0] step 9/156 loss 3.8749 lambda +0.0594
+[s1preo_learned_diff_s0] step 13/156 loss 3.1941 lambda +0.0375
+[s1preo_learned_diff_s0] step 17/156 loss 2.9104 lambda +0.0118
+[s1preo_learned_diff_s0] step 21/156 loss 0.4993 lambda -0.0169
+[s1preo_learned_diff_s0] step 25/156 loss 0.1747 lambda -0.0434
+[s1preo_learned_diff_s0] step 29/156 loss 0.4519 lambda -0.0632
+[s1preo_learned_diff_s0] step 33/156 loss 2.3849 lambda -0.0771
+[s1preo_learned_diff_s0] step 37/156 loss 2.0050 lambda -0.0859
+[s1preo_learned_diff_s0] step 41/156 loss 0.2858 lambda -0.0909
+[s1preo_learned_diff_s0] step 45/156 loss 0.3514 lambda -0.0944
+[s1preo_learned_diff_s0] step 49/156 loss 0.6285 lambda -0.0959
+[s1preo_learned_diff_s0] step 53/156 loss 2.6621 lambda -0.0969
+[s1preo_learned_diff_s0] step 57/156 loss 3.1854 lambda -0.0972
+[s1preo_learned_diff_s0] step 61/156 loss 2.2405 lambda -0.0976
+[s1preo_learned_diff_s0] step 65/156 loss 0.5324 lambda -0.0974
+[s1preo_learned_diff_s0] step 69/156 loss 2.3751 lambda -0.0977
+[s1preo_learned_diff_s0] step 73/156 loss 2.2128 lambda -0.0980
+[s1preo_learned_diff_s0] step 77/156 loss 0.2708 lambda -0.0985
+[s1preo_learned_diff_s0] step 81/156 loss 0.2521 lambda -0.1003
+[s1preo_learned_diff_s0] step 85/156 loss 2.3822 lambda -0.1017
+[s1preo_learned_diff_s0] step 89/156 loss 0.6568 lambda -0.1031
+[s1preo_learned_diff_s0] step 93/156 loss 0.4690 lambda -0.1047
+[s1preo_learned_diff_s0] step 97/156 loss 0.5057 lambda -0.1064
+[s1preo_learned_diff_s0] step 101/156 loss 0.0726 lambda -0.1086
+[s1preo_learned_diff_s0] step 105/156 loss 0.3231 lambda -0.1111
+[s1preo_learned_diff_s0] step 109/156 loss 0.2177 lambda -0.1133
+[s1preo_learned_diff_s0] step 113/156 loss 0.5314 lambda -0.1145
+[s1preo_learned_diff_s0] step 117/156 loss 0.1683 lambda -0.1159
+[s1preo_learned_diff_s0] step 121/156 loss 0.6803 lambda -0.1182
+[s1preo_learned_diff_s0] step 125/156 loss 0.3010 lambda -0.1211
+[s1preo_learned_diff_s0] step 129/156 loss 0.3047 lambda -0.1237
+[s1preo_learned_diff_s0] step 133/156 loss 1.3144 lambda -0.1262
+[s1preo_learned_diff_s0] step 137/156 loss 2.8237 lambda -0.1284
+[s1preo_learned_diff_s0] step 141/156 loss 2.4005 lambda -0.1330
+[s1preo_learned_diff_s0] step 145/156 loss 0.3925 lambda -0.1364
+[s1preo_learned_diff_s0] step 149/156 loss 0.0544 lambda -0.1386
+[s1preo_learned_diff_s0] step 153/156 loss 1.9435 lambda -0.1400
+[s1preo_learned_diff_s0] step 156/156 loss 0.5066 lambda -0.1409
+[s1preo_learned_diff_s0] FINAL arm=learned_diff@pre_o F1=0.2887 val_loss=0.6770 stats={'lambda': -0.14105224609375, 'n_layers': 12} lambda=-0.14105224609375 norms={'cos_WZ_WC': -0.05329394761550551, 'cos_Z_C': -0.007949711755372846, 'norm_C': 10.703081399202347, 'norm_WC': 21.95087110499541, 'norm_WZ': 20.341175119082134, 'norm_Z': 18.205266694227856, 'ratio_C_over_Z': 0.5491182408767464, 'ratio_WC_over_WZ': 1.1126404215268948, 'n_layers': 12} (22.2 min)

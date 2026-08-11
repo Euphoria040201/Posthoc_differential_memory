@@ -1,0 +1,9 @@
+Loading weights:   0%|          | 0/398 [00:00<?, ?it/s]Loading weights: 100%|██████████| 398/398 [00:00<00:00, 10806.14it/s]
+[s1preo_variance_diff_s0] arm=variance_diff fusion=variance_diff@pre_o loaded=48 tensors trainable=0 layers=12
+Using the latest cached version of the dataset since allenai/qasper couldn't be found on the Hugging Face Hub (offline mode is enabled).
+Found the latest cached dataset configuration 'default' at /home/mingze/.cache/huggingface/datasets/allenai___qasper/default/0.0.0/06806e4608976fc2fac0a090ac425d5b2b29caf4 (last modified on Tue Jul 28 03:00:47 2026).
+[compose] total=935 (target_n=935) yes/no=28 (3.0%) ; pool yn=282 other=1711
+Using the latest cached version of the dataset since allenai/qasper couldn't be found on the Hugging Face Hub (offline mode is enabled).
+Found the latest cached dataset configuration 'default' at /home/mingze/.cache/huggingface/datasets/allenai___qasper/default/0.0.0/06806e4608976fc2fac0a090ac425d5b2b29caf4 (last modified on Tue Jul 28 03:00:47 2026).
+[s1preo_variance_diff_s0] calibrated on 64 batches: {'cov': -2.6215573677509003e-05, 'lambda': 0.0010475984890945256, 'raw_lambda': -0.005336443822064514, 'var': 0.03239596626868509, 'n_layers': 12}
+[s1preo_variance_diff_s0] FINAL arm=variance_diff@pre_o F1=0.2445 val_loss=2.1341 stats={'cov': 5.059941758508065e-05, 'lambda': 0.0006519902090076357, 'raw_lambda': -0.0095703362749191, 'var': 0.026317053462131906, 'n_layers': 12} lambda=None norms={'cos_WZ_WC': -0.061648140118146934, 'cos_Z_C': -0.01312683533372668, 'norm_C': 10.446944375832876, 'norm_WC': 21.448029870788258, 'norm_WZ': 19.20727131764094, 'norm_Z': 17.370394388834637, 'ratio_C_over_Z': 0.55151314868701, 'ratio_WC_over_WZ': 1.1194590084939977, 'n_layers': 12} (9.8 min)

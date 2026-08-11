@@ -24,6 +24,33 @@ the checkpoints they reference. Dead-end sweeps and wrong configs are NOT includ
    degeneration docs back to real answers (several correct). Harmless on easy docs (byte-identical),
    causal on the hard/degeneration ones.  → `l33_allseeds.py`, `deg_test.py`, `three_cmp.py`
 
+## Delta-O fusion position (`o_fusion_position`)
+
+Where the memory correction `C = delta_o(reads)` joins the frozen attention, with
+`Z` the concat-head activation (`o_proj` input, width `n_query_heads * head_dim`
+for MHA and GQA alike) and `W_O, b` the frozen `o_proj`:
+
+| position | formula | C lives in |
+|---|---|---|
+| `post_o` (default, historical) | `Y = fuse(W_O Z + b, C)` | output space (`o_proj.out_features`) |
+| `pre_o` (DEX-inspired) | `Y = W_O fuse(Z, C) + b` | concat-head space (`o_proj.in_features`) |
+| `post_o_projected` (control) | `Y = fuse(W_O Z + b, W_O C)` | concat-head space, projected without bias |
+
+`fuse` is any `output_fusion` mode (`fixed_add`, `fixed_sub`, `learned_diff`,
+`variance_diff`, `rms_match`, `cosine`) — one shared `_fuse_delta_o`, no forked
+code paths. For the linear fusions, `pre_o` and `post_o_projected` are
+mathematically identical (`W_O(Z ± gC) + b == (W_O Z + b) ± g(W_O C)`), so the
+control isolates implementation-path effects (bf16 rounding, kernel order) from
+the mathematical position; for the nonlinear-coefficient fusions they differ
+because the per-token statistics are computed in different bases. Old configs
+and checkpoints deserialize to `post_o` (audited in
+`deltamem/eval/steer_checkpoint.py`); `pre_o` checkpoints are not
+shape-compatible with `post_o` ones and fail loudly on load. This is
+**DEX-inspired pre-O prefix differential fusion** — `C` comes from the
+prefix/SWA sidecar, not from `O` itself, so no equivalence with original DEX is
+claimed. Experiments: `scripts/run_preo_fusion_matrix.sh`, results in
+`preo_fusion_report.md`.
+
 ## Layout
 ```
 deltamem/            core package (model = core/prefix_steer.py; eval = eval/benchmark_compare.py)

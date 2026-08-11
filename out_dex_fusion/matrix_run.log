@@ -1,0 +1,27 @@
+== phase A: pre_o sidecar training, seeds 0 1 2 ==
+== phase B: stage-1 fusion arms on the frozen pre_o checkpoints ==
+[gpu0] s1preo_base_s0
+[gpu1] s1preo_fixed_add_s0
+[gpu3] s1preo_learned_diff_s0
+[gpu2] s1preo_fixed_sub_s0
+[gpu4] s1preo_variance_diff_s0
+[gpu6] s1ctlproj_fixed_sub_s0
+[gpu5] s1ctlproj_fixed_add_s0
+[gpu7] s1ctlproj_learned_diff_s0
+[gpu0] s1preo_base_s1
+[gpu1] s1preo_fixed_add_s1
+[gpu2] s1preo_fixed_sub_s1
+[gpu5] s1ctlproj_fixed_add_s1
+[gpu6] s1ctlproj_fixed_sub_s1
+[gpu4] s1preo_variance_diff_s1
+[gpu0] s1preo_base_s2
+[gpu1] s1preo_fixed_add_s2
+[gpu2] s1preo_fixed_sub_s2
+[gpu5] s1ctlproj_fixed_add_s2
+[gpu6] s1ctlproj_fixed_sub_s2
+[gpu4] s1preo_variance_diff_s2
+[gpu3] s1preo_learned_diff_s1
+[gpu7] s1ctlproj_learned_diff_s1
+[gpu3] s1preo_learned_diff_s2
+[gpu7] s1ctlproj_learned_diff_s2
+== done; results in out_dex_fusion/s1preo_*.json and out_dex_fusion/s1ctlproj_*.json ==

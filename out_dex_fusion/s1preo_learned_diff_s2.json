@@ -1,0 +1,1653 @@
+{
+  "tag": "s1preo_learned_diff_s2",
+  "arm": "learned_diff",
+  "fusion": "learned_diff",
+  "o_fusion_position": "pre_o",
+  "o_fusion_position_ckpt": "pre_o",
+  "lambda_report": {
+    "init": 0.1,
+    "per_layer": [
+      0.166015625,
+      -0.1572265625,
+      -0.06689453125,
+      -0.10888671875,
+      -0.166015625,
+      -0.1767578125,
+      -0.0712890625,
+      -0.17578125,
+      -0.1494140625,
+      -0.150390625,
+      -0.146484375,
+      -0.142578125
+    ],
+    "mean": -0.11214192708333333,
+    "min": -0.1767578125,
+    "max": 0.166015625,
+    "n_negative": 11,
+    "crossed_zero": true
+  },
+  "final_fusion_norms": {
+    "mean": {
+      "cos_WZ_WC": -0.0339107372953246,
+      "cos_Z_C": -0.0051042065606452525,
+      "norm_C": 9.700420413166285,
+      "norm_WC": 19.714359293381374,
+      "norm_WZ": 20.055675983428955,
+      "norm_Z": 18.01468425989151,
+      "ratio_C_over_Z": 0.49625903954972334,
+      "ratio_WC_over_WZ": 1.0165404831833955,
+      "n_layers": 12
+    },
+    "per_layer": [
+      {
+        "norm_Z": 1.2543072700500488,
+        "norm_WZ": 3.276170492172241,
+        "norm_C": 0.2227504700422287,
+        "norm_WC": 0.5181149244308472,
+        "ratio_C_over_Z": 0.1775884389423499,
+        "ratio_WC_over_WZ": 0.15814650845210282,
+        "cos_Z_C": -0.004720310680568218,
+        "cos_WZ_WC": -0.17571495473384857
+      },
+      {
+        "norm_Z": 2.314722776412964,
+        "norm_WZ": 3.6490461826324463,
+        "norm_C": 1.383257269859314,
+        "norm_WC": 3.940861701965332,
+        "ratio_C_over_Z": 0.5975909011457925,
+        "ratio_WC_over_WZ": 1.0799703551908373,
+        "cos_Z_C": -0.009474781341850758,
+        "cos_WZ_WC": -0.01792066916823387
+      },
+      {
+        "norm_Z": 5.345848560333252,
+        "norm_WZ": 7.743115425109863,
+        "norm_C": 1.3605480194091797,
+        "norm_WC": 3.108030080795288,
+        "ratio_C_over_Z": 0.2545055296748558,
+        "ratio_WC_over_WZ": 0.4013927095438061,
+        "cos_Z_C": -0.013117188587784767,
+        "cos_WZ_WC": -0.009365729056298733
+      },
+      {
+        "norm_Z": 7.5948638916015625,
+        "norm_WZ": 8.706345558166504,
+        "norm_C": 2.0638935565948486,
+        "norm_WC": 5.309689044952393,
+        "ratio_C_over_Z": 0.2717485903700147,
+        "ratio_WC_over_WZ": 0.609864266181341,
+        "cos_Z_C": 0.002153460867702961,
+        "cos_WZ_WC": 0.006851468700915575
+      },
+      {
+        "norm_Z": 10.329819679260254,
+        "norm_WZ": 11.542163848876953,
+        "norm_C": 4.666454315185547,
+        "norm_WC": 10.762585639953613,
+        "ratio_C_over_Z": 0.4517459607310129,
+        "ratio_WC_over_WZ": 0.9324582271461003,
+        "cos_Z_C": -0.015010841190814972,
+        "cos_WZ_WC": -0.07978734374046326
+      },
+      {
+        "norm_Z": 13.864564895629883,
+        "norm_WZ": 11.469398498535156,
+        "norm_C": 5.757535934448242,
+        "norm_WC": 13.447484016418457,
+        "ratio_C_over_Z": 0.4152698608135204,
+        "ratio_WC_over_WZ": 1.1724663693685364,
+        "cos_Z_C": 0.0016665698494762182,
+        "cos_WZ_WC": 0.006373116746544838
+      },
+      {
+        "norm_Z": 16.199914932250977,
+        "norm_WZ": 13.537983894348145,
+        "norm_C": 27.032495498657227,
+        "norm_WC": 52.17255783081055,
+        "ratio_C_over_Z": 1.6686813240506977,
+        "ratio_WC_over_WZ": 3.8537908035620885,
+        "cos_Z_C": -0.008435491472482681,
+        "cos_WZ_WC": 0.0069646998308598995
+      },
+      {
+        "norm_Z": 19.258960723876953,
+        "norm_WZ": 15.027588844299316,
+        "norm_C": 7.717738151550293,
+        "norm_WC": 17.03280258178711,
+        "ratio_C_over_Z": 0.40073492345731637,
+        "ratio_WC_over_WZ": 1.13343549376176,
+        "cos_Z_C": 0.008892563171684742,
+        "cos_WZ_WC": 0.03295448422431946
+      },
+      {
+        "norm_Z": 25.998857498168945,
+        "norm_WZ": 33.024940490722656,
+        "norm_C": 11.131070137023926,
+        "norm_WC": 23.85736083984375,
+        "ratio_C_over_Z": 0.4281368955465781,
+        "ratio_WC_over_WZ": 0.7224043551735012,
+        "cos_Z_C": 0.008173099718987942,
+        "cos_WZ_WC": -0.027089811861515045
+      },
+      {
+        "norm_Z": 21.950347900390625,
+        "norm_WZ": 22.26677131652832,
+        "norm_C": 6.188922882080078,
+        "norm_WC": 11.673624038696289,
+        "ratio_C_over_Z": 0.2819510155449491,
+        "ratio_WC_over_WZ": 0.5242620886859838,
+        "cos_Z_C": 0.015047970227897167,
+        "cos_WZ_WC": 0.0054618194699287415
+      },
+      {
+        "norm_Z": 33.99614715576172,
+        "norm_WZ": 40.59835433959961,
+        "norm_C": 13.562122344970703,
+        "norm_WC": 24.57414436340332,
+        "ratio_C_over_Z": 0.3989311577818657,
+        "ratio_WC_over_WZ": 0.6052990266020146,
+        "cos_Z_C": -0.005546123255044222,
+        "cos_WZ_WC": -0.04596009850502014
+      },
+      {
+        "norm_Z": 58.06785583496094,
+        "norm_WZ": 69.82623291015625,
+        "norm_C": 35.31825637817383,
+        "norm_WC": 70.17505645751953,
+        "ratio_C_over_Z": 0.6082238765377272,
+        "ratio_WC_over_WZ": 1.0049955945326752,
+        "cos_Z_C": -0.04087940603494644,
+        "cos_WZ_WC": -0.10969582945108414
+      }
+    ]
+  },
+  "steer_ckpt": "out_dex_fusion/preo_swa_steer_s2_steer.pt",
+  "steer_config": {
+    "num_prefix_tokens": 0,
+    "sliding_window_size": 256,
+    "mem_num_heads": 1,
+    "mem_head_dim": 128,
+    "steer_mode": "deltamem",
+    "normal_attends_prefix": true,
+    "prefix_sees_query": true,
+    "prefix_init_std": 0.7,
+    "prefix_init_dist": "normal",
+    "prefix_write": false,
+    "read_prefix_only": false,
+    "memory_mode": "dynamic",
+    "write_ctx_only": false,
+    "prefix_write_layout": "global",
+    "prefix_write_overlap_tokens": 0,
+    "pool_reads": false,
+    "pool_gate": false,
+    "pool_gate_input": "rm",
+    "pool_gate_max": 2.0,
+    "pool_gate_bias": 0.0,
+    "steer_layers": [
+      0,
+      3,
+      6,
+      9,
+      12,
+      15,
+      18,
+      21,
+      24,
+      27,
+      30,
+      33
+    ],
+    "prefix_layers": [],
+    "steer_gain": 0.1,
+    "share_qkv": false,
+    "memory_value_source": "main_v",
+    "delta_heads": "o",
+    "delta_rank": 0,
+    "read_proj_dim": 0,
+    "output_fusion": "learned_diff",
+    "o_fusion_position": "pre_o",
+    "output_fusion_eps": 1e-06,
+    "output_fusion_scale_max": 10.0,
+    "fusion_lambda_init": 0.1,
+    "fusion_lambda_max": 1.0,
+    "fusion_ema_momentum": 0.99,
+    "history_pool_mode": "none",
+    "hybrid_read_mode": "none",
+    "hybrid_prefix_gate_mode": "fixed",
+    "hybrid_prefix_gate_init": 0.1
+  },
+  "args": {
+    "model_path": "/work/mingze/models/Qwen3-4B-Instruct-2507",
+    "steer_ckpt": "out_dex_fusion/preo_swa_steer_s2_steer.pt",
+    "arm": "learned_diff",
+    "dtype": "bfloat16",
+    "attn_impl": "sdpa",
+    "device": "cuda",
+    "seed": 2,
+    "data": "qasper",
+    "train_papers": 800,
+    "val_papers": 75,
+    "max_chunk_tok": 256,
+    "max_ctx_tok": 4500,
+    "max_ans_tok": 24,
+    "train_target_n": 935,
+    "mix_temporal_n": 0,
+    "max_yesno_frac": 0.03,
+    "data_compose_seed": 42,
+    "max_new_tokens": 24,
+    "eval_examples": 0,
+    "val_loss_examples": 32,
+    "o_fusion_position": "ckpt",
+    "fusion_lambda_init": 0.1,
+    "fusion_lambda_max": 1.0,
+    "fusion_ema_momentum": 0.99,
+    "calibrate_batches": 64,
+    "fusion_steps": 156,
+    "fusion_lr": 0.01,
+    "grad_accum": 16,
+    "output_dir": "out_dex_fusion",
+    "tag": "s1preo_learned_diff_s2"
+  },
+  "loaded_tensors": 48,
+  "trainable_names": [
+    "model.layers.0.self_attn.fusion_lambda",
+    "model.layers.3.self_attn.fusion_lambda",
+    "model.layers.6.self_attn.fusion_lambda",
+    "model.layers.9.self_attn.fusion_lambda",
+    "model.layers.12.self_attn.fusion_lambda",
+    "model.layers.15.self_attn.fusion_lambda",
+    "model.layers.18.self_attn.fusion_lambda",
+    "model.layers.21.self_attn.fusion_lambda",
+    "model.layers.24.self_attn.fusion_lambda",
+    "model.layers.27.self_attn.fusion_lambda",
+    "model.layers.30.self_attn.fusion_lambda",
+    "model.layers.33.self_attn.fusion_lambda"
+  ],
+  "calibration": {},
+  "fusion_history": [
+    {
+      "step": 1,
+      "loss": 5.498196125030518,
+      "lambda": 0.10009765625,
+      "n_layers": 12
+    },
+    {
+      "step": 5,
+      "loss": 2.5147807598114014,
+      "lambda": 0.08964029947916667,
+      "n_layers": 12
+    },
+    {
+      "step": 9,
+      "loss": 1.9819339513778687,
+      "lambda": 0.07318115234375,
+      "n_layers": 12
+    },
+    {
+      "step": 13,
+      "loss": 0.42828240990638733,
+      "lambda": 0.055140177408854164,
+      "n_layers": 12
+    },
+    {
+      "step": 17,
+      "loss": 2.416353225708008,
+      "lambda": 0.0335845947265625,
+      "n_layers": 12
+    },
+    {
+      "step": 21,
+      "loss": 0.933097243309021,
+      "lambda": 0.006561279296875,
+      "n_layers": 12
+    },
+    {
+      "step": 25,
+      "loss": 1.122356653213501,
+      "lambda": -0.019673665364583332,
+      "n_layers": 12
+    },
+    {
+      "step": 29,
+      "loss": 4.001495361328125,
+      "lambda": -0.041117350260416664,
+      "n_layers": 12
+    },
+    {
+      "step": 33,
+      "loss": 0.403087854385376,
+      "lambda": -0.0568389892578125,
+      "n_layers": 12
+    },
+    {
+      "step": 37,
+      "loss": 0.8958737254142761,
+      "lambda": -0.0678253173828125,
+      "n_layers": 12
+    },
+    {
+      "step": 41,
+      "loss": 0.0999346673488617,
+      "lambda": -0.07557169596354167,
+      "n_layers": 12
+    },
+    {
+      "step": 45,
+      "loss": 0.2671428918838501,
+      "lambda": -0.08089192708333333,
+      "n_layers": 12
+    },
+    {
+      "step": 49,
+      "loss": 0.04712109640240669,
+      "lambda": -0.0838623046875,
+      "n_layers": 12
+    },
+    {
+      "step": 53,
+      "loss": 0.42697620391845703,
+      "lambda": -0.08599853515625,
+      "n_layers": 12
+    },
+    {
+      "step": 57,
+      "loss": 0.17688186466693878,
+      "lambda": -0.08812459309895833,
+      "n_layers": 12
+    },
+    {
+      "step": 61,
+      "loss": 0.2061319500207901,
+      "lambda": -0.08988444010416667,
+      "n_layers": 12
+    },
+    {
+      "step": 65,
+      "loss": 1.494280219078064,
+      "lambda": -0.09088643391927083,
+      "n_layers": 12
+    },
+    {
+      "step": 69,
+      "loss": 1.793121576309204,
+      "lambda": -0.09268697102864583,
+      "n_layers": 12
+    },
+    {
+      "step": 73,
+      "loss": 2.5373635292053223,
+      "lambda": -0.09422810872395833,
+      "n_layers": 12
+    },
+    {
+      "step": 77,
+      "loss": 1.5951792001724243,
+      "lambda": -0.0953216552734375,
+      "n_layers": 12
+    },
+    {
+      "step": 81,
+      "loss": 0.03270334750413895,
+      "lambda": -0.0961469014485677,
+      "n_layers": 12
+    },
+    {
+      "step": 85,
+      "loss": 0.456789493560791,
+      "lambda": -0.09736124674479167,
+      "n_layers": 12
+    },
+    {
+      "step": 89,
+      "loss": 0.13314500451087952,
+      "lambda": -0.097259521484375,
+      "n_layers": 12
+    },
+    {
+      "step": 93,
+      "loss": 0.18626174330711365,
+      "lambda": -0.09739176432291667,
+      "n_layers": 12
+    },
+    {
+      "step": 97,
+      "loss": 0.3501098155975342,
+      "lambda": -0.09920247395833333,
+      "n_layers": 12
+    },
+    {
+      "step": 101,
+      "loss": 0.20830406248569489,
+      "lambda": -0.10091145833333333,
+      "n_layers": 12
+    },
+    {
+      "step": 105,
+      "loss": 1.1748517751693726,
+      "lambda": -0.10245768229166667,
+      "n_layers": 12
+    },
+    {
+      "step": 109,
+      "loss": 0.09059597551822662,
+      "lambda": -0.10434977213541667,
+      "n_layers": 12
+    },
+    {
+      "step": 113,
+      "loss": 0.5131824612617493,
+      "lambda": -0.10614013671875,
+      "n_layers": 12
+    },
+    {
+      "step": 117,
+      "loss": 0.43640807271003723,
+      "lambda": -0.10628255208333333,
+      "n_layers": 12
+    },
+    {
+      "step": 121,
+      "loss": 0.24397295713424683,
+      "lambda": -0.10677083333333333,
+      "n_layers": 12
+    },
+    {
+      "step": 125,
+      "loss": 0.571392297744751,
+      "lambda": -0.1077880859375,
+      "n_layers": 12
+    },
+    {
+      "step": 129,
+      "loss": 0.4629213511943817,
+      "lambda": -0.10776774088541667,
+      "n_layers": 12
+    },
+    {
+      "step": 133,
+      "loss": 0.7522280812263489,
+      "lambda": -0.10748291015625,
+      "n_layers": 12
+    },
+    {
+      "step": 137,
+      "loss": 3.83540415763855,
+      "lambda": -0.10711669921875,
+      "n_layers": 12
+    },
+    {
+      "step": 141,
+      "loss": 0.3620922863483429,
+      "lambda": -0.10697428385416667,
+      "n_layers": 12
+    },
+    {
+      "step": 145,
+      "loss": 0.5061078071594238,
+      "lambda": -0.10713704427083333,
+      "n_layers": 12
+    },
+    {
+      "step": 149,
+      "loss": 0.4386034905910492,
+      "lambda": -0.10835774739583333,
+      "n_layers": 12
+    },
+    {
+      "step": 153,
+      "loss": 0.30397000908851624,
+      "lambda": -0.11016845703125,
+      "n_layers": 12
+    },
+    {
+      "step": 156,
+      "loss": 1.126362919807434,
+      "lambda": -0.11165364583333333,
+      "n_layers": 12
+    }
+  ],
+  "final_fusion_stats": {
+    "lambda": -0.11214192708333333,
+    "n_layers": 12
+  },
+  "final": {
+    "val_loss": 0.6670150064164773,
+    "qa": {
+      "F1": 0.2835,
+      "EM": 0.0,
+      "n": 187,
+      "per_example": [
+        {
+          "i": 0,
+          "f1": 0.15384615384615385,
+          "em": 0.0,
+          "pred": " multilingual NMT (MNMT) BIBREF19, and cross-lingual transfer without pretraining B"
+        },
+        {
+          "i": 1,
+          "f1": 0.14285714285714288,
+          "em": 0.0,
+          "pred": " pivoting, pivot-synthetic, multilingual NMT, unsupervised NMT, cross-lingual transfer"
+        },
+        {
+          "i": 2,
+          "f1": 0.5,
+          "em": 0.0,
+          "pred": " Europarl, MultiUN, XNLI, WMT14, WMT16, WMT17"
+        },
+        {
+          "i": 3,
+          "f1": 0.42857142857142855,
+          "em": 0.0,
+          "pred": " French-English-Spanish (Fr-En-Es), German-English-French (De-En-Fr"
+        },
+        {
+          "i": 4,
+          "f1": 0.846153846153846,
+          "em": 0.0,
+          "pred": " Stanford NER, spaCy 2.0, recurrent model with a CRF top layer, CNN-based transition system"
+        },
+        {
+          "i": 5,
+          "f1": 0.21052631578947367,
+          "em": 0.0,
+          "pred": " ilur.am. news texts from ilur.am. news texts from ilur.am. news texts from ilur.am"
+        },
+        {
+          "i": 6,
+          "f1": 0.10526315789473684,
+          "em": 0.0,
+          "pred": " No, they did not use a crowdsourcing platform for manual annotations. They manually annotated a named entities dataset comprising 5"
+        },
+        {
+          "i": 7,
+          "f1": 0.64,
+          "em": 0.0,
+          "pred": " politics, business, science, and AskReddit, and Reddit frontpage. politics, business, science, and AskReddit"
+        },
+        {
+          "i": 8,
+          "f1": 0.3157894736842105,
+          "em": 0.0,
+          "pred": " logistic regression models based on unigram bag-of-words features (BOW), sentiment signals (SENT), the linguistic features"
+        },
+        {
+          "i": 9,
+          "f1": 0.16666666666666669,
+          "em": 0.0,
+          "pred": " 5 language pairs (Bengali, Gujarati, Marathi, Malayalam, Tamil) Hindi translation as the"
+        },
+        {
+          "i": 10,
+          "f1": 0.8333333333333333,
+          "em": 0.0,
+          "pred": " IITB English-Hindi parallel corpus, ILCI English-Hindi parallel corpus, ILCI multilingual parallel"
+        },
+        {
+          "i": 11,
+          "f1": 0.5625,
+          "em": 0.0,
+          "pred": " paragraphs, lines, physical page segmentation, paragraph segmentation, line segmentation, number of images, number of paragraphs, number of"
+        },
+        {
+          "i": 12,
+          "f1": 0.48648648648648646,
+          "em": 0.0,
+          "pred": " font type, font style, position on the physical page (for PDFs only) , boldface, italics"
+        },
+        {
+          "i": 13,
+          "f1": 0.25,
+          "em": 0.0,
+          "pred": " SimpleQuestions, WebQSP BIBREF25 datasets. Each question in these datasets is labeled with the gold semantic"
+        },
+        {
+          "i": 14,
+          "f1": 0.07142857142857142,
+          "em": 0.0,
+          "pred": " Hierarchical Residual BiLSTM (HR-BiLSTM) model, Residual Networks BIBREF23"
+        },
+        {
+          "i": 15,
+          "f1": 0.3636363636363636,
+          "em": 0.0,
+          "pred": " Knowledge Base Question Answering. KBQA stands for Knowledge Base Question Answering. KBQA stands for Knowledge Base Question Answer"
+        },
+        {
+          "i": 16,
+          "f1": 0.07999999999999999,
+          "em": 0.0,
+          "pred": " relation detection, entity linking, KB query generation, constraint detection, entity re-ranking, relation detection, KB query generation,"
+        },
+        {
+          "i": 17,
+          "f1": 0.6153846153846154,
+          "em": 0.0,
+          "pred": " intra-sentence similarity, maximum explainable variance, self-similarity, isotropy, anisotropy, an"
+        },
+        {
+          "i": 18,
+          "f1": 0.0,
+          "em": 0.0,
+          "pred": " BERT outperforms its competitors. A fact worth highlighting is that, according to these results, BERT achieves a"
+        },
+        {
+          "i": 19,
+          "f1": 0.06896551724137931,
+          "em": 0.0,
+          "pred": " spaCy, CRF, rule-based baseline, NLNDE, mao2019hadoken, B"
+        },
+        {
+          "i": 20,
+          "f1": 0.0,
+          "em": 0.0,
+          "pred": " Yes, BERT reaches the best performance among all the algorithms compared. BERT outperforms its competitors in the detection"
+        },
+        {
+          "i": 21,
+          "f1": 0.42857142857142855,
+          "em": 0.0,
+          "pred": " NUBes-PHI, MEDDOCAN 2019 shared task competition dataset. BERT-Base Mult"
+        },
+        {
+          "i": 22,
+          "f1": 0.1111111111111111,
+          "em": 0.0,
+          "pred": " MB (megabytes) of model size. 15.4 MB, while the combined wFST high resource"
+        },
+        {
+          "i": 23,
+          "f1": 0.0,
+          "em": 0.0,
+          "pred": " wFST model trained on Wiktionary pronunciation data and g2p rules extracted from Wikipedia IPA Help pages. They"
+        },
+        {
+          "i": 24,
+          "f1": 0.9285714285714286,
+          "em": 0.0,
+          "pred": " Phoneme Error Rate (PER), Word Error Rate (WER), Word Error Rate 100 (WER 1"
+        },
+        {
+          "i": 25,
+          "f1": 0.3703703703703704,
+          "em": 0.0,
+          "pred": " Wiktionary, Phoible, URIEL, Wikipedia IPA Help pages, Carnegie Mellon Pronouncing Dictionary, WALS"
+        },
+        {
+          "i": 26,
+          "f1": 0.9032258064516129,
+          "em": 0.0,
+          "pred": " 20 evaluators were recruited from our institution and asked to each perform 20 annotations. Summaries are presented"
+        },
+        {
+          "i": 27,
+          "f1": 0.1111111111111111,
+          "em": 0.0,
+          "pred": " Yes, the template-based model is realistic. It is a realistic model for summarization. It is a realistic model for"
+        },
+        {
+          "i": 28,
+          "f1": 0.10526315789473684,
+          "em": 0.0,
+          "pred": " Yes, student reflection documents lack global structure, are repetitive, and contain many sentence fragments and grammatical mistakes. CNN/"
+        },
+        {
+          "i": 29,
+          "f1": 0.6086956521739131,
+          "em": 0.0,
+          "pred": " pointer networks with coverage mechanism (PG-net) BIBREF0. To experiment with domain transfer, the model was pretrained"
+        },
+        {
+          "i": 30,
+          "f1": 0.22950819672131145,
+          "em": 0.0,
+          "pred": " since the student vocabulary embedding may be used as context to predict a word tokenized by the teacher vocabulary and vice versa."
+        },
+        {
+          "i": 31,
+          "f1": 0.2727272727272727,
+          "em": 0.0,
+          "pred": " NoKD, PKD, BERTBASE teacher model, 3-layer PKD baseline, 6-layer PKD"
+        },
+        {
+          "i": 32,
+          "f1": 0.2222222222222222,
+          "em": 0.0,
+          "pred": " over 30,000 images with 5 crowdsourced descriptions each. It is commonly used to train and"
+        },
+        {
+          "i": 33,
+          "f1": 0.3333333333333333,
+          "em": 0.0,
+          "pred": " manual detection, tagging with part-of-speech information, leveraging the structure of Flickr30K Entities, coreference graph"
+        },
+        {
+          "i": 34,
+          "f1": 0.14285714285714285,
+          "em": 0.0,
+          "pred": " linguistic bias, unwarranted inferences, sexist language, adjectives, negations, explanations, status or occupation,"
+        },
+        {
+          "i": 35,
+          "f1": 0.14285714285714288,
+          "em": 0.0,
+          "pred": " Comparison, Contingency, Expansion, Temporal, Explicit-Comparison, Implicit-Comparison, Explicit-Expansion, Implicit"
+        },
+        {
+          "i": 36,
+          "f1": 0.0273972602739726,
+          "em": 0.0,
+          "pred": " 2.2 percents, 8 percents, 2 percents, 7 percents, 2"
+        },
+        {
+          "i": 37,
+          "f1": 0.46511627906976744,
+          "em": 0.0,
+          "pred": " question generation model is used to generate a question based on the semantics of a candidate answer. It is used to measure the"
+        },
+        {
+          "i": 38,
+          "f1": 0.14285714285714288,
+          "em": 0.0,
+          "pred": " Yes, subject-verb agreement, reflexive anaphora, negative polarity items, agreement attractors, copular construction"
+        },
+        {
+          "i": 39,
+          "f1": 0.09523809523809523,
+          "em": 0.0,
+          "pred": " No, they do not build a model to automatically detect demographic, linguistic or psychological dimensions of people. They generate maps that"
+        },
+        {
+          "i": 40,
+          "f1": 0.38095238095238093,
+          "em": 0.0,
+          "pred": " gender, industry, values, language use, demographics, psycholinguistic and semantic word classes, language use, language"
+        },
+        {
+          "i": 41,
+          "f1": 0.0,
+          "em": 0.0,
+          "pred": " They use LIWC to measure the usage of words related to people's core values as reported by Boyd et al. boy"
+        },
+        {
+          "i": 42,
+          "f1": 0.8,
+          "em": 0.0,
+          "pred": " Nearest Number, Random Top-3, QA PGNet, Multi-decoder QA PGNet with lookup table embedding,"
+        },
+        {
+          "i": 43,
+          "f1": 0.125,
+          "em": 0.0,
+          "pred": " Yes, the data is de-identified (by removing the identifying information) with digital zeros and [de-identified]"
+        },
+        {
+          "i": 44,
+          "f1": 0.43749999999999994,
+          "em": 0.0,
+          "pred": " ELMo, BERT, ClinicalBERT, lookup table embedding, BERT embeddings, BERT embeddings, BERT"
+        },
+        {
+          "i": 45,
+          "f1": 0.8421052631578948,
+          "em": 0.0,
+          "pred": " CSAT dataset, 20 newsgroups, Fisher Phase 1 corpus, Switchboard, CallHome, Eval"
+        },
+        {
+          "i": 46,
+          "f1": 0.23529411764705882,
+          "em": 0.0,
+          "pred": " Transformer layer works better. ToBERT outperforms RoBERT on Fisher and 20newsgroups dataset by "
+        },
+        {
+          "i": 47,
+          "f1": 0.0,
+          "em": 0.0,
+          "pred": " CF worker gets a task instructing them to use our chat-like interface to help the system with a question which is randomly"
+        },
+        {
+          "i": 48,
+          "f1": 0.30769230769230765,
+          "em": 0.0,
+          "pred": " 4.7 turns per dialog. 1900 dialogs, 8533 turns. 8"
+        },
+        {
+          "i": 49,
+          "f1": 0.8275862068965517,
+          "em": 0.0,
+          "pred": " We evaluate our approach by training an autocomplete system on 500K randomly sampled sentences from Yelp reviews BIBREF"
+        },
+        {
+          "i": 50,
+          "f1": 0.14285714285714288,
+          "em": 0.0,
+          "pred": " 100 crowdworkers on Amazon Mechanical Turk (AMT) and 100 users in user study."
+        },
+        {
+          "i": 51,
+          "f1": 0.4,
+          "em": 0.0,
+          "pred": " 100 crowdworkers on Amazon Mechanical Turk (AMT) and measured completion times and accuracies for typing randomly"
+        },
+        {
+          "i": 52,
+          "f1": 0.2222222222222222,
+          "em": 0.0,
+          "pred": " Unif, Stopword, rule-based baselines, weighted optimization approach, linear objective, constrained objective, rule-based bas"
+        },
+        {
+          "i": 53,
+          "f1": 0.05128205128205128,
+          "em": 0.0,
+          "pred": " It stores them in a structured form. It saves the information in the Information Dictionary (ID). It saves the information in"
+        },
+        {
+          "i": 54,
+          "f1": 0.41379310344827586,
+          "em": 0.0,
+          "pred": " We collected the data from the All India Radio news channel where an actor will be reading news for about 5-1"
+        },
+        {
+          "i": 55,
+          "f1": 0.2608695652173913,
+          "em": 0.0,
+          "pred": " GhostVLAD is an extension of the NetVLAD approach, which we discussed in the previous section. The GhostVL"
+        },
+        {
+          "i": 56,
+          "f1": 0.5217391304347827,
+          "em": 0.0,
+          "pred": " Penn Treebank, Wall Street Journal (WSJ) corpus, one billion word language modeling benchmark dataset BIBREF2"
+        },
+        {
+          "i": 57,
+          "f1": 0.1111111111111111,
+          "em": 0.0,
+          "pred": " Yes, they evaluate only on English datasets. They use the Wall Street Journal (WSJ) portion of the Penn Tree"
+        },
+        {
+          "i": 58,
+          "f1": 0.1111111111111111,
+          "em": 0.0,
+          "pred": " (1) INLINEFORM0 and (2) INLINEFORM1 exists. Invertible transformations have been explored before in"
+        },
+        {
+          "i": 59,
+          "f1": 0.0909090909090909,
+          "em": 0.0,
+          "pred": " Yes, they show on which examples how conflict works better than attention. They show that the model with attention and conflict combined"
+        },
+        {
+          "i": 60,
+          "f1": 0.21052631578947367,
+          "em": 0.0,
+          "pred": " GRU layers. BIBREF9 , BIBREF10 , BIBREF11 , BIBREF"
+        },
+        {
+          "i": 61,
+          "f1": 0.16666666666666669,
+          "em": 0.0,
+          "pred": " Deutsche Welle's news website, rupnik2016news, TDT program, Reuters, Event Registry"
+        },
+        {
+          "i": 62,
+          "f1": 0.2666666666666667,
+          "em": 0.0,
+          "pred": " PubMed+PMC, CORD-19\nWe use the same setup as in BIBREF2: We fin"
+        },
+        {
+          "i": 63,
+          "f1": 0.3076923076923077,
+          "em": 0.0,
+          "pred": " English-German, English-French, English-Deutch, English-Italian, English-Spanish, English-"
+        },
+        {
+          "i": 64,
+          "f1": 0.0,
+          "em": 0.0,
+          "pred": " Yes, the automatically constructed datasets are subject to quality control. We note that initial attempts to build this dataset through standard random"
+        },
+        {
+          "i": 65,
+          "f1": 0.4,
+          "em": 0.0,
+          "pred": " multiple choice question answering. BIBREF24 for a related study in the reading comprehension setting) as well as constructing"
+        },
+        {
+          "i": 66,
+          "f1": 0.2222222222222222,
+          "em": 0.0,
+          "pred": " 2 hops. 2 hops. 2 hops. 2 hops. 2 hops. 2 hops."
+        },
+        {
+          "i": 67,
+          "f1": 0.0,
+          "em": 0.0,
+          "pred": " By filtering and removing biased examples from the dataset. 1. 2. 3. 4. 5"
+        },
+        {
+          "i": 68,
+          "f1": 0.12903225806451615,
+          "em": 0.0,
+          "pred": " We train models for 50 different random combinations of two to three languages in Track 1, and 50"
+        },
+        {
+          "i": 69,
+          "f1": 0.11764705882352941,
+          "em": 0.0,
+          "pred": " Yes, the model has attention. The baseline system uses an attention mechanism. The model we propose uses attention in the decoder"
+        },
+        {
+          "i": 70,
+          "f1": 0.1,
+          "em": 0.0,
+          "pred": " LSTM decoder generates the characters in the output word form using encoder states and an attention mechanism. LSTM decoder generates the characters in"
+        },
+        {
+          "i": 71,
+          "f1": 0.11764705882352941,
+          "em": 0.0,
+          "pred": " LSTM encoder. LSTM decoder. LSTM decoder. LSTM decoder. LSTM decoder. LSTM decoder. LSTM decoder. LSTM decoder."
+        },
+        {
+          "i": 72,
+          "f1": 0.10526315789473684,
+          "em": 0.0,
+          "pred": " Yes, they use attention. In the Memory Generation Layer, the attention function is used to compute the similarity score between passages"
+        },
+        {
+          "i": 73,
+          "f1": 0.5833333333333334,
+          "em": 0.0,
+          "pred": " R.M.-Reader + Verifier, DocQA, BERT, ELMo, BERT-Reader, B"
+        },
+        {
+          "i": 74,
+          "f1": 0.6956521739130435,
+          "em": 0.0,
+          "pred": " multi-turn answer module for the span detector BIBREF1 . Formally, at time step INLINEFORM0 in the"
+        },
+        {
+          "i": 75,
+          "f1": 0.0,
+          "em": 0.0,
+          "pred": " ratio of correct `translations' (matches) was used as an evaluation measure. It came out that regularization only worsened"
+        },
+        {
+          "i": 76,
+          "f1": 0.0,
+          "em": 0.0,
+          "pred": " KG-A2C, A2C, A2C-chained, A2C-Explore, KG-A2"
+        },
+        {
+          "i": 77,
+          "f1": 0.0,
+          "em": 0.0,
+          "pred": " KG-A2C-chained, KG-A2C-Explore. BIBREF10 look at applying Go-"
+        },
+        {
+          "i": 78,
+          "f1": 0.21428571428571425,
+          "em": 0.0,
+          "pred": " 1.5x better than the baseline in terms of predictive performance and strategy formulation ability. 1.5x"
+        },
+        {
+          "i": 79,
+          "f1": 0.0,
+          "em": 0.0,
+          "pred": " C-PR BIBREF16 and extend it to make it work in the open-world setting. C-PR"
+        },
+        {
+          "i": 80,
+          "f1": 0.11538461538461539,
+          "em": 0.0,
+          "pred": " LiLi starts with the closed-world KBC approach path-ranking (PR) and extends KBC in a major way to"
+        },
+        {
+          "i": 81,
+          "f1": 0.16666666666666666,
+          "em": 0.0,
+          "pred": " Matthews correlation coefficient (MCC) that measures the quality of binary classification. , prediction model for INLINEFORM6 and uses"
+        },
+        {
+          "i": 82,
+          "f1": 0.0759493670886076,
+          "em": 0.0,
+          "pred": " Knowledge Graph, Relation-Entity Matrix, Task Experience Store, Inference Stack, Prediction Model, RL model, Knowledge Store"
+        },
+        {
+          "i": 83,
+          "f1": 0.7499999999999999,
+          "em": 0.0,
+          "pred": " one-layer CNN structure from previous works BIBREF22 , BIBREF4 , as it has been demonstrated to"
+        },
+        {
+          "i": 84,
+          "f1": 0.0,
+          "em": 0.0,
+          "pred": " Blitzer et al. ( BIBREF0 ) proposed a method based on structural correspondence learning (SCL), which"
+        },
+        {
+          "i": 85,
+          "f1": 0.5217391304347826,
+          "em": 0.0,
+          "pred": " Book (BK), Electronics (E), Beauty (BT), and Music (M) , IMDB (I), Yelp"
+        },
+        {
+          "i": 86,
+          "f1": 0.13333333333333333,
+          "em": 0.0,
+          "pred": " No. They used a manually annotated sub-corpus of the National Corpus of Polish, NCP. BIBREF6"
+        },
+        {
+          "i": 87,
+          "f1": 0.2285714285714286,
+          "em": 0.0,
+          "pred": " by modifying a na\u00efve Bayesian classifier. Thanks to this correction, the classifier is no longer biased towards senses that have more"
+        },
+        {
+          "i": 88,
+          "f1": 0.0,
+          "em": 0.0,
+          "pred": " No, they report results on English and Arabic data. They also report results on Catholic women forum which is in English."
+        },
+        {
+          "i": 89,
+          "f1": 0.28571428571428575,
+          "em": 0.0,
+          "pred": " The authors conclude that the emotional appeal of ISIS and Catholic materials are similar because both are designed to inspire readers while avoiding fear"
+        },
+        {
+          "i": 90,
+          "f1": 0.24999999999999994,
+          "em": 0.0,
+          "pred": " crowd-annotated news BIBREF24. Drawing on approximately 23.5K documents with average of"
+        },
+        {
+          "i": 91,
+          "f1": 0.17647058823529413,
+          "em": 0.0,
+          "pred": " Word frequency, topic modeling with NMF, Depechemood methods to analyze the emotions that these materials are likely to"
+        },
+        {
+          "i": 92,
+          "f1": 0.07692307692307691,
+          "em": 0.0,
+          "pred": " Word frequency and topic modeling with NMF. Word frequency and topic modeling with NMF. Word frequency and topic modeling with"
+        },
+        {
+          "i": 93,
+          "f1": 0.0,
+          "em": 0.0,
+          "pred": " No, the images are from a synthetic domain. The images are generated by a controlled data generation framework. The framework is"
+        },
+        {
+          "i": 94,
+          "f1": 0.5,
+          "em": 0.0,
+          "pred": " Existential-OneShape, Existential-MultiShapes, Spatial-MultiShapes, Quant-Count, Quant-Ratio,"
+        },
+        {
+          "i": 95,
+          "f1": 0.5,
+          "em": 0.0,
+          "pred": " Show&Tell model, LRCN1u model BIBREF1, BIBREF0, BIBREF"
+        },
+        {
+          "i": 96,
+          "f1": 0.6666666666666666,
+          "em": 0.0,
+          "pred": " ratio of observed number versus optimal number, language constructions used, diversity score as the ratio of observed number versus optimal number,"
+        },
+        {
+          "i": 97,
+          "f1": 0.09523809523809525,
+          "em": 0.0,
+          "pred": " LSTM module for Chinese word segmentation, a boundary assembling step for more accurate word segmentation, and a CRF module for N"
+        },
+        {
+          "i": 98,
+          "f1": 0.6376811594202899,
+          "em": 0.0,
+          "pred": " backward greedy search over each sentence's label sequence to identify word boundaries, If two words segmented in a sentence are identified as"
+        },
+        {
+          "i": 99,
+          "f1": 0.0,
+          "em": 0.0,
+          "pred": " 53.8, 44.1, 44.1, 44.1,"
+        },
+        {
+          "i": 100,
+          "f1": 0.22222222222222224,
+          "em": 0.0,
+          "pred": " QANet trained on Chinese, English BERT, BERT trained on English monolingual corpus, BERT trained"
+        },
+        {
+          "i": 101,
+          "f1": 0.0,
+          "em": 0.0,
+          "pred": " language independent strategies, pattern matching, typology variation, code-switching, typology order, typology order, typ"
+        },
+        {
+          "i": 102,
+          "f1": 0.08695652173913045,
+          "em": 0.0,
+          "pred": " Yes, they inspect their model to see if their model learned to associate image parts with words related to entities. Figure FIG"
+        },
+        {
+          "i": 103,
+          "f1": 0.1111111111111111,
+          "em": 0.0,
+          "pred": " Yes, their NER model learns NER from both text and images. They use a Bi-LSTM and CRF"
+        },
+        {
+          "i": 104,
+          "f1": 0.6153846153846153,
+          "em": 0.0,
+          "pred": " PER, LOC, ORG, MISC.  PER, LOC, ORG, MISC.  PER,"
+        },
+        {
+          "i": 105,
+          "f1": 0.11764705882352941,
+          "em": 0.0,
+          "pred": " No, named entities in SnapCaptions are not discontigious. They are labeled in BIO scheme (B: beginning"
+        },
+        {
+          "i": 106,
+          "f1": 0.6428571428571429,
+          "em": 0.0,
+          "pred": " 10K user-generated image (snap) and textual caption pairs where named entities in captions are manually labeled by expert"
+        },
+        {
+          "i": 107,
+          "f1": 0.4242424242424242,
+          "em": 0.0,
+          "pred": " Masked document generation is a pre-training task that learns to recover a document with a masked span of tokens. For simplicity"
+        },
+        {
+          "i": 108,
+          "f1": 0.0,
+          "em": 0.0,
+          "pred": " Masked Document Generation (MDG) task is the most helpful. It improves the ROUGE-2 by 0"
+        },
+        {
+          "i": 109,
+          "f1": 0.0,
+          "em": 0.0,
+          "pred": " attention does not always comply with alignment. We provide evidence showing that the difference between attention and alignment is due to attention model"
+        },
+        {
+          "i": 110,
+          "f1": 0.761904761904762,
+          "em": 0.0,
+          "pred": " WMT15 German-to-English training data, RWTH German-English dataset, WMT15 German-to"
+        },
+        {
+          "i": 111,
+          "f1": 0.0,
+          "em": 0.0,
+          "pred": " verbs, nouns, pronouns, particles, adjectives, determiners, auxiliary verbs, adverbs, subjects, objects"
+        },
+        {
+          "i": 112,
+          "f1": 0.10256410256410256,
+          "em": 0.0,
+          "pred": " By taking the samples that have largest gradient norms, DISPLAYFORM0, where INLINEFORM0 is the Fisher Information Matrix with"
+        },
+        {
+          "i": 113,
+          "f1": 0.2105263157894737,
+          "em": 0.0,
+          "pred": " 190 hours ( INLINEFORM1 100K instances) of transcribed speech data. 1"
+        },
+        {
+          "i": 114,
+          "f1": 0.0,
+          "em": 0.0,
+          "pred": " RNNs, 2D-convolutional layers, bi-directional recurrent layers, fully-connected layer with softmax"
+        },
+        {
+          "i": 115,
+          "f1": 0.6666666666666666,
+          "em": 0.0,
+          "pred": " 190 hours ( INLINEFORM1 100K instances) of transcribed speech data, 1"
+        },
+        {
+          "i": 116,
+          "f1": 0.10526315789473682,
+          "em": 0.0,
+          "pred": " off-the-shelf PDTB parsers, linear SVM, RBF SVM, Random forest and LSTM classifiers. BIBREF"
+        },
+        {
+          "i": 117,
+          "f1": 0.4444444444444445,
+          "em": 0.0,
+          "pred": " Facebook status update messages. Twitter. Facebook. Twitter. Facebook. Twitter. Facebook. Twitter. Facebook. Twitter. Facebook"
+        },
+        {
+          "i": 118,
+          "f1": 0.18749999999999997,
+          "em": 0.0,
+          "pred": " manually grouped data generated by scoping tasks into intents. To collect additional data for each intent, we used the rephrase"
+        },
+        {
+          "i": 119,
+          "f1": 0.9090909090909091,
+          "em": 0.0,
+          "pred": " SVM, MLP, FastText, CNN, BERT, Google's DialogFlow, Rasa NLU with spacy"
+        },
+        {
+          "i": 120,
+          "f1": 0.3076923076923077,
+          "em": 0.0,
+          "pred": " 23,700 queries, including 22,500 in-scope queries covering 1"
+        },
+        {
+          "i": 121,
+          "f1": 0.0,
+          "em": 0.0,
+          "pred": " crowdsourcing task, which prompted crowd workers to provide questions and commands related to topic domains in the manner they would interact with"
+        },
+        {
+          "i": 122,
+          "f1": 0.35555555555555557,
+          "em": 0.0,
+          "pred": " +0.29, +0.96, +0.97, +2.36."
+        },
+        {
+          "i": 123,
+          "f1": 0.46153846153846156,
+          "em": 0.0,
+          "pred": " +1.86, +1.80, +2.19. 1.86,"
+        },
+        {
+          "i": 124,
+          "f1": 0.18487394957983194,
+          "em": 0.0,
+          "pred": " We propose a dynamic weight adjusting strategy, which associates each training example with a weight in proportion to $(1-p)$,"
+        },
+        {
+          "i": 125,
+          "f1": 0.1111111111111111,
+          "em": 0.0,
+          "pred": " 500 different workers were involved in the annotation. References were also included in the evaluation, and they received a"
+        },
+        {
+          "i": 126,
+          "f1": 0.15789473684210525,
+          "em": 0.0,
+          "pred": " 0.0125, 0.0125, 0.0125,"
+        },
+        {
+          "i": 127,
+          "f1": 0.2222222222222222,
+          "em": 0.0,
+          "pred": " German\u2013English spoken-domain translation, applying fully character-level segmentation. This dataset consists of 209,77"
+        },
+        {
+          "i": 128,
+          "f1": 0.5555555555555556,
+          "em": 0.0,
+          "pred": " IMDb movie review dataset BIBREF17 . The dataset consists of a balanced sample of 25,00"
+        },
+        {
+          "i": 129,
+          "f1": 0.11764705882352941,
+          "em": 0.0,
+          "pred": " f-pooling, fo-pooling, and ifo-pooling respectively; in each case we initialize INLINE"
+        },
+        {
+          "i": 130,
+          "f1": 0.6666666666666666,
+          "em": 0.0,
+          "pred": " Embedding Layer, Neural Network Layers, Loss Function, Metrics, Text Classification and Matching, Sequence Labeling, Knowledge Dist"
+        },
+        {
+          "i": 131,
+          "f1": 0.16000000000000003,
+          "em": 0.0,
+          "pred": " The authors evidence the claim that many engineers find it a big overhead to choose from multiple frameworks, models and optimization techniques by"
+        },
+        {
+          "i": 132,
+          "f1": 0.12121212121212122,
+          "em": 0.0,
+          "pred": " 3150 and 350 questions in our training set and validation set respectively. The corpus contains the"
+        },
+        {
+          "i": 133,
+          "f1": 0.5853658536585366,
+          "em": 0.0,
+          "pred": " Multi-Layer Perceptron (MLP), Naive Bayes Classifier (NBC), Support Vector Machine (SVM"
+        },
+        {
+          "i": 134,
+          "f1": 0.09523809523809523,
+          "em": 0.0,
+          "pred": " Yes, pre-training is effective in their evaluation. In addition, we experiment to jointly train a model of forward translation and"
+        },
+        {
+          "i": 135,
+          "f1": 0.9166666666666666,
+          "em": 0.0,
+          "pred": " Asian Scientific Paper Excerpt Corpus (ASPEC), NTCIR PatentMT Parallel Corpus BIBREF1. BIB"
+        },
+        {
+          "i": 136,
+          "f1": 0.0,
+          "em": 0.0,
+          "pred": " narrow margin on both datasets, the benefit of our method become much stronger as we apply it to longer documents. purpleFurthermore"
+        },
+        {
+          "i": 137,
+          "f1": 0.56,
+          "em": 0.0,
+          "pred": " global context: the whole document, local context: the section/topic of the sentence, the topic segment that sentence falls into"
+        },
+        {
+          "i": 138,
+          "f1": 0.09999999999999999,
+          "em": 0.0,
+          "pred": " Using words/phrases with strong emotional implications (positive or negative) to influence an audience, Labeling the object of the"
+        },
+        {
+          "i": 139,
+          "f1": 0.0,
+          "em": 0.0,
+          "pred": " NLP4IF@EMNLP-IJCNLP 2019 shared task on fine-grained propaganda"
+        },
+        {
+          "i": 140,
+          "f1": 0.3181818181818182,
+          "em": 0.0,
+          "pred": " logistic regression classifier with default parameters, where we represent the input instances with a single feature: the length of the sentence."
+        },
+        {
+          "i": 141,
+          "f1": 0.17647058823529413,
+          "em": 0.0,
+          "pred": " a matrix where the similarity between two words is not strictly based on their co-occurrence frequencies, but rather on the"
+        },
+        {
+          "i": 142,
+          "f1": 0.0,
+          "em": 0.0,
+          "pred": " word2vec, second\u2013order co\u2013occurrence vectors, second\u2013order co\u2013occurrence vectors with measures of"
+        },
+        {
+          "i": 143,
+          "f1": 0.0,
+          "em": 0.0,
+          "pred": " Yes, they also try the model on the Freebase2M and Freebase5M datasets. In addition, they"
+        },
+        {
+          "i": 144,
+          "f1": 0.0,
+          "em": 0.0,
+          "pred": " MemNNs, word-level model, character-level model, LSTM-based question encoder, LSTM-based decoder, CNNs for"
+        },
+        {
+          "i": 145,
+          "f1": 0.21052631578947367,
+          "em": 0.0,
+          "pred": " A group of 50 native people who were well-versed in both English and Tamil languages acted as annotators for"
+        },
+        {
+          "i": 146,
+          "f1": 0.0,
+          "em": 0.0,
+          "pred": " No, they did not only experiment with one language pair. They used Chinese-to-English SMT system. They also"
+        },
+        {
+          "i": 147,
+          "f1": 0.8,
+          "em": 0.0,
+          "pred": " 88%, 53% F-1 score on OntoNotes and Wiki(gold) respectively. "
+        },
+        {
+          "i": 148,
+          "f1": 0.1142857142857143,
+          "em": 0.0,
+          "pred": " They use a residual LSTM to learn informative morphological representations from the character sequence of each token. They then pass this to"
+        },
+        {
+          "i": 149,
+          "f1": 0.4799999999999999,
+          "em": 0.0,
+          "pred": " Kaldi, statistical speech synthesizer, Transformer architecture, Byte-Pair Encoding, Adam optimizer, dropout, label smoothing,"
+        },
+        {
+          "i": 150,
+          "f1": 0.2,
+          "em": 0.0,
+          "pred": " NNEGPMI, CPMI_z, NPMI, NNEGPMI, CPMI_z,"
+        },
+        {
+          "i": 151,
+          "f1": 0.19354838709677416,
+          "em": 0.0,
+          "pred": " Semantic Textual Similarity (STSB), Word Content (WC), Google Syntactic analogies (GSyn),"
+        },
+        {
+          "i": 152,
+          "f1": 0.13793103448275862,
+          "em": 0.0,
+          "pred": " Normalization discards scale information, and the model is not able to distinguish between words with the same function in syntax."
+        },
+        {
+          "i": 153,
+          "f1": 0.8947368421052632,
+          "em": 0.0,
+          "pred": " PMI goes to negative infinity when the word-context pair (w,c) does not appear in the training corpus. Due"
+        },
+        {
+          "i": 154,
+          "f1": 0.13333333333333333,
+          "em": 0.0,
+          "pred": " low coverage of audio, difficulty in cross-speaker clustering, cross-speaker matches, within-utterance matches, within"
+        },
+        {
+          "i": 155,
+          "f1": 0.22857142857142856,
+          "em": 0.0,
+          "pred": " 11 hours of audio with Spanish transcripts and their crowdsourced English translations. 11 hours of audio with Spanish"
+        },
+        {
+          "i": 156,
+          "f1": 0.12499999999999999,
+          "em": 0.0,
+          "pred": " LAN+P600 and ELAN+P600. BIBREF7 , the authors compare the"
+        },
+        {
+          "i": 157,
+          "f1": 0.15730337078651685,
+          "em": 0.0,
+          "pred": " eye-tracking, self-paced reading, and ERP components, BIBREF0 , BIBREF7 , BIBREF"
+        },
+        {
+          "i": 158,
+          "f1": 0.2222222222222222,
+          "em": 0.0,
+          "pred": " Universal Dependencies (v1.2) corpus set BIBREF21 , complemented by morphosyntactic"
+        },
+        {
+          "i": 159,
+          "f1": 0.8275862068965517,
+          "em": 0.0,
+          "pred": " Bulgarian, Croatian, Czech, Danish, English, French, German, Indonesian, Italian, Norwegian, Persian, Polish,"
+        },
+        {
+          "i": 160,
+          "f1": 0.4347826086956522,
+          "em": 0.0,
+          "pred": " UN General Debate Corpus, UNGA voting data from the UNGA, Correlates of War (COW"
+        },
+        {
+          "i": 161,
+          "f1": 0.5641025641025642,
+          "em": 0.0,
+          "pred": " by inserting negation elements in LAMA cloze statement (e.g, \u201cX was born in Y\u201d to \u201c"
+        },
+        {
+          "i": 162,
+          "f1": 0.0,
+          "em": 0.0,
+          "pred": " Sumy package. BIBREF22 ROUGE BIBREF22 unigram score. BIBREF2"
+        },
+        {
+          "i": 163,
+          "f1": 0.4210526315789474,
+          "em": 0.0,
+          "pred": " ROUGE BIBREF22 unigram score. t-test does not show statistically significant difference. human evaluators preferred"
+        },
+        {
+          "i": 164,
+          "f1": 0.5454545454545454,
+          "em": 0.0,
+          "pred": " CLUTO, Carrot2 Lingo, KMeans, DBSCAN, BIRCH, MeanShift, Spectral"
+        },
+        {
+          "i": 165,
+          "f1": 0.5882352941176471,
+          "em": 0.0,
+          "pred": " Accuracy, Precision, Recall, F-measure, ROUGE BIBREF22 unigram score, average and standard"
+        },
+        {
+          "i": 166,
+          "f1": 0.3125,
+          "em": 0.0,
+          "pred": " SVM, Logistic Regression classifier, SVM with ADWS kernel, SVM with ADWS kernel, SVM with ADWS kernel,"
+        },
+        {
+          "i": 167,
+          "f1": 0.3076923076923077,
+          "em": 0.0,
+          "pred": " 15.5 words. STDEV:9.2 Q1:9 Q2:14 Q3"
+        },
+        {
+          "i": 168,
+          "f1": 0.25,
+          "em": 0.0,
+          "pred": " 26972 sentences. 4528 employees. 100 employees. 20"
+        },
+        {
+          "i": 169,
+          "f1": 0.8571428571428571,
+          "em": 0.0,
+          "pred": " De-En, Ja-En, Ro-En. BIBREF19 , BIBREF22 ,"
+        },
+        {
+          "i": 170,
+          "f1": 0.09523809523809523,
+          "em": 0.0,
+          "pred": " Yes, they evaluate popular or state-of-the-art models on standard benchmark data sets. Specifically, they compare model performance between"
+        },
+        {
+          "i": 171,
+          "f1": 0.0,
+          "em": 0.0,
+          "pred": " No, they have not made any attempt to correct MRC gold standards according to their findings. They have only released the"
+        },
+        {
+          "i": 172,
+          "f1": 0.36363636363636365,
+          "em": 0.0,
+          "pred": " Distractors, Restrictivity, Factivity, Reasoning, Negation, Monotonicity, Conditional cues"
+        },
+        {
+          "i": 173,
+          "f1": 0.0,
+          "em": 0.0,
+          "pred": " SQuAD, NewsQA, DROP, ReCoRd, MultiRC, HotpotQA, MS MARCO"
+        },
+        {
+          "i": 174,
+          "f1": 0.07692307692307691,
+          "em": 0.0,
+          "pred": " We define the task of machine reading comprehension, the target application of the proposed methodology as follows: Given a paragraph $P"
+        },
+        {
+          "i": 175,
+          "f1": 0.7000000000000001,
+          "em": 0.0,
+          "pred": " 19,300 tweets were collected. 2500 randomly sampled tweets were added to the dataset"
+        },
+        {
+          "i": 176,
+          "f1": 0.0,
+          "em": 0.0,
+          "pred": " ESPnet BIBREF12, TED-LIUM2 corpus BIBREF13, WIT3,"
+        },
+        {
+          "i": 177,
+          "f1": 0.19354838709677422,
+          "em": 0.0,
+          "pred": " MT dataset $\\mathcal {M}$, which is a large-scale MT dataset. We pre-train the attention module"
+        },
+        {
+          "i": 178,
+          "f1": 0.11764705882352941,
+          "em": 0.0,
+          "pred": " 3 and 5 turns in the dialog. 5 turns in the dialog. 3 turns in the dialog."
+        },
+        {
+          "i": 179,
+          "f1": 0.7272727272727273,
+          "em": 0.0,
+          "pred": " Exact Match (EM) and Macro-averaged F1 scores (F1) between the predicted text answer and the"
+        },
+        {
+          "i": 180,
+          "f1": 0.1904761904761905,
+          "em": 0.0,
+          "pred": " 72% EM score, 80% F1 score, 82% F1 score, "
+        },
+        {
+          "i": 181,
+          "f1": 0.2727272727272727,
+          "em": 0.0,
+          "pred": " Dr.QA BIBREF20 .Human: Dr.QA BIBREF20 . BIBREF"
+        },
+        {
+          "i": 182,
+          "f1": 0.3333333333333333,
+          "em": 0.0,
+          "pred": " Spoken-SQuAD, Text-SQuAD, SQuAD, ODSQA, SQuAD, Sp"
+        },
+        {
+          "i": 183,
+          "f1": 0.4615384615384615,
+          "em": 0.0,
+          "pred": " Groningen Meaning Bank (GMB) by BIBREF12, containing 47,000 instances"
+        },
+        {
+          "i": 184,
+          "f1": 0.47619047619047616,
+          "em": 0.0,
+          "pred": " IMDb dataset of movie reviews by BIBREF11 while that for NER is Groningen Meaning Bank (GMB"
+        },
+        {
+          "i": 185,
+          "f1": 0.27586206896551724,
+          "em": 0.0,
+          "pred": " Conditional Copy (CC) model as our baseline, which is the best model in Wiseman. We included reported scores with"
+        },
+        {
+          "i": 186,
+          "f1": 0.3636363636363636,
+          "em": 0.0,
+          "pred": " Conditional Copy (CC) model, which is the best model in Wiseman. We included reported scores with updated IE model"
+        }
+      ]
+    }
+  },
+  "env": {
+    "python": "3.10.20",
+    "torch": "2.6.0+cu124",
+    "gpu": "NVIDIA H100 80GB HBM3",
+    "cuda_visible_devices": "3",
+    "command": "scripts/dex_stage1_fusion.py --steer-ckpt out_dex_fusion/preo_swa_steer_s2_steer.pt --arm learned_diff --seed 2 --fusion-steps 156 --fusion-lr 1e-2 --tag s1preo_learned_diff_s2 --output-dir out_dex_fusion"
+  },
+  "runtime_min": 22.21
+}

@@ -1,0 +1,1375 @@
+{
+  "tag": "s1preo_fixed_sub_s0",
+  "arm": "fixed_sub",
+  "fusion": "fixed_sub",
+  "o_fusion_position": "pre_o",
+  "o_fusion_position_ckpt": "pre_o",
+  "lambda_report": {},
+  "final_fusion_norms": {
+    "mean": {
+      "cos_WZ_WC": -0.06626497257578497,
+      "cos_Z_C": -0.01631402739440091,
+      "norm_C": 10.065683782100677,
+      "norm_WC": 20.7016169577837,
+      "norm_WZ": 18.610038657983143,
+      "norm_Z": 16.963081578413647,
+      "ratio_C_over_Z": 0.5400196628876107,
+      "ratio_WC_over_WZ": 1.0932953438775732,
+      "n_layers": 12
+    },
+    "per_layer": [
+      {
+        "norm_Z": 1.2543072700500488,
+        "norm_WZ": 3.276170492172241,
+        "norm_C": 0.27047932147979736,
+        "norm_WC": 0.7669162154197693,
+        "ratio_C_over_Z": 0.2156404000345185,
+        "ratio_WC_over_WZ": 0.23408922620241018,
+        "cos_Z_C": -0.0298390444368124,
+        "cos_WZ_WC": -0.39863690733909607
+      },
+      {
+        "norm_Z": 2.3134920597076416,
+        "norm_WZ": 3.6474523544311523,
+        "norm_C": 1.7787771224975586,
+        "norm_WC": 5.035312652587891,
+        "ratio_C_over_Z": 0.7688710730748497,
+        "ratio_WC_over_WZ": 1.3805012823459308,
+        "cos_Z_C": -0.018283823505043983,
+        "cos_WZ_WC": -0.031707122921943665
+      },
+      {
+        "norm_Z": 5.268841743469238,
+        "norm_WZ": 7.6679487228393555,
+        "norm_C": 1.4374850988388062,
+        "norm_WC": 3.1757264137268066,
+        "ratio_C_over_Z": 0.27282753379726726,
+        "ratio_WC_over_WZ": 0.4141559272909262,
+        "cos_Z_C": -0.010470239445567131,
+        "cos_WZ_WC": 0.018698513507843018
+      },
+      {
+        "norm_Z": 7.519536972045898,
+        "norm_WZ": 8.62890911102295,
+        "norm_C": 2.4483978748321533,
+        "norm_WC": 6.287899017333984,
+        "ratio_C_over_Z": 0.3256048722061139,
+        "ratio_WC_over_WZ": 0.728701500552549,
+        "cos_Z_C": -0.0011930825421586633,
+        "cos_WZ_WC": -0.0069951144978404045
+      },
+      {
+        "norm_Z": 10.295077323913574,
+        "norm_WZ": 11.755892753601074,
+        "norm_C": 5.247622013092041,
+        "norm_WC": 12.089006423950195,
+        "ratio_C_over_Z": 0.5097214763897673,
+        "ratio_WC_over_WZ": 1.0283358888457945,
+        "cos_Z_C": -0.022394631057977676,
+        "cos_WZ_WC": -0.09654070436954498
+      },
+      {
+        "norm_Z": 13.793539047241211,
+        "norm_WZ": 11.403382301330566,
+        "norm_C": 5.382717609405518,
+        "norm_WC": 12.343328475952148,
+        "ratio_C_over_Z": 0.39023470270902616,
+        "ratio_WC_over_WZ": 1.0824269633152532,
+        "cos_Z_C": -0.004166621249169111,
+        "cos_WZ_WC": 0.0034797198604792356
+      },
+      {
+        "norm_Z": 16.340621948242188,
+        "norm_WZ": 13.68256664276123,
+        "norm_C": 19.00960350036621,
+        "norm_WC": 37.859832763671875,
+        "ratio_C_over_Z": 1.163334147291201,
+        "ratio_WC_over_WZ": 2.7670124876535236,
+        "cos_Z_C": -0.010648353025317192,
+        "cos_WZ_WC": 0.010208267718553543
+      },
+      {
+        "norm_Z": 19.88022804260254,
+        "norm_WZ": 15.093085289001465,
+        "norm_C": 7.361771106719971,
+        "norm_WC": 16.546833038330078,
+        "ratio_C_over_Z": 0.37030617007732447,
+        "ratio_WC_over_WZ": 1.0963187924464972,
+        "cos_Z_C": 0.0010330167133361101,
+        "cos_WZ_WC": 0.014286598190665245
+      },
+      {
+        "norm_Z": 24.788278579711914,
+        "norm_WZ": 30.57818031311035,
+        "norm_C": 11.166153907775879,
+        "norm_WC": 23.795272827148438,
+        "ratio_C_over_Z": 0.4504610464122697,
+        "ratio_WC_over_WZ": 0.7781781840349161,
+        "cos_Z_C": -0.01070705521851778,
+        "cos_WZ_WC": -0.07592815160751343
+      },
+      {
+        "norm_Z": 20.72574806213379,
+        "norm_WZ": 20.236282348632812,
+        "norm_C": 17.30131721496582,
+        "norm_WC": 34.84287643432617,
+        "ratio_C_over_Z": 0.834774077302211,
+        "ratio_WC_over_WZ": 1.721802247767125,
+        "cos_Z_C": -0.0014182706363499165,
+        "cos_WZ_WC": -0.014465471729636192
+      },
+      {
+        "norm_Z": 31.456451416015625,
+        "norm_WZ": 37.85194396972656,
+        "norm_C": 16.092243194580078,
+        "norm_WC": 29.129165649414062,
+        "ratio_C_over_Z": 0.5115721090646268,
+        "ratio_WC_over_WZ": 0.7695553410073509,
+        "cos_Z_C": -0.028531964868307114,
+        "cos_WZ_WC": -0.07692498713731766
+      },
+      {
+        "norm_Z": 49.92085647583008,
+        "norm_WZ": 59.49864959716797,
+        "norm_C": 33.2916374206543,
+        "norm_WC": 66.54723358154297,
+        "ratio_C_over_Z": 0.6668883462921542,
+        "ratio_WC_over_WZ": 1.1184662850686027,
+        "cos_Z_C": -0.059148259460926056,
+        "cos_WZ_WC": -0.1406543105840683
+      }
+    ]
+  },
+  "steer_ckpt": "out_dex_fusion/preo_swa_steer_s0_steer.pt",
+  "steer_config": {
+    "num_prefix_tokens": 0,
+    "sliding_window_size": 256,
+    "mem_num_heads": 1,
+    "mem_head_dim": 128,
+    "steer_mode": "deltamem",
+    "normal_attends_prefix": true,
+    "prefix_sees_query": true,
+    "prefix_init_std": 0.7,
+    "prefix_init_dist": "normal",
+    "prefix_write": false,
+    "read_prefix_only": false,
+    "memory_mode": "dynamic",
+    "write_ctx_only": false,
+    "prefix_write_layout": "global",
+    "prefix_write_overlap_tokens": 0,
+    "pool_reads": false,
+    "pool_gate": false,
+    "pool_gate_input": "rm",
+    "pool_gate_max": 2.0,
+    "pool_gate_bias": 0.0,
+    "steer_layers": [
+      0,
+      3,
+      6,
+      9,
+      12,
+      15,
+      18,
+      21,
+      24,
+      27,
+      30,
+      33
+    ],
+    "prefix_layers": [],
+    "steer_gain": 0.1,
+    "share_qkv": false,
+    "memory_value_source": "main_v",
+    "delta_heads": "o",
+    "delta_rank": 0,
+    "read_proj_dim": 0,
+    "output_fusion": "fixed_sub",
+    "o_fusion_position": "pre_o",
+    "output_fusion_eps": 1e-06,
+    "output_fusion_scale_max": 10.0,
+    "fusion_lambda_init": 0.1,
+    "fusion_lambda_max": 1.0,
+    "fusion_ema_momentum": 0.99,
+    "history_pool_mode": "none",
+    "hybrid_read_mode": "none",
+    "hybrid_prefix_gate_mode": "fixed",
+    "hybrid_prefix_gate_init": 0.1
+  },
+  "args": {
+    "model_path": "/work/mingze/models/Qwen3-4B-Instruct-2507",
+    "steer_ckpt": "out_dex_fusion/preo_swa_steer_s0_steer.pt",
+    "arm": "fixed_sub",
+    "dtype": "bfloat16",
+    "attn_impl": "sdpa",
+    "device": "cuda",
+    "seed": 0,
+    "data": "qasper",
+    "train_papers": 800,
+    "val_papers": 75,
+    "max_chunk_tok": 256,
+    "max_ctx_tok": 4500,
+    "max_ans_tok": 24,
+    "train_target_n": 935,
+    "mix_temporal_n": 0,
+    "max_yesno_frac": 0.03,
+    "data_compose_seed": 42,
+    "max_new_tokens": 24,
+    "eval_examples": 0,
+    "val_loss_examples": 32,
+    "o_fusion_position": "ckpt",
+    "fusion_lambda_init": 0.1,
+    "fusion_lambda_max": 1.0,
+    "fusion_ema_momentum": 0.99,
+    "calibrate_batches": 64,
+    "fusion_steps": 0,
+    "fusion_lr": 0.01,
+    "grad_accum": 16,
+    "output_dir": "out_dex_fusion",
+    "tag": "s1preo_fixed_sub_s0"
+  },
+  "loaded_tensors": 48,
+  "trainable_names": [],
+  "calibration": {},
+  "fusion_history": [],
+  "final_fusion_stats": {},
+  "final": {
+    "val_loss": 4.268061996437609,
+    "qa": {
+      "F1": 0.2161,
+      "EM": 0.0,
+      "n": 187,
+      "per_example": [
+        {
+          "i": 0,
+          "f1": 0.0,
+          "em": 0.0,
+          "pred": " The paper compares its proposed approach with several multilingual approaches, specifically **multilingual NMT (MNMT)**. It"
+        },
+        {
+          "i": 1,
+          "f1": 0.0,
+          "em": 0.0,
+          "pred": " The pivot-based baselines are methods that achieve source-to-target translation by first translating the source language into a pivot language and"
+        },
+        {
+          "i": 2,
+          "f1": 0.2666666666666667,
+          "em": 0.0,
+          "pred": " The researchers experimented with two public datasets: **Europarl** and **MultiUN**. These datasets contain multi-"
+        },
+        {
+          "i": 3,
+          "f1": 0.0,
+          "em": 0.0,
+          "pred": " The language pairs explored in the context are those in a zero-shot translation scenario where there is no direct parallel data between the"
+        },
+        {
+          "i": 4,
+          "f1": 0.33333333333333337,
+          "em": 0.0,
+          "pred": " The named entity recognition (NER) models evaluated in the study were **Stanford NER**, **spaCy 2"
+        },
+        {
+          "i": 5,
+          "f1": 0.2222222222222222,
+          "em": 0.0,
+          "pred": " The source of the news sentences is over 250 news texts from ilur.am. These sentences cover political,"
+        },
+        {
+          "i": 6,
+          "f1": 0.0,
+          "em": 0.0,
+          "pred": " The text does not mention the use of a crowdsourcing platform for manual annotations. Instead, it states that the manual annotations"
+        },
+        {
+          "i": 7,
+          "f1": 0.2580645161290323,
+          "em": 0.0,
+          "pred": " The topics pulled from Reddit are diverse and include areas such as climate change, abortion, world news, relationship advice, and"
+        },
+        {
+          "i": 8,
+          "f1": 0.0,
+          "em": 0.0,
+          "pred": " The researchers build a **predictive model based on linguistic features** that identifies dogmatism in online comments. This model"
+        },
+        {
+          "i": 9,
+          "f1": 0.0,
+          "em": 0.0,
+          "pred": " The context does not specify the exact number of language pairs on which preordering the assisting language sentences was tested. It only"
+        },
+        {
+          "i": 10,
+          "f1": 0.8,
+          "em": 0.0,
+          "pred": " The researchers experiment with the IITB English-Hindi parallel corpus and the ILCI English-Hindi parallel corpus."
+        },
+        {
+          "i": 11,
+          "f1": 0.606060606060606,
+          "em": 0.0,
+          "pred": " The corpus includes information on physical page segmentation, paragraph segmentation, and line segmentation. This information is stored in a textspan"
+        },
+        {
+          "i": 12,
+          "f1": 0.5499999999999999,
+          "em": 0.0,
+          "pred": " The corpus includes information about the **font type and font style** (such as italics and bold print) of"
+        },
+        {
+          "i": 13,
+          "f1": 0.0,
+          "em": 0.0,
+          "pred": " The system achieves state-of-the-art results on both single-relation and multi-relation KBQA tasks. This is demonstrated"
+        },
+        {
+          "i": 14,
+          "f1": 0.4,
+          "em": 0.0,
+          "pred": " The proposed framework uses a hierarchical sequence matching approach with residual learning for relation detection. It incorporates both word-level and relation-level"
+        },
+        {
+          "i": 15,
+          "f1": 0.3636363636363636,
+          "em": 0.0,
+          "pred": " KBQA abbreviates for **Knowledge Base Question Answering**. This refers to systems that answer questions by retrieving and matching"
+        },
+        {
+          "i": 16,
+          "f1": 0.0,
+          "em": 0.0,
+          "pred": " The core component for KBQA is the **relation detection** subtask, which identifies the relevant relations between entities in the"
+        },
+        {
+          "i": 17,
+          "f1": 0.5142857142857142,
+          "em": 0.0,
+          "pred": " The experiments proposed to test that upper layers produce context-specific embeddings involve analyzing the self-similarity and intra-sentence similarity"
+        },
+        {
+          "i": 18,
+          "f1": 0.09302325581395349,
+          "em": 0.0,
+          "pred": " The performance of BERT on the task of sensitive information detection and classification in Spanish clinical text is highly effective, particularly in"
+        },
+        {
+          "i": 19,
+          "f1": 0.30769230769230765,
+          "em": 0.0,
+          "pred": " The other algorithms tested are a rule-based baseline using regular expressions and dictionary look-ups, a Conditional Random Fields (CRF"
+        },
+        {
+          "i": 20,
+          "f1": 0.0,
+          "em": 0.0,
+          "pred": " Based on the provided context, BERT reaches the best performance among all the algorithms compared in the task of sensitive information detection"
+        },
+        {
+          "i": 21,
+          "f1": 0.42857142857142855,
+          "em": 0.0,
+          "pred": " The clinical datasets used in the paper are **NUBes-PHI** and the **MEDDOCAN 201"
+        },
+        {
+          "i": 22,
+          "f1": 0.1,
+          "em": 0.0,
+          "pred": " The model compactness is measured by the size of the model in megabytes (MB). In the context, it is"
+        },
+        {
+          "i": 23,
+          "f1": 0.11764705882352941,
+          "em": 0.0,
+          "pred": " The baseline in the context is the **wFST (weighted finite state transducer) model** developed by deri"
+        },
+        {
+          "i": 24,
+          "f1": 0.689655172413793,
+          "em": 0.0,
+          "pred": " The evaluation metrics used were the Phoneme Error Rate (PER), the Word Error Rate (WER), and the Word Error"
+        },
+        {
+          "i": 25,
+          "f1": 0.4444444444444445,
+          "em": 0.0,
+          "pred": " The researchers used a multilingual pronunciation corpus collected by deri2016grapheme, which consists of spelling\u2013"
+        },
+        {
+          "i": 26,
+          "f1": 0.75,
+          "em": 0.0,
+          "pred": " The human evaluators used were recruited from the author's institution and were asked to perform 20 annotations each, selecting"
+        },
+        {
+          "i": 27,
+          "f1": 0.0,
+          "em": 0.0,
+          "pred": " Based on the provided context, the template-based model is realistic because it leverages the structural similarities in human summaries, uses"
+        },
+        {
+          "i": 28,
+          "f1": 0.10526315789473684,
+          "em": 0.0,
+          "pred": " Yes, the student reflection data is very different from the newspaper data. Student reflections lack global structure, are repetitive, and"
+        },
+        {
+          "i": 29,
+          "f1": 0.0,
+          "em": 0.0,
+          "pred": " The recent abstractive summarization method in this paper is a **template-based synthesis model** that combines domain transfer and"
+        },
+        {
+          "i": 30,
+          "f1": 0.19354838709677416,
+          "em": 0.0,
+          "pred": " Prior knowledge distillation techniques are ineffective in producing student models with different vocabularies from the original teacher models because these techniques"
+        },
+        {
+          "i": 31,
+          "f1": 0.16,
+          "em": 0.0,
+          "pred": " The state-of-the-art compression techniques used in the comparison were **knowledge distillation** and **vocabulary size reduction**,"
+        },
+        {
+          "i": 32,
+          "f1": 0.2666666666666667,
+          "em": 0.0,
+          "pred": " The dataset is called Flickr30K, which suggests it contains 30,000 images. Based on"
+        },
+        {
+          "i": 33,
+          "f1": 0.2,
+          "em": 0.0,
+          "pred": " The methods considered to find examples of biases and unwarranted inferences include manually reviewing images and descriptions to identify patterns,"
+        },
+        {
+          "i": 34,
+          "f1": 0.0,
+          "em": 0.0,
+          "pred": " The dataset contains biases such as the use of **sexist language** (e.g., describing a female surgeon or a"
+        },
+        {
+          "i": 35,
+          "f1": 0.2,
+          "em": 0.0,
+          "pred": " Based on the provided context, the model works best for **all discourse relations**, particularly **implicit ones**, due to its"
+        },
+        {
+          "i": 36,
+          "f1": 0.11688311688311688,
+          "em": 0.0,
+          "pred": " The model improves state-of-the-art performance by achieving a **macro-average F1-score increase of over 7 percentage points"
+        },
+        {
+          "i": 37,
+          "f1": 0.5238095238095238,
+          "em": 0.0,
+          "pred": " A question generation model is used to generate a question based on the semantics of a candidate answer. It takes the path between"
+        },
+        {
+          "i": 38,
+          "f1": 0.14285714285714288,
+          "em": 0.0,
+          "pred": " Yes, previous work evaluated similar syntactic tasks. Specifically, studies such as BIBREF1, BIBREF2"
+        },
+        {
+          "i": 39,
+          "f1": 0.0,
+          "em": 0.0,
+          "pred": " The text does not mention building a model to automatically detect demographic, linguistic, or psychological dimensions of people. Instead, it"
+        },
+        {
+          "i": 40,
+          "f1": 0.08,
+          "em": 0.0,
+          "pred": " The study obtains demographic dimensions such as the distribution of bloggers across U.S. states, gender distribution (male vs. female"
+        },
+        {
+          "i": 41,
+          "f1": 0.08695652173913043,
+          "em": 0.0,
+          "pred": " The researchers obtain psychological dimensions of people by analyzing the language used in blog posts, specifically by using the Linguistic Inquiry and"
+        },
+        {
+          "i": 42,
+          "f1": 0.0,
+          "em": 0.0,
+          "pred": " The baseline in this study is the initial model or method used for comparison, which serves as a reference point to evaluate the"
+        },
+        {
+          "i": 43,
+          "f1": 0.0,
+          "em": 0.0,
+          "pred": " The data is de-identified. The audio and transcript are both de-identified by removing the identifying information, with the"
+        },
+        {
+          "i": 44,
+          "f1": 0.5555555555555556,
+          "em": 0.0,
+          "pred": " The embeddings used are:\n\n- A simple lookup table embedding learned from scratch.\n- ELMo embeddings, derived by learning"
+        },
+        {
+          "i": 45,
+          "f1": 0.1739130434782609,
+          "em": 0.0,
+          "pred": " The researchers used three datasets for evaluation: the CSAT dataset (consisting of spoken transcripts from call centers), the "
+        },
+        {
+          "i": 46,
+          "f1": 0.23529411764705882,
+          "em": 0.0,
+          "pred": " Based on the provided context, the **Transformer layer (ToBERT)** works better than the RNN layer (RoBERT"
+        },
+        {
+          "i": 47,
+          "f1": 0.0,
+          "em": 0.0,
+          "pred": " The data was collected through a process involving a crowdsourcing platform, where workers were given tasks to interact with a chat-like"
+        },
+        {
+          "i": 48,
+          "f1": 0.125,
+          "em": 0.0,
+          "pred": " The average length of a dialog is approximately __ turns.\n\nBased on the context, the dataset contains 1900"
+        },
+        {
+          "i": 49,
+          "f1": 0.13333333333333333,
+          "em": 0.0,
+          "pred": " The models are evaluated based on two primary metrics: the efficiency of the communication scheme, measured by the retention rate of tokens"
+        },
+        {
+          "i": 50,
+          "f1": 0.0,
+          "em": 0.0,
+          "pred": " The number of participants trying this communication game was \\_\\_\\_\\_\\_.\n\nBased on the context, the number of"
+        },
+        {
+          "i": 51,
+          "f1": 0.0909090909090909,
+          "em": 0.0,
+          "pred": " The user variations tested in the study include alternating between autocomplete and writing tasks. In the autocomplete task, users were given a"
+        },
+        {
+          "i": 52,
+          "f1": 0.5454545454545454,
+          "em": 0.0,
+          "pred": " The baselines used are the **Unif** and **Stopword** encoders. \n\n- The **Unif"
+        },
+        {
+          "i": 53,
+          "f1": 0.15,
+          "em": 0.0,
+          "pred": " The IPA system does not directly \"label\" data in the traditional sense. Instead, it collects structured and labeled training data"
+        },
+        {
+          "i": 54,
+          "f1": 0.42857142857142855,
+          "em": 0.0,
+          "pred": " The audio data was gathered from the All India Radio news channel, where an actor reads news for about 5 to "
+        },
+        {
+          "i": 55,
+          "f1": 0.14814814814814817,
+          "em": 0.0,
+          "pred": " The GhostVLAD approach is a pooling method that enhances language identification by adding ghost clusters to the standard VLAD method."
+        },
+        {
+          "i": 56,
+          "f1": 0.6666666666666666,
+          "em": 0.0,
+          "pred": " The researchers evaluate their approach on the Wall Street Journal (WSJ) portion of the Penn Treebank dataset. They use"
+        },
+        {
+          "i": 57,
+          "f1": 0.0,
+          "em": 0.0,
+          "pred": " The context does not explicitly state whether they evaluate only on English datasets. However, it mentions the use of the Wall Street"
+        },
+        {
+          "i": 58,
+          "f1": 0.45454545454545453,
+          "em": 0.0,
+          "pred": " The invertibility condition is a requirement that the neural projector in the model must be invertible, meaning that there must exist"
+        },
+        {
+          "i": 59,
+          "f1": 0.1,
+          "em": 0.0,
+          "pred": " Yes, they show on specific examples where the attention-only model incorrectly identifies duplicate pairs, but the attention-conflict model correctly"
+        },
+        {
+          "i": 60,
+          "f1": 0.3125,
+          "em": 0.0,
+          "pred": " The neural architecture used as a base for their attention and conflict mechanisms is a **shared encoder with two stacked GRU layers"
+        },
+        {
+          "i": 61,
+          "f1": 0.0,
+          "em": 0.0,
+          "pred": " The sources of the datasets are:\n\nThe primary dataset used for evaluation is adapted from a dataset originally designed for the purpose of"
+        },
+        {
+          "i": 62,
+          "f1": 0.25,
+          "em": 0.0,
+          "pred": " The in-domain text used was **PubMed+PMC** and/or **CORD-19**.  \n\nThis is directly"
+        },
+        {
+          "i": 63,
+          "f1": 0.25,
+          "em": 0.0,
+          "pred": " The under-resourced scenario is tested on the **English-German** language pair.\n\n**Explanation:** The context explicitly states"
+        },
+        {
+          "i": 64,
+          "f1": 0.0,
+          "em": 0.0,
+          "pred": " Based on the provided context, the automatically constructed datasets are indeed subject to quality control. The text explicitly mentions that \"unexpected"
+        },
+        {
+          "i": 65,
+          "f1": 0.4,
+          "em": 0.0,
+          "pred": " The passage primarily focuses on **multiple choice question answering (MCQA)**, particularly in the context of probing the knowledge and"
+        },
+        {
+          "i": 66,
+          "f1": 0.3333333333333333,
+          "em": 0.0,
+          "pred": " Based on the provided context, the accuracy of the best QA models decreases substantially when going from 1-hop to 2"
+        },
+        {
+          "i": 67,
+          "f1": 0.0,
+          "em": 0.0,
+          "pred": " Based on the provided context, they control for annotation artifacts by carefully constructing their baselines and conducting close data inspection to ensure"
+        },
+        {
+          "i": 68,
+          "f1": 0.6875,
+          "em": 0.0,
+          "pred": " The researchers perform multilingual training by randomly alternating between languages for every new minibatch. They do not provide the auxiliary decoder"
+        },
+        {
+          "i": 69,
+          "f1": 0.0,
+          "em": 0.0,
+          "pred": " The model does have attention. In the context, it is stated that the baseline system uses an attention mechanism, and although"
+        },
+        {
+          "i": 70,
+          "f1": 0.1111111111111111,
+          "em": 0.0,
+          "pred": " The decoder in the system has an LSTM architecture. It generates the characters in the output word form using the encoder states and"
+        },
+        {
+          "i": 71,
+          "f1": 0.11764705882352941,
+          "em": 0.0,
+          "pred": " The encoder in the system has an LSTM architecture. It encodes the entire available context by using a forward LSTM for the"
+        },
+        {
+          "i": 72,
+          "f1": 0.0,
+          "em": 0.0,
+          "pred": " The text states that \"The attention function is used to compute the similarity score between passages and questions\" and that \"self"
+        },
+        {
+          "i": 73,
+          "f1": 0.0,
+          "em": 0.0,
+          "pred": " The text compares the proposed model to several existing Machine Reading Comprehension (MRC) systems, including those that extract"
+        },
+        {
+          "i": 74,
+          "f1": 0.4444444444444444,
+          "em": 0.0,
+          "pred": " The architecture of the span detector in the proposed model is based on a multi-turn answer module. At each time step,"
+        },
+        {
+          "i": 75,
+          "f1": 0.0,
+          "em": 0.0,
+          "pred": " The evaluation metric used is the ratio of correct 'translations' (matches).\n\nThe evaluation metric used is the ratio of correct"
+        },
+        {
+          "i": 76,
+          "f1": 0.0,
+          "em": 0.0,
+          "pred": " The baselines are the following methods:  \n- **KG-A2C**: The original method from BIBREF6"
+        },
+        {
+          "i": 77,
+          "f1": 0.13953488372093023,
+          "em": 0.0,
+          "pred": " The two new strategies are:\n\n1. **KG-A2C-chained**: This strategy detects bottlenecks in the"
+        },
+        {
+          "i": 78,
+          "f1": 0.14035087719298245,
+          "em": 0.0,
+          "pred": " The provided context does not specify how much better LiLi is than the baseline. It describes the design, components, and"
+        },
+        {
+          "i": 79,
+          "f1": 0.0,
+          "em": 0.0,
+          "pred": " The baseline used in the experiments is the closed-world knowledge base completion (KBC) approach, specifically the C-PR"
+        },
+        {
+          "i": 80,
+          "f1": 0.22222222222222224,
+          "em": 0.0,
+          "pred": " LiLi imitates how humans acquire knowledge and perform inference during an interactive conversation by using a lifelong interactive learning and inference ("
+        },
+        {
+          "i": 81,
+          "f1": 0.07142857142857144,
+          "em": 0.0,
+          "pred": " The context does not explicitly state the metrics used to establish that chatbots become more knowledgeable and better at learning and conversation."
+        },
+        {
+          "i": 82,
+          "f1": 0.1686746987951807,
+          "em": 0.0,
+          "pred": " The general knowledge learning engine, as described in the context, consists of several key components that work together to enable continuous knowledge"
+        },
+        {
+          "i": 83,
+          "f1": 0.2962962962962963,
+          "em": 0.0,
+          "pred": " The model uses a one-layer CNN structure as the feature encoder, which processes a sequence of words by first associating each"
+        },
+        {
+          "i": 84,
+          "f1": 0.0,
+          "em": 0.0,
+          "pred": " The baseline methods are the existing approaches in the field of cross-domain sentiment classification that have been proposed to address the challenge of"
+        },
+        {
+          "i": 85,
+          "f1": 0.0,
+          "em": 0.0,
+          "pred": " The **source domain** is a known domain with sufficient labeled data that can be used to train a model. The **"
+        },
+        {
+          "i": 86,
+          "f1": 0.0,
+          "em": 0.0,
+          "pred": " The text does not mention the use of a crowdsourcing platform for annotations. Instead, it describes a method that uses mon"
+        },
+        {
+          "i": 87,
+          "f1": 0.10810810810810811,
+          "em": 0.0,
+          "pred": " They deal with unknown distribution of senses by modifying the na\u00efve Bayesian classifier to reduce bias towards senses with more training data."
+        },
+        {
+          "i": 88,
+          "f1": 0.0,
+          "em": 0.0,
+          "pred": " No, they do not report results only on English data. The study analyzes both ISIS's online magazines, which are available"
+        },
+        {
+          "i": 89,
+          "f1": 0.125,
+          "em": 0.0,
+          "pred": " The authors conclude that despite the similar emotional appeal\u2014particularly the emphasis on inspiring readers and the avoidance of fear\u2014**the"
+        },
+        {
+          "i": 90,
+          "f1": 0.0,
+          "em": 0.0,
+          "pred": " The Depechemood method was trained using a dataset of approximately 23,500 documents from rappler"
+        },
+        {
+          "i": 91,
+          "f1": 0.27777777777777773,
+          "em": 0.0,
+          "pred": " The similarities and differences between the texts from violent and non-violent religious groups are analyzed through a combination of **topic modeling"
+        },
+        {
+          "i": 92,
+          "f1": 0.5,
+          "em": 0.0,
+          "pred": " Prominent topics in Dabiq and Rumiyah are identified using **non-negative matrix factorization (NMF)**"
+        },
+        {
+          "i": 93,
+          "f1": 0.0,
+          "em": 0.0,
+          "pred": " The images in the context are from a **synthetic domain**. They are generated using the **ShapeWorld framework**,"
+        },
+        {
+          "i": 94,
+          "f1": 0.19999999999999998,
+          "em": 0.0,
+          "pred": " The datasets used are the various ShapeWorldICE datasets, which are developed within the ShapeWorld framework. These datasets focus on"
+        },
+        {
+          "i": 95,
+          "f1": 0.5,
+          "em": 0.0,
+          "pred": " The existing models evaluated in the context are the **Show&Tell model** and the **LRCN1u model"
+        },
+        {
+          "i": 96,
+          "f1": 0.14814814814814817,
+          "em": 0.0,
+          "pred": " In the context, diversity is measured by analyzing the language constructions used in the captions. Specifically, the diversity score is calculated"
+        },
+        {
+          "i": 97,
+          "f1": 0.2222222222222222,
+          "em": 0.0,
+          "pred": " The state-of-the-art deep neural network used in the paper is a Long Short-Term Memory (LSTM) model"
+        },
+        {
+          "i": 98,
+          "f1": 0.4477611940298508,
+          "em": 0.0,
+          "pred": " The boundary assembling method used in the paper is a backward greedy search over each sentence's label sequence to identify word boundaries."
+        },
+        {
+          "i": 99,
+          "f1": 0.0,
+          "em": 0.0,
+          "pred": " The model performance on target language reading comprehension, when using pre-trained multi-BERT in a zero-shot cross-lingual"
+        },
+        {
+          "i": 100,
+          "f1": 0.38095238095238093,
+          "em": 0.0,
+          "pred": " The baseline model used in the study is **multi-BERT**, a pre-trained multilingual language model that has been fine"
+        },
+        {
+          "i": 101,
+          "f1": 0.10526315789473685,
+          "em": 0.0,
+          "pred": " In the zero-shot setting, the model learns to identify answer spans in the context through language-agnostic representations, rather than"
+        },
+        {
+          "i": 102,
+          "f1": 0.0,
+          "em": 0.0,
+          "pred": " Based on the provided context, the model does not explicitly inspect or analyze which specific parts of the image are associated with specific"
+        },
+        {
+          "i": 103,
+          "f1": 0.09523809523809523,
+          "em": 0.0,
+          "pred": " Yes, the NER model learns from both text and images. It incorporates visual contexts by using visual features extracted from images"
+        },
+        {
+          "i": 104,
+          "f1": 0.375,
+          "em": 0.0,
+          "pred": " The model recognizes four types of named entities: **PER** (person), **LOC** (location), **ORG**"
+        },
+        {
+          "i": 105,
+          "f1": 0.0,
+          "em": 0.0,
+          "pred": " Based on the provided context, named entities in SnapCaptions are not described as discontiguous. The context discusses how"
+        },
+        {
+          "i": 106,
+          "f1": 0.5833333333333334,
+          "em": 0.0,
+          "pred": " The MNER SnapCaptions dataset is composed of 10,000 user-generated image and textual caption pairs"
+        },
+        {
+          "i": 107,
+          "f1": 0.2857142857142857,
+          "em": 0.0,
+          "pred": " Masked document generation is a pre-training task in which a document is partially masked by replacing some of its tokens with either"
+        },
+        {
+          "i": 108,
+          "f1": 0.0,
+          "em": 0.0,
+          "pred": " The most helpful pretraining task is not explicitly stated in the provided context.\n\nThe passage describes three pretraining tasks\u2014Sentence"
+        },
+        {
+          "i": 109,
+          "f1": 0.35294117647058826,
+          "em": 0.0,
+          "pred": " The attention mechanism in neural machine translation captures useful information beyond traditional word alignments, particularly in the context of verbs and other parts"
+        },
+        {
+          "i": 110,
+          "f1": 0.36363636363636365,
+          "em": 0.0,
+          "pred": " The datasets used in the study are the **RWTH German-English dataset** for manual alignments and the **WMT"
+        },
+        {
+          "i": 111,
+          "f1": 0.07407407407407407,
+          "em": 0.0,
+          "pred": " Based on the provided context, attention is different from alignment in cases where the target word is a verb, and especially when"
+        },
+        {
+          "i": 112,
+          "f1": 0.1904761904761905,
+          "em": 0.0,
+          "pred": " The context does not explicitly describe how variance is calculated from the model outputs. Instead, it explains that the variance is related"
+        },
+        {
+          "i": 113,
+          "f1": 0.0,
+          "em": 0.0,
+          "pred": " The researchers start with **190 hours of transcribed speech data**, which corresponds to **100,0"
+        },
+        {
+          "i": 114,
+          "f1": 0.13333333333333333,
+          "em": 0.0,
+          "pred": " The researchers use a Recurrent Neural Network (RNN) for end-to-end speech recognition. Specifically, the RNN"
+        },
+        {
+          "i": 115,
+          "f1": 0.21052631578947364,
+          "em": 0.0,
+          "pred": " The researchers use a dataset consisting of 1,700 hours (1.1 million instances) of unlabeled"
+        },
+        {
+          "i": 116,
+          "f1": 0.5,
+          "em": 0.0,
+          "pred": " The baselines considered were the state-of-the-art PDTB taggers, which were used for evaluating the causality prediction"
+        },
+        {
+          "i": 117,
+          "f1": 0.2,
+          "em": 0.0,
+          "pred": " The text primarily considers **Facebook status updates** as the type of social media used in the study. The researchers collected "
+        },
+        {
+          "i": 118,
+          "f1": 0.2580645161290323,
+          "em": 0.0,
+          "pred": " The dataset was annotated through a combination of crowdsourcing tasks and manual curation. Specifically, intents were defined based on queries"
+        },
+        {
+          "i": 119,
+          "f1": 0.07692307692307693,
+          "em": 0.0,
+          "pred": " The classifiers evaluated in the paper are:\n\n- SVM (a linear support vector machine with bag-of-words sentence representations)"
+        },
+        {
+          "i": 120,
+          "f1": 0.3076923076923077,
+          "em": 0.0,
+          "pred": " The size of the dataset is **23,700 queries**, consisting of **22,500"
+        },
+        {
+          "i": 121,
+          "f1": 0.0,
+          "em": 0.0,
+          "pred": " The data comes from a crowdsourced collection process. Specifically, the in-scope queries were gathered through scoping and re"
+        },
+        {
+          "i": 122,
+          "f1": 0.22222222222222227,
+          "em": 0.0,
+          "pred": " The method's improvements in F1 score for the NER task are as follows: for English datasets, the proposed method"
+        },
+        {
+          "i": 123,
+          "f1": 0.4666666666666666,
+          "em": 0.0,
+          "pred": " The proposed method improves the F1 score by **+1.86 on CTB5, +1.8"
+        },
+        {
+          "i": 124,
+          "f1": 0.16949152542372883,
+          "em": 0.0,
+          "pred": " Weights are dynamically adjusted by associating each training example with a weight proportional to $(1-p)$, where $p"
+        },
+        {
+          "i": 125,
+          "f1": 0.11764705882352941,
+          "em": 0.0,
+          "pred": " The text states that \"in total around 500 different workers were involved in the annotation.\" Therefore, the number"
+        },
+        {
+          "i": 126,
+          "f1": 0.1509433962264151,
+          "em": 0.0,
+          "pred": " The context does not provide a specific numerical value for how much more PARENT correlates with human judgments compared to other text generation"
+        },
+        {
+          "i": 127,
+          "f1": 0.23529411764705882,
+          "em": 0.0,
+          "pred": " The machine translation task uses the **German\u2013English** language pair. This is explicitly stated in the context: \"We"
+        },
+        {
+          "i": 128,
+          "f1": 0.3636363636363636,
+          "em": 0.0,
+          "pred": " The sentiment classification dataset used is the IMDb movie review dataset. This dataset consists of a balanced sample of 25,"
+        },
+        {
+          "i": 129,
+          "f1": 0.10526315789473684,
+          "em": 0.0,
+          "pred": " The pooling function used in the quasi-recurrent neural network (QRNN) is a combination of elementwise gates that allow"
+        },
+        {
+          "i": 130,
+          "f1": 0.36363636363636365,
+          "em": 0.0,
+          "pred": " Based on the provided context, NeuronBlocks includes the following neural network modules:\n\n1. **Embedding Layers**: Support"
+        },
+        {
+          "i": 131,
+          "f1": 0.16000000000000003,
+          "em": 0.0,
+          "pred": " The authors evidence that many engineers find it a big overhead to choose from multiple frameworks, models, and optimization techniques by noting"
+        },
+        {
+          "i": 132,
+          "f1": 0.6857142857142857,
+          "em": 0.0,
+          "pred": " The researchers used a dataset of 3500 Bengali questions collected from the Internet and other sources such as books"
+        },
+        {
+          "i": 133,
+          "f1": 0.23255813953488377,
+          "em": 0.0,
+          "pred": " The machine learning based approaches compared in the context include the following classifiers: Multi-Layer Perceptron (MLP),"
+        },
+        {
+          "i": 134,
+          "f1": 0.0,
+          "em": 0.0,
+          "pred": " Based on the provided context, pre-training is effective in the evaluation. The experiments show that the encoder-decoder-reconstructor"
+        },
+        {
+          "i": 135,
+          "f1": 0.64,
+          "em": 0.0,
+          "pred": " The researchers used two parallel corpora: the Asian Scientific Paper Excerpt Corpus (ASPEC) and the NTCIR"
+        },
+        {
+          "i": 136,
+          "f1": 0.08955223880597014,
+          "em": 0.0,
+          "pred": " The model outperforms existing models only by a narrow margin on both the Pubmed and arXiv datasets. However"
+        },
+        {
+          "i": 137,
+          "f1": 0.25,
+          "em": 0.0,
+          "pred": " In the context of the passage, **global context** refers to the overall information of the entire document, captured by the"
+        },
+        {
+          "i": 138,
+          "f1": 0.03333333333333333,
+          "em": 0.0,
+          "pred": " The 18 propaganda techniques are as follows:  \n1. Using words/phrases with strong emotional implications (positive or"
+        },
+        {
+          "i": 139,
+          "f1": 0.28571428571428575,
+          "em": 0.0,
+          "pred": " The dataset used in the shared task consists of 450 news articles collected from 36 propagandist and"
+        },
+        {
+          "i": 140,
+          "f1": 0.38095238095238093,
+          "em": 0.0,
+          "pred": " The baseline for the task consisted of two parts: for the fragment-level classification (FLC) task, a simple model"
+        },
+        {
+          "i": 141,
+          "f1": 0.48484848484848486,
+          "em": 0.0,
+          "pred": " A second order co-occurrence matrix is a matrix that captures the frequency of words that co-occur with both"
+        },
+        {
+          "i": 142,
+          "f1": 0.0,
+          "em": 0.0,
+          "pred": " The paper explores second-order co-occurrence vectors as an embedding technique, which incorporates contextual information from term definitions and pairwise"
+        },
+        {
+          "i": 143,
+          "f1": 0.0,
+          "em": 0.0,
+          "pred": " The provided context does not mention any experiments or trials of the model on datasets other than the SimpleQuestions dataset. Therefore,"
+        },
+        {
+          "i": 144,
+          "f1": 0.0,
+          "em": 0.0,
+          "pred": " The context does not explicitly mention specific word-level and character-level model baselines used. It only states that the proposed model"
+        },
+        {
+          "i": 145,
+          "f1": 0.27027027027027023,
+          "em": 0.0,
+          "pred": " The human judgements were assembled by a group of 50 native speakers of both English and Tamil who evaluated a collection"
+        },
+        {
+          "i": 146,
+          "f1": 0.0,
+          "em": 0.0,
+          "pred": " Based on the provided context, the researchers did not only experiment with one language pair. They specifically built a phrase-based Chinese"
+        },
+        {
+          "i": 147,
+          "f1": 0.5,
+          "em": 0.0,
+          "pred": " The proposed approach achieves a total F-1 score of 88% on the OntoNotes dataset and a total"
+        },
+        {
+          "i": 148,
+          "f1": 0.3888888888888889,
+          "em": 0.0,
+          "pred": " They combine a deep learning model with a knowledge base by using the deep learning model to identify and classify entity mentions based on"
+        },
+        {
+          "i": 149,
+          "f1": 0.21428571428571427,
+          "em": 0.0,
+          "pred": " The models used for the baseline of the three NLP tasks\u2014speech recognition, speech synthesis, and machine translation\u2014are as"
+        },
+        {
+          "i": 150,
+          "f1": 0.23529411764705882,
+          "em": 0.0,
+          "pred": " The novel PMI variants introduced in the paper are **clipped PMI (CPMI_z)** and **normalized negative"
+        },
+        {
+          "i": 151,
+          "f1": 0.1764705882352941,
+          "em": 0.0,
+          "pred": " The semantic and syntactic tasks used as probes are:\n\n- **Semantic tasks**:  \n  - SimLex word similarity dataset"
+        },
+        {
+          "i": 152,
+          "f1": 0.13793103448275862,
+          "em": 0.0,
+          "pred": " The disadvantages to clipping negative PMI are that it discards valuable information about negative cooccurrences, which are important for"
+        },
+        {
+          "i": 153,
+          "f1": 0.3076923076923077,
+          "em": 0.0,
+          "pred": " Statistics from finite corpora are unreliable because the cooccurrence of certain word-context pairs may not appear in the training data"
+        },
+        {
+          "i": 154,
+          "f1": 0.1379310344827586,
+          "em": 0.0,
+          "pred": " The challenges identified in the context include:\n\n1. **Low coverage of audio** \u2013 UTD only captures about 2"
+        },
+        {
+          "i": 155,
+          "f1": 0.12121212121212122,
+          "em": 0.0,
+          "pred": " The size of the speech corpus is **11 hours of audio** from the CALLHOME Spanish-English speech translation dataset"
+        },
+        {
+          "i": 156,
+          "f1": 0.18181818181818182,
+          "em": 0.0,
+          "pred": " The two pairs of ERPs that benefit from joint training are the LAN and P600, and the ELAN"
+        },
+        {
+          "i": 157,
+          "f1": 0.13043478260869565,
+          "em": 0.0,
+          "pred": " The datasets used in this study include electroencephalography (EEG) data, eye-tracking data, and self"
+        },
+        {
+          "i": 158,
+          "f1": 0.3,
+          "em": 0.0,
+          "pred": " The researchers experimented with datasets from the Universal Dependencies (v1.2) treebanks, specifically focusing on 16"
+        },
+        {
+          "i": 159,
+          "f1": 0.5806451612903226,
+          "em": 0.0,
+          "pred": " The languages explored in the study are Bulgarian, Croatian, Czech, Danish, English, French, German, Indonesian, Italian"
+        },
+        {
+          "i": 160,
+          "f1": 0.6923076923076923,
+          "em": 0.0,
+          "pred": " The researchers use a dataset of state speeches delivered during the annual UN General Debate from 1970 to 2"
+        },
+        {
+          "i": 161,
+          "f1": 0.30769230769230765,
+          "em": 0.0,
+          "pred": " The researchers extended the LAMA evaluation framework by creating a new dataset called the negated LAMA dataset. This dataset consists"
+        },
+        {
+          "i": 162,
+          "f1": 0.0,
+          "em": 0.0,
+          "pred": " The authors experimented with summarization algorithms provided by the Sumy package.\n\nThe answer is: **The authors experimented with summar"
+        },
+        {
+          "i": 163,
+          "f1": 0.2,
+          "em": 0.0,
+          "pred": " The evaluation metrics used for the summarization task were the ROUGE unigram f1 scores. These scores were used to"
+        },
+        {
+          "i": 164,
+          "f1": 0.5,
+          "em": 0.0,
+          "pred": " The clustering algorithms used were **CLUTO** and **Carrot2 Lingo**.  \n\n- **CLUTO**"
+        },
+        {
+          "i": 165,
+          "f1": 0.3636363636363636,
+          "em": 0.0,
+          "pred": " The evaluation metrics looked at for classification tasks are **precision, recall, and F-measure**. These are computed using"
+        },
+        {
+          "i": 166,
+          "f1": 0.16666666666666663,
+          "em": 0.0,
+          "pred": " The methods used for sentence classification included a pattern-based approach and multi-class classifiers. The pattern-based approach used simple sets of"
+        },
+        {
+          "i": 167,
+          "f1": 0.2222222222222222,
+          "em": 0.0,
+          "pred": " The average length of the sentences in the performance appraisal corpus is **15.5 words**. This is derived from"
+        },
+        {
+          "i": 168,
+          "f1": 0.0,
+          "em": 0.0,
+          "pred": " The real-life dataset consists of 4528 employees' performance appraisal data, with a total of 26"
+        },
+        {
+          "i": 169,
+          "f1": 0.3809523809523809,
+          "em": 0.0,
+          "pred": " The language pairs explored in this paper are German-English (De-En), Japanese-English (Ja-En),"
+        },
+        {
+          "i": 170,
+          "f1": 0.13333333333333333,
+          "em": 0.0,
+          "pred": " Yes, they experiment with the toolkits. The context states that GluonCV/NLP provide modular APIs and a"
+        },
+        {
+          "i": 171,
+          "f1": 0.0,
+          "em": 0.0,
+          "pred": " Based on the provided context, the researchers have not made any attempt to correct the MRC gold standards. Instead, they"
+        },
+        {
+          "i": 172,
+          "f1": 0.0,
+          "em": 0.0,
+          "pred": " Based on the provided context, the features absent from MRC gold standards that can result in potential lexical ambiguity are **gram"
+        },
+        {
+          "i": 173,
+          "f1": 0.15384615384615383,
+          "em": 0.0,
+          "pred": " The modern MRC gold standards analyzed in the context are selected based on the following criteria: they were published between 2"
+        },
+        {
+          "i": 174,
+          "f1": 0.07142857142857142,
+          "em": 0.0,
+          "pred": " The proposed qualitative annotation schema looks like a comprehensive framework that categorizes MRC evaluation data based on several key dimensions. It"
+        },
+        {
+          "i": 175,
+          "f1": 0.27272727272727276,
+          "em": 0.0,
+          "pred": " The total number of tweets collected in the study was **19,300**. This was achieved by querying"
+        },
+        {
+          "i": 176,
+          "f1": 0.13186813186813187,
+          "em": 0.0,
+          "pred": " The baselines are the existing methods or models that are used for comparison in the experiments. In this context, the bas"
+        },
+        {
+          "i": 177,
+          "f1": 0.41379310344827586,
+          "em": 0.0,
+          "pred": " The attention module in the TCEN model is pretrained on the **machine translation (MT) task**.\n\n**Explanation:**"
+        },
+        {
+          "i": 178,
+          "f1": 0.1,
+          "em": 0.0,
+          "pred": " The dialog history captured in the proposed models is defined by the number of turns, denoted by $K$, which can"
+        },
+        {
+          "i": 179,
+          "f1": 0.7272727272727273,
+          "em": 0.0,
+          "pred": " The evaluation metrics used were the Exact Match (EM) and Macro-averaged F1 scores (F1), which"
+        },
+        {
+          "i": 180,
+          "f1": 0.14814814814814814,
+          "em": 0.0,
+          "pred": " The proposed model achieved a **2% improvement in EM score** and **over 1.5% improvement in F"
+        },
+        {
+          "i": 181,
+          "f1": 0.6000000000000001,
+          "em": 0.0,
+          "pred": " The previous best model was the one trained on Spoken-SQuAD using Dr.QA, which achieved a performance of"
+        },
+        {
+          "i": 182,
+          "f1": 0.4210526315789474,
+          "em": 0.0,
+          "pred": " The researchers used **Spoken-SQuAD** for evaluation, specifically its testing set. They also evaluated the model on"
+        },
+        {
+          "i": 183,
+          "f1": 0.33333333333333337,
+          "em": 0.0,
+          "pred": " The Named Entity Recognition dataset used in the study is the Groningen Meaning Bank (GMB), which contains 47"
+        },
+        {
+          "i": 184,
+          "f1": 0.45454545454545453,
+          "em": 0.0,
+          "pred": " The sentiment analysis dataset used is the IMDb dataset of movie reviews.  \n\n**Answer:** The IMDb dataset of movie reviews is"
+        },
+        {
+          "i": 185,
+          "f1": 0.0,
+          "em": 0.0,
+          "pred": " The state-of-the-art model for the task is the proposed hierarchical encoder model, which improves upon existing systems by incorporating row"
+        },
+        {
+          "i": 186,
+          "f1": 0.4,
+          "em": 0.0,
+          "pred": " The strong baseline is the **Conditional Copy (CC) model**, which is described as the best model in Wiseman's"
+        }
+      ]
+    }
+  },
+  "env": {
+    "python": "3.10.20",
+    "torch": "2.6.0+cu124",
+    "gpu": "NVIDIA H100 80GB HBM3",
+    "cuda_visible_devices": "2",
+    "command": "scripts/dex_stage1_fusion.py --steer-ckpt out_dex_fusion/preo_swa_steer_s0_steer.pt --arm fixed_sub --seed 0 --tag s1preo_fixed_sub_s0 --output-dir out_dex_fusion"
+  },
+  "runtime_min": 9.04
+}

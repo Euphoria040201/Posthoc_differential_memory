@@ -1,0 +1,301 @@
+{
+  "tag": "smoke_s1_fixadd_ctlproj",
+  "arm": "fixed_add",
+  "fusion": "fixed_add",
+  "o_fusion_position": "post_o_projected",
+  "o_fusion_position_ckpt": "pre_o",
+  "lambda_report": {},
+  "final_fusion_norms": {
+    "mean": {
+      "cos_WZ_WC": 0.003062817627020801,
+      "cos_Z_C": 0.006115838299592724,
+      "norm_C": 0.7077648139093071,
+      "norm_WC": 1.4232978040042024,
+      "norm_WZ": 19.259262084960938,
+      "norm_Z": 17.40314084291458,
+      "ratio_C_over_Z": 0.031661302313215865,
+      "ratio_WC_over_WZ": 0.05894244142145328,
+      "n_layers": 12
+    },
+    "per_layer": [
+      {
+        "norm_Z": 1.2543072700500488,
+        "norm_WZ": 3.276170492172241,
+        "norm_C": 0.01487178634852171,
+        "norm_WC": 0.030423374846577644,
+        "ratio_C_over_Z": 0.011856573507644822,
+        "ratio_WC_over_WZ": 0.009286261175744137,
+        "cos_Z_C": 0.03248501569032669,
+        "cos_WZ_WC": -0.04068393260240555
+      },
+      {
+        "norm_Z": 2.3241183757781982,
+        "norm_WZ": 3.669220209121704,
+        "norm_C": 0.0833684504032135,
+        "norm_WC": 0.21077996492385864,
+        "ratio_C_over_Z": 0.03587100006267915,
+        "ratio_WC_over_WZ": 0.057445438788290316,
+        "cos_Z_C": 0.0037545759696513414,
+        "cos_WZ_WC": 0.004133409354835749
+      },
+      {
+        "norm_Z": 5.312861442565918,
+        "norm_WZ": 7.714109420776367,
+        "norm_C": 0.07860274612903595,
+        "norm_WC": 0.1698518842458725,
+        "ratio_C_over_Z": 0.014794804453073351,
+        "ratio_WC_over_WZ": 0.02201834002878043,
+        "cos_Z_C": -0.0021758938673883677,
+        "cos_WZ_WC": 0.024839699268341064
+      },
+      {
+        "norm_Z": 7.5560526847839355,
+        "norm_WZ": 8.659031867980957,
+        "norm_C": 0.17253558337688446,
+        "norm_WC": 0.42523205280303955,
+        "ratio_C_over_Z": 0.022834089514003713,
+        "ratio_WC_over_WZ": 0.049108498419488056,
+        "cos_Z_C": 0.005471119191497564,
+        "cos_WZ_WC": -0.028144430369138718
+      },
+      {
+        "norm_Z": 10.315010070800781,
+        "norm_WZ": 11.660131454467773,
+        "norm_C": 0.23159314692020416,
+        "norm_WC": 0.5164268612861633,
+        "ratio_C_over_Z": 0.02245205242947717,
+        "ratio_WC_over_WZ": 0.044289969054189846,
+        "cos_Z_C": -0.00424198666587472,
+        "cos_WZ_WC": -0.07215757668018341
+      },
+      {
+        "norm_Z": 13.882844924926758,
+        "norm_WZ": 11.462117195129395,
+        "norm_C": 0.2936907410621643,
+        "norm_WC": 0.6520355939865112,
+        "ratio_C_over_Z": 0.021154939254189913,
+        "ratio_WC_over_WZ": 0.05688613917362328,
+        "cos_Z_C": -0.0007816161960363388,
+        "cos_WZ_WC": 0.019733386114239693
+      },
+      {
+        "norm_Z": 16.327938079833984,
+        "norm_WZ": 13.676182746887207,
+        "norm_C": 0.34333524107933044,
+        "norm_WC": 0.7144988775253296,
+        "ratio_C_over_Z": 0.021027470792737188,
+        "ratio_WC_over_WZ": 0.052244028231339217,
+        "cos_Z_C": -0.0001239483681274578,
+        "cos_WZ_WC": 0.0284358449280262
+      },
+      {
+        "norm_Z": 19.55527687072754,
+        "norm_WZ": 14.98305606842041,
+        "norm_C": 0.4507395923137665,
+        "norm_WC": 0.9757878184318542,
+        "ratio_C_over_Z": 0.023049512174817755,
+        "ratio_WC_over_WZ": 0.06512608736000858,
+        "cos_Z_C": 0.011900295503437519,
+        "cos_WZ_WC": 0.034362584352493286
+      },
+      {
+        "norm_Z": 25.300704956054688,
+        "norm_WZ": 31.780134201049805,
+        "norm_C": 0.8324196338653564,
+        "norm_WC": 1.7458255290985107,
+        "ratio_C_over_Z": 0.032901045062230606,
+        "ratio_WC_over_WZ": 0.0549344920337322,
+        "cos_Z_C": 0.009430893696844578,
+        "cos_WZ_WC": -0.0006164762889966369
+      },
+      {
+        "norm_Z": 21.14411163330078,
+        "norm_WZ": 20.95712661743164,
+        "norm_C": 1.175234079360962,
+        "norm_WC": 2.2521445751190186,
+        "ratio_C_over_Z": 0.05558209773684862,
+        "ratio_WC_over_WZ": 0.10746437792887781,
+        "cos_Z_C": 0.028617415577173233,
+        "cos_WZ_WC": 0.05164073780179024
+      },
+      {
+        "norm_Z": 32.547691345214844,
+        "norm_WZ": 39.11810302734375,
+        "norm_C": 2.34529447555542,
+        "norm_WC": 4.229583263397217,
+        "ratio_C_over_Z": 0.07205716837732716,
+        "ratio_WC_over_WZ": 0.1081234246057565,
+        "cos_Z_C": 0.014627265743911266,
+        "cos_WZ_WC": 0.019665833562612534
+      },
+      {
+        "norm_Z": 53.3167724609375,
+        "norm_WZ": 64.15576171875,
+        "norm_C": 2.471492290496826,
+        "norm_WC": 5.156983852386475,
+        "ratio_C_over_Z": 0.04635487439356093,
+        "ratio_WC_over_WZ": 0.08038224025760897,
+        "cos_Z_C": -0.02557307668030262,
+        "cos_WZ_WC": -0.004455267917364836
+      }
+    ]
+  },
+  "steer_ckpt": "out_dex_fusion/smoke_preo_train_s0_steer.pt",
+  "steer_config": {
+    "num_prefix_tokens": 0,
+    "sliding_window_size": 256,
+    "mem_num_heads": 1,
+    "mem_head_dim": 128,
+    "steer_mode": "deltamem",
+    "normal_attends_prefix": true,
+    "prefix_sees_query": true,
+    "prefix_init_std": 0.7,
+    "prefix_init_dist": "normal",
+    "prefix_write": false,
+    "read_prefix_only": false,
+    "memory_mode": "dynamic",
+    "write_ctx_only": false,
+    "prefix_write_layout": "global",
+    "prefix_write_overlap_tokens": 0,
+    "pool_reads": false,
+    "pool_gate": false,
+    "pool_gate_input": "rm",
+    "pool_gate_max": 2.0,
+    "pool_gate_bias": 0.0,
+    "steer_layers": [
+      0,
+      3,
+      6,
+      9,
+      12,
+      15,
+      18,
+      21,
+      24,
+      27,
+      30,
+      33
+    ],
+    "prefix_layers": [],
+    "steer_gain": 0.1,
+    "share_qkv": false,
+    "memory_value_source": "main_v",
+    "delta_heads": "o",
+    "delta_rank": 0,
+    "read_proj_dim": 0,
+    "output_fusion": "fixed_add",
+    "o_fusion_position": "post_o_projected",
+    "output_fusion_eps": 1e-06,
+    "output_fusion_scale_max": 10.0,
+    "fusion_lambda_init": 0.1,
+    "fusion_lambda_max": 1.0,
+    "fusion_ema_momentum": 0.99,
+    "history_pool_mode": "none",
+    "hybrid_read_mode": "none",
+    "hybrid_prefix_gate_mode": "fixed",
+    "hybrid_prefix_gate_init": 0.1
+  },
+  "args": {
+    "model_path": "/work/mingze/models/Qwen3-4B-Instruct-2507",
+    "steer_ckpt": "out_dex_fusion/smoke_preo_train_s0_steer.pt",
+    "arm": "fixed_add",
+    "dtype": "bfloat16",
+    "attn_impl": "sdpa",
+    "device": "cuda",
+    "seed": 0,
+    "data": "qasper",
+    "train_papers": 800,
+    "val_papers": 75,
+    "max_chunk_tok": 256,
+    "max_ctx_tok": 4500,
+    "max_ans_tok": 24,
+    "train_target_n": 935,
+    "mix_temporal_n": 0,
+    "max_yesno_frac": 0.03,
+    "data_compose_seed": 42,
+    "max_new_tokens": 24,
+    "eval_examples": 8,
+    "val_loss_examples": 4,
+    "o_fusion_position": "post_o_projected",
+    "fusion_lambda_init": 0.1,
+    "fusion_lambda_max": 1.0,
+    "fusion_ema_momentum": 0.99,
+    "calibrate_batches": 64,
+    "fusion_steps": 0,
+    "fusion_lr": 0.01,
+    "grad_accum": 16,
+    "output_dir": "out_dex_fusion",
+    "tag": "smoke_s1_fixadd_ctlproj"
+  },
+  "loaded_tensors": 48,
+  "trainable_names": [],
+  "calibration": {},
+  "fusion_history": [],
+  "final_fusion_stats": {},
+  "final": {
+    "val_loss": 1.5540380477905273,
+    "qa": {
+      "F1": 0.2036,
+      "EM": 0.0,
+      "n": 8,
+      "per_example": [
+        {
+          "i": 0,
+          "f1": 0.0,
+          "em": 0.0,
+          "pred": " The multilingual approaches they compare with is multilingual NMT (MNMT). \n\nJustification: In the provided context"
+        },
+        {
+          "i": 1,
+          "f1": 0.0,
+          "em": 0.0,
+          "pred": " The pivot-based baselines are methods that achieve source-to-target translation by first translating the source language into a pivot language and"
+        },
+        {
+          "i": 2,
+          "f1": 0.25,
+          "em": 0.0,
+          "pred": " The datasets used in the experiments are Europarl and MultiUN. Specifically, for Europarl, the evaluation includes French-"
+        },
+        {
+          "i": 3,
+          "f1": 0.19999999999999998,
+          "em": 0.0,
+          "pred": " The language pairs explored in the context are French-English-Spanish (Fr-En-Es), German-English"
+        },
+        {
+          "i": 4,
+          "f1": 0.56,
+          "em": 0.0,
+          "pred": " The evaluated NER models were Stanford NER, spaCy 2.0, and a recurrent model using bidirectional"
+        },
+        {
+          "i": 5,
+          "f1": 0.2222222222222222,
+          "em": 0.0,
+          "pred": " The source of the news sentences is ilur.am. The dataset includes sentences from political, sports, local, and world"
+        },
+        {
+          "i": 6,
+          "f1": 0.1111111111111111,
+          "em": 0.0,
+          "pred": " No, they did not use a crowdsourcing platform for manual annotations. Instead, they manually annotated a dataset from over "
+        },
+        {
+          "i": 7,
+          "f1": 0.28571428571428575,
+          "em": 0.0,
+          "pred": " The topics pulled from Reddit include politics, religion, climate change, abortion, world news, relationship advice, and the future"
+        }
+      ]
+    }
+  },
+  "env": {
+    "python": "3.10.20",
+    "torch": "2.6.0+cu124",
+    "gpu": "NVIDIA H100 80GB HBM3",
+    "cuda_visible_devices": "0",
+    "command": "scripts/dex_stage1_fusion.py --steer-ckpt out_dex_fusion/smoke_preo_train_s0_steer.pt --arm fixed_add --o-fusion-position post_o_projected --eval-examples 8 --val-loss-examples 4 --output-dir out_dex_fusion --tag smoke_s1_fixadd_ctlproj"
+  },
+  "runtime_min": 0.73
+}
