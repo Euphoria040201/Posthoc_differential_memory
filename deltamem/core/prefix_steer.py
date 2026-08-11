@@ -40,6 +40,16 @@ from deltamem.core.global_prefix import build_prefix_attention_mask, SEG_PREFIX,
 ADDITIVE_FUSIONS = ("fixed", "fixed_add", "rms_match", "cosine")
 DIFFERENTIAL_FUSIONS = ("fixed_sub", "learned_diff", "variance_diff")
 OUTPUT_FUSIONS = ADDITIVE_FUSIONS + DIFFERENTIAL_FUSIONS
+# Where the delta-O fusion happens relative to the frozen o_proj -- see the
+# `o_fusion_position` config field for the formulas.
+O_FUSION_POSITIONS = ("post_o", "pre_o", "post_o_projected")
+
+
+def _mean_cosine(a, b, eps=1e-8):
+    """Mean over batch/tokens of the last-dim cosine; 0-safe via the eps clamp."""
+    num = (a * b).sum(dim=-1)
+    den = (a.norm(dim=-1) * b.norm(dim=-1)).clamp_min(eps)
+    return float((num / den).mean())
 
 
 @dataclass
@@ -167,6 +177,34 @@ class PrefixSteerConfig:
     # into the same reparameterisation.  Stage-1 experiments must load a trained
     # sidecar and freeze it.
     output_fusion: str = "fixed"
+    # WHERE the delta-O fusion happens relative to the frozen o_proj (weight W_O, bias b).
+    # With Z = the concat-head attention activation (o_proj input, width
+    # o_proj.in_features = n_query_heads * head_dim -- for MHA and GQA alike, since GQA
+    # shares K/V heads but Z still concatenates every QUERY head's output) and
+    # C = delta_o(reads):
+    #
+    #   post_o            Y = fuse(W_O Z + b, C)       C in OUTPUT space (o_proj.out_features)
+    #   pre_o             Y = W_O fuse(Z, C) + b       C in CONCAT-HEAD space (o_proj.in_features)
+    #   post_o_projected  Y = fuse(W_O Z + b, W_O C)   C in concat-head space, projected
+    #                                                  through W_O WITHOUT the bias
+    #
+    # "post_o" is the exact historical behavior and the default: old configs and
+    # checkpoints (which predate this field) deserialize to it unchanged.  "pre_o" is the
+    # DEX-inspired position -- the correction joins Z BEFORE W_O, so the frozen output
+    # projection rotates/filters memory and attention together (DEX Fig. 9 applies its
+    # f_D there; ours differs in that C comes from the prefix/SWA sidecar rather than
+    # from O itself: call it "DEX-inspired pre-O prefix differential fusion", NOT a DEX
+    # equivalence).  "post_o_projected" is the strict control for pre_o: for the LINEAR
+    # fusions (fixed/fixed_add/fixed_sub/learned_diff) it is mathematically identical,
+    # because W_O(Z +- g C) + b == (W_O Z + b) +- g (W_O C) with the bias entering
+    # exactly once -- so any measured difference vs pre_o isolates implementation-path
+    # effects (dtype, kernels, dropout) from the mathematical position.  For the
+    # nonlinear-coefficient fusions (rms_match/cosine/variance_diff) the two are NOT
+    # identical: their per-token statistics are computed in different bases.
+    # NOTE: pre_o/post_o_projected give delta_o an output width of o_proj.in_features,
+    # so their checkpoints are not shape-compatible with post_o ones (loading a
+    # mismatched checkpoint fails loudly with a size-mismatch error, never silently).
+    o_fusion_position: str = "post_o"
     output_fusion_eps: float = 1e-6
     output_fusion_scale_max: float = 10.0
     fusion_lambda_init: float = 0.1       # learned_diff: init of the per-layer scalar
@@ -247,6 +285,19 @@ class PrefixMemSteerAttention(nn.Module):
             raise ValueError(
                 f"output_fusion={config.output_fusion!r} requires "
                 "steer_mode='deltamem' and an active delta_o"
+            )
+        if config.o_fusion_position not in O_FUSION_POSITIONS:
+            raise ValueError(
+                f"o_fusion_position must be one of {O_FUSION_POSITIONS}, got "
+                f"{config.o_fusion_position!r}"
+            )
+        if config.o_fusion_position != "post_o" and (
+            config.steer_mode != "deltamem" or "o" not in set(config.delta_heads)
+        ):
+            raise ValueError(
+                f"o_fusion_position={config.o_fusion_position!r} fuses the delta-O "
+                "branch around o_proj; it requires steer_mode='deltamem' and an "
+                "active delta_o (the residual mode stays post-o)"
             )
         if config.prefix_write_layout not in ("global", "partitioned"):
             raise ValueError(
@@ -432,7 +483,14 @@ class PrefixMemSteerAttention(nn.Module):
         q_out = base.q_proj.out_features
         k_out = base.k_proj.out_features
         v_out = base.v_proj.out_features
-        o_out = base.o_proj.out_features
+        # post_o fuses C into the o_proj OUTPUT; pre_o / post_o_projected build C in
+        # the o_proj INPUT space (the concat-head activation Z).  o_proj.in_features
+        # is authoritative for that width under both MHA and GQA -- never derive it
+        # from n_kv, and never reshape/truncate C to force an alignment.
+        if config.o_fusion_position in ("pre_o", "post_o_projected"):
+            o_out = base.o_proj.in_features
+        else:
+            o_out = base.o_proj.out_features
         self.delta_heads = set(config.delta_heads)
         r = config.delta_rank
         # optional trainable projection compressing the memory readout before delta
@@ -496,6 +554,11 @@ class PrefixMemSteerAttention(nn.Module):
         # residual of Y, which only exists outside this module.
         self.collect_fusion_tensors = False
         self.last_fusion_tensors: tuple | None = None
+        # Set True to record basis diagnostics (||Z||, ||W_O Z||, ||C||, ||W_O C||,
+        # ratios, cosines) on the next forward.  Detached, fp32, per-forward means;
+        # off by default because it adds an extra W_O matmul per steered layer.
+        self.collect_fusion_norms = False
+        self.last_fusion_norms: dict[str, float] = {}
 
         # runtime state set by the top-level wrapper before each forward
         self._seg = None        # [B, L] segment ids for the text tokens
@@ -1293,15 +1356,71 @@ class PrefixMemSteerAttention(nn.Module):
             dropout=0.0 if not self.training else base.attention_dropout,
             scaling=base.scaling, sliding_window=base.sliding_window, **kwargs,
         )
+        # attn_output here is Z: the concat of every QUERY head's output in head order,
+        # [B, L, n_heads * head_dim] == [B, L, o_proj.in_features] (GQA included).
         attn_output = attn_output.reshape(*input_shape, -1).contiguous()
+
+        pos = self.cfg.o_fusion_position
+        fuse_active = (
+            steer and self.cfg.steer_mode == "deltamem" and delta_o is not None
+        )
+        if fuse_active and self.collect_fusion_norms:
+            # capture BEFORE any fusion so Z is the unfused activation
+            self._record_fusion_norms(attn_output, delta_o)
+        if fuse_active and pos == "pre_o":
+            # DEX-inspired position: C joins Z BEFORE the frozen W_O, which then
+            # projects memory and attention together:  Y = W_O fuse(Z, C) + b
+            attn_output = self._fuse_delta_o(attn_output, delta_o)
         out = base.o_proj(attn_output)
 
-        if steer and self.cfg.steer_mode == "deltamem":
-            if delta_o is not None:
-                out = self._fuse_delta_o(out, delta_o)
-        elif steer:
+        if fuse_active and pos == "post_o":
+            # historical position:  Y = fuse(W_O Z + b, C)
+            out = self._fuse_delta_o(out, delta_o)
+        elif fuse_active and pos == "post_o_projected":
+            # strict pre_o control:  Y = fuse(W_O Z + b, W_O C) -- C is projected
+            # through the o_proj WEIGHT only (no bias, so the bias enters once);
+            # identical to pre_o for the linear fusions, see the config note.
+            out = self._fuse_delta_o(out, F.linear(delta_o, base.o_proj.weight))
+        elif steer and self.cfg.steer_mode != "deltamem":
             out = out + g * self.res_gate * self.res_proj(reads)
         return out, attn_weights
+
+    @torch.no_grad()
+    def _record_fusion_norms(self, z, c):
+        """Basis diagnostics for the delta-O fusion (detached, fp32, batch means).
+
+        ``z`` is the UNFUSED concat-head activation; ``c`` is delta_o's raw output --
+        output-space for post_o, concat-head space for pre_o/post_o_projected.  The
+        projected quantities use the o_proj WEIGHT only (no bias), matching what the
+        fusion itself can act on.
+        """
+        w = self.base.o_proj.weight
+        z32 = z.detach().float()
+        c32 = c.detach().float()
+        wz = F.linear(z.detach(), w).float()
+        stats = {
+            "norm_Z": z32.norm(dim=-1).mean().item(),
+            "norm_WZ": wz.norm(dim=-1).mean().item(),
+            "norm_C": c32.norm(dim=-1).mean().item(),
+        }
+        if c.shape[-1] == w.shape[1]:
+            # C lives in the concat-head space (pre_o / post_o_projected)
+            wc = F.linear(c.detach(), w).float()
+            norm_wc = wc.norm(dim=-1).mean().item()
+            stats.update({
+                "norm_WC": norm_wc,
+                "ratio_C_over_Z": stats["norm_C"] / max(stats["norm_Z"], 1e-12),
+                "ratio_WC_over_WZ": norm_wc / max(stats["norm_WZ"], 1e-12),
+                "cos_Z_C": _mean_cosine(z32, c32),
+                "cos_WZ_WC": _mean_cosine(wz, wc),
+            })
+        else:
+            # post_o: C is already in the output space; ||W_O C|| does not exist
+            stats.update({
+                "ratio_C_over_WZ": stats["norm_C"] / max(stats["norm_WZ"], 1e-12),
+                "cos_WZ_C": _mean_cosine(wz, c32),
+            })
+        self.last_fusion_norms = stats
 
 
 def _parent(root, name):
@@ -1523,6 +1642,31 @@ def collect_fusion_stats(model) -> dict:
     out = {k: float(sum(r[k] for r in rows) / len(rows)) for k in sorted(keys)}
     out["n_layers"] = len(rows)
     return out
+
+
+def set_collect_fusion_norms(model, flag: bool):
+    """Record ||Z||/||W_O Z||/||C||/||W_O C||, ratios and cosines on the next forward."""
+    n = 0
+    for m in iter_steer_modules(model):
+        m.collect_fusion_norms = bool(flag)
+        if not flag:
+            m.last_fusion_norms = {}
+        n += 1
+    return n
+
+
+def collect_fusion_norms(model) -> dict:
+    """{"mean": {...}, "per_layer": [{...}, ...]} from the last norm-recording forward."""
+    rows = [dict(m.last_fusion_norms) for m in iter_steer_modules(model)
+            if m.last_fusion_norms]
+    if not rows:
+        return {}
+    keys = set(rows[0])
+    for r in rows:
+        keys &= set(r)
+    mean = {k: float(sum(r[k] for r in rows) / len(rows)) for k in sorted(keys)}
+    mean["n_layers"] = len(rows)
+    return {"mean": mean, "per_layer": rows}
 
 
 def freeze_steer_keep_fusion(model):

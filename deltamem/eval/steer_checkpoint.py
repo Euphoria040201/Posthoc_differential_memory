@@ -69,6 +69,10 @@ _LEGACY_DEFAULTS: dict[str, Any] = {
     "fusion_lambda_init": 0.1,
     "fusion_lambda_max": 1.0,
     "fusion_ema_momentum": 0.99,
+    # Every checkpoint written before o_fusion_position existed fused delta_o
+    # AFTER o_proj: "post_o" IS the audited historical behavior (and the audited
+    # shape -- delta_o maps to o_proj.out_features).  Never default this to pre_o.
+    "o_fusion_position": "post_o",
 }
 
 

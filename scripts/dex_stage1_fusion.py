@@ -44,13 +44,16 @@ sys.path.insert(0, str(REPO / "scripts"))
 
 from deltamem.core.prefix_steer import (  # noqa: E402
     DIFFERENTIAL_FUSIONS,
+    O_FUSION_POSITIONS,
     OUTPUT_FUSIONS,
     PrefixSteerConfig,
     attach_prefix_steer,
+    collect_fusion_norms,
     collect_fusion_stats,
     freeze_steer_keep_fusion,
     is_fusion_param_name,
     iter_steer_modules,
+    set_collect_fusion_norms,
     set_fusion_calibrating,
     set_steer_enabled,
     set_steer_segments,
@@ -88,6 +91,13 @@ def build_parser() -> argparse.ArgumentParser:
     ap.add_argument("--eval-examples", type=int, default=0)
     ap.add_argument("--val-loss-examples", type=int, default=32)
     # fusion knobs
+    ap.add_argument("--o-fusion-position", default="ckpt",
+                    choices=["ckpt"] + list(O_FUSION_POSITIONS),
+                    help="'ckpt' (default) uses the position the sidecar was trained "
+                         "with (old checkpoints deserialize to post_o). An explicit "
+                         "override is only allowed between pre_o and post_o_projected, "
+                         "whose delta_o shapes are identical -- that pair is the strict "
+                         "math-vs-implementation control.")
     ap.add_argument("--fusion-lambda-init", type=float, default=0.1)
     ap.add_argument("--fusion-lambda-max", type=float, default=1.0)
     ap.add_argument("--fusion-ema-momentum", type=float, default=0.99)
@@ -121,9 +131,22 @@ def main() -> None:
     # Rebuild the sidecar EXACTLY as trained, overriding only the fusion.  Any other
     # difference would make the arms incomparable to the checkpoint they come from.
     fusion = "fixed_add" if args.arm == "base" else args.arm
+    # Old checkpoints predate o_fusion_position and deserialize to post_o (the exact
+    # behavior they were trained with).  An override is only allowed within the
+    # {pre_o, post_o_projected} pair: same delta_o shape, mathematically identical
+    # for the linear fusions -- the strict math-vs-implementation control.
+    saved_pos = saved.get("o_fusion_position", "post_o")
+    pos = saved_pos if args.o_fusion_position == "ckpt" else args.o_fusion_position
+    zspace = {"pre_o", "post_o_projected"}
+    if pos != saved_pos and not (pos in zspace and saved_pos in zspace):
+        raise SystemExit(
+            f"--o-fusion-position {pos} is shape-incompatible with the checkpoint's "
+            f"{saved_pos} delta_o (only pre_o <-> post_o_projected may be swapped)"
+        )
     steer_cfg = PrefixSteerConfig(**{
         **{k: (tuple(v) if isinstance(v, list) else v) for k, v in saved.items()},
         "output_fusion": fusion,
+        "o_fusion_position": pos,
         "fusion_lambda_init": args.fusion_lambda_init,
         "fusion_lambda_max": args.fusion_lambda_max,
         "fusion_ema_momentum": args.fusion_ema_momentum,
@@ -152,9 +175,9 @@ def main() -> None:
     if args.arm == "base":
         set_steer_enabled(model, False)          # frozen backbone, control switched off
 
-    print(f"[{args.tag}] arm={args.arm} fusion={fusion} loaded={len(loaded)} tensors "
-          f"trainable={len(trainable)} layers={len(list(iter_steer_modules(model)))}",
-          flush=True)
+    print(f"[{args.tag}] arm={args.arm} fusion={fusion}@{pos} loaded={len(loaded)} "
+          f"tensors trainable={len(trainable)} "
+          f"layers={len(list(iter_steer_modules(model)))}", flush=True)
 
     train = build_examples(
         "train", args.train_papers, tok, args.max_chunk_tok, args.max_ctx_tok,
@@ -243,16 +266,39 @@ def main() -> None:
             per_example.append({"i": i, "f1": f, "em": e, "pred": pred[:200]})
 
     # branch strength on a fixed example, so |delta|/|Y| is comparable across arms
+    set_collect_fusion_norms(model, True)
     with torch.no_grad(), amp():
         ids, seg, valid, lab = collate([val[0]], pad_id, args.device)
         feed(seg, valid)
         model(input_ids=ids, use_cache=False)
     final_stats = collect_fusion_stats(model)
+    final_norms = collect_fusion_norms(model)
+    set_collect_fusion_norms(model, False)
+    # per-layer learned lambdas (learned_diff only): init, final, zero crossings
+    lambdas = [float(m.fusion_lambda.detach())
+               for m in iter_steer_modules(model)
+               if getattr(m, "fusion_lambda", None) is not None]
+    lambda_report = {}
+    if lambdas:
+        lambda_report = {
+            "init": args.fusion_lambda_init,
+            "per_layer": lambdas,
+            "mean": sum(lambdas) / len(lambdas),
+            "min": min(lambdas), "max": max(lambdas),
+            "n_negative": sum(l < 0 for l in lambdas),
+            "crossed_zero": any(
+                (l < 0) != (args.fusion_lambda_init < 0) for l in lambdas
+            ),
+        }
 
     payload = {
         "tag": args.tag,
         "arm": args.arm,
         "fusion": fusion,
+        "o_fusion_position": pos,
+        "o_fusion_position_ckpt": saved_pos,
+        "lambda_report": lambda_report,
+        "final_fusion_norms": final_norms,
         "steer_ckpt": str(args.steer_ckpt),
         "steer_config": {k: (list(v) if isinstance(v, tuple) else v)
                          for k, v in vars(steer_cfg).items()},
@@ -278,8 +324,10 @@ def main() -> None:
     }
     with open(out_dir / f"{args.tag}.json", "w") as fh:
         json.dump(payload, fh, indent=2)
-    print(f"[{args.tag}] FINAL arm={args.arm} F1={payload['final']['qa']['F1']} "
+    print(f"[{args.tag}] FINAL arm={args.arm}@{pos} F1={payload['final']['qa']['F1']} "
           f"val_loss={v_loss:.4f} stats={final_stats} "
+          f"lambda={lambda_report.get('mean')} "
+          f"norms={final_norms.get('mean', {})} "
           f"({payload['runtime_min']:.1f} min)", flush=True)
 
 

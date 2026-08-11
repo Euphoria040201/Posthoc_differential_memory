@@ -32,6 +32,7 @@ sys.path.insert(0, str(REPO))
 sys.path.insert(0, str(REPO / "scripts"))
 
 from deltamem.core.prefix_steer import OUTPUT_FUSIONS as _OUTPUT_FUSIONS  # noqa: E402
+from deltamem.core.prefix_steer import O_FUSION_POSITIONS as _O_FUSION_POSITIONS  # noqa: E402
 from deltamem.core.dex import (  # noqa: E402
     VARIANTS,
     DexConfig,
@@ -121,6 +122,13 @@ def build_parser() -> argparse.ArgumentParser:
                     help="differential modes train the sidecar UNDER subtraction from "
                          "step 0, which is a different experiment from reusing an "
                          "additive-trained checkpoint subtractively")
+    ap.add_argument("--steer-o-fusion-position", default="post_o",
+                    choices=list(_O_FUSION_POSITIONS),
+                    help="post_o: Y = fuse(W_O Z, C) (historical). pre_o: Y = W_O fuse(Z, C) "
+                         "-- delta_o then lives in the o_proj INPUT space, so its "
+                         "checkpoints are not shape-compatible with post_o ones. "
+                         "post_o_projected: Y = fuse(W_O Z, W_O C), the strict pre_o "
+                         "control (identical for linear fusions).")
     ap.add_argument("--steer-value-source", default="main_v",
                     choices=["trainable", "main_v"])
     ap.add_argument("--steer-window", type=int, default=256)
@@ -233,6 +241,7 @@ def main() -> None:
             delta_heads=args.steer_delta_heads,
             steer_gain=args.steer_gain,
             output_fusion=args.steer_output_fusion,
+            o_fusion_position=args.steer_o_fusion_position,
             steer_layers=steer_layers,
             # P=0 is the window-only branch: nothing is written, so the
             # context-only WRITE pass and the pooled read are both off.
@@ -245,7 +254,9 @@ def main() -> None:
         patched = attach_prefix_steer(model, steer_cfg)
         print(f"[{args.tag}] steer sidecar on {len(patched)} layers "
               f"(delta_heads={args.steer_delta_heads} gain={args.steer_gain} "
-              f"P={args.steer_prefix_tokens} value={args.steer_value_source})", flush=True)
+              f"P={args.steer_prefix_tokens} value={args.steer_value_source} "
+              f"fusion={args.steer_output_fusion}@{args.steer_o_fusion_position})",
+              flush=True)
 
     plan = load_head_plan(args.head_plan) if args.head_plan else None
     report = attach_dex(model, cfg, plan=plan)
