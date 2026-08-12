@@ -639,10 +639,30 @@ hyper-parameters at every point.
 | 8 | 0.0078 | 0.0859 | 0.0859 | 0.0859 | **0.0000** |
 | 16 | 0.0000 | 0.0859 | 0.0859 | 0.0859 | **0.0000** |
 
-**The write path is not broken — it is nearly empty.** At one fact per document it
-carries real, document-specific information (+0.195 over the swapped state, on a task
-where no adapter can cheat). At two facts the advantage is +0.008. At four and beyond
-it is **exactly zero**: correct, swap and window arms coincide to four decimals.
+**The write path is nearly empty, and the one positive point is not robust.**
+Replication was run in both directions rather than only on the convenient side:
+
+| point | seed 1 | seed 2 | seed 3 | verdict |
+|---|---:|---:|---:|---|
+| 1 fact/doc | +0.1953 | **+0.0000** | +0.1016 | **not robust** — one seed of three is exactly zero |
+| 4 facts/doc | 0.0000 | 0.0000 | — | **robust zero** |
+
+And a longer budget does not rescue it. Re-running 2 facts at **900 steps** (2.25x the
+original budget), which also tests the "more slots need more steps" caveat below:
+
+| slots | correct−swap @400 steps | correct−swap @900 steps |
+|---:|---:|---:|
+| 64 | +0.0078 | **+0.0000** |
+| 128 | +0.0000 | +0.0000 |
+| 256 | +0.0000 | +0.0000 |
+
+More training removes the marginal +0.008 rather than growing it, and neither slot
+count benefits. **So: the collapse to zero by 4 facts is robust across seeds and
+budgets; the 1-fact positive is real in 2 of 3 seeds but highly variable at this
+budget.** The July runs in `out_prefix_value/` reached correct 0.99 vs swap 0.05 at one
+fact with a longer schedule and paired-conflict batching, so the 1-fact capability is
+genuine — it is these 400-step runs that are undertrained for it, not the capability
+that is absent. The load-bearing claim here is the **ceiling**, not the floor.
 
 This single curve explains every downstream result in this report. A HotpotQA
 distractor context (1697 tokens, 10 paragraphs) and a LoCoMo conversation (tens of
@@ -652,12 +672,12 @@ rescue objectives could not move the number: the failure is not the loss functio
 choosing the wrong thing to encode, it is **the write producing a state with
 essentially no addressable capacity beyond a single binding**.
 
-Caveats: this is a **synthetic diagnostic**, not a benchmark, and it is deliberately
-labelled as such. 400 steps is short — the July runs in `out_prefix_value/` reached
-correct 0.99 / swap 0.05 at one fact with longer training, so the absolute values here
-are training-limited. The *collapse across facts* is the finding, and it reproduces the
-July capacity result (1 fact 0.99 → 2 facts 0.48 → 4 facts 0.23) with the current code
-under a matched budget.
+Caveats, stated after running the checks rather than before: this is a **synthetic
+diagnostic**, not a benchmark. The absolute values are training-limited (the July runs
+reached 0.99 at one fact with a longer schedule). The seed replication above shows the
+1-fact point is variable at this budget; the 4-fact zero is not. The *collapse across
+facts* is the finding, and it reproduces the July capacity result (1 fact 0.99 →
+2 facts 0.48 → 4 facts 0.23) in direction, at a much smaller budget.
 
 ### Is the ceiling the slot count or the write mechanism? — the attribution
 
@@ -684,10 +704,10 @@ This measures on a task where a task adapter cannot cheat what the July runs
 attention-pool WRITE is the ceiling" — so the attribution is now clean rather than
 confounded with task adaptation.
 
-Caveat: all six runs share the same 400-step budget, and the 128/256-slot models have
-more parameters to fit; a longer schedule might change the absolute numbers. It would
-not change the direction, since the extra slots produce *worse* document-specificity at
-equal budget, not merely equal.
+Caveat tested, not assumed: all six runs shared a 400-step budget and the 128/256-slot
+models have more parameters, so the sweep was re-run at **900 steps**. Neither slot
+count improved (both stay at exactly 0.0000), and P=64's marginal +0.0078 *disappeared*.
+The budget was not the limiting factor.
 
 **The next experiment is therefore no longer "test whether the write can encode
 anything" — that is now answered.** It is: **replace the pooled write with an addressable one** — the slot
