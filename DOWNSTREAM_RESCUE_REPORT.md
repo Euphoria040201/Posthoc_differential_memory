@@ -179,6 +179,29 @@ id used by any historical screening run and by this session's dev screens
 | full official dev | 7405 | base_fullctx | 0.4319 | 0.5647 | — | — | — |
 | full official dev | 7405 | ours_fullctx | 0.4905 | 0.6209 | +0.0562 | [+0.0492, +0.0633] | b01=675 b10=241, p=3.0e-48 |
 
+### The P=64 sidecar on the same untouched holdout (strongest config, with caveats)
+
+| set | n | arm | EM | F1 | ΔF1 | 95% CI | McNemar (EM) |
+|---|---:|---|---:|---:|---:|---|---|
+| **untouched complement** | 4678 | base_fullctx | 0.4288 | 0.5615 | — | — | — |
+| **untouched complement** | 4678 | **ours_fullctx (P=64 @step100)** | **0.5158** | **0.6725** | **+0.1111** | **[+0.0993, +0.1228]** | b01=677 b10=270, **p=5.4e-41** |
+| full official dev | 7405 | ours_fullctx (P=64 @step100) | 0.5113 | 0.6673 | +0.1027 | [+0.0935, +0.1116] | b01=1023 b10=435, p=8.1e-55 |
+
+This is **the largest verified gain of the session — +0.111 F1 / +0.087 EM over the
+frozen full-context base on 4678 never-touched official dev ids.** Four caveats, all
+load-bearing, none of which the number itself shows:
+
+1. **27x the parameters** — 383,385,600 trainable over 36 layers, against 14,155,776
+   over 12 for the P=0 line. This is not a matched-capacity comparison.
+2. **Checkpoint selection.** The step-200 checkpoint of this exact run is degenerate
+   (§2b); the number comes from step 100, chosen because the run does not converge.
+   That selection is a tuning decision made with knowledge of the failure.
+3. **Its memory is inert** — correct−swap +0.0025, CI [−0.012, +0.018] (§2e).
+4. **3.2x slower per query** than the base it beats (§6).
+
+Seeds 1 and 2 of this configuration are training now to test whether the effect
+replicates; until they land, this is a single-seed result.
+
 Support/Joint are **0.0** on every arm: the method has no supporting-fact head and
 `sp` is submitted empty. These are **Answer** EM/F1 only and must never be quoted as
 HotpotQA Joint numbers.

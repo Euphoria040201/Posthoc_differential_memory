@@ -111,7 +111,13 @@ def mcnemar_exact(a_bin, b_bin):
     if n == 0:
         return {"b01": 0, "b10": 0, "p_value": 1.0}
     k = min(b01, b10)
-    p = sum(math.comb(n, i) for i in range(k + 1)) * (0.5 ** n) * 2
+    # log-space: math.comb(n, i) * 0.5**n overflows float for n in the thousands
+    def log_pmf(i):
+        return (math.lgamma(n + 1) - math.lgamma(i + 1) - math.lgamma(n - i + 1)
+                + n * math.log(0.5))
+    terms = [log_pmf(i) for i in range(k + 1)]
+    mx = max(terms)
+    p = 2.0 * math.exp(mx) * sum(math.exp(t - mx) for t in terms)
     return {"b01": b01, "b10": b10, "p_value": min(1.0, p)}
 
 
