@@ -117,7 +117,19 @@ correct−window −0.0007 (t=−0.10), with ours_fullctx 0.6302 vs base 0.5439 
 t=+3.35). Two architectures (P=0, P=64) x two fusion positions all agree: the written
 state is inert, the adapter is not.
 
-**The P=64 adapter is the strongest configuration measured this session.** At n=1000
+**STABILITY CAVEAT — the P=64 run does not converge.** Its loss oscillates
+(0.94 → 3.01 → 3.16 → 2.60 → 1.53 over the first 100 updates) and the **final
+(step-200) checkpoints are degenerate**: on the same 200 HotpotQA examples the
+post_o final scores **0.0000** on every arm that actually reads the written memory
+(`ours_ctx`, `ours_noctx`, `swap_noctx`) while the memory-free arms are unaffected
+(`zero_noctx` 0.2058, `wo_noctx` 0.1936); the pre_o final scores 0.034 on the Qasper
+noctx `method` arm, *below* its own base 0.0791. Every P=64 number quoted below
+therefore comes from the **step-100 intermediate checkpoint**, i.e. it rests on
+checkpoint selection, which is itself a tuning decision and is disclosed as such.
+A lower-LR re-train (prefix-lr 1e-3, lr 2e-4, 12 layers instead of 36) is running to
+test whether the architecture can be made to converge at all.
+
+**The P=64 adapter (step-100) is the strongest configuration measured this session.** At n=1000
 (dev, seed 1234, full context): ours **0.6667** vs base **0.5659**, ΔF1 **+0.1008**,
 paired bootstrap CI **[+0.0765, +0.1256]**, EM .5050 vs .4340, McNemar p=3.5e-7 —
 roughly double the P=0 line's +0.056. The cost is size: this checkpoint trains
