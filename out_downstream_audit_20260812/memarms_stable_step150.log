@@ -1,0 +1,20 @@
+Loading weights:   0%|          | 0/398 [00:00<?, ?it/s]Loading weights: 100%|██████████| 398/398 [00:00<00:00, 10143.11it/s]
+[ours] loaded 108 steer tensors; prefix_write=True; cfg=PrefixSteerConfig(num_prefix_tokens=64, sliding_window_size=256, mem_num_heads=8, mem_head_dim=64, steer_mode='deltamem', normal_attends_prefix=True, prefix_sees_query=True, prefix_init_std=0.7, prefix_init_dist='normal', prefix_write=True, read_prefix_only=False, memory_mode='dynamic', write_ctx_only=True, prefix_write_layout='global', prefix_write_overlap_tokens=0, pool_reads=True, pool_gate=False, pool_gate_input='rm', pool_gate_max=2.0, pool_gate_bias=0.0, steer_layers=(0, 3, 6, 9, 12, 15, 18, 21, 24, 27, 30, 33), prefix_layers=(), steer_gain=0.1, share_qkv=False, memory_value_source='trainable', delta_heads='qkvo', delta_rank=0, read_proj_dim=0, output_fusion='fixed', o_fusion_position='pre_o', output_fusion_eps=1e-06, output_fusion_scale_max=10.0, fusion_lambda_init=0.1, fusion_lambda_max=1.0, fusion_ema_momentum=0.99, history_pool_mode='none', hybrid_read_mode='none', hybrid_prefix_gate_mode='fixed', hybrid_prefix_gate_init=0.1)
+Using the latest cached version of the dataset since hotpotqa/hotpot_qa couldn't be found on the Hugging Face Hub (offline mode is enabled).
+Found the latest cached dataset configuration 'distractor' at /home/mingze/.cache/huggingface/datasets/hotpotqa___hotpot_qa/distractor/0.0.0/1908d6afbbead072334abe2965f91bd2709910ab (last modified on Wed Aug 12 05:30:25 2026).
+
+=== NO-CONTEXT test  (n=200)  ckpt=mem64_stable_preo_s0_step150_ckpt.pt bw=0 ===
+      base_ctx  F1=0.5439
+      ours_ctx  F1=0.6263
+    base_noctx  F1=0.0600
+    zero_noctx  F1=0.1281
+      wo_noctx  F1=0.1813
+    swap_noctx  F1=0.1843
+    ours_noctx  F1=0.1908
+  >>> prefix+steer - base = +0.1308  (paired t=+5.36)
+  >>> steer-only  - base = +0.1213  (paired t=+5.35)
+  >>> prefix marginal(wo) = +0.0095  (paired t=+0.64)
+  >>> prefix marginal(zero) = +0.0627  (paired t=+3.22)
+  >>> augmentation over full ctx = +0.0825  (paired t=+3.36)
+  >>> DOC-SPECIFIC memory = +0.0065  (paired t=+0.59)
+wrote /work/mingze/Posthoc_differential_memory/out_downstream_audit_20260812/memarms_stable_step150.json

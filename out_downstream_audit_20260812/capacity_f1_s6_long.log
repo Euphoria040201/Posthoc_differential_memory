@@ -1,0 +1,5 @@
+Loading weights:   0%|          | 0/398 [00:00<?, ?it/s]Loading weights: 100%|██████████| 398/398 [00:00<00:00, 16063.02it/s]
+[episodic] mode=pool facts=1 steps=900 heads=1 head_dim=64 P=64 q/write=1 trainable=16,515,072 seed=6
+[episodic] step=300 loss=6.1235 base=0.000 window=0.031 swap=0.062 correct=0.203 dW=+0.172 dS=+0.141 elapsed=1.6m
+[episodic] step=600 loss=5.0564 base=0.000 window=0.055 swap=0.078 correct=0.125 dW=+0.070 dS=+0.047 elapsed=3.2m
+[episodic] step=900 loss=2.7605 base=0.000 window=0.062 swap=0.031 correct=0.031 dW=-0.031 dS=+0.000 elapsed=4.8m

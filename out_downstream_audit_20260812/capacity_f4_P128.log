@@ -1,0 +1,5 @@
+Loading weights:   0%|          | 0/398 [00:00<?, ?it/s]Loading weights: 100%|██████████| 398/398 [00:00<00:00, 10422.13it/s]
+[episodic] mode=pool facts=4 steps=400 heads=1 head_dim=64 P=128 q/write=1 trainable=18,481,152 seed=1
+[episodic] step=200 loss=1.5380 base=0.000 window=0.055 swap=0.047 correct=0.047 dW=-0.008 dS=+0.000 elapsed=1.4m
+[episodic] step=400 loss=3.3665 base=0.000 window=0.078 swap=0.102 correct=0.102 dW=+0.023 dS=+0.000 elapsed=2.8m
+[episodic] DONE -> /work/mingze/Posthoc_differential_memory/out_downstream_audit_20260812/capacity_f4_P128.json

@@ -1,0 +1,3 @@
+[gpu6] hotpot_dev1000_mem64preo_s2
+[gpu6] memarms_mem64preo_s2
+queue complete: /tmp/q2.tsv

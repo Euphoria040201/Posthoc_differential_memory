@@ -1,0 +1,198 @@
+{
+  "ckpt": "/work/mingze/Posthoc_differential_memory/out_downstream_audit_20260812/mem64_noctx_preo_s0_step100_ckpt.pt",
+  "n": 15,
+  "trainable_params": 383385600,
+  "num_prefix_tokens": 64,
+  "steer_layers": 36,
+  "steer_gain": 0.1,
+  "tokens": {
+    "context_mean": 1696.6,
+    "writer_sees_mean": 1696.6,
+    "reader_sees_state_only_mean": 49.333333333333336,
+    "reader_sees_fullctx_mean": 1745.9333333333334,
+    "truncation": "none - full official 10-paragraph context is written and read"
+  },
+  "state": {
+    "elements": 0,
+    "bytes": 0,
+    "bytes_per_layer": 0
+  },
+  "latency_s": {
+    "write": 0.13087438295284906,
+    "read_state_only": 1.8139919470995665,
+    "read_fullctx": 1.752338116740187,
+    "base_fullctx": 0.542533386622866,
+    "ours_fullctx_overhead_vs_base": 1.209804730117321
+  },
+  "amortized_state_only_s_per_query": {
+    "1_query": 1.9448663300524156,
+    "5_queries": 1.8401668236901363,
+    "20_queries": 1.820535666247209,
+    "base_fullctx_per_query": 0.542533386622866
+  },
+  "fusion_norms": {
+    "cos_WZ_WC": 0.042925682175943315,
+    "cos_Z_C": 0.01769261681086694,
+    "norm_C": 28.461157515645027,
+    "norm_WC": 58.66383780704604,
+    "norm_WZ": 22.59176747666465,
+    "norm_Z": 19.634077837069828,
+    "ratio_C_over_Z": 0.9235692694306802,
+    "ratio_WC_over_WZ": 1.694303371554773,
+    "n_layers": 36,
+    "effective_gC_over_Z": 0.14495795398095734,
+    "effective_gWC_over_WZ": 0.25966909347681955
+  },
+  "per_example": [
+    {
+      "context_tokens": 2325,
+      "writer_tokens": 2325,
+      "reader_tokens_state_only": 53,
+      "reader_tokens_fullctx": 2378,
+      "write_s": 0.5883342251181602,
+      "read_state_only_s": 0.5058518126606941,
+      "read_fullctx_s": 1.1102968826889992,
+      "base_fullctx_s": 0.4266454968601465
+    },
+    {
+      "context_tokens": 1882,
+      "writer_tokens": 1882,
+      "reader_tokens_state_only": 50,
+      "reader_tokens_fullctx": 1932,
+      "write_s": 0.10800684802234173,
+      "read_state_only_s": 0.7509746216237545,
+      "read_fullctx_s": 1.0284236688166857,
+      "base_fullctx_s": 0.3502229005098343
+    },
+    {
+      "context_tokens": 1589,
+      "writer_tokens": 1589,
+      "reader_tokens_state_only": 47,
+      "reader_tokens_fullctx": 1636,
+      "write_s": 0.09586612693965435,
+      "read_state_only_s": 0.7448224145919085,
+      "read_fullctx_s": 1.936348905786872,
+      "base_fullctx_s": 0.5777877122163773
+    },
+    {
+      "context_tokens": 1399,
+      "writer_tokens": 1399,
+      "reader_tokens_state_only": 47,
+      "reader_tokens_fullctx": 1446,
+      "write_s": 0.08172033540904522,
+      "read_state_only_s": 4.575644733384252,
+      "read_fullctx_s": 1.2248435039073229,
+      "base_fullctx_s": 0.35383391194045544
+    },
+    {
+      "context_tokens": 1288,
+      "writer_tokens": 1288,
+      "reader_tokens_state_only": 46,
+      "reader_tokens_fullctx": 1334,
+      "write_s": 0.08032586425542831,
+      "read_state_only_s": 0.9399074222892523,
+      "read_fullctx_s": 1.5386193357408047,
+      "base_fullctx_s": 0.16464898362755775
+    },
+    {
+      "context_tokens": 1773,
+      "writer_tokens": 1773,
+      "reader_tokens_state_only": 47,
+      "reader_tokens_fullctx": 1820,
+      "write_s": 0.106447234749794,
+      "read_state_only_s": 0.7726226765662432,
+      "read_fullctx_s": 2.019174750894308,
+      "base_fullctx_s": 0.7817879840731621
+    },
+    {
+      "context_tokens": 2266,
+      "writer_tokens": 2266,
+      "reader_tokens_state_only": 55,
+      "reader_tokens_fullctx": 2321,
+      "write_s": 0.130864717066288,
+      "read_state_only_s": 1.1477234680205584,
+      "read_fullctx_s": 1.5042954795062542,
+      "base_fullctx_s": 0.2852014694362879
+    },
+    {
+      "context_tokens": 1509,
+      "writer_tokens": 1509,
+      "reader_tokens_state_only": 48,
+      "reader_tokens_fullctx": 1557,
+      "write_s": 0.0896260105073452,
+      "read_state_only_s": 0.7493774890899658,
+      "read_fullctx_s": 1.2637861799448729,
+      "base_fullctx_s": 0.37473443150520325
+    },
+    {
+      "context_tokens": 1821,
+      "writer_tokens": 1821,
+      "reader_tokens_state_only": 60,
+      "reader_tokens_fullctx": 1881,
+      "write_s": 0.10918224789202213,
+      "read_state_only_s": 4.622882692143321,
+      "read_fullctx_s": 1.3569055423140526,
+      "base_fullctx_s": 0.4503496624529362
+    },
+    {
+      "context_tokens": 1535,
+      "writer_tokens": 1535,
+      "reader_tokens_state_only": 52,
+      "reader_tokens_fullctx": 1587,
+      "write_s": 0.08957109786570072,
+      "read_state_only_s": 1.9587324243038893,
+      "read_fullctx_s": 3.5082606729120016,
+      "base_fullctx_s": 1.0511672534048557
+    },
+    {
+      "context_tokens": 1920,
+      "writer_tokens": 1920,
+      "reader_tokens_state_only": 45,
+      "reader_tokens_fullctx": 1965,
+      "write_s": 0.11081725358963013,
+      "read_state_only_s": 0.9582047387957573,
+      "read_fullctx_s": 1.7802953440696,
+      "base_fullctx_s": 0.33887212350964546
+    },
+    {
+      "context_tokens": 1601,
+      "writer_tokens": 1601,
+      "reader_tokens_state_only": 45,
+      "reader_tokens_fullctx": 1646,
+      "write_s": 0.09428823553025723,
+      "read_state_only_s": 1.3305326588451862,
+      "read_fullctx_s": 3.5292811393737793,
+      "base_fullctx_s": 1.056910376995802
+    },
+    {
+      "context_tokens": 1356,
+      "writer_tokens": 1356,
+      "reader_tokens_state_only": 46,
+      "reader_tokens_fullctx": 1402,
+      "write_s": 0.08065826073288918,
+      "read_state_only_s": 3.074293890967965,
+      "read_fullctx_s": 1.5184974856674671,
+      "base_fullctx_s": 0.8693006709218025
+    },
+    {
+      "context_tokens": 1132,
+      "writer_tokens": 1132,
+      "reader_tokens_state_only": 44,
+      "reader_tokens_fullctx": 1176,
+      "write_s": 0.07199255749583244,
+      "read_state_only_s": 0.3919698279350996,
+      "read_fullctx_s": 0.4715849570930004,
+      "base_fullctx_s": 0.15900126472115517
+    },
+    {
+      "context_tokens": 2053,
+      "writer_tokens": 2053,
+      "reader_tokens_state_only": 55,
+      "reader_tokens_fullctx": 2108,
+      "write_s": 0.12541472911834717,
+      "read_state_only_s": 4.68633833527565,
+      "read_fullctx_s": 2.4944579023867846,
+      "base_fullctx_s": 0.8975365571677685
+    }
+  ]
+}

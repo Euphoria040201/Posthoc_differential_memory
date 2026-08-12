@@ -1,0 +1,6 @@
+Loading weights:   0%|          | 0/398 [00:00<?, ?it/s]Loading weights: 100%|██████████| 398/398 [00:00<00:00, 10239.42it/s]
+[episodic] mode=pool facts=2 steps=900 heads=1 head_dim=64 P=256 q/write=1 trainable=22,413,312 seed=1
+[episodic] step=300 loss=3.2927 base=0.008 window=0.055 swap=0.102 correct=0.102 dW=+0.047 dS=+0.000 elapsed=1.8m
+[episodic] step=600 loss=3.3345 base=0.008 window=0.086 swap=0.219 correct=0.211 dW=+0.125 dS=-0.008 elapsed=3.5m
+[episodic] step=900 loss=31.3215 base=0.008 window=0.078 swap=0.000 correct=0.000 dW=-0.078 dS=+0.000 elapsed=5.3m
+[episodic] DONE -> /work/mingze/Posthoc_differential_memory/out_downstream_audit_20260812/capacity_f2_P256_long.json

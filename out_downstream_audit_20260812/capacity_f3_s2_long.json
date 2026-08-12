@@ -1,0 +1,1428 @@
+{
+  "args": {
+    "model_path": "/work/mingze/models/Qwen3-4B-Instruct-2507",
+    "device": "cuda",
+    "dtype": "bfloat16",
+    "seed": 2,
+    "facts": 3,
+    "steps": 900,
+    "eval_every": 300,
+    "eval_n": 128,
+    "lr": 0.0003,
+    "prefix_lr": 0.003,
+    "num_prefix_tokens": 64,
+    "mem_num_heads": 1,
+    "mem_head_dim": 64,
+    "read_mode": "pool",
+    "queries_per_write": 1,
+    "paired_train": false,
+    "wo_contrast_lambda": 0.0,
+    "wo_margin": 0.5,
+    "steer_gain": 0.1,
+    "init_ckpt": "",
+    "eval_only": false,
+    "eval_seed": -1,
+    "heldout_names": false,
+    "heldout_values": false,
+    "steer_layers": "0,3,6,9,12,15,18,21,24,27,30,33",
+    "output": "/work/mingze/Posthoc_differential_memory/out_downstream_audit_20260812/capacity_f3_s2_long.json"
+  },
+  "config": {
+    "num_prefix_tokens": 64,
+    "sliding_window_size": 256,
+    "mem_num_heads": 1,
+    "mem_head_dim": 64,
+    "steer_mode": "deltamem",
+    "normal_attends_prefix": true,
+    "prefix_sees_query": true,
+    "prefix_init_std": 0.7,
+    "prefix_init_dist": "normal",
+    "prefix_write": true,
+    "read_prefix_only": false,
+    "memory_mode": "dynamic",
+    "write_ctx_only": true,
+    "prefix_write_layout": "global",
+    "prefix_write_overlap_tokens": 0,
+    "pool_reads": true,
+    "pool_gate": false,
+    "pool_gate_input": "rm",
+    "pool_gate_max": 2.0,
+    "pool_gate_bias": 0.0,
+    "steer_layers": [
+      0,
+      3,
+      6,
+      9,
+      12,
+      15,
+      18,
+      21,
+      24,
+      27,
+      30,
+      33
+    ],
+    "prefix_layers": [],
+    "steer_gain": 0.1,
+    "share_qkv": false,
+    "memory_value_source": "trainable",
+    "delta_heads": "qkvo",
+    "delta_rank": 0,
+    "read_proj_dim": 0,
+    "output_fusion": "fixed",
+    "o_fusion_position": "post_o",
+    "output_fusion_eps": 1e-06,
+    "output_fusion_scale_max": 10.0,
+    "fusion_lambda_init": 0.1,
+    "fusion_lambda_max": 1.0,
+    "fusion_ema_momentum": 0.99,
+    "history_pool_mode": "none",
+    "hybrid_read_mode": "none",
+    "hybrid_prefix_gate_mode": "fixed",
+    "hybrid_prefix_gate_init": 0.1
+  },
+  "history": [
+    {
+      "step": 300,
+      "loss": 3.0201399326324463,
+      "accuracy": {
+        "base": 0.0078125,
+        "window": 0.0703125,
+        "swap": 0.0703125,
+        "correct": 0.0703125
+      },
+      "paired": {
+        "correct_minus_window": 0.0,
+        "correct_minus_swap": 0.0
+      }
+    },
+    {
+      "step": 600,
+      "loss": 4.886718273162842,
+      "accuracy": {
+        "base": 0.0078125,
+        "window": 0.0625,
+        "swap": 0.0546875,
+        "correct": 0.0546875
+      },
+      "paired": {
+        "correct_minus_window": -0.0078125,
+        "correct_minus_swap": 0.0
+      }
+    },
+    {
+      "step": 900,
+      "loss": 10.768292427062988,
+      "accuracy": {
+        "base": 0.0078125,
+        "window": 0.046875,
+        "swap": 0.0390625,
+        "correct": 0.0390625
+      },
+      "paired": {
+        "correct_minus_window": -0.0078125,
+        "correct_minus_swap": 0.0
+      }
+    }
+  ],
+  "final": {
+    "protocol": {
+      "num_writes": 128,
+      "num_queries": 128,
+      "mean_queries_per_write": 1.0,
+      "strong_swap_same_keys": true
+    },
+    "accuracy": {
+      "base": 0.0078125,
+      "window": 0.046875,
+      "swap": 0.0390625,
+      "correct": 0.0390625
+    },
+    "paired": {
+      "correct_minus_window": -0.0078125,
+      "correct_minus_swap": 0.0
+    },
+    "records": [
+      {
+        "group": 0,
+        "name": "Paul Owens",
+        "gold": "Lagos",
+        "counterfactual": "Rome",
+        "base": "Portland, Oregon",
+        "window": "Lima Lima Lima",
+        "swap": "Cairo Cairo Cairo",
+        "correct": "Cairo Cairo Cairo"
+      },
+      {
+        "group": 1,
+        "name": "Paul Diaz",
+        "gold": "Lima",
+        "counterfactual": "Rome",
+        "base": "San Diego",
+        "window": "Lima Lima Lima",
+        "swap": "Cairo Cairo Cairo",
+        "correct": "Cairo Cairo Cairo"
+      },
+      {
+        "group": 2,
+        "name": "Frank Novak",
+        "gold": "Delhi",
+        "counterfactual": "Lagos",
+        "base": "New York City",
+        "window": "Lima Madrid Lima",
+        "swap": "Cairo Cairo Cairo",
+        "correct": "Cairo Cairo Cairo"
+      },
+      {
+        "group": 3,
+        "name": "Grace Fischer",
+        "gold": "Hanoi",
+        "counterfactual": "Rome",
+        "base": "Portland, Oregon",
+        "window": "Lima Lima Madrid",
+        "swap": "Cairo Cairo Cairo",
+        "correct": "Cairo Cairo Cairo"
+      },
+      {
+        "group": 4,
+        "name": "Kate Chen",
+        "gold": "Lima",
+        "counterfactual": "Hanoi",
+        "base": "San Francisco",
+        "window": "Lima Lima Lima",
+        "swap": "Cairo Cairo Cairo",
+        "correct": "Cairo Cairo Cairo"
+      },
+      {
+        "group": 5,
+        "name": "Noah Diaz",
+        "gold": "Lagos",
+        "counterfactual": "Athens",
+        "base": "Los Angeles",
+        "window": "Lima Lima Lima",
+        "swap": "Cairo Cairo Cairo",
+        "correct": "Cairo Cairo Cairo"
+      },
+      {
+        "group": 6,
+        "name": "David Owens",
+        "gold": "Oslo",
+        "counterfactual": "Berlin",
+        "base": "Portland\n\nAnswer",
+        "window": "Lima Lima Lima",
+        "swap": "Cairo Cairo Cairo",
+        "correct": "Cairo Cairo Cairo"
+      },
+      {
+        "group": 7,
+        "name": "Noah Diaz",
+        "gold": "Lagos",
+        "counterfactual": "Athens",
+        "base": "Los Angeles",
+        "window": "Lima Lima Lima",
+        "swap": "Cairo Cairo Cairo",
+        "correct": "Cairo Cairo Cairo"
+      },
+      {
+        "group": 8,
+        "name": "Bob Anders",
+        "gold": "Tokyo",
+        "counterfactual": "Quito",
+        "base": "Minneapolis\n\nAnswer",
+        "window": "Lima Lima Lima",
+        "swap": "Cairo Cairo Cairo",
+        "correct": "Cairo Cairo Cairo"
+      },
+      {
+        "group": 9,
+        "name": "Olga Ito",
+        "gold": "Quito",
+        "counterfactual": "Dublin",
+        "base": "Tokyo\n\nAnswer",
+        "window": "Oslo Lima Lima",
+        "swap": "Cairo Cairo Cairo",
+        "correct": "Cairo Cairo Cairo"
+      },
+      {
+        "group": 10,
+        "name": "Leo Lopez",
+        "gold": "Quito",
+        "counterfactual": "Cairo",
+        "base": "San Diego",
+        "window": "Lima Lima Lima",
+        "swap": "Cairo Cairo Cairo",
+        "correct": "Cairo Cairo Cairo"
+      },
+      {
+        "group": 11,
+        "name": "Noah Fischer",
+        "gold": "Athens",
+        "counterfactual": "Hanoi",
+        "base": "Los Angeles",
+        "window": "Lima Lima Lima",
+        "swap": "Cairo Cairo Cairo",
+        "correct": "Cairo Cairo Cairo"
+      },
+      {
+        "group": 12,
+        "name": "Carol Anders",
+        "gold": "Lagos",
+        "counterfactual": "Vienna",
+        "base": "Portland\n\nAnswer",
+        "window": "Lima Lima Lima",
+        "swap": "Cairo Cairo Cairo",
+        "correct": "Cairo Cairo Cairo"
+      },
+      {
+        "group": 13,
+        "name": "Emma Chen",
+        "gold": "Rome",
+        "counterfactual": "Oslo",
+        "base": "San Francisco",
+        "window": "Lima Lima Lima",
+        "swap": "Cairo Cairo Cairo",
+        "correct": "Cairo Cairo Cairo"
+      },
+      {
+        "group": 14,
+        "name": "Carol Meyer",
+        "gold": "Lagos",
+        "counterfactual": "Dublin",
+        "base": "New York City",
+        "window": "Lima Lima Madrid",
+        "swap": "Cairo Cairo Cairo",
+        "correct": "Cairo Cairo Cairo"
+      },
+      {
+        "group": 15,
+        "name": "Emma Diaz",
+        "gold": "Delhi",
+        "counterfactual": "Paris",
+        "base": "San Diego",
+        "window": "Lima Lima Lima",
+        "swap": "Cairo Cairo Cairo",
+        "correct": "Cairo Cairo Cairo"
+      },
+      {
+        "group": 16,
+        "name": "Kate Park",
+        "gold": "Rome",
+        "counterfactual": "Delhi",
+        "base": "London\n\nAnswer",
+        "window": "Lima Lima Lima",
+        "swap": "Cairo Cairo Cairo",
+        "correct": "Cairo Cairo Cairo"
+      },
+      {
+        "group": 17,
+        "name": "Emma Chen",
+        "gold": "Delhi",
+        "counterfactual": "Hanoi",
+        "base": "San Francisco",
+        "window": "Lima Lima Lima",
+        "swap": "Cairo Cairo Cairo",
+        "correct": "Cairo Cairo Cairo"
+      },
+      {
+        "group": 18,
+        "name": "Emma Evans",
+        "gold": "Lagos",
+        "counterfactual": "Vienna",
+        "base": "London\n\nAnswer",
+        "window": "Lima Lima Lima",
+        "swap": "Cairo Cairo Cairo",
+        "correct": "Cairo Cairo Cairo"
+      },
+      {
+        "group": 19,
+        "name": "Ivy Chen",
+        "gold": "Vienna",
+        "counterfactual": "Hanoi",
+        "base": "San Francisco",
+        "window": "Lima Lima Lima",
+        "swap": "Cairo Cairo Cairo",
+        "correct": "Cairo Cairo Cairo"
+      },
+      {
+        "group": 20,
+        "name": "Paul Garcia",
+        "gold": "Tokyo",
+        "counterfactual": "Oslo",
+        "base": "Portland\n\nAnswer",
+        "window": "Lima Lima Lima",
+        "swap": "Cairo Cairo Cairo",
+        "correct": "Cairo Cairo Cairo"
+      },
+      {
+        "group": 21,
+        "name": "Ivy Park",
+        "gold": "Quito",
+        "counterfactual": "Lagos",
+        "base": "Ivy Park lives",
+        "window": "Lima Madrid Madrid",
+        "swap": "Cairo Cairo Cairo",
+        "correct": "Cairo Cairo Cairo"
+      },
+      {
+        "group": 22,
+        "name": "David Anders",
+        "gold": "Lima",
+        "counterfactual": "Berlin",
+        "base": "Los Angeles",
+        "window": "Lima Lima Lima",
+        "swap": "Cairo Cairo Cairo",
+        "correct": "Cairo Cairo Cairo"
+      },
+      {
+        "group": 23,
+        "name": "Paul Hayes",
+        "gold": "Lagos",
+        "counterfactual": "Paris",
+        "base": "London\n\nAnswer",
+        "window": "Lima Lima Lima",
+        "swap": "Cairo Cairo Cairo",
+        "correct": "Cairo Cairo Cairo"
+      },
+      {
+        "group": 24,
+        "name": "Frank Park",
+        "gold": "Delhi",
+        "counterfactual": "Berlin",
+        "base": "Frank Park lives",
+        "window": "Lima Madrid Lima",
+        "swap": "Cairo Cairo Cairo",
+        "correct": "Cairo Cairo Cairo"
+      },
+      {
+        "group": 25,
+        "name": "Jack Fischer",
+        "gold": "Seoul",
+        "counterfactual": "Delhi",
+        "base": "Portland, Oregon",
+        "window": "Lima Lima Madrid",
+        "swap": "Cairo Cairo Cairo",
+        "correct": "Cairo Cairo Cairo"
+      },
+      {
+        "group": 26,
+        "name": "Noah Fischer",
+        "gold": "Oslo",
+        "counterfactual": "Tokyo",
+        "base": "Los Angeles",
+        "window": "Lima Lima Lima",
+        "swap": "Cairo Cairo Cairo",
+        "correct": "Cairo Cairo Cairo"
+      },
+      {
+        "group": 27,
+        "name": "Mia Jones",
+        "gold": "Seoul",
+        "counterfactual": "Hanoi",
+        "base": "Portland\n\nAnswer",
+        "window": "Lima Lima Lima",
+        "swap": "Cairo Cairo Cairo",
+        "correct": "Cairo Cairo Cairo"
+      },
+      {
+        "group": 28,
+        "name": "Mia Fischer",
+        "gold": "Dublin",
+        "counterfactual": "Seoul",
+        "base": "Portland\n\nAnswer",
+        "window": "Lima Lima Lima",
+        "swap": "Cairo Cairo Cairo",
+        "correct": "Cairo Cairo Cairo"
+      },
+      {
+        "group": 29,
+        "name": "Carol Park",
+        "gold": "Tokyo",
+        "counterfactual": "Paris",
+        "base": "Carol Park lives",
+        "window": "Lima Madrid Lima",
+        "swap": "Cairo Cairo Cairo",
+        "correct": "Cairo Cairo Cairo"
+      },
+      {
+        "group": 30,
+        "name": "Jack Lopez",
+        "gold": "Rome",
+        "counterfactual": "Lima",
+        "base": "San Diego",
+        "window": "Lima Lima Madrid",
+        "swap": "Cairo Cairo Cairo",
+        "correct": "Cairo Cairo Cairo"
+      },
+      {
+        "group": 31,
+        "name": "Ivy Brooks",
+        "gold": "Dublin",
+        "counterfactual": "Athens",
+        "base": "New York City",
+        "window": "Lima Madrid Lima",
+        "swap": "Cairo Cairo Cairo",
+        "correct": "Cairo Cairo Cairo"
+      },
+      {
+        "group": 32,
+        "name": "Frank Lopez",
+        "gold": "Cairo",
+        "counterfactual": "Oslo",
+        "base": "New York City",
+        "window": "Lima Lima Lima",
+        "swap": "Cairo Cairo Cairo",
+        "correct": "Cairo Cairo Cairo"
+      },
+      {
+        "group": 33,
+        "name": "Henry Evans",
+        "gold": "Quito",
+        "counterfactual": "Tokyo",
+        "base": "Henry Evans lives",
+        "window": "Lima Lima Lima",
+        "swap": "Cairo Cairo Cairo",
+        "correct": "Cairo Cairo Cairo"
+      },
+      {
+        "group": 34,
+        "name": "Bob Novak",
+        "gold": "Lima",
+        "counterfactual": "Delhi",
+        "base": "Washington, D",
+        "window": "Oslo Oslo Lima",
+        "swap": "Cairo Cairo Cairo",
+        "correct": "Cairo Cairo Cairo"
+      },
+      {
+        "group": 35,
+        "name": "Kate Brooks",
+        "gold": "Madrid",
+        "counterfactual": "Paris",
+        "base": "London\n\nAnswer",
+        "window": "Lima Lima Lima",
+        "swap": "Cairo Cairo Cairo",
+        "correct": "Cairo Cairo Cairo"
+      },
+      {
+        "group": 36,
+        "name": "Ivy Kim",
+        "gold": "Madrid",
+        "counterfactual": "Delhi",
+        "base": "Seoul\n\nAnswer",
+        "window": "Lima Madrid Lima",
+        "swap": "Cairo Cairo Cairo",
+        "correct": "Cairo Cairo Cairo"
+      },
+      {
+        "group": 37,
+        "name": "Emma Lopez",
+        "gold": "Madrid",
+        "counterfactual": "Rome",
+        "base": "San Diego",
+        "window": "Lima Lima Lima",
+        "swap": "Cairo Cairo Cairo",
+        "correct": "Cairo Cairo Cairo"
+      },
+      {
+        "group": 38,
+        "name": "Emma Chen",
+        "gold": "Hanoi",
+        "counterfactual": "Tokyo",
+        "base": "San Francisco",
+        "window": "Lima Lima Lima",
+        "swap": "Cairo Cairo Cairo",
+        "correct": "Cairo Cairo Cairo"
+      },
+      {
+        "group": 39,
+        "name": "Carol Lopez",
+        "gold": "Athens",
+        "counterfactual": "Delhi",
+        "base": "San Diego",
+        "window": "Lima Lima Lima",
+        "swap": "Cairo Cairo Cairo",
+        "correct": "Cairo Cairo Cairo"
+      },
+      {
+        "group": 40,
+        "name": "Emma Novak",
+        "gold": "Rome",
+        "counterfactual": "Paris",
+        "base": "Portland\n\nAnswer",
+        "window": "Lima Lima Lima",
+        "swap": "Cairo Cairo Cairo",
+        "correct": "Cairo Cairo Cairo"
+      },
+      {
+        "group": 41,
+        "name": "Mia Owens",
+        "gold": "Paris",
+        "counterfactual": "Lagos",
+        "base": "Atlanta\n\nAnswer",
+        "window": "Lima Lima Lima",
+        "swap": "Cairo Cairo Cairo",
+        "correct": "Cairo Cairo Cairo"
+      },
+      {
+        "group": 42,
+        "name": "Kate Jones",
+        "gold": "Seoul",
+        "counterfactual": "Delhi",
+        "base": "London\n\nAnswer",
+        "window": "Lima Lima Lima",
+        "swap": "Cairo Cairo Cairo",
+        "correct": "Cairo Cairo Cairo"
+      },
+      {
+        "group": 43,
+        "name": "Bob Diaz",
+        "gold": "Delhi",
+        "counterfactual": "Madrid",
+        "base": "Miami\n\nAnswer",
+        "window": "Lima Lima Madrid",
+        "swap": "Cairo Cairo Cairo",
+        "correct": "Cairo Cairo Cairo"
+      },
+      {
+        "group": 44,
+        "name": "Grace Meyer",
+        "gold": "Berlin",
+        "counterfactual": "Athens",
+        "base": "Portland\n\nAnswer",
+        "window": "Lima Lima Lima",
+        "swap": "Cairo Cairo Cairo",
+        "correct": "Cairo Cairo Cairo"
+      },
+      {
+        "group": 45,
+        "name": "David Chen",
+        "gold": "Madrid",
+        "counterfactual": "Hanoi",
+        "base": "San Francisco",
+        "window": "Lima Lima Lima",
+        "swap": "Cairo Cairo Cairo",
+        "correct": "Cairo Cairo Cairo"
+      },
+      {
+        "group": 46,
+        "name": "Leo Owens",
+        "gold": "Seoul",
+        "counterfactual": "Tokyo",
+        "base": "Atlanta\n\nAnswer",
+        "window": "Lima Madrid Lima",
+        "swap": "Cairo Cairo Cairo",
+        "correct": "Cairo Cairo Cairo"
+      },
+      {
+        "group": 47,
+        "name": "Emma Brooks",
+        "gold": "Quito",
+        "counterfactual": "Oslo",
+        "base": "Portland\n\nAnswer",
+        "window": "Lima Lima Lima",
+        "swap": "Cairo Cairo Cairo",
+        "correct": "Cairo Cairo Cairo"
+      },
+      {
+        "group": 48,
+        "name": "Kate Garcia",
+        "gold": "Madrid",
+        "counterfactual": "Tokyo",
+        "base": "San Diego",
+        "window": "Lima Lima Lima",
+        "swap": "Cairo Cairo Cairo",
+        "correct": "Cairo Cairo Cairo"
+      },
+      {
+        "group": 49,
+        "name": "Carol Jones",
+        "gold": "Vienna",
+        "counterfactual": "Dublin",
+        "base": "Atlanta\n\nAnswer",
+        "window": "Lima Lima Lima",
+        "swap": "Cairo Cairo Cairo",
+        "correct": "Cairo Cairo Cairo"
+      },
+      {
+        "group": 50,
+        "name": "Alice Ito",
+        "gold": "Paris",
+        "counterfactual": "Tokyo",
+        "base": "Tokyo\n\nAnswer",
+        "window": "Lima Lima Lima",
+        "swap": "Cairo Cairo Cairo",
+        "correct": "Cairo Cairo Cairo"
+      },
+      {
+        "group": 51,
+        "name": "Emma Ito",
+        "gold": "Madrid",
+        "counterfactual": "Seoul",
+        "base": "Tokyo\n\nAnswer",
+        "window": "Lima Lima Lima",
+        "swap": "Cairo Cairo Cairo",
+        "correct": "Cairo Cairo Cairo"
+      },
+      {
+        "group": 52,
+        "name": "Leo Chen",
+        "gold": "Hanoi",
+        "counterfactual": "Cairo",
+        "base": "San Diego",
+        "window": "Lima Lima Madrid",
+        "swap": "Cairo Cairo Cairo",
+        "correct": "Cairo Cairo Cairo"
+      },
+      {
+        "group": 53,
+        "name": "Ivy Park",
+        "gold": "Delhi",
+        "counterfactual": "Vienna",
+        "base": "Ivy Park lives",
+        "window": "Lima Madrid Madrid",
+        "swap": "Cairo Cairo Cairo",
+        "correct": "Cairo Cairo Cairo"
+      },
+      {
+        "group": 54,
+        "name": "Emma Hayes",
+        "gold": "Delhi",
+        "counterfactual": "Dublin",
+        "base": "London\n\nAnswer",
+        "window": "Lima Lima Lima",
+        "swap": "Cairo Cairo Cairo",
+        "correct": "Cairo Cairo Cairo"
+      },
+      {
+        "group": 55,
+        "name": "Carol Ito",
+        "gold": "Berlin",
+        "counterfactual": "Hanoi",
+        "base": "San Diego",
+        "window": "Lima Lima Lima",
+        "swap": "Cairo Cairo Cairo",
+        "correct": "Cairo Cairo Cairo"
+      },
+      {
+        "group": 56,
+        "name": "Leo Jones",
+        "gold": "Athens",
+        "counterfactual": "Seoul",
+        "base": "Atlanta\n\nAnswer",
+        "window": "Lima Lima Madrid",
+        "swap": "Cairo Cairo Cairo",
+        "correct": "Cairo Cairo Cairo"
+      },
+      {
+        "group": 57,
+        "name": "Noah Fischer",
+        "gold": "Lima",
+        "counterfactual": "Madrid",
+        "base": "Los Angeles",
+        "window": "Lima Lima Lima",
+        "swap": "Cairo Cairo Cairo",
+        "correct": "Cairo Cairo Cairo"
+      },
+      {
+        "group": 58,
+        "name": "Leo Evans",
+        "gold": "Delhi",
+        "counterfactual": "Athens",
+        "base": "London\n\nAnswer",
+        "window": "Lima Lima Madrid",
+        "swap": "Cairo Cairo Cairo",
+        "correct": "Cairo Cairo Cairo"
+      },
+      {
+        "group": 59,
+        "name": "Carol Evans",
+        "gold": "Hanoi",
+        "counterfactual": "Dublin",
+        "base": "Atlanta\n\nAnswer",
+        "window": "Lima Lima Madrid",
+        "swap": "Cairo Cairo Cairo",
+        "correct": "Cairo Cairo Cairo"
+      },
+      {
+        "group": 60,
+        "name": "Bob Kim",
+        "gold": "Berlin",
+        "counterfactual": "Tokyo",
+        "base": "Seoul\n\nAnswer",
+        "window": "Lima Lima Lima",
+        "swap": "Cairo Cairo Cairo",
+        "correct": "Cairo Cairo Cairo"
+      },
+      {
+        "group": 61,
+        "name": "Mia Owens",
+        "gold": "Rome",
+        "counterfactual": "Lima",
+        "base": "Atlanta\n\nAnswer",
+        "window": "Lima Lima Lima",
+        "swap": "Cairo Cairo Cairo",
+        "correct": "Cairo Cairo Cairo"
+      },
+      {
+        "group": 62,
+        "name": "Grace Garcia",
+        "gold": "Oslo",
+        "counterfactual": "Tokyo",
+        "base": "San Diego",
+        "window": "Lima Lima Lima",
+        "swap": "Cairo Cairo Cairo",
+        "correct": "Cairo Cairo Cairo"
+      },
+      {
+        "group": 63,
+        "name": "Olga Jones",
+        "gold": "Dublin",
+        "counterfactual": "Tokyo",
+        "base": "New York City",
+        "window": "Lima Lima Madrid",
+        "swap": "Cairo Cairo Cairo",
+        "correct": "Cairo Cairo Cairo"
+      },
+      {
+        "group": 64,
+        "name": "Kate Garcia",
+        "gold": "Quito",
+        "counterfactual": "Berlin",
+        "base": "San Diego",
+        "window": "Lima Lima Lima",
+        "swap": "Cairo Cairo Cairo",
+        "correct": "Cairo Cairo Cairo"
+      },
+      {
+        "group": 65,
+        "name": "Kate Fischer",
+        "gold": "Seoul",
+        "counterfactual": "Oslo",
+        "base": "San Diego",
+        "window": "Lima Lima Lima",
+        "swap": "Cairo Cairo Cairo",
+        "correct": "Cairo Cairo Cairo"
+      },
+      {
+        "group": 66,
+        "name": "Grace Jones",
+        "gold": "Cairo",
+        "counterfactual": "Hanoi",
+        "base": "New York City",
+        "window": "Lima Madrid Lima",
+        "swap": "Cairo Cairo Cairo",
+        "correct": "Cairo Cairo Cairo"
+      },
+      {
+        "group": 67,
+        "name": "Noah Owens",
+        "gold": "Vienna",
+        "counterfactual": "Oslo",
+        "base": "Portland\n\nAnswer",
+        "window": "Lima Lima Lima",
+        "swap": "Cairo Cairo Cairo",
+        "correct": "Cairo Cairo Cairo"
+      },
+      {
+        "group": 68,
+        "name": "Jack Chen",
+        "gold": "Berlin",
+        "counterfactual": "Dublin",
+        "base": "Shanghai\n\nAnswer",
+        "window": "Lima Lima Lima",
+        "swap": "Cairo Cairo Cairo",
+        "correct": "Cairo Cairo Cairo"
+      },
+      {
+        "group": 69,
+        "name": "Jack Diaz",
+        "gold": "Lagos",
+        "counterfactual": "Rome",
+        "base": "New Orleans",
+        "window": "Lima Lima Lima",
+        "swap": "Cairo Cairo Cairo",
+        "correct": "Cairo Cairo Cairo"
+      },
+      {
+        "group": 70,
+        "name": "Mia Owens",
+        "gold": "Quito",
+        "counterfactual": "Tokyo",
+        "base": "Atlanta\n\nAnswer",
+        "window": "Lima Lima Lima",
+        "swap": "Cairo Cairo Cairo",
+        "correct": "Cairo Cairo Cairo"
+      },
+      {
+        "group": 71,
+        "name": "Noah Brooks",
+        "gold": "Athens",
+        "counterfactual": "Delhi",
+        "base": "Portland, Oregon",
+        "window": "Lima Lima Madrid",
+        "swap": "Cairo Cairo Cairo",
+        "correct": "Cairo Cairo Cairo"
+      },
+      {
+        "group": 72,
+        "name": "Frank Diaz",
+        "gold": "Paris",
+        "counterfactual": "Delhi",
+        "base": "Miami\n\nAnswer",
+        "window": "Lima Lima Lima",
+        "swap": "Cairo Cairo Cairo",
+        "correct": "Cairo Cairo Cairo"
+      },
+      {
+        "group": 73,
+        "name": "Mia Lopez",
+        "gold": "Madrid",
+        "counterfactual": "Delhi",
+        "base": "Miami\n\nAnswer",
+        "window": "Lima Lima Lima",
+        "swap": "Cairo Cairo Cairo",
+        "correct": "Cairo Cairo Cairo"
+      },
+      {
+        "group": 74,
+        "name": "Noah Fischer",
+        "gold": "Tokyo",
+        "counterfactual": "Athens",
+        "base": "Los Angeles",
+        "window": "Lima Lima Lima",
+        "swap": "Cairo Cairo Cairo",
+        "correct": "Cairo Cairo Cairo"
+      },
+      {
+        "group": 75,
+        "name": "Jack Novak",
+        "gold": "Oslo",
+        "counterfactual": "Tokyo",
+        "base": "New York City",
+        "window": "Lima Madrid Madrid",
+        "swap": "Cairo Cairo Cairo",
+        "correct": "Cairo Cairo Cairo"
+      },
+      {
+        "group": 76,
+        "name": "Olga Fischer",
+        "gold": "Quito",
+        "counterfactual": "Cairo",
+        "base": "Vienna\n\nAnswer",
+        "window": "Lima Lima Lima",
+        "swap": "Cairo Cairo Cairo",
+        "correct": "Cairo Cairo Cairo"
+      },
+      {
+        "group": 77,
+        "name": "Mia Ito",
+        "gold": "Paris",
+        "counterfactual": "Athens",
+        "base": "Tokyo\n\nAnswer",
+        "window": "Lima Lima Lima",
+        "swap": "Cairo Cairo Cairo",
+        "correct": "Cairo Cairo Cairo"
+      },
+      {
+        "group": 78,
+        "name": "Olga Diaz",
+        "gold": "Rome",
+        "counterfactual": "Lima",
+        "base": "San Diego",
+        "window": "Oslo Lima Lima",
+        "swap": "Cairo Cairo Cairo",
+        "correct": "Cairo Cairo Cairo"
+      },
+      {
+        "group": 79,
+        "name": "Alice Hayes",
+        "gold": "Oslo",
+        "counterfactual": "Quito",
+        "base": "Alice Hayes lives",
+        "window": "Lima Lima Lima",
+        "swap": "Cairo Cairo Cairo",
+        "correct": "Cairo Cairo Cairo"
+      },
+      {
+        "group": 80,
+        "name": "Bob Ito",
+        "gold": "Dublin",
+        "counterfactual": "Vienna",
+        "base": "San Diego",
+        "window": "Lima Lima Lima",
+        "swap": "Cairo Cairo Cairo",
+        "correct": "Cairo Cairo Cairo"
+      },
+      {
+        "group": 81,
+        "name": "Grace Garcia",
+        "gold": "Seoul",
+        "counterfactual": "Quito",
+        "base": "San Diego",
+        "window": "Lima Lima Lima",
+        "swap": "Cairo Cairo Cairo",
+        "correct": "Cairo Cairo Cairo"
+      },
+      {
+        "group": 82,
+        "name": "Jack Lopez",
+        "gold": "Madrid",
+        "counterfactual": "Cairo",
+        "base": "San Diego",
+        "window": "Lima Lima Madrid",
+        "swap": "Cairo Cairo Cairo",
+        "correct": "Cairo Cairo Cairo"
+      },
+      {
+        "group": 83,
+        "name": "Grace Kim",
+        "gold": "Hanoi",
+        "counterfactual": "Berlin",
+        "base": "Seoul\n\nAnswer",
+        "window": "Lima Lima Lima",
+        "swap": "Cairo Cairo Cairo",
+        "correct": "Cairo Cairo Cairo"
+      },
+      {
+        "group": 84,
+        "name": "Mia Owens",
+        "gold": "Madrid",
+        "counterfactual": "Rome",
+        "base": "Atlanta\n\nAnswer",
+        "window": "Lima Lima Lima",
+        "swap": "Cairo Cairo Cairo",
+        "correct": "Cairo Cairo Cairo"
+      },
+      {
+        "group": 85,
+        "name": "Olga Hayes",
+        "gold": "Delhi",
+        "counterfactual": "Berlin",
+        "base": "New York City",
+        "window": "Lima Lima Madrid",
+        "swap": "Cairo Cairo Cairo",
+        "correct": "Cairo Cairo Cairo"
+      },
+      {
+        "group": 86,
+        "name": "Alice Meyer",
+        "gold": "Athens",
+        "counterfactual": "Madrid",
+        "base": "Alice Meyer lives",
+        "window": "Lima Lima Lima",
+        "swap": "Cairo Cairo Cairo",
+        "correct": "Cairo Cairo Cairo"
+      },
+      {
+        "group": 87,
+        "name": "Bob Park",
+        "gold": "Seoul",
+        "counterfactual": "Lima",
+        "base": "Seoul\n\nAnswer",
+        "window": "Lima Madrid Lima",
+        "swap": "Cairo Cairo Cairo",
+        "correct": "Cairo Cairo Cairo"
+      },
+      {
+        "group": 88,
+        "name": "Ivy Kim",
+        "gold": "Vienna",
+        "counterfactual": "Oslo",
+        "base": "Seoul\n\nAnswer",
+        "window": "Lima Madrid Lima",
+        "swap": "Cairo Cairo Cairo",
+        "correct": "Cairo Cairo Cairo"
+      },
+      {
+        "group": 89,
+        "name": "Alice Fischer",
+        "gold": "Lima",
+        "counterfactual": "Quito",
+        "base": "Vienna\n\nAnswer",
+        "window": "Lima Lima Lima",
+        "swap": "Cairo Cairo Cairo",
+        "correct": "Cairo Cairo Cairo"
+      },
+      {
+        "group": 90,
+        "name": "Kate Hayes",
+        "gold": "Cairo",
+        "counterfactual": "Oslo",
+        "base": "New York City",
+        "window": "Lima Lima Lima",
+        "swap": "Cairo Cairo Cairo",
+        "correct": "Cairo Cairo Cairo"
+      },
+      {
+        "group": 91,
+        "name": "Alice Brooks",
+        "gold": "Dublin",
+        "counterfactual": "Hanoi",
+        "base": "Alice Brooks lives",
+        "window": "Lima Lima Lima",
+        "swap": "Cairo Cairo Cairo",
+        "correct": "Cairo Cairo Cairo"
+      },
+      {
+        "group": 92,
+        "name": "Alice Hayes",
+        "gold": "Berlin",
+        "counterfactual": "Seoul",
+        "base": "Alice Hayes lives",
+        "window": "Lima Lima Lima",
+        "swap": "Cairo Cairo Cairo",
+        "correct": "Cairo Cairo Cairo"
+      },
+      {
+        "group": 93,
+        "name": "Henry Owens",
+        "gold": "Lagos",
+        "counterfactual": "Seoul",
+        "base": "Atlanta\n\nAnswer",
+        "window": "Lima Lima Lima",
+        "swap": "Cairo Cairo Cairo",
+        "correct": "Cairo Cairo Cairo"
+      },
+      {
+        "group": 94,
+        "name": "Ivy Jones",
+        "gold": "Vienna",
+        "counterfactual": "Berlin",
+        "base": "London\n\nAnswer",
+        "window": "Lima Lima Madrid",
+        "swap": "Cairo Cairo Cairo",
+        "correct": "Cairo Cairo Cairo"
+      },
+      {
+        "group": 95,
+        "name": "Kate Kim",
+        "gold": "Dublin",
+        "counterfactual": "Athens",
+        "base": "Seoul\n\nAnswer",
+        "window": "Lima Lima Lima",
+        "swap": "Cairo Cairo Cairo",
+        "correct": "Cairo Cairo Cairo"
+      },
+      {
+        "group": 96,
+        "name": "Paul Anders",
+        "gold": "Quito",
+        "counterfactual": "Rome",
+        "base": "Stockholm\n\nAnswer",
+        "window": "Lima Lima Lima",
+        "swap": "Cairo Cairo Cairo",
+        "correct": "Cairo Cairo Cairo"
+      },
+      {
+        "group": 97,
+        "name": "Mia Garcia",
+        "gold": "Lagos",
+        "counterfactual": "Hanoi",
+        "base": "Miami\n\nAnswer",
+        "window": "Lima Lima Lima",
+        "swap": "Cairo Cairo Cairo",
+        "correct": "Cairo Cairo Cairo"
+      },
+      {
+        "group": 98,
+        "name": "Paul Owens",
+        "gold": "Paris",
+        "counterfactual": "Hanoi",
+        "base": "Portland, Oregon",
+        "window": "Lima Lima Lima",
+        "swap": "Cairo Cairo Cairo",
+        "correct": "Cairo Cairo Cairo"
+      },
+      {
+        "group": 99,
+        "name": "Bob Lopez",
+        "gold": "Oslo",
+        "counterfactual": "Berlin",
+        "base": "Orlando\n\nAnswer",
+        "window": "Lima Lima Lima",
+        "swap": "Cairo Cairo Cairo",
+        "correct": "Cairo Cairo Cairo"
+      },
+      {
+        "group": 100,
+        "name": "Kate Garcia",
+        "gold": "Cairo",
+        "counterfactual": "Athens",
+        "base": "San Diego",
+        "window": "Lima Lima Lima",
+        "swap": "Cairo Cairo Cairo",
+        "correct": "Cairo Cairo Cairo"
+      },
+      {
+        "group": 101,
+        "name": "David Hayes",
+        "gold": "Quito",
+        "counterfactual": "Oslo",
+        "base": "Portland\n\nAnswer",
+        "window": "Lima Lima Lima",
+        "swap": "Cairo Cairo Cairo",
+        "correct": "Cairo Cairo Cairo"
+      },
+      {
+        "group": 102,
+        "name": "Noah Park",
+        "gold": "Delhi",
+        "counterfactual": "Cairo",
+        "base": "Noah Park lives",
+        "window": "Lima Madrid Lima",
+        "swap": "Cairo Cairo Cairo",
+        "correct": "Cairo Cairo Cairo"
+      },
+      {
+        "group": 103,
+        "name": "Olga Owens",
+        "gold": "Paris",
+        "counterfactual": "Seoul",
+        "base": "Atlanta\n\nAnswer",
+        "window": "Lima Lima Madrid",
+        "swap": "Cairo Cairo Cairo",
+        "correct": "Cairo Cairo Cairo"
+      },
+      {
+        "group": 104,
+        "name": "Noah Chen",
+        "gold": "Quito",
+        "counterfactual": "Cairo",
+        "base": "San Diego",
+        "window": "Lima Lima Lima",
+        "swap": "Cairo Cairo Cairo",
+        "correct": "Cairo Cairo Cairo"
+      },
+      {
+        "group": 105,
+        "name": "Carol Brooks",
+        "gold": "Dublin",
+        "counterfactual": "Oslo",
+        "base": "Atlanta\n\nAnswer",
+        "window": "Lima Madrid Lima",
+        "swap": "Cairo Cairo Cairo",
+        "correct": "Cairo Cairo Cairo"
+      },
+      {
+        "group": 106,
+        "name": "Kate Fischer",
+        "gold": "Oslo",
+        "counterfactual": "Seoul",
+        "base": "San Diego",
+        "window": "Lima Lima Lima",
+        "swap": "Cairo Cairo Cairo",
+        "correct": "Cairo Cairo Cairo"
+      },
+      {
+        "group": 107,
+        "name": "Alice Evans",
+        "gold": "Rome",
+        "counterfactual": "Berlin",
+        "base": "Alice Evans lives",
+        "window": "Lima Lima Madrid",
+        "swap": "Cairo Cairo Cairo",
+        "correct": "Cairo Cairo Cairo"
+      },
+      {
+        "group": 108,
+        "name": "Alice Evans",
+        "gold": "Tokyo",
+        "counterfactual": "Rome",
+        "base": "Alice Evans lives",
+        "window": "Lima Lima Madrid",
+        "swap": "Cairo Cairo Cairo",
+        "correct": "Cairo Cairo Cairo"
+      },
+      {
+        "group": 109,
+        "name": "Emma Chen",
+        "gold": "Hanoi",
+        "counterfactual": "Berlin",
+        "base": "San Francisco",
+        "window": "Lima Lima Lima",
+        "swap": "Cairo Cairo Cairo",
+        "correct": "Cairo Cairo Cairo"
+      },
+      {
+        "group": 110,
+        "name": "Alice Fischer",
+        "gold": "Hanoi",
+        "counterfactual": "Dublin",
+        "base": "Vienna\n\nAnswer",
+        "window": "Lima Lima Lima",
+        "swap": "Cairo Cairo Cairo",
+        "correct": "Cairo Cairo Cairo"
+      },
+      {
+        "group": 111,
+        "name": "Paul Diaz",
+        "gold": "Tokyo",
+        "counterfactual": "Hanoi",
+        "base": "San Diego",
+        "window": "Lima Lima Lima",
+        "swap": "Cairo Cairo Cairo",
+        "correct": "Cairo Cairo Cairo"
+      },
+      {
+        "group": 112,
+        "name": "Bob Chen",
+        "gold": "Berlin",
+        "counterfactual": "Lima",
+        "base": "San Jose",
+        "window": "Lima Lima Lima",
+        "swap": "Cairo Cairo Cairo",
+        "correct": "Cairo Cairo Cairo"
+      },
+      {
+        "group": 113,
+        "name": "Olga Jones",
+        "gold": "Paris",
+        "counterfactual": "Quito",
+        "base": "New York City",
+        "window": "Lima Lima Madrid",
+        "swap": "Cairo Cairo Cairo",
+        "correct": "Cairo Cairo Cairo"
+      },
+      {
+        "group": 114,
+        "name": "Paul Anders",
+        "gold": "Delhi",
+        "counterfactual": "Berlin",
+        "base": "Stockholm\n\nAnswer",
+        "window": "Lima Lima Lima",
+        "swap": "Cairo Cairo Cairo",
+        "correct": "Cairo Cairo Cairo"
+      },
+      {
+        "group": 115,
+        "name": "Leo Kim",
+        "gold": "Oslo",
+        "counterfactual": "Dublin",
+        "base": "Los Angeles",
+        "window": "Lima Lima Lima",
+        "swap": "Cairo Cairo Cairo",
+        "correct": "Cairo Cairo Cairo"
+      },
+      {
+        "group": 116,
+        "name": "Jack Brooks",
+        "gold": "Cairo",
+        "counterfactual": "Paris",
+        "base": "Houston\n\nAnswer",
+        "window": "Lima Lima Lima",
+        "swap": "Cairo Cairo Cairo",
+        "correct": "Cairo Cairo Cairo"
+      },
+      {
+        "group": 117,
+        "name": "Paul Lopez",
+        "gold": "Hanoi",
+        "counterfactual": "Seoul",
+        "base": "San Diego",
+        "window": "Lima Lima Lima",
+        "swap": "Cairo Cairo Cairo",
+        "correct": "Cairo Cairo Cairo"
+      },
+      {
+        "group": 118,
+        "name": "Mia Novak",
+        "gold": "Vienna",
+        "counterfactual": "Rome",
+        "base": "New York City",
+        "window": "Lima Lima Madrid",
+        "swap": "Cairo Cairo Cairo",
+        "correct": "Cairo Cairo Cairo"
+      },
+      {
+        "group": 119,
+        "name": "David Garcia",
+        "gold": "Vienna",
+        "counterfactual": "Lima",
+        "base": "San Diego",
+        "window": "Lima Lima Lima",
+        "swap": "Cairo Cairo Cairo",
+        "correct": "Cairo Cairo Cairo"
+      },
+      {
+        "group": 120,
+        "name": "Olga Anders",
+        "gold": "Lima",
+        "counterfactual": "Hanoi",
+        "base": "Stockholm\n\nAnswer",
+        "window": "Lima Lima Lima",
+        "swap": "Cairo Cairo Cairo",
+        "correct": "Cairo Cairo Cairo"
+      },
+      {
+        "group": 121,
+        "name": "Ivy Hayes",
+        "gold": "Quito",
+        "counterfactual": "Rome",
+        "base": "New York City",
+        "window": "Lima Madrid Lima",
+        "swap": "Cairo Cairo Cairo",
+        "correct": "Cairo Cairo Cairo"
+      },
+      {
+        "group": 122,
+        "name": "Leo Ito",
+        "gold": "Dublin",
+        "counterfactual": "Rome",
+        "base": "San Diego",
+        "window": "Oslo Madrid Lima",
+        "swap": "Cairo Cairo Cairo",
+        "correct": "Cairo Cairo Cairo"
+      },
+      {
+        "group": 123,
+        "name": "Ivy Brooks",
+        "gold": "Seoul",
+        "counterfactual": "Berlin",
+        "base": "New York City",
+        "window": "Lima Madrid Lima",
+        "swap": "Cairo Cairo Cairo",
+        "correct": "Cairo Cairo Cairo"
+      },
+      {
+        "group": 124,
+        "name": "Mia Jones",
+        "gold": "Quito",
+        "counterfactual": "Rome",
+        "base": "Portland\n\nAnswer",
+        "window": "Lima Lima Lima",
+        "swap": "Cairo Cairo Cairo",
+        "correct": "Cairo Cairo Cairo"
+      },
+      {
+        "group": 125,
+        "name": "Kate Anders",
+        "gold": "Seoul",
+        "counterfactual": "Berlin",
+        "base": "Stockholm\n\nAnswer",
+        "window": "Lima Lima Lima",
+        "swap": "Cairo Cairo Cairo",
+        "correct": "Cairo Cairo Cairo"
+      },
+      {
+        "group": 126,
+        "name": "Noah Garcia",
+        "gold": "Lagos",
+        "counterfactual": "Oslo",
+        "base": "Portland\n\nAnswer",
+        "window": "Lima Lima Lima",
+        "swap": "Cairo Cairo Cairo",
+        "correct": "Cairo Cairo Cairo"
+      },
+      {
+        "group": 127,
+        "name": "Frank Hayes",
+        "gold": "Athens",
+        "counterfactual": "Delhi",
+        "base": "Frank Hayes lives",
+        "window": "Lima Madrid Lima",
+        "swap": "Cairo Cairo Cairo",
+        "correct": "Cairo Cairo Cairo"
+      }
+    ]
+  }
+}

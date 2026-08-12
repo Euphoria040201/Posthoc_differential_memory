@@ -9,3 +9,15 @@ Found the latest cached dataset configuration 'default' at /home/mingze/.cache/h
 [mem64_stable_preo_s0] train=935 val=187
 [mem64_stable_preo_s0] optim: 96 tensors @ lr=0.0002; 12 prefix @ lr=0.001; 0 gate @ lr=0.0002
 [mem64_stable_preo_s0] step 20/200 (micro 320) loss 0.9625 6.99s/update
+[mem64_stable_preo_s0] step 40/200 (micro 640) loss 2.7495 6.97s/update
+[mem64_stable_preo_s0] saved ckpt_step50 (108 tensors)
+[mem64_stable_preo_s0] step 60/200 (micro 960) loss 3.0054 6.90s/update
+[mem64_stable_preo_s0] step 80/200 (micro 1280) loss 2.9277 6.90s/update
+[mem64_stable_preo_s0] step 100/200 (micro 1600) loss 1.5748 7.03s/update
+[mem64_stable_preo_s0] saved ckpt_step100 (108 tensors)
+[mem64_stable_preo_s0] step 120/200 (micro 1920) loss 2.2689 7.55s/update
+[mem64_stable_preo_s0] step 140/200 (micro 2240) loss 0.3959 7.94s/update
+[mem64_stable_preo_s0] saved ckpt_step150 (108 tensors)
+[mem64_stable_preo_s0] step 160/200 (micro 2560) loss 3.5307 8.21s/update
+[mem64_stable_preo_s0] step 180/200 (micro 2880) loss 1.6463 8.43s/update
+[mem64_stable_preo_s0] step 200/200 (micro 3200) loss 4.1977 8.62s/update

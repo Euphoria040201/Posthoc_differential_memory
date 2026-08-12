@@ -1,0 +1,7 @@
+[gpu5] memarms_mem64preo_s1
+[gpu6] hotpot_dev1000_mem64preo_s1
+[gpu6] hotpotFULL_mem64preo_s1_shard0
+[skip] hotpotFULL_mem64preo_s1_shard1 (result exists)
+[skip] hotpotFULL_mem64preo_s2_shard0 (result exists)
+[skip] hotpotFULL_mem64preo_s2_shard1 (result exists)
+queue complete: /tmp/q4.tsv

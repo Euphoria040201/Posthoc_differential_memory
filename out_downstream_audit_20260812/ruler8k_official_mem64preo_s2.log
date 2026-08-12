@@ -1,0 +1,37 @@
+Loading weights:   0%|          | 0/398 [00:00<?, ?it/s]Loading weights: 100%|██████████| 398/398 [00:00<00:00, 8738.18it/s]
+[ours] loaded 324 steer tensors; prefix_write=True; cfg=PrefixSteerConfig(num_prefix_tokens=64, sliding_window_size=256, mem_num_heads=8, mem_head_dim=64, steer_mode='deltamem', normal_attends_prefix=True, prefix_sees_query=True, prefix_init_std=0.7, prefix_init_dist='normal', prefix_write=True, read_prefix_only=False, memory_mode='dynamic', write_ctx_only=True, prefix_write_layout='global', prefix_write_overlap_tokens=0, pool_reads=True, pool_gate=False, pool_gate_input='rm', pool_gate_max=2.0, pool_gate_bias=0.0, steer_layers=(), prefix_layers=(), steer_gain=0.1, share_qkv=False, memory_value_source='trainable', delta_heads='qkvo', delta_rank=0, read_proj_dim=0, output_fusion='fixed', o_fusion_position='pre_o', output_fusion_eps=1e-06, output_fusion_scale_max=10.0, fusion_lambda_init=0.1, fusion_lambda_max=1.0, fusion_ema_momentum=0.99, history_pool_mode='none', hybrid_read_mode='none', hybrid_prefix_gate_mode='fixed', hybrid_prefix_gate_init=0.1)
+[ruler] loaded 1300 OFFICIAL samples from /work/mingze/ruler_official_data_8192/ruler_data
+[ruler-8192_official] 325 samples over 13 tasks
+  20/325  ours=0.930
+  40/325  ours=0.932
+  60/325  ours=0.938
+  80/325  ours=0.954
+  100/325  ours=0.963
+  120/325  ours=0.969
+  140/325  ours=0.974
+  160/325  ours=0.977
+  180/325  ours=0.977
+  200/325  ours=0.979
+  220/325  ours=0.981
+  240/325  ours=0.982
+  260/325  ours=0.968
+  280/325  ours=0.953
+  300/325  ours=0.913
+  320/325  ours=0.918
+
+=== RULER-8192_official (recall, mean over tasks) ===
+            task     ours
+             cwe    0.932
+             fwe    0.920
+ niah_multikey_1    1.000
+ niah_multikey_2    1.000
+ niah_multikey_3    1.000
+ niah_multiquery    1.000
+ niah_multivalue    0.980
+   niah_single_1    1.000
+   niah_single_2    1.000
+   niah_single_3    1.000
+            qa_1    0.760
+            qa_2    0.360
+              vt    1.000
+         OVERALL    0.919

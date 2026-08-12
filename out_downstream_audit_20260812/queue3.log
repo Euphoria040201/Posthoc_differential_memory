@@ -1,0 +1,5 @@
+[gpu4] hotpot_dev1000_mem64preo_s1
+[gpu4] FAILED hotpot_dev1000_mem64preo_s1 rc=1 — see /work/mingze/Posthoc_differential_memory/out_downstream_audit_20260812/hotpot_dev1000_mem64preo_s1.log
+[gpu4] memarms_mem64preo_s1
+[gpu4] FAILED memarms_mem64preo_s1 rc=1 — see /work/mingze/Posthoc_differential_memory/out_downstream_audit_20260812/memarms_mem64preo_s1.log
+queue complete: /tmp/q3.tsv

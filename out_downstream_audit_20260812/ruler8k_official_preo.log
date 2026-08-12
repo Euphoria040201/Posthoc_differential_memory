@@ -1,37 +1,37 @@
-Loading weights:   0%|          | 0/398 [00:00<?, ?it/s]Loading weights: 100%|██████████| 398/398 [00:00<00:00, 10299.95it/s]
+Loading weights:   0%|          | 0/398 [00:00<?, ?it/s]Loading weights: 100%|██████████| 398/398 [00:00<00:00, 10676.08it/s]
 [ours] loaded 48 steer tensors; prefix_write=False; cfg=PrefixSteerConfig(num_prefix_tokens=0, sliding_window_size=256, mem_num_heads=1, mem_head_dim=128, steer_mode='deltamem', normal_attends_prefix=True, prefix_sees_query=True, prefix_init_std=0.7, prefix_init_dist='normal', prefix_write=False, read_prefix_only=False, memory_mode='dynamic', write_ctx_only=False, prefix_write_layout='global', prefix_write_overlap_tokens=0, pool_reads=False, pool_gate=False, pool_gate_input='rm', pool_gate_max=2.0, pool_gate_bias=0.0, steer_layers=(0, 3, 6, 9, 12, 15, 18, 21, 24, 27, 30, 33), prefix_layers=(), steer_gain=0.1, share_qkv=False, memory_value_source='main_v', delta_heads='o', delta_rank=0, read_proj_dim=0, output_fusion='fixed', o_fusion_position='pre_o', output_fusion_eps=1e-06, output_fusion_scale_max=10.0, fusion_lambda_init=0.1, fusion_lambda_max=1.0, fusion_ema_momentum=0.99, history_pool_mode='none', hybrid_read_mode='none', hybrid_prefix_gate_mode='fixed', hybrid_prefix_gate_init=0.1)
-[ruler] loaded 1300 OFFICIAL samples from /work/mingze/ruler_official_data/ruler_data
-[ruler-32768_official] 325 samples over 13 tasks
-  20/325  base=0.850 ours=0.825
-  40/325  base=0.880 ours=0.845
-  60/325  base=0.898 ours=0.874
-  80/325  base=0.923 ours=0.906
-  100/325  base=0.939 ours=0.925
-  120/325  base=0.949 ours=0.937
-  140/325  base=0.954 ours=0.943
-  160/325  base=0.960 ours=0.948
-  180/325  base=0.965 ours=0.953
-  200/325  base=0.968 ours=0.957
-  220/325  base=0.971 ours=0.961
-  240/325  base=0.973 ours=0.964
-  260/325  base=0.960 ours=0.959
-  280/325  base=0.934 ours=0.941
-  300/325  base=0.909 ours=0.908
-  320/325  base=0.914 ours=0.914
+[ruler] loaded 1300 OFFICIAL samples from /work/mingze/ruler_official_data_8192/ruler_data
+[ruler-8192_official] 325 samples over 13 tasks
+  20/325  base=0.975 ours=0.970
+  40/325  base=0.966 ours=0.980
+  60/325  base=0.972 ours=0.987
+  80/325  base=0.979 ours=0.990
+  100/325  base=0.983 ours=0.992
+  120/325  base=0.986 ours=0.993
+  140/325  base=0.988 ours=0.994
+  160/325  base=0.989 ours=0.993
+  180/325  base=0.991 ours=0.994
+  200/325  base=0.992 ours=0.995
+  220/325  base=0.992 ours=0.995
+  240/325  base=0.993 ours=0.996
+  260/325  base=0.978 ours=0.984
+  280/325  base=0.955 ours=0.950
+  300/325  base=0.931 ours=0.916
+  320/325  base=0.935 ours=0.922
 
-=== RULER-32768_official (recall, mean over tasks) ===
+=== RULER-8192_official (recall, mean over tasks) ===
             task     base     ours
-             cwe    0.848    0.832
-             fwe    0.907    0.867
+             cwe    0.972    0.968
+             fwe    0.960    1.000
  niah_multikey_1    1.000    1.000
  niah_multikey_2    1.000    1.000
  niah_multikey_3    1.000    1.000
- niah_multiquery    0.990    0.980
- niah_multivalue    1.000    0.980
+ niah_multiquery    1.000    1.000
+ niah_multivalue    1.000    0.990
    niah_single_1    1.000    1.000
    niah_single_2    1.000    1.000
    niah_single_3    1.000    1.000
-            qa_1    0.680    0.800
-            qa_2    0.480    0.440
+            qa_1    0.680    0.600
+            qa_2    0.560    0.440
               vt    1.000    1.000
-         OVERALL    0.916    0.915
+         OVERALL    0.936    0.923

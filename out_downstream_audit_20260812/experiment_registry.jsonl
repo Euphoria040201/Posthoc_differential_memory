@@ -1,28 +1,99 @@
-{"tag": "a0_preo_graph", "file": "out_downstream_audit_20260812/a0_preo_graph.json", "size_bytes": 2954}
-{"tag": "a0b_frozen_frozen", "file": "out_downstream_audit_20260812/a0b_frozen_frozen.json", "size_bytes": 1067}
-{"tag": "a1_numerics_numerics", "file": "out_downstream_audit_20260812/a1_numerics_numerics.json", "size_bytes": 3968}
-{"tag": "a2_posto_graph", "file": "out_downstream_audit_20260812/a2_posto_graph.json", "size_bytes": 3024}
-{"tag": "a2_posto_isolation", "file": "out_downstream_audit_20260812/a2_posto_isolation.json", "size_bytes": 734}
-{"tag": "a2_posto_parity", "file": "out_downstream_audit_20260812/a2_posto_parity.json", "size_bytes": 4092}
-{"tag": "hotpotFINAL_untouched_preo_s0", "file": "out_downstream_audit_20260812/hotpotFINAL_untouched_preo_s0.json", "size_bytes": 551804}
-{"tag": "hotpotFULL_preo_s0_merged", "file": "out_downstream_audit_20260812/hotpotFULL_preo_s0_merged.json", "size_bytes": 878680}
-{"tag": "hotpotFULL_preo_s0_shard0", "file": "out_downstream_audit_20260812/hotpotFULL_preo_s0_shard0.json", "size_bytes": 290906, "res": {"base": {"f1": 1374.694979573627, "em": 1066.0, "n": 2469}, "ours": {"f1": 1523.8755096584105, "em": 1215.0, "n": 2469}}}
-{"tag": "hotpotFULL_preo_s0_shard1", "file": "out_downstream_audit_20260812/hotpotFULL_preo_s0_shard1.json", "size_bytes": 291380, "res": {"base": {"f1": 1418.9028402212423, "em": 1068.0, "n": 2468}, "ours": {"f1": 1525.2088235780975, "em": 1187.0, "n": 2468}}}
-{"tag": "hotpotFULL_preo_s0_shard2", "file": "out_downstream_audit_20260812/hotpotFULL_preo_s0_shard2.json", "size_bytes": 296847, "res": {"base": {"f1": 1387.8521471932138, "em": 1064.0, "n": 2468}, "ours": {"f1": 1548.823077010395, "em": 1230.0, "n": 2468}}}
-{"tag": "hotpot_dev1000_mem64preo_step100", "file": "out_downstream_audit_20260812/hotpot_dev1000_mem64preo_step100.json", "size_bytes": 166454, "res": {"base": {"f1": 565.9092996179666, "em": 434.0, "n": 1000}, "ours": {"f1": 666.6703602338835, "em": 505.0, "n": 1000}, "ours_window_only": {"f1": 659.8164451347965, "em": 498.0, "n": 1000}}}
-{"tag": "hotpot_dev1000_posto_s0", "file": "out_downstream_audit_20260812/hotpot_dev1000_posto_s0.json", "size_bytes": 117818, "res": {"base": {"f1": 565.9092996179666, "em": 434.0, "n": 1000}, "ours": {"f1": 590.198246818541, "em": 469.0, "n": 1000}}}
-{"tag": "hotpot_dev1000_preo_s0", "file": "out_downstream_audit_20260812/hotpot_dev1000_preo_s0.json", "size_bytes": 119644, "res": {"base": {"f1": 565.9092996179666, "em": 434.0, "n": 1000}, "ours": {"f1": 615.5933586587145, "em": 486.0, "n": 1000}}}
-{"tag": "hotpot_dev1000_preo_s1", "file": "out_downstream_audit_20260812/hotpot_dev1000_preo_s1.json", "size_bytes": 119718, "res": {"base": {"f1": 565.9092996179666, "em": 434.0, "n": 1000}, "ours": {"f1": 625.6368537601045, "em": 487.0, "n": 1000}}}
-{"tag": "hotpot_dev200_posto_s0", "file": "out_downstream_audit_20260812/hotpot_dev200_posto_s0.json", "size_bytes": 30642, "res": {"base": {"f1": 108.77609057609058, "em": 83.0, "n": 200}, "ours": {"f1": 109.78882783882784, "em": 87.0, "n": 200}, "ours_window_only": {"f1": 109.78882783882784, "em": 87.0, "n": 200}}}
-{"tag": "hotpot_dev200_preo_s0", "file": "out_downstream_audit_20260812/hotpot_dev200_preo_s0.json", "size_bytes": 31124, "res": {"base": {"f1": 108.77609057609058, "em": 83.0, "n": 200}, "ours": {"f1": 114.40311355311354, "em": 91.0, "n": 200}, "ours_window_only": {"f1": 114.40311355311354, "em": 91.0, "n": 200}}}
-{"tag": "locomo_preo_s0", "file": "out_downstream_audit_20260812/locomo_preo_s0.json", "size_bytes": 616420, "overall_by_cat": {"base": 0.2105, "ours": 0.2379}}
-{"tag": "locomo_preo_s0_clustered", "file": "out_downstream_audit_20260812/locomo_preo_s0_clustered.json", "size_bytes": 795166}
-{"tag": "mem64_noctx_posto_s0", "file": "out_downstream_audit_20260812/mem64_noctx_posto_s0.json", "size_bytes": 1569, "final": {"base": {"F1": 0.0791, "EM": 0.0}, "method": {"F1": 0.0856, "EM": 0.0856}, "method_nomem": {"F1": 0.0791, "EM": 0.0}}}
-{"tag": "mem64_noctx_preo_s0", "file": "out_downstream_audit_20260812/mem64_noctx_preo_s0.json", "size_bytes": 1560, "final": {"base": {"F1": 0.0791, "EM": 0.0}, "method": {"F1": 0.034, "EM": 0.0}, "method_nomem": {"F1": 0.0791, "EM": 0.0}}}
-{"tag": "memarms_posto_FINAL", "file": "out_downstream_audit_20260812/memarms_posto_FINAL.json", "size_bytes": 41070, "means": {"base_ctx": 0.5438749390705913, "ours_ctx": 0.0, "base_noctx": 0.06, "ours_noctx": 0.0, "wo_noctx": 0.19358508871589367, "swap_noctx": 0.0, "zero_noctx": 0.20576499651243896}, "paired": {"ours_noctx-base_noctx": -0.06, "ours_noctx-swap_noctx": 0.0, "ours_noctx-zero_noctx": -0.20576499651243896, "ours_noctx-wo_noctx": -0.19358508871589367, "ours_ctx-base_ctx": -0.5438749390705913}}
-{"tag": "memarms_posto_step100", "file": "out_downstream_audit_20260812/memarms_posto_step100.json", "size_bytes": 42697, "means": {"base_ctx": 0.5438749390705913, "ours_ctx": 0.6302087814146637, "base_noctx": 0.06, "ours_noctx": 0.1908460140650543, "wo_noctx": 0.19156961867681682, "swap_noctx": 0.19424673425989217, "zero_noctx": 0.18898748536702256}, "paired": {"ours_noctx-base_noctx": 0.1308460140650543, "ours_noctx-swap_noctx": -0.003400720194837841, "ours_noctx-zero_noctx": 0.0018585286980317406, "ours_noctx-wo_noctx": -0.0007236046117625066, "ours_ctx-base_ctx": 0.08633384234407253}}
-{"tag": "memarms_preo_FINAL", "file": "out_downstream_audit_20260812/memarms_preo_FINAL.json", "size_bytes": 41486, "means": {"base_ctx": 0.5438749390705913, "ours_ctx": 0.0034583333333333332, "base_noctx": 0.06, "ours_noctx": 0.0027674242424242422, "wo_noctx": 0.11758271774901966, "swap_noctx": 0.017568362193362195, "zero_noctx": 0.1485614913981787}, "paired": {"ours_noctx-base_noctx": -0.05723257575757576, "ours_noctx-swap_noctx": -0.01480093795093795, "ours_noctx-zero_noctx": -0.14579406715575446, "ours_noctx-wo_noctx": -0.11481529350659542, "ours_ctx-base_ctx": -0.5404166057372579}}
-{"tag": "memarms_preo_step100", "file": "out_downstream_audit_20260812/memarms_preo_step100.json", "size_bytes": 42985, "means": {"base_ctx": 0.5438749390705913, "ours_ctx": 0.6643199880465327, "base_noctx": 0.06, "ours_noctx": 0.1706527151039535, "wo_noctx": 0.1935284623638819, "swap_noctx": 0.16811456498674926, "zero_noctx": 0.1782264259500034}, "paired": {"ours_noctx-base_noctx": 0.1106527151039535, "ours_noctx-swap_noctx": 0.002538150117204242, "ours_noctx-zero_noctx": -0.007573710846049908, "ours_noctx-wo_noctx": -0.022875747259928428, "ours_ctx-base_ctx": 0.12044504897594142}}
-{"tag": "ruler16k_preo", "file": "out_downstream_audit_20260812/ruler16k_preo.json", "size_bytes": 104045, "overall": {"base": 0.9438782051282052, "ours": 0.9360897435897435}}
-{"tag": "ruler8k_base", "file": "out_downstream_audit_20260812/ruler8k_base.json", "size_bytes": 72979, "overall": {"base": 0.9288141025641026}}
-{"tag": "ruler8k_preo", "file": "out_downstream_audit_20260812/ruler8k_preo.json", "size_bytes": 68851, "overall": {"ours": 0.9254487179487181}}
+{"tag": "a0_preo_graph", "size": 2954}
+{"tag": "a0b_frozen_frozen", "size": 1067}
+{"tag": "a1_numerics_numerics", "size": 3968}
+{"tag": "a2_posto_graph", "size": 3024}
+{"tag": "a2_posto_isolation", "size": 734}
+{"tag": "a2_posto_parity", "size": 4092}
+{"tag": "capacity_f1_s1_long", "size": 36398, "final": {"base": 0.0078, "window": 0.0469, "swap": 0.0, "correct": 0.9844}}
+{"tag": "capacity_f1_s2_long", "size": 38153, "final": {"base": 0.0, "window": 0.0469, "swap": 0.0547, "correct": 0.0547}}
+{"tag": "capacity_f1_s3_long", "size": 37794, "final": {"base": 0.0156, "window": 0.0391, "swap": 0.0859, "correct": 0.2578}}
+{"tag": "capacity_f1_s4_long", "size": 37993, "final": {"base": 0.0, "window": 0.0703, "swap": 0.0625, "correct": 0.0625}}
+{"tag": "capacity_f1_seed2", "size": 38913, "final": {"base": 0.0, "window": 0.0625, "swap": 0.0547, "correct": 0.0547}}
+{"tag": "capacity_f1_seed3", "size": 36003, "final": {"base": 0.0156, "window": 0.0859, "swap": 0.0, "correct": 0.1016}}
+{"tag": "capacity_f2_P128", "size": 36663, "final": {"base": 0.0078, "window": 0.0781, "swap": 0.0781, "correct": 0.0781}}
+{"tag": "capacity_f2_P128_long", "size": 38018, "final": {"base": 0.0078, "window": 0.0781, "swap": 0.0781, "correct": 0.0781}}
+{"tag": "capacity_f2_P256", "size": 36875, "final": {"base": 0.0078, "window": 0.0781, "swap": 0.0781, "correct": 0.0781}}
+{"tag": "capacity_f2_P256_long", "size": 38080, "final": {"base": 0.0078, "window": 0.0781, "swap": 0.0, "correct": 0.0}}
+{"tag": "capacity_f2_P64_long", "size": 36909, "final": {"base": 0.0078, "window": 0.0547, "swap": 0.0625, "correct": 0.0625}}
+{"tag": "capacity_f2_s2_long", "size": 37841, "final": {"base": 0.0, "window": 0.0391, "swap": 0.1094, "correct": 0.1094}}
+{"tag": "capacity_f2_s3_long", "size": 37770, "final": {"base": 0.0156, "window": 0.125, "swap": 0.0703, "correct": 0.0625}}
+{"tag": "capacity_f3_s1_long", "size": 43140, "final": {"base": 0.0078, "window": 0.0625, "swap": 0.0, "correct": 0.0}}
+{"tag": "capacity_f3_s2_long", "size": 38654, "final": {"base": 0.0078, "window": 0.0469, "swap": 0.0391, "correct": 0.0391}}
+{"tag": "capacity_f4_P128", "size": 36971, "final": {"base": 0.0, "window": 0.0781, "swap": 0.1016, "correct": 0.1016}}
+{"tag": "capacity_f4_P256", "size": 35831, "final": {"base": 0.0, "window": 0.0469, "swap": 0.0391, "correct": 0.0391}}
+{"tag": "capacity_f4_seed2", "size": 36397, "final": {"base": 0.0, "window": 0.0469, "swap": 0.0703, "correct": 0.0703}}
+{"tag": "capacity_facts1", "size": 37498, "final": {"base": 0.0078, "window": 0.0469, "swap": 0.0469, "correct": 0.2422}}
+{"tag": "capacity_facts16", "size": 36315, "final": {"base": 0.0, "window": 0.0859, "swap": 0.0859, "correct": 0.0859}}
+{"tag": "capacity_facts2", "size": 36754, "final": {"base": 0.0078, "window": 0.0469, "swap": 0.1719, "correct": 0.1797}}
+{"tag": "capacity_facts4", "size": 35752, "final": {"base": 0.0, "window": 0.0703, "swap": 0.0469, "correct": 0.0469}}
+{"tag": "capacity_facts8", "size": 36851, "final": {"base": 0.0078, "window": 0.0859, "swap": 0.0859, "correct": 0.0859}}
+{"tag": "cost_mem64preo_step100", "size": 6250}
+{"tag": "hotpotFINAL_untouched_mem64preo", "size": 568688}
+{"tag": "hotpotFINAL_untouched_mem64preo_s1", "size": 578004}
+{"tag": "hotpotFINAL_untouched_mem64preo_s2", "size": 555600}
+{"tag": "hotpotFINAL_untouched_preo_s0", "size": 551804}
+{"tag": "hotpotFINAL_untouched_preo_s1", "size": 551985}
+{"tag": "hotpotFINAL_untouched_preo_s2", "size": 549870}
+{"tag": "hotpotFULL_mem64preo_merged", "size": 906134}
+{"tag": "hotpotFULL_mem64preo_s1_shard0", "size": 463495, "res": {"base": {"f1": 0.5661, "em": 0.428, "n": 3703}, "ours": {"f1": 0.6333, "em": 0.4669, "n": 3703}}}
+{"tag": "hotpotFULL_mem64preo_s1_shard1", "size": 461228, "res": {"base": {"f1": 0.5633, "em": 0.4357, "n": 3702}, "ours": {"f1": 0.6346, "em": 0.48, "n": 3702}}}
+{"tag": "hotpotFULL_mem64preo_s2_shard0", "size": 442738, "res": {"base": {"f1": 0.5661, "em": 0.428, "n": 3703}, "ours": {"f1": 0.6707, "em": 0.5312, "n": 3703}}}
+{"tag": "hotpotFULL_mem64preo_s2_shard1", "size": 442379, "res": {"base": {"f1": 0.5633, "em": 0.4357, "n": 3702}, "ours": {"f1": 0.6704, "em": 0.5359, "n": 3702}}}
+{"tag": "hotpotFULL_mem64preo_shard0", "size": 452558, "res": {"base": {"f1": 0.5661, "em": 0.428, "n": 3703}, "ours": {"f1": 0.6669, "em": 0.5077, "n": 3703}}}
+{"tag": "hotpotFULL_mem64preo_shard1", "size": 453873, "res": {"base": {"f1": 0.5633, "em": 0.4357, "n": 3702}, "ours": {"f1": 0.6677, "em": 0.5149, "n": 3702}}}
+{"tag": "hotpotFULL_preo_s0_merged", "size": 878680}
+{"tag": "hotpotFULL_preo_s0_shard0", "size": 290906, "res": {"base": {"f1": 0.5568, "em": 0.4318, "n": 2469}, "ours": {"f1": 0.6172, "em": 0.4921, "n": 2469}}}
+{"tag": "hotpotFULL_preo_s0_shard1", "size": 291380, "res": {"base": {"f1": 0.5749, "em": 0.4327, "n": 2468}, "ours": {"f1": 0.618, "em": 0.481, "n": 2468}}}
+{"tag": "hotpotFULL_preo_s0_shard2", "size": 296847, "res": {"base": {"f1": 0.5623, "em": 0.4311, "n": 2468}, "ours": {"f1": 0.6276, "em": 0.4984, "n": 2468}}}
+{"tag": "hotpotFULL_preo_s1", "size": 880539, "res": {"base": {"f1": 0.5647, "em": 0.4319, "n": 7405}, "ours": {"f1": 0.6259, "em": 0.4935, "n": 7405}}}
+{"tag": "hotpotFULL_preo_s2", "size": 876560, "res": {"base": {"f1": 0.5647, "em": 0.4319, "n": 7405}, "ours": {"f1": 0.609, "em": 0.4795, "n": 7405}}}
+{"tag": "hotpot_dev1000_ctxmask", "size": 167016, "res": {"base": {"f1": 0.5659, "em": 0.434, "n": 1000}, "ours": {"f1": 0.2486, "em": 0.189, "n": 1000}, "ours_window_only": {"f1": 0.6429, "em": 0.489, "n": 1000}}}
+{"tag": "hotpot_dev1000_mem64preo_s1", "size": 126309, "res": {"base": {"f1": 0.5659, "em": 0.434, "n": 1000}, "ours": {"f1": 0.6372, "em": 0.475, "n": 1000}}}
+{"tag": "hotpot_dev1000_mem64preo_s2", "size": 119727, "res": {"base": {"f1": 0.5659, "em": 0.434, "n": 1000}, "ours": {"f1": 0.6841, "em": 0.549, "n": 1000}}}
+{"tag": "hotpot_dev1000_mem64preo_step100", "size": 166454, "res": {"base": {"f1": 0.5659, "em": 0.434, "n": 1000}, "ours": {"f1": 0.6667, "em": 0.505, "n": 1000}, "ours_window_only": {"f1": 0.6598, "em": 0.498, "n": 1000}}}
+{"tag": "hotpot_dev1000_posto_s0", "size": 117818, "res": {"base": {"f1": 0.5659, "em": 0.434, "n": 1000}, "ours": {"f1": 0.5902, "em": 0.469, "n": 1000}}}
+{"tag": "hotpot_dev1000_preo_s0", "size": 119644, "res": {"base": {"f1": 0.5659, "em": 0.434, "n": 1000}, "ours": {"f1": 0.6156, "em": 0.486, "n": 1000}}}
+{"tag": "hotpot_dev1000_preo_s1", "size": 119718, "res": {"base": {"f1": 0.5659, "em": 0.434, "n": 1000}, "ours": {"f1": 0.6256, "em": 0.487, "n": 1000}}}
+{"tag": "hotpot_dev200_posto_s0", "size": 30642, "res": {"base": {"f1": 0.5439, "em": 0.415, "n": 200}, "ours": {"f1": 0.5489, "em": 0.435, "n": 200}, "ours_window_only": {"f1": 0.5489, "em": 0.435, "n": 200}}}
+{"tag": "hotpot_dev200_preo_s0", "size": 31124, "res": {"base": {"f1": 0.5439, "em": 0.415, "n": 200}, "ours": {"f1": 0.572, "em": 0.455, "n": 200}, "ours_window_only": {"f1": 0.572, "em": 0.455, "n": 200}}}
+{"tag": "locomo_mem64preo_clustered", "size": 940174}
+{"tag": "locomo_mem64preo_s1", "size": 848139, "by_cat_overall": {"base": 0.2105, "ours": 0.2759, "ours_window_only": 0.2903}}
+{"tag": "locomo_mem64preo_s2", "size": 726613, "by_cat_overall": {"base": 0.2105, "ours": 0.2893, "ours_window_only": 0.3006}}
+{"tag": "locomo_mem64preo_step100", "size": 761676, "by_cat_overall": {"base": 0.2105, "ours": 0.3179, "ours_window_only": 0.3127}}
+{"tag": "locomo_preo_s0", "size": 616420, "by_cat_overall": {"base": 0.2105, "ours": 0.2379}}
+{"tag": "locomo_preo_s0_clustered", "size": 795166}
+{"tag": "locomo_preo_s1", "size": 627450, "by_cat_overall": {"base": 0.2105, "ours": 0.2398}}
+{"tag": "locomo_preo_s1_clustered", "size": 806195}
+{"tag": "locomo_preo_s2", "size": 619693, "by_cat_overall": {"base": 0.2105, "ours": 0.2406}}
+{"tag": "locomo_preo_s2_clustered", "size": 798439}
+{"tag": "mem64_ctxmask_posto_s0", "size": 1834, "final": {}}
+{"tag": "mem64_noctx_posto_s0", "size": 1569, "final": {}}
+{"tag": "mem64_noctx_preo_s0", "size": 1560, "final": {}}
+{"tag": "mem64_noctx_preo_s1", "size": 1326, "final": {}}
+{"tag": "mem64_noctx_preo_s2", "size": 1326, "final": {}}
+{"tag": "mem64_stable_preo_s0", "size": 1357, "final": {}}
+{"tag": "mem64_swapc_b1_s0", "size": 1324, "final": {}}
+{"tag": "mem64_swapc_b5_s0", "size": 1324, "final": {}}
+{"tag": "memarms_mem64preo_s1", "size": 63542, "means": {"base_ctx": 0.5886, "ours_ctx": 0.5996, "base_noctx": 0.0726, "ours_noctx": 0.129, "wo_noctx": 0.1544, "swap_noctx": 0.1724, "zero_noctx": 0.1971}, "paired": {"ours_noctx-base_noctx": 0.0564, "ours_noctx-swap_noctx": -0.0433, "ours_noctx-zero_noctx": -0.0681, "ours_noctx-wo_noctx": -0.0253, "ours_ctx-base_ctx": 0.011}}
+{"tag": "memarms_mem64preo_s2", "size": 62563, "means": {"base_ctx": 0.5886, "ours_ctx": 0.6824, "base_noctx": 0.0726, "ours_noctx": 0.1611, "wo_noctx": 0.1769, "swap_noctx": 0.1726, "zero_noctx": 0.1965}, "paired": {"ours_noctx-base_noctx": 0.0885, "ours_noctx-swap_noctx": -0.0114, "ours_noctx-zero_noctx": -0.0354, "ours_noctx-wo_noctx": -0.0158, "ours_ctx-base_ctx": 0.0939}}
+{"tag": "memarms_posto_FINAL", "size": 41070, "means": {"base_ctx": 0.5439, "ours_ctx": 0.0, "base_noctx": 0.06, "ours_noctx": 0.0, "wo_noctx": 0.1936, "swap_noctx": 0.0, "zero_noctx": 0.2058}, "paired": {"ours_noctx-base_noctx": -0.06, "ours_noctx-swap_noctx": 0.0, "ours_noctx-zero_noctx": -0.2058, "ours_noctx-wo_noctx": -0.1936, "ours_ctx-base_ctx": -0.5439}}
+{"tag": "memarms_posto_step100", "size": 42697, "means": {"base_ctx": 0.5439, "ours_ctx": 0.6302, "base_noctx": 0.06, "ours_noctx": 0.1908, "wo_noctx": 0.1916, "swap_noctx": 0.1942, "zero_noctx": 0.189}, "paired": {"ours_noctx-base_noctx": 0.1308, "ours_noctx-swap_noctx": -0.0034, "ours_noctx-zero_noctx": 0.0019, "ours_noctx-wo_noctx": -0.0007, "ours_ctx-base_ctx": 0.0863}}
+{"tag": "memarms_posto_step100_n600", "size": 126539, "means": {"base_ctx": 0.5471, "ours_ctx": 0.6276, "base_noctx": 0.0593, "ours_noctx": 0.1989, "wo_noctx": 0.2135, "swap_noctx": 0.1961, "zero_noctx": 0.2096}, "paired": {"ours_noctx-base_noctx": 0.1396, "ours_noctx-swap_noctx": 0.0027, "ours_noctx-zero_noctx": -0.0108, "ours_noctx-wo_noctx": -0.0147, "ours_ctx-base_ctx": 0.0805}}
+{"tag": "memarms_preo_FINAL", "size": 41486, "means": {"base_ctx": 0.5439, "ours_ctx": 0.0035, "base_noctx": 0.06, "ours_noctx": 0.0028, "wo_noctx": 0.1176, "swap_noctx": 0.0176, "zero_noctx": 0.1486}, "paired": {"ours_noctx-base_noctx": -0.0572, "ours_noctx-swap_noctx": -0.0148, "ours_noctx-zero_noctx": -0.1458, "ours_noctx-wo_noctx": -0.1148, "ours_ctx-base_ctx": -0.5404}}
+{"tag": "memarms_preo_step100", "size": 42985, "means": {"base_ctx": 0.5439, "ours_ctx": 0.6643, "base_noctx": 0.06, "ours_noctx": 0.1707, "wo_noctx": 0.1935, "swap_noctx": 0.1681, "zero_noctx": 0.1782}, "paired": {"ours_noctx-base_noctx": 0.1107, "ours_noctx-swap_noctx": 0.0025, "ours_noctx-zero_noctx": -0.0076, "ours_noctx-wo_noctx": -0.0229, "ours_ctx-base_ctx": 0.1204}}
+{"tag": "memarms_preo_step100_n600", "size": 127554, "means": {"base_ctx": 0.5471, "ours_ctx": 0.6571, "base_noctx": 0.0593, "ours_noctx": 0.2022, "wo_noctx": 0.1968, "swap_noctx": 0.2015, "zero_noctx": 0.2134}, "paired": {"ours_noctx-base_noctx": 0.1429, "ours_noctx-swap_noctx": 0.0007, "ours_noctx-zero_noctx": -0.0111, "ours_noctx-wo_noctx": 0.0055, "ours_ctx-base_ctx": 0.1099}}
+{"tag": "memarms_stable_step150", "size": 41839, "means": {"base_ctx": 0.5439, "ours_ctx": 0.6263, "base_noctx": 0.06, "ours_noctx": 0.1908, "wo_noctx": 0.1813, "swap_noctx": 0.1843, "zero_noctx": 0.1281}, "paired": {"ours_noctx-base_noctx": 0.1308, "ours_noctx-swap_noctx": 0.0065, "ours_noctx-zero_noctx": 0.0627, "ours_noctx-wo_noctx": 0.0095, "ours_ctx-base_ctx": 0.0825}}
+{"tag": "memarms_stable_step150_n600", "size": 124686, "means": {"base_ctx": 0.5471, "ours_ctx": 0.6245, "base_noctx": 0.0593, "ours_noctx": 0.1979, "wo_noctx": 0.2035, "swap_noctx": 0.1965, "zero_noctx": 0.1367}, "paired": {"ours_noctx-base_noctx": 0.1386, "ours_noctx-swap_noctx": 0.0014, "ours_noctx-zero_noctx": 0.0612, "ours_noctx-wo_noctx": -0.0056, "ours_ctx-base_ctx": 0.0774}}
+{"tag": "memarms_swapc_b5", "size": 44370, "means": {"base_ctx": 0.5439, "ours_ctx": 0.2784, "base_noctx": 0.06, "ours_noctx": 0.0884, "wo_noctx": 0.1666, "swap_noctx": 0.1155, "zero_noctx": 0.19}, "paired": {"ours_noctx-base_noctx": 0.0284, "ours_noctx-swap_noctx": -0.0272, "ours_noctx-zero_noctx": -0.1016, "ours_noctx-wo_noctx": -0.0782, "ours_ctx-base_ctx": -0.2655}}
+{"tag": "ruler16k_official_mem64preo", "size": 42016, "overall": {"ours": 0.9149}}
+{"tag": "ruler16k_official_mem64preo_s2", "size": 42723, "overall": {"ours": 0.9129}}
+{"tag": "ruler16k_official_preo", "size": 65699, "overall": {"base": 0.9425, "ours": 0.9047}}
+{"tag": "ruler16k_preo", "size": 104045, "overall": {"base": 0.9439, "ours": 0.9361}}
+{"tag": "ruler32k_official_mem64preo", "size": 42154, "overall": {"ours": 0.8982}}
+{"tag": "ruler32k_official_mem64preo_s2", "size": 42586, "overall": {"ours": 0.9038}}
+{"tag": "ruler32k_official_preo", "size": 65269, "overall": {"base": 0.9157, "ours": 0.9153}}
+{"tag": "ruler8k_base", "size": 72979, "overall": {"base": 0.9288}}
+{"tag": "ruler8k_official_mem64preo", "size": 42121, "overall": {"ours": 0.9177}}
+{"tag": "ruler8k_official_mem64preo_s2", "size": 42847, "overall": {"ours": 0.9194}}
+{"tag": "ruler8k_official_preo", "size": 66125, "overall": {"base": 0.9363, "ours": 0.9229}}
+{"tag": "ruler8k_preo", "size": 68851, "overall": {"ours": 0.9254}}

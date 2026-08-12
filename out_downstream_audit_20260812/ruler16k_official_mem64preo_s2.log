@@ -1,0 +1,37 @@
+Loading weights:   0%|          | 0/398 [00:00<?, ?it/s]Loading weights: 100%|██████████| 398/398 [00:00<00:00, 10377.29it/s]
+[ours] loaded 324 steer tensors; prefix_write=True; cfg=PrefixSteerConfig(num_prefix_tokens=64, sliding_window_size=256, mem_num_heads=8, mem_head_dim=64, steer_mode='deltamem', normal_attends_prefix=True, prefix_sees_query=True, prefix_init_std=0.7, prefix_init_dist='normal', prefix_write=True, read_prefix_only=False, memory_mode='dynamic', write_ctx_only=True, prefix_write_layout='global', prefix_write_overlap_tokens=0, pool_reads=True, pool_gate=False, pool_gate_input='rm', pool_gate_max=2.0, pool_gate_bias=0.0, steer_layers=(), prefix_layers=(), steer_gain=0.1, share_qkv=False, memory_value_source='trainable', delta_heads='qkvo', delta_rank=0, read_proj_dim=0, output_fusion='fixed', o_fusion_position='pre_o', output_fusion_eps=1e-06, output_fusion_scale_max=10.0, fusion_lambda_init=0.1, fusion_lambda_max=1.0, fusion_ema_momentum=0.99, history_pool_mode='none', hybrid_read_mode='none', hybrid_prefix_gate_mode='fixed', hybrid_prefix_gate_init=0.1)
+[ruler] loaded 1300 OFFICIAL samples from /work/mingze/ruler_official_data_16384/ruler_data
+[ruler-16384_official] 325 samples over 13 tasks
+  20/325  ours=0.875
+  40/325  ours=0.876
+  60/325  ours=0.912
+  80/325  ours=0.934
+  100/325  ours=0.947
+  120/325  ours=0.956
+  140/325  ours=0.962
+  160/325  ours=0.967
+  180/325  ours=0.971
+  200/325  ours=0.973
+  220/325  ours=0.976
+  240/325  ours=0.978
+  260/325  ours=0.960
+  280/325  ours=0.938
+  300/325  ours=0.906
+  320/325  ours=0.912
+
+=== RULER-16384_official (recall, mean over tasks) ===
+            task     ours
+             cwe    0.868
+             fwe    0.920
+ niah_multikey_1    1.000
+ niah_multikey_2    1.000
+ niah_multikey_3    1.000
+ niah_multiquery    1.000
+ niah_multivalue    1.000
+   niah_single_1    1.000
+   niah_single_2    1.000
+   niah_single_3    1.000
+            qa_1    0.640
+            qa_2    0.440
+              vt    1.000
+         OVERALL    0.913

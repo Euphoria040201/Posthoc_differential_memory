@@ -1,0 +1,66 @@
+Loading weights:   0%|          | 0/398 [00:00<?, ?it/s]Loading weights: 100%|██████████| 398/398 [00:00<00:00, 10868.27it/s]
+[ours-locomo] loaded 48 steer tensors; cfg=PrefixSteerConfig(num_prefix_tokens=0, sliding_window_size=256, mem_num_heads=1, mem_head_dim=128, steer_mode='deltamem', normal_attends_prefix=True, prefix_sees_query=True, prefix_init_std=0.7, prefix_init_dist='normal', prefix_write=False, read_prefix_only=False, memory_mode='dynamic', write_ctx_only=False, prefix_write_layout='global', prefix_write_overlap_tokens=0, pool_reads=False, pool_gate=False, pool_gate_input='rm', pool_gate_max=2.0, pool_gate_bias=0.0, steer_layers=(0, 3, 6, 9, 12, 15, 18, 21, 24, 27, 30, 33), prefix_layers=(), steer_gain=0.1, share_qkv=False, memory_value_source='main_v', delta_heads='o', delta_rank=0, read_proj_dim=0, output_fusion='fixed', o_fusion_position='pre_o', output_fusion_eps=1e-06, output_fusion_scale_max=10.0, fusion_lambda_init=0.1, fusion_lambda_max=1.0, fusion_ema_momentum=0.99, history_pool_mode='none', hybrid_read_mode='none', hybrid_prefix_gate_mode='fixed', hybrid_prefix_gate_init=0.1)
+[shard 0] 1540/1540 questions
+[shard 0] 25/1540 overall={'base': 0.3717, 'ours': 0.5477}
+[shard 0] 50/1540 overall={'base': 0.3265, 'ours': 0.4429}
+[shard 0] 75/1540 overall={'base': 0.2623, 'ours': 0.3563}
+[shard 0] 100/1540 overall={'base': 0.3103, 'ours': 0.3802}
+[shard 0] 125/1540 overall={'base': 0.3095, 'ours': 0.3864}
+[shard 0] 150/1540 overall={'base': 0.2671, 'ours': 0.3299}
+[shard 0] 175/1540 overall={'base': 0.2892, 'ours': 0.3477}
+[shard 0] 200/1540 overall={'base': 0.2856, 'ours': 0.3444}
+[shard 0] 225/1540 overall={'base': 0.2729, 'ours': 0.3279}
+[shard 0] 250/1540 overall={'base': 0.2757, 'ours': 0.3277}
+[shard 0] 275/1540 overall={'base': 0.2594, 'ours': 0.3091}
+[shard 0] 300/1540 overall={'base': 0.2451, 'ours': 0.291}
+[shard 0] 325/1540 overall={'base': 0.261, 'ours': 0.3087}
+[shard 0] 350/1540 overall={'base': 0.2471, 'ours': 0.292}
+[shard 0] 375/1540 overall={'base': 0.2344, 'ours': 0.276}
+[shard 0] 400/1540 overall={'base': 0.2292, 'ours': 0.27}
+[shard 0] 425/1540 overall={'base': 0.2293, 'ours': 0.2668}
+[shard 0] 450/1540 overall={'base': 0.2195, 'ours': 0.2579}
+[shard 0] 475/1540 overall={'base': 0.2164, 'ours': 0.2579}
+[shard 0] 500/1540 overall={'base': 0.2302, 'ours': 0.2758}
+[shard 0] 525/1540 overall={'base': 0.2253, 'ours': 0.2688}
+[shard 0] 550/1540 overall={'base': 0.2231, 'ours': 0.2643}
+[shard 0] 575/1540 overall={'base': 0.2169, 'ours': 0.256}
+[shard 0] 600/1540 overall={'base': 0.2162, 'ours': 0.2566}
+[shard 0] 625/1540 overall={'base': 0.2148, 'ours': 0.2562}
+[shard 0] 650/1540 overall={'base': 0.2091, 'ours': 0.2506}
+[shard 0] 675/1540 overall={'base': 0.223, 'ours': 0.2618}
+[shard 0] 700/1540 overall={'base': 0.23, 'ours': 0.2666}
+[shard 0] 725/1540 overall={'base': 0.2249, 'ours': 0.2601}
+[shard 0] 750/1540 overall={'base': 0.2184, 'ours': 0.2525}
+[shard 0] 775/1540 overall={'base': 0.2176, 'ours': 0.2508}
+[shard 0] 800/1540 overall={'base': 0.2155, 'ours': 0.249}
+[shard 0] 825/1540 overall={'base': 0.2149, 'ours': 0.2509}
+[shard 0] 850/1540 overall={'base': 0.2214, 'ours': 0.2588}
+[shard 0] 875/1540 overall={'base': 0.2168, 'ours': 0.2538}
+[shard 0] 900/1540 overall={'base': 0.2133, 'ours': 0.25}
+[shard 0] 925/1540 overall={'base': 0.2104, 'ours': 0.2475}
+[shard 0] 950/1540 overall={'base': 0.2064, 'ours': 0.2432}
+[shard 0] 975/1540 overall={'base': 0.2143, 'ours': 0.2529}
+[shard 0] 1000/1540 overall={'base': 0.2106, 'ours': 0.2488}
+[shard 0] 1025/1540 overall={'base': 0.2066, 'ours': 0.2447}
+[shard 0] 1050/1540 overall={'base': 0.2046, 'ours': 0.2423}
+[shard 0] 1075/1540 overall={'base': 0.2078, 'ours': 0.2447}
+[shard 0] 1100/1540 overall={'base': 0.2052, 'ours': 0.2415}
+[shard 0] 1125/1540 overall={'base': 0.2047, 'ours': 0.2391}
+[shard 0] 1150/1540 overall={'base': 0.2096, 'ours': 0.2423}
+[shard 0] 1175/1540 overall={'base': 0.2134, 'ours': 0.2448}
+[shard 0] 1200/1540 overall={'base': 0.2106, 'ours': 0.2412}
+[shard 0] 1225/1540 overall={'base': 0.2076, 'ours': 0.2375}
+[shard 0] 1250/1540 overall={'base': 0.2112, 'ours': 0.2422}
+[shard 0] 1275/1540 overall={'base': 0.2123, 'ours': 0.2426}
+[shard 0] 1300/1540 overall={'base': 0.2104, 'ours': 0.2409}
+[shard 0] 1325/1540 overall={'base': 0.2148, 'ours': 0.2444}
+[shard 0] 1350/1540 overall={'base': 0.2178, 'ours': 0.2473}
+[shard 0] 1375/1540 overall={'base': 0.2147, 'ours': 0.244}
+[shard 0] 1400/1540 overall={'base': 0.2164, 'ours': 0.2453}
+[shard 0] 1425/1540 overall={'base': 0.2155, 'ours': 0.2452}
+[shard 0] 1450/1540 overall={'base': 0.2134, 'ours': 0.2434}
+[shard 0] 1475/1540 overall={'base': 0.2168, 'ours': 0.2474}
+[shard 0] 1500/1540 overall={'base': 0.2141, 'ours': 0.2448}
+[shard 0] 1525/1540 overall={'base': 0.2123, 'ours': 0.2421}
+[shard 0] base overall=0.2105 (n=1540)
+[shard 0] ours overall=0.2406 (n=1540)

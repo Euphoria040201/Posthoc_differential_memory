@@ -1,29 +1,100 @@
-tag	kind	headline
-a0_preo_graph	eval	""
-a0b_frozen_frozen	eval	""
-a1_numerics_numerics	eval	""
-a2_posto_graph	eval	""
-a2_posto_isolation	eval	""
-a2_posto_parity	eval	""
-hotpotFINAL_untouched_preo_s0	eval	""
-hotpotFULL_preo_s0_merged	eval	""
-hotpotFULL_preo_s0_shard0	eval	{"base": {"f1": 1374.694979573627, "em": 1066.0, "n": 2469}, "ours": {"f1": 1523.8755096584105, "em": 1215.0, "n": 2469}}
-hotpotFULL_preo_s0_shard1	eval	{"base": {"f1": 1418.9028402212423, "em": 1068.0, "n": 2468}, "ours": {"f1": 1525.2088235780975, "em": 1187.0, "n": 2468}}
-hotpotFULL_preo_s0_shard2	eval	{"base": {"f1": 1387.8521471932138, "em": 1064.0, "n": 2468}, "ours": {"f1": 1548.823077010395, "em": 1230.0, "n": 2468}}
-hotpot_dev1000_mem64preo_step100	eval	{"base": {"f1": 565.9092996179666, "em": 434.0, "n": 1000}, "ours": {"f1": 666.6703602338835, "em": 505.0, "n": 1000}, "ours_window_only": {"f1": 659.8164451347965, "em": 498.0, "n": 1000}}
-hotpot_dev1000_posto_s0	eval	{"base": {"f1": 565.9092996179666, "em": 434.0, "n": 1000}, "ours": {"f1": 590.198246818541, "em": 469.0, "n": 1000}}
-hotpot_dev1000_preo_s0	eval	{"base": {"f1": 565.9092996179666, "em": 434.0, "n": 1000}, "ours": {"f1": 615.5933586587145, "em": 486.0, "n": 1000}}
-hotpot_dev1000_preo_s1	eval	{"base": {"f1": 565.9092996179666, "em": 434.0, "n": 1000}, "ours": {"f1": 625.6368537601045, "em": 487.0, "n": 1000}}
-hotpot_dev200_posto_s0	eval	{"base": {"f1": 108.77609057609058, "em": 83.0, "n": 200}, "ours": {"f1": 109.78882783882784, "em": 87.0, "n": 200}, "ours_window_only": {"f1": 109.78882783882784, "em": 87.0, "n": 200}}
-hotpot_dev200_preo_s0	eval	{"base": {"f1": 108.77609057609058, "em": 83.0, "n": 200}, "ours": {"f1": 114.40311355311354, "em": 91.0, "n": 200}, "ours_window_only": {"f1": 114.40311355311354, "em": 91.0, "n": 200}}
-locomo_preo_s0	eval	{"base": 0.2105, "ours": 0.2379}
-locomo_preo_s0_clustered	eval	""
-mem64_noctx_posto_s0	train	{"base": {"F1": 0.0791, "EM": 0.0}, "method": {"F1": 0.0856, "EM": 0.0856}, "method_nomem": {"F1": 0.0791, "EM": 0.0}}
-mem64_noctx_preo_s0	train	{"base": {"F1": 0.0791, "EM": 0.0}, "method": {"F1": 0.034, "EM": 0.0}, "method_nomem": {"F1": 0.0791, "EM": 0.0}}
-memarms_posto_FINAL	eval	{"base_ctx": 0.5438749390705913, "ours_ctx": 0.0, "base_noctx": 0.06, "ours_noctx": 0.0, "wo_noctx": 0.19358508871589367, "swap_noctx": 0.0, "zero_noctx": 0.20576499651243896}
-memarms_posto_step100	eval	{"base_ctx": 0.5438749390705913, "ours_ctx": 0.6302087814146637, "base_noctx": 0.06, "ours_noctx": 0.1908460140650543, "wo_noctx": 0.19156961867681682, "swap_noctx": 0.19424673425989217, "zero_noctx": 0.18898748536702256
-memarms_preo_FINAL	eval	{"base_ctx": 0.5438749390705913, "ours_ctx": 0.0034583333333333332, "base_noctx": 0.06, "ours_noctx": 0.0027674242424242422, "wo_noctx": 0.11758271774901966, "swap_noctx": 0.017568362193362195, "zero_noctx": 0.1485614913
-memarms_preo_step100	eval	{"base_ctx": 0.5438749390705913, "ours_ctx": 0.6643199880465327, "base_noctx": 0.06, "ours_noctx": 0.1706527151039535, "wo_noctx": 0.1935284623638819, "swap_noctx": 0.16811456498674926, "zero_noctx": 0.1782264259500034}
-ruler16k_preo	eval	{"base": 0.9438782051282052, "ours": 0.9360897435897435}
-ruler8k_base	eval	{"base": 0.9288141025641026}
-ruler8k_preo	eval	{"ours": 0.9254487179487181}
+tag	headline
+a0_preo_graph	""
+a0b_frozen_frozen	""
+a1_numerics_numerics	""
+a2_posto_graph	""
+a2_posto_isolation	""
+a2_posto_parity	""
+capacity_f1_s1_long	{"base": 0.0078, "window": 0.0469, "swap": 0.0, "correct": 0.9844}
+capacity_f1_s2_long	{"base": 0.0, "window": 0.0469, "swap": 0.0547, "correct": 0.0547}
+capacity_f1_s3_long	{"base": 0.0156, "window": 0.0391, "swap": 0.0859, "correct": 0.2578}
+capacity_f1_s4_long	{"base": 0.0, "window": 0.0703, "swap": 0.0625, "correct": 0.0625}
+capacity_f1_seed2	{"base": 0.0, "window": 0.0625, "swap": 0.0547, "correct": 0.0547}
+capacity_f1_seed3	{"base": 0.0156, "window": 0.0859, "swap": 0.0, "correct": 0.1016}
+capacity_f2_P128	{"base": 0.0078, "window": 0.0781, "swap": 0.0781, "correct": 0.0781}
+capacity_f2_P128_long	{"base": 0.0078, "window": 0.0781, "swap": 0.0781, "correct": 0.0781}
+capacity_f2_P256	{"base": 0.0078, "window": 0.0781, "swap": 0.0781, "correct": 0.0781}
+capacity_f2_P256_long	{"base": 0.0078, "window": 0.0781, "swap": 0.0, "correct": 0.0}
+capacity_f2_P64_long	{"base": 0.0078, "window": 0.0547, "swap": 0.0625, "correct": 0.0625}
+capacity_f2_s2_long	{"base": 0.0, "window": 0.0391, "swap": 0.1094, "correct": 0.1094}
+capacity_f2_s3_long	{"base": 0.0156, "window": 0.125, "swap": 0.0703, "correct": 0.0625}
+capacity_f3_s1_long	{"base": 0.0078, "window": 0.0625, "swap": 0.0, "correct": 0.0}
+capacity_f3_s2_long	{"base": 0.0078, "window": 0.0469, "swap": 0.0391, "correct": 0.0391}
+capacity_f4_P128	{"base": 0.0, "window": 0.0781, "swap": 0.1016, "correct": 0.1016}
+capacity_f4_P256	{"base": 0.0, "window": 0.0469, "swap": 0.0391, "correct": 0.0391}
+capacity_f4_seed2	{"base": 0.0, "window": 0.0469, "swap": 0.0703, "correct": 0.0703}
+capacity_facts1	{"base": 0.0078, "window": 0.0469, "swap": 0.0469, "correct": 0.2422}
+capacity_facts16	{"base": 0.0, "window": 0.0859, "swap": 0.0859, "correct": 0.0859}
+capacity_facts2	{"base": 0.0078, "window": 0.0469, "swap": 0.1719, "correct": 0.1797}
+capacity_facts4	{"base": 0.0, "window": 0.0703, "swap": 0.0469, "correct": 0.0469}
+capacity_facts8	{"base": 0.0078, "window": 0.0859, "swap": 0.0859, "correct": 0.0859}
+cost_mem64preo_step100	""
+hotpotFINAL_untouched_mem64preo	""
+hotpotFINAL_untouched_mem64preo_s1	""
+hotpotFINAL_untouched_mem64preo_s2	""
+hotpotFINAL_untouched_preo_s0	""
+hotpotFINAL_untouched_preo_s1	""
+hotpotFINAL_untouched_preo_s2	""
+hotpotFULL_mem64preo_merged	""
+hotpotFULL_mem64preo_s1_shard0	{"base": {"f1": 0.5661, "em": 0.428, "n": 3703}, "ours": {"f1": 0.6333, "em": 0.4669, "n": 3703}}
+hotpotFULL_mem64preo_s1_shard1	{"base": {"f1": 0.5633, "em": 0.4357, "n": 3702}, "ours": {"f1": 0.6346, "em": 0.48, "n": 3702}}
+hotpotFULL_mem64preo_s2_shard0	{"base": {"f1": 0.5661, "em": 0.428, "n": 3703}, "ours": {"f1": 0.6707, "em": 0.5312, "n": 3703}}
+hotpotFULL_mem64preo_s2_shard1	{"base": {"f1": 0.5633, "em": 0.4357, "n": 3702}, "ours": {"f1": 0.6704, "em": 0.5359, "n": 3702}}
+hotpotFULL_mem64preo_shard0	{"base": {"f1": 0.5661, "em": 0.428, "n": 3703}, "ours": {"f1": 0.6669, "em": 0.5077, "n": 3703}}
+hotpotFULL_mem64preo_shard1	{"base": {"f1": 0.5633, "em": 0.4357, "n": 3702}, "ours": {"f1": 0.6677, "em": 0.5149, "n": 3702}}
+hotpotFULL_preo_s0_merged	""
+hotpotFULL_preo_s0_shard0	{"base": {"f1": 0.5568, "em": 0.4318, "n": 2469}, "ours": {"f1": 0.6172, "em": 0.4921, "n": 2469}}
+hotpotFULL_preo_s0_shard1	{"base": {"f1": 0.5749, "em": 0.4327, "n": 2468}, "ours": {"f1": 0.618, "em": 0.481, "n": 2468}}
+hotpotFULL_preo_s0_shard2	{"base": {"f1": 0.5623, "em": 0.4311, "n": 2468}, "ours": {"f1": 0.6276, "em": 0.4984, "n": 2468}}
+hotpotFULL_preo_s1	{"base": {"f1": 0.5647, "em": 0.4319, "n": 7405}, "ours": {"f1": 0.6259, "em": 0.4935, "n": 7405}}
+hotpotFULL_preo_s2	{"base": {"f1": 0.5647, "em": 0.4319, "n": 7405}, "ours": {"f1": 0.609, "em": 0.4795, "n": 7405}}
+hotpot_dev1000_ctxmask	{"base": {"f1": 0.5659, "em": 0.434, "n": 1000}, "ours": {"f1": 0.2486, "em": 0.189, "n": 1000}, "ours_window_only": {"f1": 0.6429, "em": 0.489, "n": 1000}}
+hotpot_dev1000_mem64preo_s1	{"base": {"f1": 0.5659, "em": 0.434, "n": 1000}, "ours": {"f1": 0.6372, "em": 0.475, "n": 1000}}
+hotpot_dev1000_mem64preo_s2	{"base": {"f1": 0.5659, "em": 0.434, "n": 1000}, "ours": {"f1": 0.6841, "em": 0.549, "n": 1000}}
+hotpot_dev1000_mem64preo_step100	{"base": {"f1": 0.5659, "em": 0.434, "n": 1000}, "ours": {"f1": 0.6667, "em": 0.505, "n": 1000}, "ours_window_only": {"f1": 0.6598, "em": 0.498, "n": 1000}}
+hotpot_dev1000_posto_s0	{"base": {"f1": 0.5659, "em": 0.434, "n": 1000}, "ours": {"f1": 0.5902, "em": 0.469, "n": 1000}}
+hotpot_dev1000_preo_s0	{"base": {"f1": 0.5659, "em": 0.434, "n": 1000}, "ours": {"f1": 0.6156, "em": 0.486, "n": 1000}}
+hotpot_dev1000_preo_s1	{"base": {"f1": 0.5659, "em": 0.434, "n": 1000}, "ours": {"f1": 0.6256, "em": 0.487, "n": 1000}}
+hotpot_dev200_posto_s0	{"base": {"f1": 0.5439, "em": 0.415, "n": 200}, "ours": {"f1": 0.5489, "em": 0.435, "n": 200}, "ours_window_only": {"f1": 0.5489, "em": 0.435, "n": 200}}
+hotpot_dev200_preo_s0	{"base": {"f1": 0.5439, "em": 0.415, "n": 200}, "ours": {"f1": 0.572, "em": 0.455, "n": 200}, "ours_window_only": {"f1": 0.572, "em": 0.455, "n": 200}}
+locomo_mem64preo_clustered	""
+locomo_mem64preo_s1	{"base": 0.2105, "ours": 0.2759, "ours_window_only": 0.2903}
+locomo_mem64preo_s2	{"base": 0.2105, "ours": 0.2893, "ours_window_only": 0.3006}
+locomo_mem64preo_step100	{"base": 0.2105, "ours": 0.3179, "ours_window_only": 0.3127}
+locomo_preo_s0	{"base": 0.2105, "ours": 0.2379}
+locomo_preo_s0_clustered	""
+locomo_preo_s1	{"base": 0.2105, "ours": 0.2398}
+locomo_preo_s1_clustered	""
+locomo_preo_s2	{"base": 0.2105, "ours": 0.2406}
+locomo_preo_s2_clustered	""
+mem64_ctxmask_posto_s0	""
+mem64_noctx_posto_s0	""
+mem64_noctx_preo_s0	""
+mem64_noctx_preo_s1	""
+mem64_noctx_preo_s2	""
+mem64_stable_preo_s0	""
+mem64_swapc_b1_s0	""
+mem64_swapc_b5_s0	""
+memarms_mem64preo_s1	{"base_ctx": 0.5886, "ours_ctx": 0.5996, "base_noctx": 0.0726, "ours_noctx": 0.129, "wo_noctx": 0.1544, "swap_noctx": 0.1724, "zero_noctx": 0.1971}
+memarms_mem64preo_s2	{"base_ctx": 0.5886, "ours_ctx": 0.6824, "base_noctx": 0.0726, "ours_noctx": 0.1611, "wo_noctx": 0.1769, "swap_noctx": 0.1726, "zero_noctx": 0.1965}
+memarms_posto_FINAL	{"base_ctx": 0.5439, "ours_ctx": 0.0, "base_noctx": 0.06, "ours_noctx": 0.0, "wo_noctx": 0.1936, "swap_noctx": 0.0, "zero_noctx": 0.2058}
+memarms_posto_step100	{"base_ctx": 0.5439, "ours_ctx": 0.6302, "base_noctx": 0.06, "ours_noctx": 0.1908, "wo_noctx": 0.1916, "swap_noctx": 0.1942, "zero_noctx": 0.189}
+memarms_posto_step100_n600	{"base_ctx": 0.5471, "ours_ctx": 0.6276, "base_noctx": 0.0593, "ours_noctx": 0.1989, "wo_noctx": 0.2135, "swap_noctx": 0.1961, "zero_noctx": 0.2096}
+memarms_preo_FINAL	{"base_ctx": 0.5439, "ours_ctx": 0.0035, "base_noctx": 0.06, "ours_noctx": 0.0028, "wo_noctx": 0.1176, "swap_noctx": 0.0176, "zero_noctx": 0.1486}
+memarms_preo_step100	{"base_ctx": 0.5439, "ours_ctx": 0.6643, "base_noctx": 0.06, "ours_noctx": 0.1707, "wo_noctx": 0.1935, "swap_noctx": 0.1681, "zero_noctx": 0.1782}
+memarms_preo_step100_n600	{"base_ctx": 0.5471, "ours_ctx": 0.6571, "base_noctx": 0.0593, "ours_noctx": 0.2022, "wo_noctx": 0.1968, "swap_noctx": 0.2015, "zero_noctx": 0.2134}
+memarms_stable_step150	{"base_ctx": 0.5439, "ours_ctx": 0.6263, "base_noctx": 0.06, "ours_noctx": 0.1908, "wo_noctx": 0.1813, "swap_noctx": 0.1843, "zero_noctx": 0.1281}
+memarms_stable_step150_n600	{"base_ctx": 0.5471, "ours_ctx": 0.6245, "base_noctx": 0.0593, "ours_noctx": 0.1979, "wo_noctx": 0.2035, "swap_noctx": 0.1965, "zero_noctx": 0.1367}
+memarms_swapc_b5	{"base_ctx": 0.5439, "ours_ctx": 0.2784, "base_noctx": 0.06, "ours_noctx": 0.0884, "wo_noctx": 0.1666, "swap_noctx": 0.1155, "zero_noctx": 0.19}
+ruler16k_official_mem64preo	{"ours": 0.9149}
+ruler16k_official_mem64preo_s2	{"ours": 0.9129}
+ruler16k_official_preo	{"base": 0.9425, "ours": 0.9047}
+ruler16k_preo	{"base": 0.9439, "ours": 0.9361}
+ruler32k_official_mem64preo	{"ours": 0.8982}
+ruler32k_official_mem64preo_s2	{"ours": 0.9038}
+ruler32k_official_preo	{"base": 0.9157, "ours": 0.9153}
+ruler8k_base	{"base": 0.9288}
+ruler8k_official_mem64preo	{"ours": 0.9177}
+ruler8k_official_mem64preo_s2	{"ours": 0.9194}
+ruler8k_official_preo	{"base": 0.9363, "ours": 0.9229}
+ruler8k_preo	{"ours": 0.9254}

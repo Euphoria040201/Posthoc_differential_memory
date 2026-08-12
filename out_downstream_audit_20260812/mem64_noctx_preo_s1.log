@@ -1,0 +1,32 @@
+Loading weights:   0%|          | 0/398 [00:00<?, ?it/s]Loading weights: 100%|██████████| 398/398 [00:00<00:00, 10827.38it/s]
+Using the latest cached version of the dataset since allenai/qasper couldn't be found on the Hugging Face Hub (offline mode is enabled).
+Found the latest cached dataset configuration 'default' at /home/mingze/.cache/huggingface/datasets/allenai___qasper/default/0.0.0/06806e4608976fc2fac0a090ac425d5b2b29caf4 (last modified on Tue Jul 28 03:00:47 2026).
+[mem64_noctx_preo_s1] patched 36 layers, trainable=383,385,600 (gate_only=false)
+loading data...
+[compose] total=935 (target_n=935) yes/no=132 (14.1%) ; pool yn=282 other=1711
+Using the latest cached version of the dataset since allenai/qasper couldn't be found on the Hugging Face Hub (offline mode is enabled).
+Found the latest cached dataset configuration 'default' at /home/mingze/.cache/huggingface/datasets/allenai___qasper/default/0.0.0/06806e4608976fc2fac0a090ac425d5b2b29caf4 (last modified on Tue Jul 28 03:00:47 2026).
+[mem64_noctx_preo_s1] train=935 val=187
+[mem64_noctx_preo_s1] optim: 288 tensors @ lr=0.0005; 36 prefix @ lr=0.01; 0 gate @ lr=0.0005
+[mem64_noctx_preo_s1] step 20/100 (micro 320) loss 3.0659 21.26s/update
+[mem64_noctx_preo_s1] step 40/100 (micro 640) loss 6.5088 21.47s/update
+[mem64_noctx_preo_s1] step 60/100 (micro 960) loss 3.7464 21.46s/update
+[mem64_noctx_preo_s1] step 80/100 (micro 1280) loss 3.5388 21.45s/update
+[mem64_noctx_preo_s1] step 100/100 (micro 1600) loss 3.5667 21.20s/update
+[mem64_noctx_preo_s1] EVAL 100: base=0.079 method=0.082 method_nomem=0.079
+[mem64_noctx_preo_s1] saved ckpt (324 tensors) -> /work/mingze/Posthoc_differential_memory/out_downstream_audit_20260812/mem64_noctx_preo_s1_ckpt.pt
+[mem64_noctx_preo_s1] DONE -> /work/mingze/Posthoc_differential_memory/out_downstream_audit_20260812/mem64_noctx_preo_s1.json
+{
+  "base": {
+    "F1": 0.0791,
+    "EM": 0.0
+  },
+  "method": {
+    "F1": 0.0824,
+    "EM": 0.0
+  },
+  "method_nomem": {
+    "F1": 0.0791,
+    "EM": 0.0
+  }
+}

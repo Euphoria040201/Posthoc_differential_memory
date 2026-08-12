@@ -1,0 +1,50 @@
+Loading weights:   0%|          | 0/398 [00:00<?, ?it/s]Loading weights: 100%|██████████| 398/398 [00:00<00:00, 10402.45it/s]
+[ours] loaded 324 steer tensors; prefix_write=True; cfg=PrefixSteerConfig(num_prefix_tokens=64, sliding_window_size=256, mem_num_heads=8, mem_head_dim=64, steer_mode='deltamem', normal_attends_prefix=True, prefix_sees_query=True, prefix_init_std=0.7, prefix_init_dist='normal', prefix_write=True, read_prefix_only=False, memory_mode='dynamic', write_ctx_only=True, prefix_write_layout='global', prefix_write_overlap_tokens=0, pool_reads=True, pool_gate=False, pool_gate_input='rm', pool_gate_max=2.0, pool_gate_bias=0.0, steer_layers=(), prefix_layers=(), steer_gain=0.1, share_qkv=False, memory_value_source='trainable', delta_heads='qkvo', delta_rank=0, read_proj_dim=0, output_fusion='fixed', o_fusion_position='pre_o', output_fusion_eps=1e-06, output_fusion_scale_max=10.0, fusion_lambda_init=0.1, fusion_lambda_max=1.0, fusion_ema_momentum=0.99, history_pool_mode='none', hybrid_read_mode='none', hybrid_prefix_gate_mode='fixed', hybrid_prefix_gate_init=0.1)
+Using the latest cached version of the dataset since hotpotqa/hotpot_qa couldn't be found on the Hugging Face Hub (offline mode is enabled).
+Found the latest cached dataset configuration 'distractor' at /home/mingze/.cache/huggingface/datasets/hotpotqa___hotpot_qa/distractor/0.0.0/1908d6afbbead072334abe2965f91bd2709910ab (last modified on Wed Aug 12 05:30:25 2026).
+{
+  "ckpt": "/work/mingze/Posthoc_differential_memory/out_downstream_audit_20260812/mem64_noctx_preo_s0_step100_ckpt.pt",
+  "n": 15,
+  "trainable_params": 383385600,
+  "num_prefix_tokens": 64,
+  "steer_layers": 36,
+  "steer_gain": 0.1,
+  "tokens": {
+    "context_mean": 1696.6,
+    "writer_sees_mean": 1696.6,
+    "reader_sees_state_only_mean": 49.333333333333336,
+    "reader_sees_fullctx_mean": 1745.9333333333334,
+    "truncation": "none - full official 10-paragraph context is written and read"
+  },
+  "state": {
+    "elements": 0,
+    "bytes": 0,
+    "bytes_per_layer": 0
+  },
+  "latency_s": {
+    "write": 0.13087438295284906,
+    "read_state_only": 1.8139919470995665,
+    "read_fullctx": 1.752338116740187,
+    "base_fullctx": 0.542533386622866,
+    "ours_fullctx_overhead_vs_base": 1.209804730117321
+  },
+  "amortized_state_only_s_per_query": {
+    "1_query": 1.9448663300524156,
+    "5_queries": 1.8401668236901363,
+    "20_queries": 1.820535666247209,
+    "base_fullctx_per_query": 0.542533386622866
+  },
+  "fusion_norms": {
+    "cos_WZ_WC": 0.042925682175943315,
+    "cos_Z_C": 0.01769261681086694,
+    "norm_C": 28.461157515645027,
+    "norm_WC": 58.66383780704604,
+    "norm_WZ": 22.59176747666465,
+    "norm_Z": 19.634077837069828,
+    "ratio_C_over_Z": 0.9235692694306802,
+    "ratio_WC_over_WZ": 1.694303371554773,
+    "n_layers": 36,
+    "effective_gC_over_Z": 0.14495795398095734,
+    "effective_gWC_over_WZ": 0.25966909347681955
+  }
+}
