@@ -280,6 +280,25 @@ each (`memarms_*.json`).
 | P=64 noctx pre_o @final | **−0.0148** | **[−0.0286, −0.0046]** | −0.1148 | −0.1458 | −0.5404 |
 | P=64 noctx post_o @final | 0.0000 | [0.0000, 0.0000] | −0.1936 | −0.2058 | −0.5439 |
 
+### Tightened to n=600 on the strongest checkpoint
+
+The central claim deserves more than 200 examples. Re-running the full arm set on
+**600** fresh HotpotQA items (seed 777, disjoint selection) with the P=64 pre_o
+step-100 checkpoint:
+
+| contrast | Δ | 95% CI (paired bootstrap 10k) | significant |
+|---|---:|---|---|
+| **ours_state_only − ours_swap_state** | **+0.0007** | **[−0.0126, +0.0144]** | **NO** |
+| ours_state_only − ours_window_only | +0.0055 | [−0.0096, +0.0208] | NO |
+| ours_state_only − ours_zero_state | −0.0111 | [−0.0249, +0.0025] | NO |
+| **ours_fullctx − base_fullctx** | **+0.1099** | **[+0.0793, +0.1415]** | **YES** |
+
+Arm means: base_ctx 0.5471, ours_ctx 0.6571, base_noctx 0.0593, ours_noctx 0.2022,
+swap 0.2015, window 0.1968, zero 0.2134. At n=600 the document-specific value of the
+written memory is **0.0007 ± 0.013** — measured precisely, and precisely zero — while
+the same model's gain over full-context base is +0.11 with an interval nowhere near
+zero.
+
 **Not one checkpoint has a correct−swap interval lying above zero. Two are
 significantly negative.** The best arm ever measured (+0.0065, the stability
 re-train at step 150) has an interval spanning zero and sits far below the
@@ -336,6 +355,11 @@ Conversation assignment for clustering was reconstructed by position and verifie
 
 EM on all QA: +0.0221, clustered CI [+0.0140, +0.0321]; McNemar b01=43 b10=9,
 **p=2.0e-6**. Untouched EM +0.0209, CI [+0.0139, +0.0289].
+
+**Three training seeds, all 1540 QA** (in-repo metric, identical base every time):
+seed 0 0.2105 → 0.2379 (+0.0274), seed 1 → 0.2398 (+0.0293), seed 2 → 0.2406
+(+0.0301). **3/3 seeds agree in direction and magnitude**, clearing §9 Stage-C's
+2-of-3 requirement.
 
 By category (in-repo metric, all 1540): cat1 0.2506→0.3048, cat2 0.1613→0.2071,
 cat3 0.1198→0.1176 (the only non-positive category), cat4 0.2262→0.2409. No single
