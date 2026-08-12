@@ -126,6 +126,23 @@ post_o final scores **0.0000** on every arm that actually reads the written memo
 noctx `method` arm, *below* its own base 0.0791. Every P=64 number quoted below
 therefore comes from the **step-100 intermediate checkpoint**, i.e. it rests on
 checkpoint selection, which is itself a tuning decision and is disclosed as such.
+The pre_o final collapses identically (`ours_ctx` 0.0035, `ours_noctx` 0.0028,
+`swap_noctx` 0.0176 vs `zero_noctx` 0.1486, `wo_noctx` 0.1176).
+
+**The collapse is genuine divergence, not a scoring or formatting artifact.** Raw
+greedy generations from the final post_o checkpoint on three HotpotQA items, memory
+active vs the same model with the sidecar disabled:
+
+| gold | ours_ctx (memory on) | base_ctx (same weights, sidecar off) |
+|---|---|---|
+| `15` | `,,,,,,,,,,,,,,,,,,,,` | `15` |
+| `Rabies` | `,,,,,,,,,,,,,,,,,,,,` | `Rabies` |
+| `Rothschild banking dynasty` | `,,,,,,,,,,,,,,,,,,,,` | `Rothschild dynasty` |
+
+Note the collapse is a **transfer** phenomenon: on the in-distribution Qasper noctx
+eval these same final checkpoints still look healthy (`method` 0.0856 vs `base`
+0.0791), so an in-distribution validation metric would not have caught it.
+
 A lower-LR re-train (prefix-lr 1e-3, lr 2e-4, 12 layers instead of 36) is running to
 test whether the architecture can be made to converge at all.
 
@@ -182,10 +199,17 @@ label is a **task/attention adapter that improves full-context HotpotQA**, not m
 | 8192 | ours pre_o s0 | 0.9254 | −0.0034; qa_1 +0.025, qa_2 −0.050, cwe −0.012 |
 | 16384 | base | 0.9439 | 13/13 tasks |
 | 16384 | ours pre_o s0 | 0.9361 | −0.0078; qa_1 +0.075, cwe −0.058, qa_2 −0.100 |
-| 32768 | — | UNAVAILABLE from the mirror (only 4k/8k/16k exist); official generator running |
+| 32768 **OFFICIAL** | base | **0.9157** | NVIDIA/RULER generator via NeMo-Skills `prepare.py` (SHA `f4a3fd8`) with the Qwen3 tokenizer; 13/13 tasks, 25 samples/task |
+| 32768 **OFFICIAL** | ours pre_o s0 | **0.9153** | −0.0005 (tied); qa_1 0.80 vs 0.68, fwe 0.867 vs 0.907, cwe 0.832 vs 0.848 |
 
 Historical runs agree (4k: base 0.9360 / ours 0.9355; 16k: base 0.9282 / ours 0.9274),
 so RULER at these lengths has no headroom for this method to show anything.
+
+The 8k/16k rows above come from the `simonjegou/ruler` **mirror** and are labelled
+**NON-OFFICIAL-GENERATION**; the 32768 row is officially generated. Official 8k/16k
+regeneration is in flight. Across every length and both data sources the verdict is
+the same: **ours is at or fractionally below base on RULER**, with a consistent
+per-task signature (qa_1 better, fwe/cwe/qa_2 worse).
 
 ## 4. LoCoMo — official scorer, all 1540 QA
 
