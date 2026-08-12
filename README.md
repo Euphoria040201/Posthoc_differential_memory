@@ -5,6 +5,40 @@ trained on Qasper, evaluated zero-shot on HotpotQA / LoCoMo. This bundle is the 
 useful** subset — training/eval infra + the diagnostic scripts that produced real findings +
 the checkpoints they reference. Dead-end sweeps and wrong configs are NOT included.
 
+## Verified downstream results (2026-08-12 audit, branch `agent/downstream-audit-2026-08-12`)
+
+Official evaluators, untouched holdouts, 3 training seeds. Full detail and every
+failing arm in `DOWNSTREAM_RESCUE_REPORT.md`.
+
+**The sidecar significantly beats the frozen full-context base:**
+
+| benchmark | set | base | ours | Δ | 95% CI |
+|---|---|---:|---:|---:|---|
+| HotpotQA (official `hotpot_evaluate_v1.py`) | 4678 untouched dev ids | F1 0.5615 | F1 0.6216 | **+0.0582** (3-seed hierarchical) | [+0.0488, +0.0670] |
+| LoCoMo (official `task_eval/evaluation.py`) | 1540 QA, conversation-clustered | F1 0.1833 | F1 0.2163 | **+0.0347** (3-seed hierarchical) | [+0.0294, +0.0406] |
+| RULER (officially generated, 13/13 tasks) | 8K / 16K / 32K | 0.9363 / 0.9425 / 0.9157 | 0.9229 / 0.9047 / 0.9153 | **at or below base** | — |
+
+**But the written memory contributes nothing.** Reading a state written from a
+*different* document scores the same as the correct one, across three independently
+trained checkpoints at n=600:
+
+| checkpoint | correct − swap | 95% CI | ours_fullctx − base | 95% CI |
+|---|---:|---|---:|---|
+| post_o @step100 | +0.0027 | [−0.0066, +0.0125] | +0.0805 | [+0.0535, +0.1084] |
+| pre_o @step100 | +0.0007 | [−0.0124, +0.0141] | +0.1099 | [+0.0793, +0.1415] |
+| stable pre_o @step150 | +0.0014 | [−0.0089, +0.0122] | +0.0774 | [+0.0485, +0.1068] |
+
+On LoCoMo, masking the written memory out of the read costs **+0.0034 F1, CI
+[−0.0055, +0.0105]** — while the memory-free model still beats base by +0.1155.
+
+**Therefore: this is a task/attention adapter, not a memory system.** It must not be
+described as episodic memory, memory augmentation or context compilation. It also costs
+**3.2x the base latency per query** (§6 of the report).
+
+Audit outcomes: pre_o implementation correct (fusion residual 0.0); backbone
+bit-identical across training; base parity bit-exact; pre_o ≡ post_o_projected in fp32
+(top-1 disagreement 0.0000).
+
 ## Key findings (what the scripts here established)
 1. **No-context is where the memory has value.** With context in the prompt (backbone = full
    attention) the memory is redundant; with-context prefix ≈ no-prefix. But drop the context and
