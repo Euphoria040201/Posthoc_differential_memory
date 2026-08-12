@@ -485,6 +485,10 @@ QA = qa_1+qa_2.
 | 32K | ours (P=0) | 0.9950 | 1.0000 | 0.8493 | 0.6200 | 0.9153 |
 | 32K | ours (P=64) | 1.0000 | 1.0000 | 0.7180 | 0.6200 | 0.8982 |
 
+**P=64 on the same officially generated data, two seeds** (macro-13): 8K 0.9177 /
+0.9194, 16K 0.9149 / 0.9129, 32K 0.8982 — every cell below the corresponding base
+(0.9363 / 0.9425 / 0.9157). Neither configuration nor any seed beats base on RULER.
+
 **Retrieval and multi-hop are at ceiling for both arms at every length** — the sidecar
 neither helps nor hurts needle-finding. The entire deficit sits in **aggregation**
 (counting/frequency over the whole context) and **QA**. That is the signature of a
