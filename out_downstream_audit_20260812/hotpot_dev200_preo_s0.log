@@ -8,3 +8,10 @@ Found the latest cached dataset configuration 'distractor' at /home/mingze/.cach
 [shard 0] 40/200 baseF1=0.482 oursF1=0.573 ours_window_onlyF1=0.573 (0.5m)
 [shard 0] 60/200 baseF1=0.492 oursF1=0.571 ours_window_onlyF1=0.571 (0.8m)
 [shard 0] 80/200 baseF1=0.508 oursF1=0.565 ours_window_onlyF1=0.565 (1.0m)
+[shard 0] 100/200 baseF1=0.522 oursF1=0.569 ours_window_onlyF1=0.569 (1.2m)
+[shard 0] 120/200 baseF1=0.507 oursF1=0.555 ours_window_onlyF1=0.555 (1.4m)
+[shard 0] 140/200 baseF1=0.523 oursF1=0.560 ours_window_onlyF1=0.560 (1.6m)
+[shard 0] 160/200 baseF1=0.534 oursF1=0.580 ours_window_onlyF1=0.580 (1.8m)
+[shard 0] 180/200 baseF1=0.557 oursF1=0.589 ours_window_onlyF1=0.589 (2.1m)
+[shard 0] 200/200 baseF1=0.544 oursF1=0.572 ours_window_onlyF1=0.572 (2.4m)
+[shard 0] DONE base: F1=0.5439 EM=0.4150 ours: F1=0.5720 EM=0.4550 ours_window_only: F1=0.5720 EM=0.4550

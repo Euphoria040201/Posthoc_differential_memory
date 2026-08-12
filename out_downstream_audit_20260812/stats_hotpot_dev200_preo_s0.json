@@ -1,0 +1,34 @@
+{
+  "files": [
+    "out_downstream_audit_20260812/hotpot_dev200_preo_s0.json"
+  ],
+  "arm": "ours",
+  "baseline": "base",
+  "metric": "f1",
+  "n_boot": 10000,
+  "per_file": [
+    {
+      "file": "out_downstream_audit_20260812/hotpot_dev200_preo_s0.json",
+      "n": 200,
+      "ours_mean": 0.5720155677655678,
+      "base_mean": 0.543880452880453,
+      "paired_bootstrap": {
+        "delta": 0.028135114885114887,
+        "ci95": [
+          -0.015389499389499392,
+          0.07164105339105341
+        ],
+        "n": 200,
+        "n_clusters": 200,
+        "significant": false
+      },
+      "mcnemar": {
+        "b01": 16,
+        "b10": 8,
+        "p_value": 0.15158963203430176
+      },
+      "ours_em": 0.455,
+      "base_em": 0.415
+    }
+  ]
+}

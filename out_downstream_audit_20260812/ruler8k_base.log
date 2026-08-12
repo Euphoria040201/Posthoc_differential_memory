@@ -7,3 +7,15 @@ Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF
   60/520  base=1.000
   80/520  base=1.000
   100/520  base=0.970
+  120/520  base=0.944
+  140/520  base=0.895
+  160/520  base=0.890
+  180/520  base=0.902
+  200/520  base=0.912
+  220/520  base=0.920
+  240/520  base=0.926
+  260/520  base=0.932
+  280/520  base=0.937
+  300/520  base=0.937
+  320/520  base=0.935
+  340/520  base=0.915
