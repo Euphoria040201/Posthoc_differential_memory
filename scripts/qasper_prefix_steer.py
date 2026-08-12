@@ -452,6 +452,11 @@ def main():
         help="delta-O fusion: fixed=legacy out+gain*delta; rms_match=detached per-token "
              "RMS matching with energy normalization; cosine=(1+detached cosine)/2 gate",
     )
+    ap.add_argument("--o-fusion-position", default="post_o",
+                    choices=["post_o", "pre_o", "post_o_projected"],
+                    help="post_o: Y = fuse(W_O Z, C) (historical default). pre_o: "
+                         "Y = W_O fuse(Z, C) -- delta_o then lives in the o_proj INPUT "
+                         "space and its checkpoints are not shape-compatible with post_o.")
     ap.add_argument("--output-fusion-eps", type=float, default=1e-6)
     ap.add_argument("--output-fusion-scale-max", type=float, default=10.0)
     ap.add_argument("--save-steps", default="", help="comma steps to also save intermediate ckpts for best-ckpt selection")
@@ -631,6 +636,7 @@ def main():
         delta_rank=args.delta_rank, read_proj_dim=args.read_proj_dim,
         memory_value_source=args.memory_value_source,
         output_fusion=args.output_fusion,
+        o_fusion_position=args.o_fusion_position,
         output_fusion_eps=args.output_fusion_eps,
         output_fusion_scale_max=args.output_fusion_scale_max,
         prefix_layers=tuple(int(x) for x in args.prefix_layers.split(",") if x.strip()))

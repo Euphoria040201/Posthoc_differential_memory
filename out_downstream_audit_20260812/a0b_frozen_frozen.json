@@ -1,0 +1,30 @@
+{
+  "tag": "frozen",
+  "steps": 4,
+  "losses": [
+    3.2688229084014893,
+    1.526847004890442,
+    0.37369275093078613,
+    1.1683839559555054
+  ],
+  "n_backbone_tensors": 398,
+  "backbone_hash_before": "c894f7a1772f4c01f4e6ef2c9c503a1d2fef1d05fe5f9610f01965c81f03bf1c",
+  "backbone_hash_after": "c894f7a1772f4c01f4e6ef2c9c503a1d2fef1d05fe5f9610f01965c81f03bf1c",
+  "backbone_bit_identical": true,
+  "trainable_names_count": 48,
+  "non_steer_trainable_params": [],
+  "backbone_params_with_grad": [],
+  "n_backbone_params_with_grad": 0,
+  "optimizer_param_groups": [
+    48
+  ],
+  "note": "dex_train_qasper.py --variant swa_steer puts ONLY steer params in the optimizer; --lr applies to the (empty for swa_steer) attn/adapter group",
+  "env": {
+    "python": "3.10.20",
+    "torch": "2.6.0+cu124",
+    "gpu": "NVIDIA H100 80GB HBM3",
+    "cuda_visible_devices": "0",
+    "command": "scripts/audit_implementation.py --ckpt /work/mingze/Posthoc_differential_memory/out_dex_fusion/preo_swa_steer_s0_steer.pt --checks frozen --tag a0b_frozen"
+  },
+  "runtime_min": 0.89
+}

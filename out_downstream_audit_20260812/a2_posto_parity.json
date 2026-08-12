@@ -1,0 +1,184 @@
+{
+  "tag": "parity",
+  "n": 100,
+  "dtype": "bfloat16",
+  "attn": "sdpa",
+  "steer_off_bitexact_rate": 1.0,
+  "gain0_bitexact_rate": 1.0,
+  "steer_off_max_abs": {
+    "max": 0.0,
+    "mean": 0.0
+  },
+  "steer_off_top1_disagreement": {
+    "max": 0.0,
+    "mean": 0.0
+  },
+  "gain0_max_abs": {
+    "max": 0.0,
+    "mean": 0.0
+  },
+  "gain0_top1_disagreement": {
+    "max": 0.0,
+    "mean": 0.0
+  },
+  "rows": [
+    {
+      "i": 0,
+      "steer_off_vs_pristine": {
+        "max_abs": 0.0,
+        "mean_abs": 0.0,
+        "top1_disagreement": 0.0
+      },
+      "steer_off_bitexact": true,
+      "gain0_vs_pristine": {
+        "max_abs": 0.0,
+        "mean_abs": 0.0,
+        "top1_disagreement": 0.0
+      },
+      "gain0_bitexact": true
+    },
+    {
+      "i": 1,
+      "steer_off_vs_pristine": {
+        "max_abs": 0.0,
+        "mean_abs": 0.0,
+        "top1_disagreement": 0.0
+      },
+      "steer_off_bitexact": true,
+      "gain0_vs_pristine": {
+        "max_abs": 0.0,
+        "mean_abs": 0.0,
+        "top1_disagreement": 0.0
+      },
+      "gain0_bitexact": true
+    },
+    {
+      "i": 2,
+      "steer_off_vs_pristine": {
+        "max_abs": 0.0,
+        "mean_abs": 0.0,
+        "top1_disagreement": 0.0
+      },
+      "steer_off_bitexact": true,
+      "gain0_vs_pristine": {
+        "max_abs": 0.0,
+        "mean_abs": 0.0,
+        "top1_disagreement": 0.0
+      },
+      "gain0_bitexact": true
+    },
+    {
+      "i": 3,
+      "steer_off_vs_pristine": {
+        "max_abs": 0.0,
+        "mean_abs": 0.0,
+        "top1_disagreement": 0.0
+      },
+      "steer_off_bitexact": true,
+      "gain0_vs_pristine": {
+        "max_abs": 0.0,
+        "mean_abs": 0.0,
+        "top1_disagreement": 0.0
+      },
+      "gain0_bitexact": true
+    },
+    {
+      "i": 4,
+      "steer_off_vs_pristine": {
+        "max_abs": 0.0,
+        "mean_abs": 0.0,
+        "top1_disagreement": 0.0
+      },
+      "steer_off_bitexact": true,
+      "gain0_vs_pristine": {
+        "max_abs": 0.0,
+        "mean_abs": 0.0,
+        "top1_disagreement": 0.0
+      },
+      "gain0_bitexact": true
+    },
+    {
+      "i": 5,
+      "steer_off_vs_pristine": {
+        "max_abs": 0.0,
+        "mean_abs": 0.0,
+        "top1_disagreement": 0.0
+      },
+      "steer_off_bitexact": true,
+      "gain0_vs_pristine": {
+        "max_abs": 0.0,
+        "mean_abs": 0.0,
+        "top1_disagreement": 0.0
+      },
+      "gain0_bitexact": true
+    },
+    {
+      "i": 6,
+      "steer_off_vs_pristine": {
+        "max_abs": 0.0,
+        "mean_abs": 0.0,
+        "top1_disagreement": 0.0
+      },
+      "steer_off_bitexact": true,
+      "gain0_vs_pristine": {
+        "max_abs": 0.0,
+        "mean_abs": 0.0,
+        "top1_disagreement": 0.0
+      },
+      "gain0_bitexact": true
+    },
+    {
+      "i": 7,
+      "steer_off_vs_pristine": {
+        "max_abs": 0.0,
+        "mean_abs": 0.0,
+        "top1_disagreement": 0.0
+      },
+      "steer_off_bitexact": true,
+      "gain0_vs_pristine": {
+        "max_abs": 0.0,
+        "mean_abs": 0.0,
+        "top1_disagreement": 0.0
+      },
+      "gain0_bitexact": true
+    },
+    {
+      "i": 8,
+      "steer_off_vs_pristine": {
+        "max_abs": 0.0,
+        "mean_abs": 0.0,
+        "top1_disagreement": 0.0
+      },
+      "steer_off_bitexact": true,
+      "gain0_vs_pristine": {
+        "max_abs": 0.0,
+        "mean_abs": 0.0,
+        "top1_disagreement": 0.0
+      },
+      "gain0_bitexact": true
+    },
+    {
+      "i": 9,
+      "steer_off_vs_pristine": {
+        "max_abs": 0.0,
+        "mean_abs": 0.0,
+        "top1_disagreement": 0.0
+      },
+      "steer_off_bitexact": true,
+      "gain0_vs_pristine": {
+        "max_abs": 0.0,
+        "mean_abs": 0.0,
+        "top1_disagreement": 0.0
+      },
+      "gain0_bitexact": true
+    }
+  ],
+  "env": {
+    "python": "3.10.20",
+    "torch": "2.6.0+cu124",
+    "gpu": "NVIDIA H100 80GB HBM3",
+    "cuda_visible_devices": "2",
+    "command": "scripts/audit_implementation.py --ckpt /work/mingze/delta-mem/out_dex/dex_swa_steer_constant_slr5e-4_s0_steer.pt --checks parity,graph,isolation --tag a2_posto"
+  },
+  "runtime_min": 0.72
+}

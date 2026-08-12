@@ -1,0 +1,87 @@
+[a0_preo] === graph ===
+Using the latest cached version of the dataset since allenai/qasper couldn't be found on the Hugging Face Hub (offline mode is enabled).
+Found the latest cached dataset configuration 'default' at /home/mingze/.cache/huggingface/datasets/allenai___qasper/default/0.0.0/06806e4608976fc2fac0a090ac425d5b2b29caf4 (last modified on Tue Jul 28 03:00:47 2026).
+Loading weights:   0%|          | 0/398 [00:00<?, ?it/s]Loading weights: 100%|██████████| 398/398 [00:00<00:00, 28205.82it/s]
+[a0_preo] graph -> /work/mingze/Posthoc_differential_memory/out_downstream_audit_20260812/a0_preo_graph.json (0.07m)
+{
+  "tag": "graph",
+  "ckpt": "out_dex_fusion/preo_swa_steer_s0_steer.pt",
+  "loaded_tensors": 48,
+  "n_steer_layers": 12,
+  "widths": {
+    "o_proj_in": 4096,
+    "o_proj_out": 2560,
+    "o_proj_bias": false,
+    "Z_width": [
+      1,
+      4537,
+      4096
+    ],
+    "C_width": [
+      1,
+      4537,
+      4096
+    ],
+    "read_dim": 128,
+    "n_query_heads": 32,
+    "n_kv_heads": 8,
+    "head_dim": 128,
+    "num_prefix_tokens": 0
+  },
+  "memory_read": {
+    "hidden_shape": [
+      1,
+      4537,
+      2560
+    ],
+    "reads_shape": [
+      1,
+      4537,
+      128
+    ],
+    "seg_unique": [
+      1,
+      2,
+      3
+    ]
+  },
+  "segments_in_forward": {
+    "1": 4500,
+    "2": 26,
+    "3": 11
+  },
+  "SEG_CTX": 1,
+  "SEG_ANS": 3,
+  "trainable_steer_tensors": 48,
+  "trainable_steer_params": 14155776,
+  "trainable_names_head": [
+    "model.layers.0.self_attn.prefix",
+    "model.layers.0.self_attn.mem_q.weight",
+    "model.layers.0.self_attn.mem_k.weight",
+    "model.layers.0.self_attn.delta_o.weight",
+    "model.layers.3.self_attn.prefix",
+    "model.layers.3.self_attn.mem_q.weight",
+    "model.layers.3.self_attn.mem_k.weight",
+    "model.layers.3.self_attn.delta_o.weight"
+  ],
+  "has_written_state": false,
+  "fusion_position": "pre_o",
+  "formula_check": {
+    "claim": "o_proj input == Z + g*C",
+    "max_abs_residual": 0.0
+  },
+  "runtime_min": 0.07
+}
+[a0_preo] === frozen ===
+Loading weights:   0%|          | 0/398 [00:00<?, ?it/s]Loading weights: 100%|██████████| 398/398 [00:00<00:00, 10590.00it/s]
+Using the latest cached version of the dataset since allenai/qasper couldn't be found on the Hugging Face Hub (offline mode is enabled).
+Found the latest cached dataset configuration 'default' at /home/mingze/.cache/huggingface/datasets/allenai___qasper/default/0.0.0/06806e4608976fc2fac0a090ac425d5b2b29caf4 (last modified on Tue Jul 28 03:00:47 2026).
+[compose] total=8 (target_n=8) yes/no=0 (0.0%) ; pool yn=11 other=56
+Traceback (most recent call last):
+  File "/work/mingze/Posthoc_differential_memory/scripts/audit_implementation.py", line 488, in <module>
+    main()
+  File "/work/mingze/Posthoc_differential_memory/scripts/audit_implementation.py", line 474, in main
+    payload = CHECKS[name](args)
+  File "/work/mingze/Posthoc_differential_memory/scripts/audit_implementation.py", line 250, in check_frozen
+    "trainable_names_count": len(trainable_names),
+TypeError: object of type 'NoneType' has no len()

@@ -1,0 +1,29 @@
+[a0b_frozen] === frozen ===
+Loading weights:   0%|          | 0/398 [00:00<?, ?it/s]Loading weights: 100%|██████████| 398/398 [00:00<00:00, 10226.19it/s]
+Using the latest cached version of the dataset since allenai/qasper couldn't be found on the Hugging Face Hub (offline mode is enabled).
+Found the latest cached dataset configuration 'default' at /home/mingze/.cache/huggingface/datasets/allenai___qasper/default/0.0.0/06806e4608976fc2fac0a090ac425d5b2b29caf4 (last modified on Tue Jul 28 03:00:47 2026).
+[compose] total=8 (target_n=8) yes/no=0 (0.0%) ; pool yn=11 other=56
+[a0b_frozen] frozen -> /work/mingze/Posthoc_differential_memory/out_downstream_audit_20260812/a0b_frozen_frozen.json (0.89m)
+{
+  "tag": "frozen",
+  "steps": 4,
+  "losses": [
+    3.2688229084014893,
+    1.526847004890442,
+    0.37369275093078613,
+    1.1683839559555054
+  ],
+  "n_backbone_tensors": 398,
+  "backbone_hash_before": "c894f7a1772f4c01f4e6ef2c9c503a1d2fef1d05fe5f9610f01965c81f03bf1c",
+  "backbone_hash_after": "c894f7a1772f4c01f4e6ef2c9c503a1d2fef1d05fe5f9610f01965c81f03bf1c",
+  "backbone_bit_identical": true,
+  "trainable_names_count": 48,
+  "non_steer_trainable_params": [],
+  "backbone_params_with_grad": [],
+  "n_backbone_params_with_grad": 0,
+  "optimizer_param_groups": [
+    48
+  ],
+  "note": "dex_train_qasper.py --variant swa_steer puts ONLY steer params in the optimizer; --lr applies to the (empty for swa_steer) attn/adapter group",
+  "runtime_min": 0.89
+}

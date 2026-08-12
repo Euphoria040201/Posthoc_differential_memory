@@ -1,0 +1,130 @@
+{
+  "tag": "graph",
+  "ckpt": "/work/mingze/delta-mem/out_dex/dex_swa_steer_constant_slr5e-4_s0_steer.pt",
+  "config": {
+    "num_prefix_tokens": 0,
+    "sliding_window_size": 256,
+    "mem_num_heads": 1,
+    "mem_head_dim": 128,
+    "steer_mode": "deltamem",
+    "normal_attends_prefix": true,
+    "prefix_sees_query": true,
+    "prefix_init_std": 0.7,
+    "prefix_init_dist": "normal",
+    "prefix_write": false,
+    "read_prefix_only": false,
+    "memory_mode": "dynamic",
+    "write_ctx_only": false,
+    "prefix_write_layout": "global",
+    "prefix_write_overlap_tokens": 0,
+    "pool_reads": false,
+    "pool_gate": false,
+    "pool_gate_input": "rm",
+    "pool_gate_max": 2.0,
+    "pool_gate_bias": 0.0,
+    "steer_layers": [
+      0,
+      3,
+      6,
+      9,
+      12,
+      15,
+      18,
+      21,
+      24,
+      27,
+      30,
+      33
+    ],
+    "prefix_layers": [],
+    "steer_gain": 0.1,
+    "share_qkv": false,
+    "memory_value_source": "main_v",
+    "delta_heads": "o",
+    "delta_rank": 0,
+    "read_proj_dim": 0,
+    "output_fusion": "fixed",
+    "o_fusion_position": "post_o",
+    "output_fusion_eps": 1e-06,
+    "output_fusion_scale_max": 10.0,
+    "fusion_lambda_init": 0.1,
+    "fusion_lambda_max": 1.0,
+    "fusion_ema_momentum": 0.99,
+    "history_pool_mode": "none",
+    "hybrid_read_mode": "none",
+    "hybrid_prefix_gate_mode": "fixed",
+    "hybrid_prefix_gate_init": 0.1
+  },
+  "loaded_tensors": 48,
+  "n_steer_layers": 12,
+  "widths": {
+    "o_proj_in": 4096,
+    "o_proj_out": 2560,
+    "o_proj_bias": false,
+    "Z_width": [
+      1,
+      4537,
+      4096
+    ],
+    "C_width": [
+      1,
+      4537,
+      2560
+    ],
+    "read_dim": 128,
+    "n_query_heads": 32,
+    "n_kv_heads": 8,
+    "head_dim": 128,
+    "num_prefix_tokens": 0
+  },
+  "memory_read": {
+    "hidden_shape": [
+      1,
+      4537,
+      2560
+    ],
+    "reads_shape": [
+      1,
+      4537,
+      128
+    ],
+    "seg_unique": [
+      1,
+      2,
+      3
+    ]
+  },
+  "segments_in_forward": {
+    "1": 4500,
+    "2": 26,
+    "3": 11
+  },
+  "SEG_CTX": 1,
+  "SEG_ANS": 3,
+  "trainable_steer_tensors": 48,
+  "trainable_steer_params": 11796480,
+  "trainable_names_head": [
+    "model.layers.0.self_attn.prefix",
+    "model.layers.0.self_attn.mem_q.weight",
+    "model.layers.0.self_attn.mem_k.weight",
+    "model.layers.0.self_attn.delta_o.weight",
+    "model.layers.3.self_attn.prefix",
+    "model.layers.3.self_attn.mem_q.weight",
+    "model.layers.3.self_attn.mem_k.weight",
+    "model.layers.3.self_attn.delta_o.weight"
+  ],
+  "has_written_state": false,
+  "fusion_position": "post_o",
+  "formula_check": {
+    "claim": "wrapper out == W_O Z + g*C",
+    "max_abs_residual": 0.0
+  },
+  "env": {
+    "python": "3.10.20",
+    "torch": "2.6.0+cu124",
+    "gpu": "NVIDIA H100 80GB HBM3",
+    "cuda_visible_devices": "2",
+    "command": "scripts/audit_implementation.py --ckpt /work/mingze/delta-mem/out_dex/dex_swa_steer_constant_slr5e-4_s0_steer.pt --checks parity,graph,isolation --tag a2_posto"
+  },
+  "runtime_min": 0.06
+}

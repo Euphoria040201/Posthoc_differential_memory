@@ -1,0 +1,146 @@
+{
+  "tag": "numerics",
+  "ckpt": "out_dex_fusion/preo_swa_steer_s0_steer.pt",
+  "cases": [
+    {
+      "dtype": "float32",
+      "use_cache": false,
+      "batch": 1,
+      "n_tokens": 4537,
+      "pre_o_vs_ctlproj": {
+        "max_abs": 0.006782054901123047,
+        "mean_abs": 9.927361134032253e-06,
+        "top1_disagreement": 0.0
+      },
+      "pre_o_repeat_bitexact": true,
+      "pre_o_repeat_stats": {
+        "max_abs": 0.0,
+        "mean_abs": 0.0,
+        "top1_disagreement": 0.0
+      }
+    },
+    {
+      "dtype": "float32",
+      "use_cache": true,
+      "batch": 1,
+      "n_tokens": 4537,
+      "pre_o_vs_ctlproj": {
+        "max_abs": 0.006782054901123047,
+        "mean_abs": 9.927361134032253e-06,
+        "top1_disagreement": 0.0
+      },
+      "pre_o_repeat_bitexact": true,
+      "pre_o_repeat_stats": {
+        "max_abs": 0.0,
+        "mean_abs": 0.0,
+        "top1_disagreement": 0.0
+      }
+    },
+    {
+      "dtype": "bfloat16",
+      "use_cache": false,
+      "batch": 1,
+      "n_tokens": 4537,
+      "pre_o_vs_ctlproj": {
+        "max_abs": 10.203125,
+        "mean_abs": 0.04140666499733925,
+        "top1_disagreement": 0.010800087824463844
+      },
+      "pre_o_repeat_bitexact": true,
+      "pre_o_repeat_stats": {
+        "max_abs": 0.0,
+        "mean_abs": 0.0,
+        "top1_disagreement": 0.0
+      }
+    },
+    {
+      "dtype": "bfloat16",
+      "use_cache": false,
+      "batch": 2,
+      "n_tokens": 9074,
+      "pre_o_vs_ctlproj": {
+        "max_abs": 10.203125,
+        "mean_abs": 0.041411034762859344,
+        "top1_disagreement": 0.011020498350262642
+      },
+      "pre_o_repeat_bitexact": true,
+      "pre_o_repeat_stats": {
+        "max_abs": 0.0,
+        "mean_abs": 0.0,
+        "top1_disagreement": 0.0
+      }
+    },
+    {
+      "dtype": "bfloat16",
+      "use_cache": true,
+      "batch": 1,
+      "n_tokens": 4537,
+      "pre_o_vs_ctlproj": {
+        "max_abs": 10.203125,
+        "mean_abs": 0.04140666499733925,
+        "top1_disagreement": 0.010800087824463844
+      },
+      "pre_o_repeat_bitexact": true,
+      "pre_o_repeat_stats": {
+        "max_abs": 0.0,
+        "mean_abs": 0.0,
+        "top1_disagreement": 0.0
+      }
+    },
+    {
+      "dtype": "bfloat16",
+      "use_cache": true,
+      "batch": 2,
+      "n_tokens": 9074,
+      "pre_o_vs_ctlproj": {
+        "max_abs": 10.203125,
+        "mean_abs": 0.041411034762859344,
+        "top1_disagreement": 0.011020498350262642
+      },
+      "pre_o_repeat_bitexact": true,
+      "pre_o_repeat_stats": {
+        "max_abs": 0.0,
+        "mean_abs": 0.0,
+        "top1_disagreement": 0.0
+      }
+    }
+  ],
+  "generation": {
+    "n": 4,
+    "identical_rate": 0.75,
+    "samples": [
+      {
+        "i": 0,
+        "pre_o": " multilingual NMT (MNMT) BIBREF19, and cross-lingual transfer without pretraining B",
+        "ctlproj": " multilingual NMT (MNMT) BIBREF19, and cross-lingual transfer without pretraining B",
+        "identical": true
+      },
+      {
+        "i": 1,
+        "pre_o": " pivoting, pivot-synthetic, multilingual NMT, unsupervised NMT, cross-lingual transfer",
+        "ctlproj": " pivoting, pivot-synthetic, pivoting$_{\\rm m}$, pivoting$_{\\rm m}$,",
+        "identical": false
+      },
+      {
+        "i": 2,
+        "pre_o": " Europarl, MultiUN. BIBREF31, BIBREF32. BIBREF31,",
+        "ctlproj": " Europarl, MultiUN. BIBREF31, BIBREF32. BIBREF31,",
+        "identical": true
+      },
+      {
+        "i": 3,
+        "pre_o": " French-English-Spanish (Fr-En-Es), German-English-French (De-En-Fr",
+        "ctlproj": " French-English-Spanish (Fr-En-Es), German-English-French (De-En-Fr",
+        "identical": true
+      }
+    ]
+  },
+  "env": {
+    "python": "3.10.20",
+    "torch": "2.6.0+cu124",
+    "gpu": "NVIDIA H100 80GB HBM3",
+    "cuda_visible_devices": "1",
+    "command": "scripts/audit_implementation.py --ckpt out_dex_fusion/preo_swa_steer_s0_steer.pt --checks numerics --tag a1_numerics"
+  },
+  "runtime_min": 1.39
+}
