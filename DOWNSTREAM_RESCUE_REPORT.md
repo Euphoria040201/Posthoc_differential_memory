@@ -594,6 +594,19 @@ resamples, 10 clusters.
 Absolute numbers: base EM 0.0396 / F1 0.1833; ours EM 0.0864 / F1 0.3021;
 window-only EM 0.0890 / F1 0.2988.
 
+**All three P=64 seeds, in-repo metric, all 1540 QA** (identical base 0.2105):
+
+| seed | ours | ours_window_only | ours − window_only |
+|---|---:|---:|---:|
+| 0 | 0.3179 | 0.3127 | +0.0052 |
+| 1 | 0.2759 | 0.2903 | **−0.0144** |
+| 2 | 0.2893 | 0.3006 | **−0.0113** |
+| mean | 0.2944 | 0.3012 | **−0.0068** |
+
+**Two of the three seeds score *higher* with the written memory masked out**, and the
+mean effect of having the memory is negative. Every seed still beats base by +0.065 to
++0.107 without it.
+
 **Read the second and third rows together.** Deleting the written memory from the read
 costs 0.003 F1 with an interval spanning zero, while the memory-free model still beats
 the full-context base by +0.116 with an interval far from zero. On EM the memory-free
