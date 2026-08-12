@@ -213,6 +213,13 @@ seeds. Internal dev n=1000, same 1000 items, same base:
 The effect replicates and is *larger* on the seed that required no checkpoint
 selection. Full official dev + untouched-complement runs for seeds 1 and 2 are queued.
 
+**The memory verdict replicates on that seed too.** Seed 2's own §6 arm set (n=300,
+no checkpoint selection anywhere in its history): base_ctx 0.5886, ours_ctx 0.6824
+(**+0.0939**), base_noctx 0.0726, ours_state_only 0.1611, swap 0.1726, zero 0.1965,
+window 0.1769 — i.e. **correct − swap = −0.0114**, correct − window = −0.0158,
+correct − zero = −0.0354. An independently trained model, selected in no way, still
+does *worse* reading the correct document's state than a different document's.
+
 **Multi-seed on the same untouched holdout** (§9 Stage-C: direction must agree across
 seeds; the hierarchical bootstrap resamples examples first, then seeds, so the same
 4678 ids are never counted as independent observations across seeds):
