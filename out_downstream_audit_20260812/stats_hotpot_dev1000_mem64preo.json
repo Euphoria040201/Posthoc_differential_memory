@@ -1,0 +1,34 @@
+{
+  "files": [
+    "out_downstream_audit_20260812/hotpot_dev1000_mem64preo_step100.json"
+  ],
+  "arm": "ours",
+  "baseline": "base",
+  "metric": "f1",
+  "n_boot": 10000,
+  "per_file": [
+    {
+      "file": "out_downstream_audit_20260812/hotpot_dev1000_mem64preo_step100.json",
+      "n": 1000,
+      "ours_mean": 0.6666703602338839,
+      "base_mean": 0.5659092996179664,
+      "paired_bootstrap": {
+        "delta": 0.10076106061591769,
+        "ci95": [
+          0.07650988776206369,
+          0.12559500053572178
+        ],
+        "n": 1000,
+        "n_clusters": 1000,
+        "significant": true
+      },
+      "mcnemar": {
+        "b01": 132,
+        "b10": 61,
+        "p_value": 3.4970737625244577e-07
+      },
+      "ours_em": 0.505,
+      "base_em": 0.434
+    }
+  ]
+}

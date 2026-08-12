@@ -15,7 +15,7 @@ copied from result JSONs, never from memory.
 | 2 | Is pre_o vs post_o_projected really just bf16? | **Yes as to correctness, no as to size.** In fp32 the two agree to 6.8e-3 max / 9.9e-6 mean with **top-1 disagreement 0.0000** — mathematically equivalent, differences are accumulation order. In bf16 they flip the top-1 token on **1.1%** of positions (max abs 10.2), which greedy decoding amplifies into visibly different generations (25% of 4 sampled generations differed). Calling it "bf16 noise" understates it: it is bf16-scale, but large enough to move small-n greedy F1. Both arms are internally deterministic (repeat runs bit-exact). `a1_numerics_numerics.json` |
 | 3 | Is the backbone fully frozen? | **Yes, bit-identical.** SHA256 over all 398 backbone tensors is unchanged across 4 real optimizer steps (`c894f7a1…` → `c894f7a1…`); 0 backbone params ever receive a gradient; the optimizer contains exactly the 48 sidecar tensors. `--lr 2e-5` applies to an empty parameter group for `swa_steer`. `a0b_frozen_frozen.json` |
 | 4 | Does the old Qasper +0.055 F1 hold on independent data? | **Yes — it replicates almost exactly in size on an untouched HotpotQA holdout**: +0.0602 F1 (CI [+0.051, +0.069], n=4678, official scorer). But it is a task-adapter effect, not memory (§2b). |
-| 5 | LoCoMo official | RUNNING |
+| 5 | LoCoMo official | **base_fullctx** EM .0396 / F1 .1833; **ours_fullctx** EM .0617 / F1 .2163 (all 1540). Untouched 1339: .1653→.1969 F1, conversation-clustered CI **[+0.023, +0.042]**, significant. `ours_state_only`/swap/zero are **undefined for this checkpoint** (P=0, no state) — the P=64 memory arms are in §2b. |
 | 6 | HotpotQA official EM/F1 + Joint | **Untouched holdout (n=4678)**: base EM **0.4288** / F1 **0.5615**; ours EM **0.4906** / F1 **0.6216**. Full dev (n=7405): base .4319/.5647, ours .4905/.6209. Support/Joint = **0.0** everywhere (`sp` empty, no supporting-fact head). |
 | 7 | RULER 8K/16K/32K macro | 8K base **0.9288** / ours **0.9254**; 16K base **0.9439** / ours **0.9361**. Ours is at or below base at both lengths. 32K needs official generation (mirror has no 32k) — RUNNING |
 | 8–11 | strongest config, significance, memory vs task adaptation | Strongest so far: **P=64 noctx qkvo pre_o sidecar, full-context** — +0.1204 F1 over base_fullctx (t=+4.59, n=200 dev). Significance confirmed at n=1000 for the P=0 line (+0.050/+0.060, CI>0); n=1000 for P=64 RUNNING. **The gain is NOT from memory**: correct−swap = +0.0025 (t=0.34), see §2b |
@@ -117,6 +117,15 @@ correct−window −0.0007 (t=−0.10), with ours_fullctx 0.6302 vs base 0.5439 
 t=+3.35). Two architectures (P=0, P=64) x two fusion positions all agree: the written
 state is inert, the adapter is not.
 
+**The P=64 adapter is the strongest configuration measured this session.** At n=1000
+(dev, seed 1234, full context): ours **0.6667** vs base **0.5659**, ΔF1 **+0.1008**,
+paired bootstrap CI **[+0.0765, +0.1256]**, EM .5050 vs .4340, McNemar p=3.5e-7 —
+roughly double the P=0 line's +0.056. The cost is size: this checkpoint trains
+**355,074,048** parameters over **36** patched layers (vs 14,155,776 over 12 layers
+for the P=0 line), so the two are NOT a matched-capacity comparison. Its own
+matched no-memory control inside the Qasper eval (`method_nomem`) scores 0.0791 vs
+method 0.0856, i.e. the memory's marginal contribution there is +0.0065.
+
 The same run shows the **largest positive result of the session**: with full context
 retained, this sidecar scores **+0.1204 F1 over the frozen full-context base**
 (t=+4.59, n=200 dev). That is a memory-*augmentation*-shaped number produced by a
@@ -166,12 +175,36 @@ label is a **task/attention adapter that improves full-context HotpotQA**, not m
 Historical runs agree (4k: base 0.9360 / ours 0.9355; 16k: base 0.9282 / ours 0.9274),
 so RULER at these lengths has no headroom for this method to show anything.
 
-## 4. LoCoMo — RUNNING
+## 4. LoCoMo — official scorer, all 1540 QA
 
-Partial (200/1540 QA, official protocol serialization, our scorer): base 0.2856,
-ours 0.3231. Official `task_eval/evaluation.py` scoring and conversation-clustered CI
-pending; the LLM-judge metric is **not available** (no API key) and is **not** replaced
-by a substitute.
+Protocol: official `data/locomo10.json`, official conversation serialization and QA
+prompt, WRITE once per conversation and query many. Scored by the **official**
+`task_eval/evaluation.py` (SHA `3eb6f2c`) — its F1 uses PorterStemmer stemming, which
+differs from the in-repo metric, so only the official numbers are quoted here. The
+LLM-judge metric is **unavailable** (no API key) and is **not** substituted.
+
+Conversation assignment for clustering was reconstructed by position and verified:
+**0 category mismatches across all 1540 rows** (10 conversations, counts
+152/81/152/199/178/123/150/191/156/158 = 1540).
+
+| set | n | arm | official EM | official F1 | ΔF1 | conversation-clustered CI95 (10k) |
+|---|---:|---|---:|---:|---:|---|
+| all QA | 1540 | base_fullctx | 0.0396 | 0.1833 | — | — |
+| all QA | 1540 | **ours_fullctx** | **0.0617** | **0.2163** | **+0.0331** | **[+0.0247, +0.0416]** |
+| **untouched** (excl. the 200 QA used by historical `10x20` runs) | 1339 | base_fullctx | 0.0403 | 0.1653 | — | — |
+| **untouched** | 1339 | **ours_fullctx** | **0.0612** | **0.1969** | **+0.0316** | **[+0.0226, +0.0417]** |
+
+EM on all QA: +0.0221, clustered CI [+0.0140, +0.0321]; McNemar b01=43 b10=9,
+**p=2.0e-6**. Untouched EM +0.0209, CI [+0.0139, +0.0289].
+
+By category (in-repo metric, all 1540): cat1 0.2506→0.3048, cat2 0.1613→0.2071,
+cat3 0.1198→0.1176 (the only non-positive category), cat4 0.2262→0.2409. No single
+category drives the average.
+
+This is a **second benchmark** where the sidecar significantly beats the frozen
+full-context base on untouched data. It is the same `ours_fullctx` task-adapter
+effect as HotpotQA — LoCoMo was evaluated with the P=0 checkpoint, which has no
+state at all (F1), so it cannot be a memory result.
 
 ## 5. Contamination (§3)
 
