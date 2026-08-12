@@ -98,6 +98,10 @@ def main():
             for line in open(task_dir / "test.jsonl"):
                 row = _json.loads(line)
                 row["task"] = task_dir.name
+                # the official generator names the gold list "outputs"; the HF mirror
+                # calls it "answer".  Normalise WITHOUT touching the values.
+                if "answer" not in row and "outputs" in row:
+                    row["answer"] = row["outputs"]
                 data.append(row)
         print(f"[ruler] loaded {len(data)} OFFICIAL samples from {args.data_dir}", flush=True)
     else:
