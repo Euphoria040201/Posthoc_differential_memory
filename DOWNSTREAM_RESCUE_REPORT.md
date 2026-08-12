@@ -673,14 +673,46 @@ state); when it does not, `correct − swap` is exactly 0.0000. There is no midd
 At **two and three facts**, no seed found it at all (2 facts: +0.0000, −0.0078;
 3 facts: +0.0000, +0.0000).
 
+#### Separating optimisation from capacity — the two decisive controls
+
+**(a) Does a better recipe rescue the failed seeds?** `--paired-train` (paired-conflict
+batching, which the July notes credit with making optimisation "faster and more
+stable") applied to the three seeds that failed unpaired:
+
+| seed | unpaired | paired | |
+|---|---:|---:|---|
+| 4 | +0.0000 | **+1.0000** | **rescued — perfect** |
+| 2 | +0.0000 | +0.0000 | not rescued |
+| 6 | +0.0000 | +0.0469 | not rescued |
+
+The recipe **can** convert a failure into a perfect solve, but does so in 1 of 3 cases.
+Optimisation is therefore a real and partly fixable part of the problem — but not
+reliably fixable with this recipe.
+
+**(b) Is the 2-fact zero an optimisation artifact or a capacity limit?** The clean test
+is to take a seed that **provably** binds one fact and give it two:
+
+| seed | 1 fact (correct − swap) | 2 facts (correct − swap) |
+|---|---:|---:|
+| **5** | **+0.9922** (solved, near-perfect) | **−0.0078** |
+| 3 | +0.1719 | −0.0078 |
+| 2 | +0.0000 | +0.0000 |
+
+**Seed 5 encodes one binding at 99.2% and exactly zero bindings at two.** The ceiling is
+therefore a **capacity limit of this write mechanism, not a bad draw of the optimiser** —
+the same run, same recipe, same budget, one more fact, and the document-specificity is
+gone entirely.
+
 This replaces the reading I gave earlier in this session. The write path is **not**
 "nearly empty" — the architecture demonstrably represents one document-specific
 binding perfectly. The failures are:
 
-1. **Optimization**: at the easiest possible task (one fact), training reaches the
-   binding solution roughly **one run in three**.
-2. **Capacity/optimization beyond one binding**: at two or more facts, **zero of the
-   seeds tested** reached it under the same budget.
+1. **Optimisation**: at the easiest possible task (one fact), training reaches the
+   binding solution roughly **one run in three** unpaired; paired-conflict batching
+   rescues 1 of 3 failures, so a better recipe helps but does not make it reliable.
+2. **Capacity**: the write holds **exactly one binding**. A seed that solves one fact
+   at 99.2% scores −0.008 at two facts (control (b) above), so this is the mechanism's
+   ceiling, not an optimiser accident.
 
 Both failures compound in the downstream setting, where a HotpotQA context or a LoCoMo
 conversation contains far more than three facts — which is why `correct − swap ≈ 0`
