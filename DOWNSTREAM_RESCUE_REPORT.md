@@ -16,7 +16,7 @@ copied from result JSONs, never from memory.
 | 3 | Is the backbone fully frozen? | **Yes, bit-identical.** SHA256 over all 398 backbone tensors is unchanged across 4 real optimizer steps (`c894f7a1…` → `c894f7a1…`); 0 backbone params ever receive a gradient; the optimizer contains exactly the 48 sidecar tensors. `--lr 2e-5` applies to an empty parameter group for `swa_steer`. `a0b_frozen_frozen.json` |
 | 4 | Does the old Qasper +0.055 F1 hold on independent data? | **Partly, and larger than that on HotpotQA** — see §2. But it is NOT a memory effect (§1 F1/F2). |
 | 5 | LoCoMo official | RUNNING |
-| 6 | HotpotQA official EM/F1 + Joint | Internal dev done (§2); official-scorer + untouched-final RUNNING |
+| 6 | HotpotQA official EM/F1 + Joint | **Official scorer run**: base EM .4340/F1 .5659 vs ours EM .4860-.4870/F1 .6156-.6256 on internal dev-1000. Joint/Support = **0.0** (no supporting-fact head, `sp` submitted empty). Untouched-final RUNNING |
 | 7 | RULER 8K/16K/32K macro | 8K done: base **0.9288** vs ours **0.9254** (13/13 tasks, at ceiling). 16K RUNNING |
 | 8–11 | strongest config, significance, memory vs task adaptation | see §1 F1 and §2 — the gain is real but is **task adaptation, not memory** |
 
@@ -50,6 +50,22 @@ selection process from the historical seed-42 screening).
 
 The n=200 screen was **not** significant; only n=1000 resolves it. This is exactly why
 screening results are not evidence.
+
+### Official scorer cross-check (`hotpot_evaluate_v1.py`, SHA `3635853`)
+
+Our saved predictions were re-scored by the **untouched official evaluator**
+(`official_hotpot_dev1000.json`); gold rebuilt from the HF distractor mirror with
+**0 missing ids**. `sp` submitted EMPTY because the method has no supporting-fact
+head, so Support/Joint are honestly 0.
+
+| file | arm | official EM | official F1 | sp_f1 | joint_f1 |
+|---|---|---:|---:|---:|---:|
+| dev1000 s0 | base_fullctx | 0.4340 | 0.5659 | 0.0 | 0.0 |
+| dev1000 s0 | ours_fullctx | 0.4860 | 0.6156 | 0.0 | 0.0 |
+| dev1000 s1 | ours_fullctx | 0.4870 | 0.6256 | 0.0 | 0.0 |
+
+The official numbers match the in-repo metric to 4 decimals, so the measurement
+chain (prompt → generation → parser → metric) is validated end-to-end.
 
 **Interpretation, stated precisely.** This is a significant improvement over the
 full-context frozen base under identical inputs and decoding. It is **NOT** a memory
