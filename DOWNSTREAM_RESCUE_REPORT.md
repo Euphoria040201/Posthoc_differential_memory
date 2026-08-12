@@ -191,6 +191,35 @@ base, on data never used for any tuning decision, with the paired CI lower bound
 identically when the written state is swapped, zeroed, or masked out. The honest
 label is a **task/attention adapter that improves full-context HotpotQA**, not memory.
 
+
+## 2d. P1 rescue round — every arm, including the failures
+
+All trained this session on Qasper with P=64 written memory (write the document →
+drop/mask the context → read from the frozen state), evaluated by each run's own
+in-distribution eval. `method_nomem` / `window_only` are the matched no-memory
+controls (§6 arm 9): same weights, same step count, memory read disabled.
+
+| arm | training | base | method (memory ON) | matched no-memory control | memory's marginal value |
+|---|---|---:|---:|---:|---:|
+| `mem64_noctx_posto_s0` | noctx, post_o | 0.0791 | 0.0856 | 0.0791 (`method_nomem`) | **+0.0065** |
+| `mem64_noctx_preo_s0` | noctx, pre_o | 0.0791 | **0.0340** | 0.0791 | **−0.0451 (harmful)** |
+| `mem64_ctxmask_posto_s0` | ctxmask ratio 1.0 | 0.1784 | **0.0718** | 0.2146 (`window_only`) / 0.1784 (`nomem`) | **−0.1428 vs window-only (harmful)** |
+| `mem64_swapc_b5_s0` | noctx + swap-contrast β=5, margin 0.5 | 0.0791 | 0.0865 | 0.0791 | **+0.0074** |
+| `mem64_swapc_b1_s0` | noctx + swap-contrast β=1 | — | RUNNING | — | — |
+| `mem64_stable_preo_s0` | noctx, pre_o, prefix-lr 1e-3, 12 layers | — | RUNNING | — | — |
+
+Not one rescue arm produced a memory contribution worth more than **+0.0074**, and two
+of them made the model *worse* than its own no-memory control. The correct-vs-swap
+contrastive objective — the intervention §11-B prescribes for exactly this situation —
+moved the memory's marginal value from +0.0065 to +0.0074, i.e. not at all.
+
+**LoCoMo ablation with a real written state (the strongest test available).** LoCoMo is
+write-once/query-many, the scenario most favourable to memory, and at P=64
+`ours_window_only` is a *genuine* ablation (there are prefix columns to mask, unlike
+P=0). Interim over 450/1540 QA: base_fullctx **0.2195**, ours **0.3310**,
+ours_window_only **0.3259** — masking the entire written memory out of the read costs
+**0.005 of an 11-point gain**.
+
 ## 3. RULER (mirror `simonjegou/ruler`, 13/13 official tasks, 40 samples/task)
 
 | length | arm | macro | note |
