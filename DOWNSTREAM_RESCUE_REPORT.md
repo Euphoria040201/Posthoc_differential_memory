@@ -209,9 +209,28 @@ controls (§6 arm 9): same weights, same step count, memory read disabled.
 | `mem64_swapc_b1_s0` | noctx + swap-contrast β=1 | 0.0791 | **0.0717** | 0.0791 | **−0.0074 (harmful)** |
 
 Not one rescue arm produced a memory contribution worth more than **+0.0074**, and two
-of them made the model *worse* than its own no-memory control. The correct-vs-swap
-contrastive objective — the intervention §11-B prescribes for exactly this situation —
-moved the memory's marginal value from +0.0065 to +0.0074, i.e. not at all.
+of them made the model *worse* than its own no-memory control.
+
+**The correct-vs-swap contrastive objective — the intervention §11-B prescribes for
+exactly this situation — failed decisively.** Full §6 arm set for β=5 on 200 HotpotQA
+items:
+
+| arm | F1 | vs the correct-state arm |
+|---|---:|---:|
+| base_fullctx | 0.5439 | — |
+| **ours_fullctx** | **0.2784** | the trained model is **0.266 BELOW base** with full context |
+| base_queryonly | 0.0600 | — |
+| ours_state_only (correct) | 0.0884 | — |
+| ours_swap_state | 0.1155 | **correct − swap = −0.0272** |
+| ours_zero_state | 0.1900 | correct − zero = −0.1016 |
+| ours_window_only | 0.1666 | correct − window = −0.0782 |
+
+Reading the state written from the **correct** document is *worse* than reading one
+written from a **different** document. Adding an explicit penalty for behaving the same
+under a swapped state did not create document-specific memory; it degraded the model on
+every arm, including the full-context arm that had been the method's only win. β=1 is
+harmful too (Qasper method 0.0717 vs base 0.0791). This is the strongest available
+evidence that the write path cannot be made informative by changing the objective.
 
 **LoCoMo ablation with a real written state (the strongest test available).** LoCoMo is
 write-once/query-many, the scenario most favourable to memory, and at P=64
