@@ -652,8 +652,43 @@ hyper-parameters at every point.
 | 8 | 0.0078 | 0.0859 | 0.0859 | 0.0859 | **0.0000** |
 | 16 | 0.0000 | 0.0859 | 0.0859 | 0.0859 | **0.0000** |
 
-**The write path is nearly empty, and the one positive point is not robust.**
-Replication was run in both directions rather than only on the convenient side:
+### The real diagnosis: the write can be perfect, but training almost never gets there
+
+The 400-step curve above was **undertrained**, and re-running at 900 steps changes the
+picture completely. At **one fact per document**, six seeds:
+
+| seed | correct | swap | correct − swap | outcome |
+|---|---:|---:|---:|---|
+| 1 | 0.9844 | 0.0000 | **+0.9844** | **solved** |
+| 5 | 0.9922 | 0.0000 | **+0.9922** | **solved** |
+| 3 | 0.2578 | 0.0859 | +0.1719 | partial |
+| 2 | 0.0547 | 0.0547 | 0.0000 | failed |
+| 4 | 0.0625 | 0.0625 | 0.0000 | failed |
+| 6 | 0.0312 | 0.0312 | 0.0000 | failed |
+
+**2 of 6 solved, 1 partial, 3 failed — and the outcome is bimodal**: when training finds
+the binding solution it is essentially perfect (98–99% correct, 0% on the swapped
+state); when it does not, `correct − swap` is exactly 0.0000. There is no middle.
+
+At **two and three facts**, no seed found it at all (2 facts: +0.0000, −0.0078;
+3 facts: +0.0000, +0.0000).
+
+This replaces the reading I gave earlier in this session. The write path is **not**
+"nearly empty" — the architecture demonstrably represents one document-specific
+binding perfectly. The failures are:
+
+1. **Optimization**: at the easiest possible task (one fact), training reaches the
+   binding solution roughly **one run in three**.
+2. **Capacity/optimization beyond one binding**: at two or more facts, **zero of the
+   seeds tested** reached it under the same budget.
+
+Both failures compound in the downstream setting, where a HotpotQA context or a LoCoMo
+conversation contains far more than three facts — which is why `correct − swap ≈ 0`
+there regardless of fusion position, objective or seed.
+
+(The 400-step numbers below are retained for the record; they are superseded by the
+900-step results above. Replication was run in both directions rather than only on the
+convenient side:)
 
 | point | seed 1 | seed 2 | seed 3 | verdict |
 |---|---:|---:|---:|---|
