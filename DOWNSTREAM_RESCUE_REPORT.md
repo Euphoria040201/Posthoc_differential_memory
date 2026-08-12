@@ -21,7 +21,7 @@ copied from result JSONs, never from memory.
 | 8 | **Which configuration is genuinely strongest?** | On raw accuracy, **P=64 noctx pre_o qkvo** (hierarchical over 3 seeds on the untouched holdout: **+0.0990, CI [+0.0764, +0.1155]**). On defensibility, **P=0 SWA sidecar** (**+0.0582, CI [+0.0488, +0.0670]**) — 27x fewer parameters (14.2M vs 383.4M), stable convergent training, half the seed spread. P=64's training **diverges** past ~100–150 updates and its final checkpoints emit `,,,,,,` whenever memory is active. Both are significant; the honest recommendation is P=0. |
 | 9 | **Is it significantly higher than the full-context base?** | **Yes, on two official benchmarks, on data never used for any tuning decision, with 3 seeds each.** HotpotQA untouched (n=4678): +0.0582 [+0.0488, +0.0670]. LoCoMo (n=1540, conversation-clustered): +0.0347 [+0.0294, +0.0406]. Same prompt, chat template, decoding and context budget as base in every case. RULER is the exception: at or below base at all three lengths. |
 | 10 | **Does the gain come from correct memory rather than task adaptation?** | **No — it is task adaptation.** Across **6 trained checkpoints, 2 architectures, 2 fusion positions, 3 seeds and 5 training objectives**, `correct − swap` never has a CI above zero, and is significantly negative twice. At n=600 on three independently trained checkpoints: **+0.0027 / +0.0007 / +0.0014**, intervals ~0.02 wide straddling zero — tight enough to have detected a +0.02 effect. On LoCoMo, deleting the written memory from the read costs **+0.0034 (n.s.)** while the memory-free model still beats base by **+0.1155**. The written state is an activation the adapter expects to see, not an information carrier: zeroing it hurts significantly (+0.0612) while *swapping* it costs nothing (+0.0014). |
-| 11 | **If it does not beat base: distance, failure class, next experiment** | It **does** beat base on accuracy, so this is about the memory claim. Distance to a real memory effect: `correct − swap` is +0.001 ± 0.013 against a §9 bar of +0.01 — the effect is not small-but-positive, it is **absent**. Failure class: **not implementation** (audit F1–F6 all pass, official scorers reproduce the in-repo metrics to 4 decimals), **not evaluation** (three official evaluators, untouched holdouts, clustered/hierarchical CIs), but **write capacity / state use**: the WRITE produces a state whose *content* the READ never depends on. Five rescue objectives — including the correct-vs-swap contrastive one prescribed for exactly this situation — moved that dependence by at most +0.0074, and two made it worse. The next experiment worth running is **not** another fusion/objective variant: it is to test whether the write path can encode retrievable content **at all**, e.g. train the writer alone on a synthetic write→read reconstruction task with the reader frozen, and measure recoverable bits per slot before spending any more compute on downstream QA. |
+| 11 | **If it does not beat base: distance, failure class, next experiment** | It **does** beat base on accuracy, so this is about the memory claim. Distance to a real memory effect: `correct − swap` is +0.001 ± 0.013 against a §9 bar of +0.01 — the effect is not small-but-positive, it is **absent**. Failure class: **not implementation** (audit F1–F6 all pass, official scorers reproduce the in-repo metrics to 4 decimals), **not evaluation** (three official evaluators, untouched holdouts, clustered/hierarchical CIs), but **write capacity / state use**: the WRITE produces a state whose *content* the READ never depends on. Five rescue objectives — including the correct-vs-swap contrastive one prescribed for exactly this situation — moved that dependence by at most +0.0074, and two made it worse. **That experiment was run — see §7.** On a synthetic task where no adapter can cheat, the write path carries real document-specific information at **1 fact per document (+0.195 correct−swap)**, +0.008 at 2 facts, and **exactly 0.000 at 4, 8 and 16 facts**. The write is not broken, it is nearly empty: capacity collapses between 1 and 4 bindings, while real HotpotQA/LoCoMo documents contain far more. The next experiment is to raise addressable capacity directly (explicit key-value slot addressing, or a per-fact write objective) and re-run that curve; until `correct − swap` stays positive at 8+ facts, no downstream memory claim can succeed. |
 
 ## 1. Forced implementation audit (§4)
 
@@ -617,6 +617,54 @@ state to ablate:
 
 The HotpotQA confirmatory number will be computed on the **4678-ID untouched
 complement** of the full-dev run now in flight, not on the dev-1000 above.
+
+
+## 7. Why the memory is inert — the write-capacity curve (synthetic diagnostic)
+
+Answer 11 above recommended measuring whether the write path can encode retrievable
+content **at all** before spending more compute downstream. That experiment was run.
+
+`investigation/episodic_kv_test.py` trains the same P=64 architecture on a synthetic
+task where **a task adapter cannot succeed by construction**: every episode randomly
+re-assigns the facts, so the question alone does not determine the answer, and only
+information actually written into the state can produce a correct answer. Same four
+arms as the benchmarks. 400 training steps, 128 eval episodes, identical
+hyper-parameters at every point.
+
+| facts per document | base | window | swap | correct | **correct − swap** |
+|---:|---:|---:|---:|---:|---:|
+| 1 | 0.0078 | 0.0469 | 0.0469 | 0.2422 | **+0.1953** |
+| 2 | 0.0078 | 0.0469 | 0.1719 | 0.1797 | +0.0078 |
+| 4 | 0.0000 | 0.0703 | 0.0469 | 0.0469 | **0.0000** |
+| 8 | 0.0078 | 0.0859 | 0.0859 | 0.0859 | **0.0000** |
+| 16 | 0.0000 | 0.0859 | 0.0859 | 0.0859 | **0.0000** |
+
+**The write path is not broken — it is nearly empty.** At one fact per document it
+carries real, document-specific information (+0.195 over the swapped state, on a task
+where no adapter can cheat). At two facts the advantage is +0.008. At four and beyond
+it is **exactly zero**: correct, swap and window arms coincide to four decimals.
+
+This single curve explains every downstream result in this report. A HotpotQA
+distractor context (1697 tokens, 10 paragraphs) and a LoCoMo conversation (tens of
+thousands of tokens) both contain far more than four facts, so `correct − swap ≈ 0`
+downstream is exactly what this capacity ceiling predicts. It also explains why five
+rescue objectives could not move the number: the failure is not the loss function
+choosing the wrong thing to encode, it is **the write producing a state with
+essentially no addressable capacity beyond a single binding**.
+
+Caveats: this is a **synthetic diagnostic**, not a benchmark, and it is deliberately
+labelled as such. 400 steps is short — the July runs in `out_prefix_value/` reached
+correct 0.99 / swap 0.05 at one fact with longer training, so the absolute values here
+are training-limited. The *collapse across facts* is the finding, and it reproduces the
+July capacity result (1 fact 0.99 → 2 facts 0.48 → 4 facts 0.23) with the current code
+under a matched budget.
+
+**The next experiment is therefore no longer "test whether the write can encode
+anything" — that is now answered.** It is: raise addressable capacity per document
+directly (more slots with an explicit key-value addressing scheme rather than a
+single pooled attention write, or a per-fact write objective), and re-run this same
+curve. Until `correct − swap` stays positive at 8+ facts here, no downstream memory
+claim can succeed, and no amount of fusion-position or objective tuning will change it.
 
 ## Official evaluator manifest (§5)
 
