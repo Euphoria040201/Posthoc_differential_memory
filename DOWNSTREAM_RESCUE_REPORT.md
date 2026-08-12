@@ -15,7 +15,7 @@ copied from result JSONs, never from memory.
 | 2 | Is pre_o vs post_o_projected really just bf16? | **Yes as to correctness, no as to size.** In fp32 the two agree to 6.8e-3 max / 9.9e-6 mean with **top-1 disagreement 0.0000** — mathematically equivalent, differences are accumulation order. In bf16 they flip the top-1 token on **1.1%** of positions (max abs 10.2), which greedy decoding amplifies into visibly different generations (25% of 4 sampled generations differed). Calling it "bf16 noise" understates it: it is bf16-scale, but large enough to move small-n greedy F1. Both arms are internally deterministic (repeat runs bit-exact). `a1_numerics_numerics.json` |
 | 3 | Is the backbone fully frozen? | **Yes, bit-identical.** SHA256 over all 398 backbone tensors is unchanged across 4 real optimizer steps (`c894f7a1…` → `c894f7a1…`); 0 backbone params ever receive a gradient; the optimizer contains exactly the 48 sidecar tensors. `--lr 2e-5` applies to an empty parameter group for `swa_steer`. `a0b_frozen_frozen.json` |
 | 4 | Does the old Qasper +0.055 F1 hold on independent data? | **Yes — it replicates almost exactly in size on an untouched HotpotQA holdout**: +0.0602 F1 (CI [+0.051, +0.069], n=4678, official scorer). But it is a task-adapter effect, not memory (§2b). |
-| 5 | LoCoMo official | **base_fullctx** EM .0396 / F1 .1833; **ours_fullctx** EM .0617 / F1 .2163 (all 1540). Untouched 1339: .1653→.1969 F1, conversation-clustered CI **[+0.023, +0.042]**, significant. `ours_state_only`/swap/zero are **undefined for this checkpoint** (P=0, no state) — the P=64 memory arms are in §2b. |
+| 5 | LoCoMo official (see also **§4b**, the decisive ablation table) | **base_fullctx** EM .0396 / F1 .1833; **ours_fullctx** EM .0617 / F1 .2163 (all 1540). Untouched 1339: .1653→.1969 F1, conversation-clustered CI **[+0.023, +0.042]**, significant. `ours_state_only`/swap/zero are **undefined for this checkpoint** (P=0, no state) — the P=64 memory arms are in §2b. |
 | 6 | HotpotQA official EM/F1 + Joint | **Untouched holdout (n=4678)**: base EM **0.4288** / F1 **0.5615**; ours EM **0.4906** / F1 **0.6216**. Full dev (n=7405): base .4319/.5647, ours .4905/.6209. Support/Joint = **0.0** everywhere (`sp` empty, no supporting-fact head). |
 | 7 | RULER 8K/16K/32K macro (13 tasks, **officially generated** with the Qwen3 tokenizer) | 8K **0.9363 → 0.9229** (−0.0134); 16K **0.9425 → 0.9047** (−0.0378); 32K **0.9157 → 0.9153** (−0.0005). Ours is at or below base at every length; the mirror-based runs agree. |
 | 8–11 | strongest config, significance, memory vs task adaptation | **No checkpoint has a correct−swap CI above zero (§2e); two are significantly negative.** Strongest so far: **P=64 noctx qkvo pre_o sidecar, full-context** — +0.1204 F1 over base_fullctx (t=+4.59, n=200 dev). Significance confirmed at n=1000 for the P=0 line (+0.050/+0.060, CI>0); n=1000 for P=64 RUNNING. **The gain is NOT from memory**: correct−swap = +0.0025 (t=0.34), see §2b |
@@ -378,6 +378,34 @@ Two practical consequences the accuracy tables do not show:
    state the cost is still 1.82 s/query vs the base's 0.543 s. The compression is
    real (1697 context tokens → 49 read tokens, an 11.8 MB state) but it buys no
    latency, because the sidecar runs on every decode step regardless.
+
+
+## 4b. THE DECISIVE TABLE — LoCoMo, official scorer, all 1540 QA, one model, three arms
+
+Same P=64 checkpoint (which *does* have a written state), same 1540 questions, same
+prompt and decoding. `ours_window_only` masks the written memory out of the read and
+changes nothing else — at P=64 this is a genuine ablation, not the no-op it is at P=0.
+Official `task_eval/evaluation.py`; conversation-clustered paired bootstrap, 10,000
+resamples, 10 clusters.
+
+| contrast | ΔF1 | 95% CI (conversation-clustered) | significant | ΔEM | 95% CI |
+|---|---:|---|---|---:|---|
+| **ours − base_fullctx** | **+0.1189** | **[+0.1079, +0.1308]** | **YES** | +0.0468 | [+0.0371, +0.0578] |
+| **ours − ours_window_only** | **+0.0034** | **[−0.0055, +0.0105]** | **NO** | **−0.0026** | [−0.0113, +0.0050] |
+| **ours_window_only − base_fullctx** | **+0.1155** | **[+0.1042, +0.1275]** | **YES** | +0.0494 | [+0.0358, +0.0653] |
+
+Absolute numbers: base EM 0.0396 / F1 0.1833; ours EM 0.0864 / F1 0.3021;
+window-only EM 0.0890 / F1 0.2988.
+
+**Read the second and third rows together.** Deleting the written memory from the read
+costs 0.003 F1 with an interval spanning zero, while the memory-free model still beats
+the full-context base by +0.116 with an interval far from zero. On EM the memory-free
+arm is *ahead*. This is the whole finding in one table, on the benchmark most
+favourable to memory (write once, query many), with a checkpoint that genuinely has a
+state to ablate:
+
+> **the sidecar's gain over base is real and significant; the written memory
+> contributes nothing measurable to it.**
 
 ## 5. Contamination (§3)
 
