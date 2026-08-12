@@ -213,6 +213,35 @@ seeds. Internal dev n=1000, same 1000 items, same base:
 The effect replicates and is *larger* on the seed that required no checkpoint
 selection. Full official dev + untouched-complement runs for seeds 1 and 2 are queued.
 
+### P=64 three-seed untouched final (the number to quote)
+
+Same 4678 never-touched official dev ids, same base, three independently trained seeds
+(seeds 1 and 2 involve **no checkpoint selection** — they were trained for exactly 100
+steps):
+
+| seed | ours F1 | ΔF1 | 95% CI | EM | McNemar |
+|---|---:|---:|---|---:|---|
+| 0 | 0.6725 | +0.1111 | [+0.0996, +0.1226] | 0.5158 | p=5.4e-41 |
+| 1 | 0.6363 | **+0.0748** | [+0.0637, +0.0858] | 0.4767 | p=8.6e-15 |
+| 2 | 0.6726 | +0.1111 | [+0.0998, +0.1227] | 0.5346 | p=2.9e-62 |
+| **hierarchical (3 seeds)** | — | **+0.0990** | **[+0.0764, +0.1155]** | — | — |
+
+Seed 1 is genuinely lower — its interval does not overlap the other two — so P=64 does
+carry **real seed variance of +0.075 to +0.111**, roughly twice the spread of the P=0
+line (+0.049 to +0.065). All three seeds are individually significant.
+
+**Head-to-head, both configurations on the identical untouched holdout:**
+
+| config | trainable | hierarchical ΔF1 (3 seeds) | 95% CI | training | memory |
+|---|---:|---:|---|---|---|
+| P=0 SWA sidecar | 14,155,776 | +0.0582 | [+0.0488, +0.0670] | stable, converged | none exists |
+| P=64 memory sidecar | 383,385,600 | **+0.0990** | [+0.0764, +0.1155] | **does not converge** (§2b) | inert (§2e) |
+
+P=64 wins on accuracy by ~4 F1 points, at 27x the parameters, with a training run that
+diverges if left past ~100-150 updates, twice the seed spread, and a memory that
+contributes nothing. **P=0 is the configuration this work can actually defend**; P=64 is
+the larger number.
+
 **Seed variance, measured at two sample sizes.** On a 300-item sample (seed 777) the
 three P=64 seeds gave `ours_fullctx − base_fullctx` of +0.1204 / +0.0110 / +0.0939 —
 which looked like seed 1 barely transferring. At **n=1000** (seed 1234, the same 1000
