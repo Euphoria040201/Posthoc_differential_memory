@@ -321,6 +321,20 @@ each (`memarms_*.json`).
 | P=64 noctx pre_o @final | **−0.0148** | **[−0.0286, −0.0046]** | −0.1148 | −0.1458 | −0.5404 |
 | P=64 noctx post_o @final | 0.0000 | [0.0000, 0.0000] | −0.1936 | −0.2058 | −0.5439 |
 
+### n=600 on three independently trained checkpoints — the summary table
+
+| checkpoint | n | **correct − swap** | 95% CI | **ours_fullctx − base_fullctx** | 95% CI |
+|---|---:|---:|---|---:|---|
+| P=64 noctx post_o @step100 | 600 | **+0.0027** | [−0.0066, +0.0125] | **+0.0805** | [+0.0535, +0.1084] |
+| P=64 noctx pre_o @step100 | 600 | **+0.0007** | [−0.0124, +0.0141] | **+0.1099** | [+0.0793, +0.1415] |
+| P=64 stable pre_o @step150 | 600 | **+0.0014** | [−0.0089, +0.0122] | **+0.0774** | [+0.0485, +0.1068] |
+
+Three separately trained sidecars, 600 fresh items each, two columns: the memory's
+document-specific value is **+0.001 to +0.003 with intervals of width ~0.02 straddling
+zero**, while the same models' gain over full-context base is **+0.077 to +0.110 with
+intervals nowhere near zero**. The intervals are tight enough that a real memory effect
+of even +0.02 would have been detected. It is not there.
+
 ### Tightened to n=600 on the strongest checkpoint
 
 The central claim deserves more than 200 examples. Re-running the full arm set on
