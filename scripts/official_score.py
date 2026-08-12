@@ -42,9 +42,12 @@ def load_records(path):
 # ----------------------------------------------------------------- hotpot
 def hotpot_gold(ids):
     """Official-schema gold for the requested ids, from the HF distractor mirror."""
-    from datasets import load_dataset
-    ds = load_dataset("hotpot_qa", "distractor", split="validation",
-                      trust_remote_code=True)
+    # reuse the repo's own cached loader so gold comes from the SAME rows the eval saw
+    sys.path.insert(0, str(REPO))
+    from pathlib import Path as _P
+    from deltamem.eval.benchmark_compare import load_hotpotqa
+    ds = load_hotpotqa(cache_dir=_P.home() / ".cache/huggingface/datasets",
+                       max_samples=None, seed=42, local_files_only=True)
     want = set(ids)
     gold = []
     for r in ds:
