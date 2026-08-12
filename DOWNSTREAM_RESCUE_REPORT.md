@@ -340,6 +340,32 @@ Meanwhile `ours_fullctx − base_fullctx` is large and positive for the healthy
 checkpoints (+0.086 to +0.120). The two quantities together are the whole story:
 **the sidecar helps, its memory does not.**
 
+
+### Why `zero_state` is not a sufficient control — and what the state actually is
+
+The stability re-train at step 150 (the only checkpoint whose correct−swap point
+estimate was positive) re-measured at **n=600**:
+
+| contrast | Δ | 95% CI | significant |
+|---|---:|---|---|
+| ours_state_only − ours_swap_state | **+0.0014** | [−0.0089, +0.0119] | NO |
+| ours_state_only − ours_window_only | −0.0056 | [−0.0233, +0.0116] | NO |
+| **ours_state_only − ours_zero_state** | **+0.0612** | **[+0.0391, +0.0832]** | **YES** |
+| ours_fullctx − base_fullctx | +0.0774 | [+0.0484, +0.1066] | YES |
+
+Its n=200 point estimate of +0.0065 shrinks to +0.0014 once 600 examples are used.
+
+The three rows together identify what the written state is. **Zeroing it hurts
+significantly (+0.061), swapping it does not hurt at all (+0.001).** A zero tensor is
+off-distribution for a model trained to always receive a state; a state written from a
+*different document* is perfectly on-distribution and carries the wrong content — and
+the model scores the same with it. So the state functions as a **generic activation the
+adapter expects to see, not as an information carrier**.
+
+This is exactly why `ours_zero_state` alone cannot support a memory claim and why §6
+requires the swap arm: an evaluation that reported only correct-vs-zero here would have
+shown a significant "+0.061 from memory" and been wrong.
+
 ## 3. RULER (mirror `simonjegou/ruler`, 13/13 official tasks, 40 samples/task)
 
 | length | arm | macro | note |
