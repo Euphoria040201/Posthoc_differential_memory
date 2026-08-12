@@ -1,0 +1,91 @@
+{
+  "files": [
+    "out_downstream_audit_20260812/hotpotFINAL_untouched_preo_s0.json",
+    "out_downstream_audit_20260812/hotpotFINAL_untouched_preo_s1.json",
+    "out_downstream_audit_20260812/hotpotFINAL_untouched_preo_s2.json"
+  ],
+  "arm": "ours",
+  "baseline": "base",
+  "metric": "f1",
+  "n_boot": 10000,
+  "per_file": [
+    {
+      "file": "out_downstream_audit_20260812/hotpotFINAL_untouched_preo_s0.json",
+      "n": 4678,
+      "ours_mean": 0.6216497275447649,
+      "base_mean": 0.5614770057555467,
+      "paired_bootstrap": {
+        "delta": 0.0601727217892173,
+        "ci95": [
+          0.05102727063434535,
+          0.06917443101954432
+        ],
+        "n": 4678,
+        "n_clusters": 4678,
+        "significant": true
+      },
+      "mcnemar": {
+        "b01": 445,
+        "b10": 156,
+        "p_value": 3.918688168309614e-33
+      },
+      "ours_em": 0.49059427105600684,
+      "base_em": 0.4288157332193245
+    },
+    {
+      "file": "out_downstream_audit_20260812/hotpotFINAL_untouched_preo_s1.json",
+      "n": 4678,
+      "ours_mean": 0.6269155379469731,
+      "base_mean": 0.5614770057555467,
+      "paired_bootstrap": {
+        "delta": 0.06543853219142558,
+        "ci95": [
+          0.056911035748608695,
+          0.0740149013026283
+        ],
+        "n": 4678,
+        "n_clusters": 4678,
+        "significant": true
+      },
+      "mcnemar": {
+        "b01": 433,
+        "b10": 110,
+        "p_value": 2.7605884484829032e-46
+      },
+      "ours_em": 0.49786233433091065,
+      "base_em": 0.4288157332193245
+    },
+    {
+      "file": "out_downstream_audit_20260812/hotpotFINAL_untouched_preo_s2.json",
+      "n": 4678,
+      "ours_mean": 0.6104877503868074,
+      "base_mean": 0.5614770057555467,
+      "paired_bootstrap": {
+        "delta": 0.049010744631260414,
+        "ci95": [
+          0.03968925769246299,
+          0.05824304593418747
+        ],
+        "n": 4678,
+        "n_clusters": 4678,
+        "significant": true
+      },
+      "mcnemar": {
+        "b01": 433,
+        "b10": 183,
+        "p_value": 2.5266236059948854e-24
+      },
+      "ours_em": 0.48225737494655835,
+      "base_em": 0.4288157332193245
+    }
+  ],
+  "hierarchical_bootstrap": {
+    "delta": 0.05820733287063443,
+    "ci95": [
+      0.04878732277012739,
+      0.06697588147715555
+    ],
+    "n_seeds": 3,
+    "significant": true
+  }
+}

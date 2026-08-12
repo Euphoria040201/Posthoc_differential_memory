@@ -209,9 +209,14 @@ seeds; the hierarchical bootstrap resamples examples first, then seeds, so the s
 | seed | n | base F1 | ours F1 | ΔF1 | 95% CI | EM McNemar |
 |---|---:|---:|---:|---:|---|---|
 | 0 | 4678 | 0.5615 | 0.6216 | +0.0602 | [+0.0510, +0.0692] | p=3.9e-33 |
-| 2 | 4678 | 0.5615 | 0.6105 | +0.0490 | [+0.0396, +0.0581] | p=2.5e-24 |
-| 1 | — | — | — | RUNNING | — | — |
-| **hierarchical (seeds 0,2)** | — | — | — | **+0.0546** | **[+0.0447, +0.0644]** | — |
+| 1 | 4678 | 0.5615 | 0.6269 | +0.0654 | [+0.0569, +0.0740] | p=2.8e-46 |
+| 2 | 4678 | 0.5615 | 0.6105 | +0.0490 | [+0.0397, +0.0582] | p=2.5e-24 |
+| **hierarchical, all 3 seeds** | — | — | — | **+0.0582** | **[+0.0488, +0.0670]** | — |
+
+**3/3 seeds are individually significant and the hierarchical interval excludes zero**,
+so §9 Stage-C (2-of-3 direction) and Stage-D (one untouched final) are both satisfied
+for the P=0 configuration. Full-dev means per seed: 0.6209 / 0.6259 / 0.6090 vs the
+same base 0.5647.
 
 Support/Joint are **0.0** on every arm: the method has no supporting-fact head and
 `sp` is submitted empty. These are **Answer** EM/F1 only and must never be quoted as
