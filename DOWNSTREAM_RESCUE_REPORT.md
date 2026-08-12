@@ -17,7 +17,7 @@ copied from result JSONs, never from memory.
 | 4 | Does the old Qasper +0.055 F1 hold on independent data? | **Yes — it replicates almost exactly in size on an untouched HotpotQA holdout**: +0.0602 F1 (CI [+0.051, +0.069], n=4678, official scorer). But it is a task-adapter effect, not memory (§2b). |
 | 5 | LoCoMo official | **base_fullctx** EM .0396 / F1 .1833; **ours_fullctx** EM .0617 / F1 .2163 (all 1540). Untouched 1339: .1653→.1969 F1, conversation-clustered CI **[+0.023, +0.042]**, significant. `ours_state_only`/swap/zero are **undefined for this checkpoint** (P=0, no state) — the P=64 memory arms are in §2b. |
 | 6 | HotpotQA official EM/F1 + Joint | **Untouched holdout (n=4678)**: base EM **0.4288** / F1 **0.5615**; ours EM **0.4906** / F1 **0.6216**. Full dev (n=7405): base .4319/.5647, ours .4905/.6209. Support/Joint = **0.0** everywhere (`sp` empty, no supporting-fact head). |
-| 7 | RULER 8K/16K/32K macro | 8K base **0.9288** / ours **0.9254**; 16K base **0.9439** / ours **0.9361**. Ours is at or below base at both lengths. 32K needs official generation (mirror has no 32k) — RUNNING |
+| 7 | RULER 8K/16K/32K macro (13 tasks, **officially generated** with the Qwen3 tokenizer) | 8K **0.9363 → 0.9229** (−0.0134); 16K **0.9425 → 0.9047** (−0.0378); 32K **0.9157 → 0.9153** (−0.0005). Ours is at or below base at every length; the mirror-based runs agree. |
 | 8–11 | strongest config, significance, memory vs task adaptation | Strongest so far: **P=64 noctx qkvo pre_o sidecar, full-context** — +0.1204 F1 over base_fullctx (t=+4.59, n=200 dev). Significance confirmed at n=1000 for the P=0 line (+0.050/+0.060, CI>0); n=1000 for P=64 RUNNING. **The gain is NOT from memory**: correct−swap = +0.0025 (t=0.34), see §2b |
 
 ## 1. Forced implementation audit (§4)
@@ -205,8 +205,8 @@ controls (§6 arm 9): same weights, same step count, memory read disabled.
 | `mem64_noctx_preo_s0` | noctx, pre_o | 0.0791 | **0.0340** | 0.0791 | **−0.0451 (harmful)** |
 | `mem64_ctxmask_posto_s0` | ctxmask ratio 1.0 | 0.1784 | **0.0718** | 0.2146 (`window_only`) / 0.1784 (`nomem`) | **−0.1428 vs window-only (harmful)** |
 | `mem64_swapc_b5_s0` | noctx + swap-contrast β=5, margin 0.5 | 0.0791 | 0.0865 | 0.0791 | **+0.0074** |
-| `mem64_swapc_b1_s0` | noctx + swap-contrast β=1 | — | RUNNING | — | — |
-| `mem64_stable_preo_s0` | noctx, pre_o, prefix-lr 1e-3, 12 layers | — | RUNNING | — | — |
+| `mem64_stable_preo_s0` | noctx, pre_o, prefix-lr 1e-3, **12 layers** | — | **did not converge** (loss 1.65 @180 → 4.20 @200) | — | the low-LR/fewer-layer fix does NOT stabilise the architecture |
+| `mem64_swapc_b1_s0` | noctx + swap-contrast β=1 | 0.0791 | **0.0717** | 0.0791 | **−0.0074 (harmful)** |
 
 Not one rescue arm produced a memory contribution worth more than **+0.0074**, and two
 of them made the model *worse* than its own no-memory control. The correct-vs-swap
@@ -228,6 +228,10 @@ ours_window_only **0.3259** — masking the entire written memory out of the rea
 | 8192 | ours pre_o s0 | 0.9254 | −0.0034; qa_1 +0.025, qa_2 −0.050, cwe −0.012 |
 | 16384 | base | 0.9439 | 13/13 tasks |
 | 16384 | ours pre_o s0 | 0.9361 | −0.0078; qa_1 +0.075, cwe −0.058, qa_2 −0.100 |
+| 8192 **OFFICIAL** | base | **0.9363** | official generation, 13/13 tasks, 25 samples/task |
+| 8192 **OFFICIAL** | ours pre_o s0 | **0.9229** | −0.0134; qa_1 0.60 vs 0.68, qa_2 0.44 vs 0.56, fwe 1.00 vs 0.96 |
+| 16384 **OFFICIAL** | base | **0.9425** | official generation |
+| 16384 **OFFICIAL** | ours pre_o s0 | **0.9047** | **−0.0378**, the largest gap; qa_2 0.48 vs 0.76, fwe 0.867 vs 0.96 |
 | 32768 **OFFICIAL** | base | **0.9157** | NVIDIA/RULER generator via NeMo-Skills `prepare.py` (SHA `f4a3fd8`) with the Qwen3 tokenizer; 13/13 tasks, 25 samples/task |
 | 32768 **OFFICIAL** | ours pre_o s0 | **0.9153** | −0.0005 (tied); qa_1 0.80 vs 0.68, fwe 0.867 vs 0.907, cwe 0.832 vs 0.848 |
 
