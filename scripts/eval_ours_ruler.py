@@ -63,6 +63,10 @@ def main():
     ap.add_argument("--model-path", default="Qwen/Qwen3-4B-Instruct-2507")
     ap.add_argument("--ckpt", required=True)
     ap.add_argument("--config", default="4096", help="RULER context length config (4096/8192/...)")
+    ap.add_argument("--data-dir", default="",
+                    help="directory of OFFICIALLY generated per-task test.jsonl "
+                         "(NVIDIA/RULER generator via NeMo-Skills prepare.py). "
+                         "Overrides the simonjegou/ruler HF mirror.")
     ap.add_argument("--attn-impl", default="sdpa"); ap.add_argument("--dtype", default="bfloat16")
     ap.add_argument("--device", default="cuda:0"); ap.add_argument("--device-map", default="")
     ap.add_argument("--tasks", default="", help="comma subset of tasks (empty = all 13)")
@@ -81,8 +85,24 @@ def main():
     load_ours(model, args.ckpt); model.eval()
     dev = str(next(model.parameters()).device) if args.device_map else args.device
 
-    from datasets import load_dataset
-    data = load_dataset("simonjegou/ruler", args.config, split="test")
+    if args.data_dir:
+        # OFFICIAL generation: one test.jsonl per task, produced by NVIDIA/RULER's own
+        # generator via NeMo-Skills `nemo_skills/dataset/ruler/prepare.py` with OUR
+        # tokenizer.  Samples, prompts, gold answers and answer_prefix are untouched.
+        import json as _json
+        from pathlib import Path as _P
+        data = []
+        for task_dir in sorted(_P(args.data_dir).iterdir()):
+            if not (task_dir / "test.jsonl").exists():
+                continue
+            for line in open(task_dir / "test.jsonl"):
+                row = _json.loads(line)
+                row["task"] = task_dir.name
+                data.append(row)
+        print(f"[ruler] loaded {len(data)} OFFICIAL samples from {args.data_dir}", flush=True)
+    else:
+        from datasets import load_dataset
+        data = load_dataset("simonjegou/ruler", args.config, split="test")
     keep = set(x.strip() for x in args.tasks.split(",") if x.strip())
     idx_by_task = {}
     rows = []
