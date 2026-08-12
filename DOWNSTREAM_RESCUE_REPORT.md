@@ -271,6 +271,20 @@ every arm, including the full-context arm that had been the method's only win. �
 harmful too (Qasper method 0.0717 vs base 0.0791). This is the strongest available
 evidence that the write path cannot be made informative by changing the objective.
 
+**The ctxmask arm at n=1000 is the sharpest instance of the pattern.** Same model,
+same 1000 HotpotQA items, full official context:
+
+| arm | F1 | EM |
+|---|---:|---:|
+| base_fullctx | 0.5659 | 0.4340 |
+| **ours (written memory ON)** | **0.2486** | 0.1890 |
+| **ours_window_only (same weights, memory masked out of the read)** | **0.6429** | 0.4890 |
+
+Turning the written memory ON costs **0.394 F1** relative to the identical model with
+the memory masked out — and the memory-free version is the best HotpotQA number this
+arm produces, **+0.077 above base**. The adapter is worth +0.077; its memory is worth
+−0.394.
+
 **LoCoMo ablation with a real written state (the strongest test available).** LoCoMo is
 write-once/query-many, the scenario most favourable to memory, and at P=64
 `ours_window_only` is a *genuine* ablation (there are prefix columns to mask, unlike
