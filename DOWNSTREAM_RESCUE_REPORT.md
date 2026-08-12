@@ -202,6 +202,17 @@ load-bearing, none of which the number itself shows:
 Seeds 1 and 2 of this configuration are training now to test whether the effect
 replicates; until they land, this is a single-seed result.
 
+**Multi-seed on the same untouched holdout** (§9 Stage-C: direction must agree across
+seeds; the hierarchical bootstrap resamples examples first, then seeds, so the same
+4678 ids are never counted as independent observations across seeds):
+
+| seed | n | base F1 | ours F1 | ΔF1 | 95% CI | EM McNemar |
+|---|---:|---:|---:|---:|---|---|
+| 0 | 4678 | 0.5615 | 0.6216 | +0.0602 | [+0.0510, +0.0692] | p=3.9e-33 |
+| 2 | 4678 | 0.5615 | 0.6105 | +0.0490 | [+0.0396, +0.0581] | p=2.5e-24 |
+| 1 | — | — | — | RUNNING | — | — |
+| **hierarchical (seeds 0,2)** | — | — | — | **+0.0546** | **[+0.0447, +0.0644]** | — |
+
 Support/Joint are **0.0** on every arm: the method has no supporting-fact head and
 `sp` is submitted empty. These are **Answer** EM/F1 only and must never be quoted as
 HotpotQA Joint numbers.
