@@ -1,0 +1,17 @@
+{"tag": "a0_preo_graph", "kind": "audit", "gpu": 0, "status": "PASS", "detail": "pre_o formula residual 0.0; P=0 no written state", "logged_utc": "2026-08-12T07:5xZ"}
+{"tag": "a0b_frozen", "kind": "audit", "gpu": 0, "status": "PASS", "detail": "backbone sha256 identical across 4 optimizer steps", "logged_utc": "2026-08-12T07:5xZ"}
+{"tag": "a1_numerics", "kind": "audit", "gpu": 1, "status": "PASS", "detail": "fp32 top1 disagreement 0.0000; bf16 1.1%", "logged_utc": "2026-08-12T07:5xZ"}
+{"tag": "a2_posto", "kind": "audit", "gpu": 2, "status": "PASS", "detail": "base parity bit-exact n=100; window_only==full at P=0", "logged_utc": "2026-08-12T07:5xZ"}
+{"tag": "hotpot_dev200_preo_s0", "kind": "eval", "gpu": 3, "status": "PASS", "detail": "F1 .5720 vs base .5439, CI includes 0 at n=200", "logged_utc": "2026-08-12T07:5xZ"}
+{"tag": "hotpot_dev200_posto_s0", "kind": "eval", "gpu": 4, "status": "PASS", "detail": "F1 .5489 vs base .5439", "logged_utc": "2026-08-12T07:5xZ"}
+{"tag": "hotpot_dev1000_preo_s0", "kind": "eval", "gpu": 3, "status": "PASS", "detail": "F1 .6156 vs .5659, CI [+.032,+.068]", "logged_utc": "2026-08-12T07:5xZ"}
+{"tag": "hotpot_dev1000_preo_s1", "kind": "eval", "gpu": 4, "status": "PASS", "detail": "F1 .6256 vs .5659, CI [+.042,+.078]", "logged_utc": "2026-08-12T07:5xZ"}
+{"tag": "ruler8k_base", "kind": "eval", "gpu": 6, "status": "PASS", "detail": "macro .9288 13/13 tasks", "logged_utc": "2026-08-12T07:5xZ"}
+{"tag": "ruler8k_preo", "kind": "eval", "gpu": 7, "status": "PASS", "detail": "macro .9254 (-.0034, ceiling)", "logged_utc": "2026-08-12T07:5xZ"}
+{"tag": "hotpotFULL_preo_s0_shard{0,1,2}", "kind": "eval", "gpu": "3,4,5", "status": "RUNNING", "detail": "full official dev 7405, for untouched-complement final", "logged_utc": "2026-08-12T07:5xZ"}
+{"tag": "ruler16k_preo", "kind": "eval", "gpu": 6, "status": "RUNNING", "detail": "16k base+ours", "logged_utc": "2026-08-12T07:5xZ"}
+{"tag": "locomo_preo_s0", "kind": "eval", "gpu": 5, "status": "RUNNING", "detail": "slow: 200/1540 - needs sharding", "logged_utc": "2026-08-12T07:5xZ"}
+{"tag": "hotpot_dev1000_posto_s0", "kind": "eval", "gpu": 7, "status": "RUNNING", "detail": "position comparison at n=1000", "logged_utc": "2026-08-12T07:5xZ"}
+{"tag": "mem64_noctx_posto_s0", "kind": "train", "gpu": 0, "status": "RUNNING", "detail": "P=64 written memory, noctx, 200 steps", "logged_utc": "2026-08-12T07:5xZ"}
+{"tag": "mem64_noctx_preo_s0", "kind": "train", "gpu": 1, "status": "RUNNING", "detail": "P=64 written memory, noctx, pre_o", "logged_utc": "2026-08-12T07:5xZ"}
+{"tag": "mem64_ctxmask_posto_s0", "kind": "train", "gpu": 2, "status": "RUNNING", "detail": "P=64 ctxmask ratio 1.0", "logged_utc": "2026-08-12T07:5xZ"}

@@ -1,0 +1,18 @@
+gpu	tag	kind	status	detail
+0	a0_preo_graph	audit	PASS	pre_o formula residual 0.0; P=0 no written state
+0	a0b_frozen	audit	PASS	backbone sha256 identical across 4 optimizer steps
+1	a1_numerics	audit	PASS	fp32 top1 disagreement 0.0000; bf16 1.1%
+2	a2_posto	audit	PASS	base parity bit-exact n=100; window_only==full at P=0
+3	hotpot_dev200_preo_s0	eval	PASS	F1 .5720 vs base .5439, CI includes 0 at n=200
+4	hotpot_dev200_posto_s0	eval	PASS	F1 .5489 vs base .5439
+3	hotpot_dev1000_preo_s0	eval	PASS	F1 .6156 vs .5659, CI [+.032,+.068]
+4	hotpot_dev1000_preo_s1	eval	PASS	F1 .6256 vs .5659, CI [+.042,+.078]
+6	ruler8k_base	eval	PASS	macro .9288 13/13 tasks
+7	ruler8k_preo	eval	PASS	macro .9254 (-.0034, ceiling)
+3,4,5	hotpotFULL_preo_s0_shard{0,1,2}	eval	RUNNING	full official dev 7405, for untouched-complement final
+6	ruler16k_preo	eval	RUNNING	16k base+ours
+5	locomo_preo_s0	eval	RUNNING	slow: 200/1540 - needs sharding
+7	hotpot_dev1000_posto_s0	eval	RUNNING	position comparison at n=1000
+0	mem64_noctx_posto_s0	train	RUNNING	P=64 written memory, noctx, 200 steps
+1	mem64_noctx_preo_s0	train	RUNNING	P=64 written memory, noctx, pre_o
+2	mem64_ctxmask_posto_s0	train	RUNNING	P=64 ctxmask ratio 1.0

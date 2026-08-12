@@ -1,0 +1,91 @@
+{
+  "generated_utc": "2026-08-12T05:24Z",
+  "purpose": "which data has already been seen by config selection",
+  "_dev_ids_this_session": {
+    "hotpot_dev1000_preo_s0.json": 1000,
+    "hotpot_dev1000_preo_s1.json": 1000,
+    "hotpot_dev200_posto_s0.json": 200,
+    "hotpot_dev200_preo_s0.json": 200
+  },
+  "hotpotqa": {
+    "historical_screening_files": {
+      "off_hotpot1k_s0.json": 334,
+      "off_hotpot1k_s1.json": 333,
+      "off_hotpot1k_s2.json": 333,
+      "off_hotpot2k_s0.json": 667,
+      "off_hotpot2k_s1.json": 667,
+      "off_hotpot2k_s2.json": 666,
+      "off_hotpot_s0.json": 250,
+      "off_hotpot_s1.json": 250,
+      "p0_mainv_h1_fixed_g01_s1_hotpot500.json": 500,
+      "p0_trainv_h1_fixed_g01_s1_hotpot500.json": 500
+    },
+    "n_unique_historical_ids": 2000,
+    "this_session_dev_files": {
+      "hotpot_dev1000_preo_s0.json": {
+        "n": 1000,
+        "seed": 1234
+      },
+      "hotpot_dev1000_preo_s1.json": {
+        "n": 1000,
+        "seed": 1234
+      },
+      "hotpot_dev200_posto_s0.json": {
+        "n": 200,
+        "seed": 1234
+      },
+      "hotpot_dev200_preo_s0.json": {
+        "n": 200,
+        "seed": 1234
+      }
+    },
+    "n_unique_dev_ids_this_session": 1000,
+    "n_union_seen": 2727,
+    "official_dev_size": 7405,
+    "n_untouched_final_available": 4678,
+    "status": "historical + this-session dev IDs are DEVELOPMENT-CONTAMINATED; the untouched complement is the only confirmatory set"
+  },
+  "locomo": {
+    "historical_files": {
+      "off_locomo10_nctr4.json": 200,
+      "off_locomo3_nctr4.json": 120,
+      "off_locomo_nctr4.json": 60,
+      "locomo10x20_swa_steer_constant_s1.json": 200,
+      "p0_mainv_h1_fixed_g01_s1_locomo10x20.json": 200,
+      "p0_trainv_h1_fixed_g01_s1_locomo10x20.json": 200
+    },
+    "n_unique_historical_questions": 200,
+    "total_qa_in_locomo10": 1540,
+    "n_untouched_available": 1340,
+    "status": "old 10x20 / nctr4 runs used the first N questions of each conversation; primary holdout must exclude them"
+  },
+  "ruler": {
+    "historical_runs": {
+      "off_ruler16k_nctr4.json": {
+        "config": "16384",
+        "overall": {
+          "base": 0.9282051282051282,
+          "ours_window_only": 0.9299999999999999,
+          "ours": 0.9274358974358974
+        },
+        "n_tasks": 13
+      },
+      "off_ruler4k_nctr4.json": {
+        "config": "4096",
+        "overall": {
+          "base": 0.9359999999999999,
+          "ours_window_only": 0.9377435897435897,
+          "ours": 0.9355384615384614
+        },
+        "n_tasks": 13
+      }
+    },
+    "status": "old runs at 4k/16k with the simonjegou/ruler mirror; this session uses per-task 40 samples at 8k/16k. Final seeds must be registered before use."
+  },
+  "qasper": {
+    "train_papers": 800,
+    "val_papers": 75,
+    "val_examples": 187,
+    "status": "FULLY CONTAMINATED - used for every training run and all config selection since July; cannot serve as a confirmation set"
+  }
+}

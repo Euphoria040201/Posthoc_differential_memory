@@ -1,0 +1,67 @@
+{
+  "files": [
+    "out_downstream_audit_20260812/hotpot_dev1000_preo_s0.json",
+    "out_downstream_audit_20260812/hotpot_dev1000_preo_s1.json"
+  ],
+  "arm": "ours",
+  "baseline": "base",
+  "metric": "f1",
+  "n_boot": 10000,
+  "per_file": [
+    {
+      "file": "out_downstream_audit_20260812/hotpot_dev1000_preo_s0.json",
+      "n": 1000,
+      "ours_mean": 0.6155933586587145,
+      "base_mean": 0.5659092996179664,
+      "paired_bootstrap": {
+        "delta": 0.04968405904074835,
+        "ci95": [
+          0.03220668905659484,
+          0.0676595343561779
+        ],
+        "n": 1000,
+        "n_clusters": 1000,
+        "significant": true
+      },
+      "mcnemar": {
+        "b01": 86,
+        "b10": 34,
+        "p_value": 2.275257904564396e-06
+      },
+      "ours_em": 0.486,
+      "base_em": 0.434
+    },
+    {
+      "file": "out_downstream_audit_20260812/hotpot_dev1000_preo_s1.json",
+      "n": 1000,
+      "ours_mean": 0.6256368537601044,
+      "base_mean": 0.5659092996179664,
+      "paired_bootstrap": {
+        "delta": 0.05972755414213818,
+        "ci95": [
+          0.04191512301976899,
+          0.0780274894112483
+        ],
+        "n": 1000,
+        "n_clusters": 1000,
+        "significant": true
+      },
+      "mcnemar": {
+        "b01": 82,
+        "b10": 29,
+        "p_value": 4.906490239983609e-07
+      },
+      "ours_em": 0.487,
+      "base_em": 0.434
+    }
+  ],
+  "hierarchical_bootstrap": {
+    "delta": 0.054705806591443265,
+    "ci95": [
+      0.04034063574585181,
+      0.06917267111039149
+    ],
+    "n_seeds": 2,
+    "significant": true
+  }
+}
