@@ -438,10 +438,21 @@ Conversation assignment for clustering was reconstructed by position and verifie
 EM on all QA: +0.0221, clustered CI [+0.0140, +0.0321]; McNemar b01=43 b10=9,
 **p=2.0e-6**. Untouched EM +0.0209, CI [+0.0139, +0.0289].
 
-**Three training seeds, all 1540 QA** (in-repo metric, identical base every time):
-seed 0 0.2105 → 0.2379 (+0.0274), seed 1 → 0.2398 (+0.0293), seed 2 → 0.2406
-(+0.0301). **3/3 seeds agree in direction and magnitude**, clearing §9 Stage-C's
-2-of-3 requirement.
+**Three training seeds, all 1540 QA, official scorer, conversation-clustered CIs**
+(identical base every time: EM 0.0396 / F1 0.1833):
+
+| seed | ours EM | ours F1 | ΔF1 | clustered CI95 | significant |
+|---|---:|---:|---:|---|---|
+| 0 | 0.0617 | 0.2163 | +0.0331 | [+0.0247, +0.0416] | YES |
+| 1 | 0.0584 | 0.2173 | +0.0340 | [+0.0265, +0.0425] | YES |
+| 2 | 0.0636 | 0.2203 | +0.0370 | [+0.0262, +0.0474] | YES |
+| **hierarchical (conversations × seeds)** | — | — | **+0.0347** | **[+0.0294, +0.0406]** | **YES** |
+
+**3/3 seeds individually significant**, and the hierarchical bootstrap — which
+resamples conversations first and then the seed set, so neither the 10 conversations
+nor the 3 seeds are treated as more independent than they are — also excludes zero.
+Conversation mapping verified with **0 category mismatches in 1540 rows** for every
+seed.
 
 By category (in-repo metric, all 1540): cat1 0.2506→0.3048, cat2 0.1613→0.2071,
 cat3 0.1198→0.1176 (the only non-positive category), cat4 0.2262→0.2409. No single
