@@ -18,7 +18,7 @@ copied from result JSONs, never from memory.
 | 5 | LoCoMo official | **base_fullctx** EM .0396 / F1 .1833; **ours_fullctx** EM .0617 / F1 .2163 (all 1540). Untouched 1339: .1653→.1969 F1, conversation-clustered CI **[+0.023, +0.042]**, significant. `ours_state_only`/swap/zero are **undefined for this checkpoint** (P=0, no state) — the P=64 memory arms are in §2b. |
 | 6 | HotpotQA official EM/F1 + Joint | **Untouched holdout (n=4678)**: base EM **0.4288** / F1 **0.5615**; ours EM **0.4906** / F1 **0.6216**. Full dev (n=7405): base .4319/.5647, ours .4905/.6209. Support/Joint = **0.0** everywhere (`sp` empty, no supporting-fact head). |
 | 7 | RULER 8K/16K/32K macro (13 tasks, **officially generated** with the Qwen3 tokenizer) | 8K **0.9363 → 0.9229** (−0.0134); 16K **0.9425 → 0.9047** (−0.0378); 32K **0.9157 → 0.9153** (−0.0005). Ours is at or below base at every length; the mirror-based runs agree. |
-| 8–11 | strongest config, significance, memory vs task adaptation | Strongest so far: **P=64 noctx qkvo pre_o sidecar, full-context** — +0.1204 F1 over base_fullctx (t=+4.59, n=200 dev). Significance confirmed at n=1000 for the P=0 line (+0.050/+0.060, CI>0); n=1000 for P=64 RUNNING. **The gain is NOT from memory**: correct−swap = +0.0025 (t=0.34), see §2b |
+| 8–11 | strongest config, significance, memory vs task adaptation | **No checkpoint has a correct−swap CI above zero (§2e); two are significantly negative.** Strongest so far: **P=64 noctx qkvo pre_o sidecar, full-context** — +0.1204 F1 over base_fullctx (t=+4.59, n=200 dev). Significance confirmed at n=1000 for the P=0 line (+0.050/+0.060, CI>0); n=1000 for P=64 RUNNING. **The gain is NOT from memory**: correct−swap = +0.0025 (t=0.34), see §2b |
 
 ## 1. Forced implementation audit (§4)
 
@@ -238,6 +238,35 @@ write-once/query-many, the scenario most favourable to memory, and at P=64
 P=0). Interim over 450/1540 QA: base_fullctx **0.2195**, ours **0.3310**,
 ours_window_only **0.3259** — masking the entire written memory out of the read costs
 **0.005 of an 11-point gain**.
+
+
+## 2e. The memory verdict, stated statistically (all six trained checkpoints)
+
+`ours_state_only − ours_swap_state` is the one quantity that isolates
+document-specific memory: identical model, identical prompt, identical decoding,
+the *only* difference is whether the state was written from the correct document
+or from a different one. Paired bootstrap, 10,000 resamples, n=200 HotpotQA items
+each (`memarms_*.json`).
+
+| checkpoint | correct − swap | 95% CI | correct − window | correct − zero | ours_fullctx − base_fullctx |
+|---|---:|---|---:|---:|---:|
+| P=64 noctx post_o @step100 | −0.0034 | [−0.0248, +0.0164] | −0.0007 | +0.0019 | +0.0863 |
+| P=64 noctx pre_o @step100 | +0.0025 | [−0.0120, +0.0175] | −0.0229 | −0.0076 | **+0.1204** |
+| P=64 stable pre_o @step150 (lr 1e-3, 12 layers) | **+0.0065** | [−0.0143, +0.0291] | +0.0095 | +0.0627 | +0.0825 |
+| P=64 swap-contrastive β=5 | **−0.0272** | **[−0.0539, −0.0018]** | −0.0782 | −0.1016 | −0.2655 |
+| P=64 noctx pre_o @final | **−0.0148** | **[−0.0286, −0.0046]** | −0.1148 | −0.1458 | −0.5404 |
+| P=64 noctx post_o @final | 0.0000 | [0.0000, 0.0000] | −0.1936 | −0.2058 | −0.5439 |
+
+**Not one checkpoint has a correct−swap interval lying above zero. Two are
+significantly negative.** The best arm ever measured (+0.0065, the stability
+re-train at step 150) has an interval spanning zero and sits far below the
+§9 promotion bar of +1 absolute point. The post_o final row is 0.0000 with a
+zero-width interval because *both* arms emit degenerate output — it is not
+evidence of equality, it is evidence of collapse.
+
+Meanwhile `ours_fullctx − base_fullctx` is large and positive for the healthy
+checkpoints (+0.086 to +0.120). The two quantities together are the whole story:
+**the sidecar helps, its memory does not.**
 
 ## 3. RULER (mirror `simonjegou/ruler`, 13/13 official tasks, 40 samples/task)
 
