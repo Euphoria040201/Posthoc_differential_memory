@@ -125,7 +125,11 @@ def main():
     recs = []
     for k, s in enumerate(rows):
         gold = parse_gold(s["answer"])
-        user = s["context"] + "\n\n" + s["question"]
+        # HF mirror splits the prompt into context/question; the official generator
+        # emits ONE `input` field that already contains the question.  Use each
+        # source's own field(s) verbatim -- never re-wrap the official prompt.
+        user = (s["input"] if "input" in s
+                else s["context"] + "\n\n" + s["question"])
         chat = tok.apply_chat_template([{"role": "user", "content": user}], add_generation_prompt=True,
                                        return_tensors="pt", return_dict=True)["input_ids"]
         ap_ids = tok(s["answer_prefix"], add_special_tokens=False, return_tensors="pt")["input_ids"]
