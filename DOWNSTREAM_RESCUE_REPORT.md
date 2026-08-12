@@ -275,6 +275,39 @@ full-context base on untouched data. It is the same `ours_fullctx` task-adapter
 effect as HotpotQA — LoCoMo was evaluated with the P=0 checkpoint, which has no
 state at all (F1), so it cannot be a memory result.
 
+
+## 6. Cost accounting (required by the reporting spec)
+
+Measured on 15 real HotpotQA items with the P=64 `pre_o` step-100 checkpoint,
+identical no-KV-cache greedy loop for every arm so the comparison is fair
+(`cost_mem64preo_step100.json`).
+
+| quantity | value |
+|---|---|
+| trainable params | **383,385,600** (P=64, 36 layers) vs **14,155,776** (P=0, 12 layers) |
+| context tokens (official 10 paragraphs) | 1696.6 mean |
+| tokens the WRITER consumes | 1696.6 — the full document, no truncation |
+| tokens the READER sees, `state_only` | **49.3** (question + template only) |
+| tokens the READER sees, `fullctx` | 1745.9 |
+| written state | 36 layers x 64 slots x 2560 dims = **5,898,240 elements = 11.8 MB** bf16 (0.33 MB/layer) |
+| write latency | **0.131 s** |
+| read latency, `state_only` | 1.814 s |
+| read latency, `ours_fullctx` | 1.752 s |
+| read latency, **frozen base fullctx** | **0.543 s** |
+| overhead of the sidecar per query | **+1.21 s (3.2x slower than base)** |
+| amortized `state_only` per query, 1 / 5 / 20 queries | 1.945 / 1.840 / 1.821 s |
+| effective correction norm | ‖gC‖/‖Z‖ = **0.145**, ‖g·W_O C‖/‖W_O Z‖ = **0.260** (g = 0.1) |
+| cos(Z, C) / cos(W_O Z, W_O C) | 0.018 / 0.043 |
+
+Two practical consequences the accuracy tables do not show:
+
+1. **The method is 3.2x slower per query than the base it beats.** The write is
+   cheap (0.131 s) but the per-token sidecar cost dominates decoding.
+2. **Amortizing the write over many queries does not help** — at 20 queries per
+   state the cost is still 1.82 s/query vs the base's 0.543 s. The compression is
+   real (1697 context tokens → 49 read tokens, an 11.8 MB state) but it buys no
+   latency, because the sidecar runs on every decode step regardless.
+
 ## 5. Contamination (§3)
 
 `contamination_manifest.json`:

@@ -92,11 +92,13 @@ def main():
         w_tok, w_dt = write(ctx)
         r_tok_state, r_dt_state = read("", q)            # state-only read
         r_tok_full, r_dt_full = read(ctx, q)             # full-context read
-        clear_frozen_memory(model)
-        _, b_dt = read(ctx, q, steer=False)              # frozen base, full context
+        # measure the live state BEFORE clearing it (the clear is what the base arm needs)
         state_elems = sum(m._frozen_prefix.numel() for m in mods
                           if getattr(m, "_frozen_prefix", None) is not None)
+        clear_frozen_memory(model)
+        _, b_dt = read(ctx, q, steer=False)              # frozen base, full context
         rows.append({
+            "state_elements": state_elems,
             "context_tokens": w_tok, "writer_tokens": w_tok,
             "reader_tokens_state_only": r_tok_state,
             "reader_tokens_fullctx": r_tok_full,
