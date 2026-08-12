@@ -17,8 +17,8 @@ copied from result JSONs, never from memory.
 | 4 | Does the old Qasper +0.055 F1 hold on independent data? | **Partly, and larger than that on HotpotQA** — see §2. But it is NOT a memory effect (§1 F1/F2). |
 | 5 | LoCoMo official | RUNNING |
 | 6 | HotpotQA official EM/F1 + Joint | **Official scorer run**: base EM .4340/F1 .5659 vs ours EM .4860-.4870/F1 .6156-.6256 on internal dev-1000. Joint/Support = **0.0** (no supporting-fact head, `sp` submitted empty). Untouched-final RUNNING |
-| 7 | RULER 8K/16K/32K macro | 8K done: base **0.9288** vs ours **0.9254** (13/13 tasks, at ceiling). 16K RUNNING |
-| 8–11 | strongest config, significance, memory vs task adaptation | see §1 F1 and §2 — the gain is real but is **task adaptation, not memory** |
+| 7 | RULER 8K/16K/32K macro | 8K base **0.9288** / ours **0.9254**; 16K base **0.9439** / ours **0.9361**. Ours is at or below base at both lengths. 32K needs official generation (mirror has no 32k) — RUNNING |
+| 8–11 | strongest config, significance, memory vs task adaptation | Strongest so far: **P=64 noctx qkvo pre_o sidecar, full-context** — +0.1204 F1 over base_fullctx (t=+4.59, n=200 dev). Significance confirmed at n=1000 for the P=0 line (+0.050/+0.060, CI>0); n=1000 for P=64 RUNNING. **The gain is NOT from memory**: correct−swap = +0.0025 (t=0.34), see §2b |
 
 ## 1. Forced implementation audit (§4)
 
@@ -75,13 +75,57 @@ sidecar**, i.e. §6's "correct ≈ swap > base" branch taken to its limit — sw
 correct are not merely close, they are the same computation. It must not be described
 as episodic memory, context compilation or memory augmentation.
 
+
+## 2b. DECISIVE memory test — P=64 written memory, all §6 arms (HotpotQA n=200, dev)
+
+The §2 checkpoints have no state at all (F1), so a P=64 written-memory sidecar was
+trained from scratch this session (`noctx`: WRITE the document → DROP the context →
+READ from the frozen state; `delta_heads=qkvo`, gain 0.1, pre_o, 200 updates —
+checkpoint at step 100 evaluated first). Every §6 arm, same 200 examples, same
+prompt/decoding:
+
+| §6 arm | script name | F1 |
+|---|---|---:|
+| `base_fullctx` | base_ctx | 0.5439 |
+| **`ours_fullctx`** | ours_ctx | **0.6643** |
+| `base_queryonly` | base_noctx | 0.0600 |
+| `ours_state_only` | ours_noctx | 0.1707 |
+| `ours_swap_state` | swap_noctx | 0.1681 |
+| `ours_zero_state` | zero_noctx | 0.1782 |
+| `ours_window_only` | wo_noctx | 0.1935 |
+
+| contrast | Δ | paired t |
+|---|---:|---:|
+| ours_fullctx − base_fullctx | **+0.1204** | **+4.59** |
+| ours_state_only − base_queryonly | +0.1107 | +4.63 |
+| **ours_state_only − ours_swap_state** | **+0.0025** | **+0.34** |
+| ours_state_only − ours_zero_state | −0.0076 | −0.64 |
+| ours_state_only − ours_window_only | −0.0229 | −1.74 |
+
+**Verdict: the written state carries no document-specific information.** Reading a
+state written from a *different* document scores the same as the correct one
+(+0.0025, t=0.34); zeroing the state is as good; masking the prefix out of the read
+is slightly *better*. The whole state_only − queryonly gap (+0.11) is reproduced by
+the zero/swap/window arms, i.e. it is the trained adapter's answer-style prior, not
+retrieved content. Under §6's rule this is **task adaptation, not memory** — and now
+that verdict rests on an architecture that genuinely has a written state, so it is
+not an artifact of the P=0 line.
+
+The same run shows the **largest positive result of the session**: with full context
+retained, this sidecar scores **+0.1204 F1 over the frozen full-context base**
+(t=+4.59, n=200 dev). That is a memory-*augmentation*-shaped number produced by a
+component that provably is not using its memory — it must be reported as an
+attention/task adapter. n=1000 confirmation is running.
+
 ## 3. RULER (mirror `simonjegou/ruler`, 13/13 official tasks, 40 samples/task)
 
 | length | arm | macro | note |
 |---|---|---:|---|
 | 8192 | base | 0.9288 | at ceiling: 8/13 tasks exactly 1.000 for both arms |
 | 8192 | ours pre_o s0 | 0.9254 | −0.0034; qa_1 +0.025, qa_2 −0.050, cwe −0.012 |
-| 16384 | base / ours | RUNNING | |
+| 16384 | base | 0.9439 | 13/13 tasks |
+| 16384 | ours pre_o s0 | 0.9361 | −0.0078; qa_1 +0.075, cwe −0.058, qa_2 −0.100 |
+| 32768 | — | UNAVAILABLE from the mirror (only 4k/8k/16k exist); official generator running |
 
 Historical runs agree (4k: base 0.9360 / ours 0.9355; 16k: base 0.9282 / ours 0.9274),
 so RULER at these lengths has no headroom for this method to show anything.
