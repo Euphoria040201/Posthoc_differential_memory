@@ -22,19 +22,19 @@ Status legend: PENDING / RUNNING / PASS / FAIL / INVALID / BLOCKED
 - [x] base parity — PASS bit-exact (F4)
 - [x] pre_o vs post_o_projected fp32/bf16/cache/batch/repeat — PASS, no bug (F5)
 - [x] state isolation for P=0 checkpoints — PASS with the caveat that there is no state (F1, F2)
-- [ ] frozen-backbone hash across a real optimizer step — RUNNING (GPU0)
-- [ ] historical result inventory + contamination manifest — RUNNING
-- [ ] Hotpot dev-200 screening: base / ours(pre_o) / ours(post_o) — RUNNING (GPU3,4)
+- [x] frozen-backbone hash across a real optimizer step — **PASS** bit-identical, 0 backbone grads
+- [x] historical result inventory + contamination manifest — **PASS** (4678 untouched Hotpot dev ids)
+- [x] Hotpot dev-200 + dev-1000 screening — **PASS**: pre_o +.050/+.060 (sig), post_o +.024 (sig), all vs base_fullctx
 - [ ] LoCoMo official-protocol generation: base / ours — RUNNING (GPU5)
-- [ ] RULER 8K disjoint-seed: base / ours — RUNNING (GPU6,7)
+- [x] RULER 8K — **PASS/no-signal** (base .9288 vs ours .9254, ceiling). 16K RUNNING (base .948 vs ours .963 partial), 32K RUNNING
 - [ ] unified per-example prediction schema — PENDING
 - [ ] Qasper regression re-run (regression only, NOT evidence) — PENDING
 
 ## P1 — first rescue round (additive memory only; subtraction is settled)
 
-- [ ] P=64 written memory, `noctx` training, post_o + fixed_add — PENDING (next on GPU1)
-- [ ] P=64 written memory, `noctx` training, pre_o + fixed_add — PENDING (next on GPU2)
-- [ ] P=64 `ctxmask` training — PENDING
+- [~] P=64 written memory, `noctx` training, post_o + fixed_add — RUNNING (GPU0, step 100/200)
+- [~] P=64 written memory, `noctx` training, pre_o + fixed_add — RUNNING (GPU1, step 100/200)
+- [~] P=64 `ctxmask` training — RUNNING (GPU2, step 100/200)
 - [ ] delta heads `o` vs `qo` — PENDING
 - [ ] gain sweep 0.03 / 0.05 / 0.10 / 0.20 — PENDING
 - [ ] swap-contrastive objective (β, margin small screen) — PENDING
@@ -43,7 +43,7 @@ Status legend: PENDING / RUNNING / PASS / FAIL / INVALID / BLOCKED
 
 ## P2 — per-benchmark
 
-HotpotQA: [ ] official `hotpot_evaluate_v1.py` wiring · [ ] official distractor dev · [ ] hash split train/dev · [ ] 200 screen · [ ] 1000 confirm · [ ] 3 seeds · [ ] untouched final
+HotpotQA: [x] official `hotpot_evaluate_v1.py` wiring — **matches in-repo metric to 4 decimals** · [ ] official distractor dev · [ ] hash split train/dev · [ ] 200 screen · [ ] 1000 confirm · [ ] 3 seeds · [ ] untouched final
 LoCoMo: [ ] recover old 10x20 IDs · [ ] write-once/query-many verification · [ ] correct/swap/zero arms (needs P>0) · [ ] conversation-clustered CI
 RULER: [ ] 13-task completeness check · [ ] 8K/16K disjoint seeds · [ ] 32K · [ ] zero/swap controls
 
