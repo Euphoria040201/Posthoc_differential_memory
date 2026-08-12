@@ -214,7 +214,8 @@ def check_frozen(args):
     model = load_backbone(args)
     attach_prefix_steer(model, cfg)
     from deltamem.core.prefix_steer import freeze_backbone_keep_steer, is_steer_param_name
-    trainable_names = freeze_backbone_keep_steer(model)
+    freeze_backbone_keep_steer(model)
+    trainable_names = [n for n, q in model.named_parameters() if q.requires_grad]
     h0, n_backbone = backbone_hash(model)
 
     # exactly how dex_train_qasper builds the optimizer for swa_steer
