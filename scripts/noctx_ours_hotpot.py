@@ -18,6 +18,10 @@ from deltamem.eval.benchmark_compare import (HOTPOTQA_PROMPT_TEMPLATE, build_hot
 
 ap = argparse.ArgumentParser()
 ap.add_argument("--ckpt", required=True); ap.add_argument("--n", type=int, default=200)
+ap.add_argument("--model-path", default="Qwen/Qwen3-4B-Instruct-2507",
+                help="local dir or hub id; local dirs skip the hub cache lookup")
+ap.add_argument("--seed", type=int, default=42, help="sample selection seed")
+ap.add_argument("--output", default="", help="write a result JSON with per-example rows")
 ap.add_argument("--gold-write", action="store_true",
                 help="write ONLY the 2 gold supporting passages (~250 tok) instead of the "
                      "full 10-passage context -- matches the gold-evidence training "
@@ -32,20 +36,20 @@ def build_gold_context(item):
              for i, (t, ss) in enumerate(zip(ctx["title"], ctx["sentences"]), start=1) if t in gold]
     return "\n\n".join(parts) if parts else "No passages provided."
 
-tok = AutoTokenizer.from_pretrained("Qwen/Qwen3-4B-Instruct-2507", local_files_only=True)
+tok = AutoTokenizer.from_pretrained(args.model_path, local_files_only=True)
 _bw = int((torch.load(args.ckpt, map_location="cpu").get("args", {}) or {}).get("backbone_window", 0) or 0)
 _kw = {}
 if _bw > 0:
     from transformers import AutoConfig
-    _bc = AutoConfig.from_pretrained("Qwen/Qwen3-4B-Instruct-2507", local_files_only=True)
+    _bc = AutoConfig.from_pretrained(args.model_path, local_files_only=True)
     _tc = _bc.get_text_config() if hasattr(_bc, "get_text_config") else _bc
     _tc.sliding_window = _bw; _tc.layer_types = ["sliding_attention"] * _tc.num_hidden_layers
     _kw["config"] = _bc
-m = AutoModelForCausalLM.from_pretrained("Qwen/Qwen3-4B-Instruct-2507", dtype=torch.bfloat16,
+m = AutoModelForCausalLM.from_pretrained(args.model_path, dtype=torch.bfloat16,
     attn_implementation="sdpa", local_files_only=True, **_kw).to("cuda").eval()
 cfg = load_ours(m, args.ckpt); m.eval()
 data = load_hotpotqa(cache_dir=Path.home()/".cache/huggingface/datasets", max_samples=args.n,
-                     seed=42, local_files_only=True)
+                     seed=args.seed, local_files_only=True)
 
 def setseg(L):
     set_steer_segments(m, torch.full((1, L), SEG_CTX, dtype=torch.long, device="cuda"),
@@ -71,7 +75,9 @@ def gen(ctx_text, q, steer, max_new=24):
         out.append(nxt); ids = torch.cat([ids, torch.tensor([[nxt]], device="cuda")], dim=1)
     return extract_first_line(tok.decode(out, skip_special_tokens=True))
 
-R = {"base_ctx":[], "ours_ctx":[], "base_noctx":[], "ours_noctx":[], "wo_noctx":[], "swap_noctx":[]}
+R = {"base_ctx":[], "ours_ctx":[], "base_noctx":[], "ours_noctx":[], "wo_noctx":[],
+     "swap_noctx":[], "zero_noctx":[]}
+ROWS = []
 wsrc = build_gold_context if args.gold_write else build_hotpotqa_context
 prev_ctx = wsrc(data[-1])                     # rotating wrong-doc source (last sample's ctx)
 for it in data:
@@ -92,6 +98,14 @@ for it in data:
     assert prev_ctx != wctx, "swap source is the SAME document"
     write(prev_ctx)                            # WRONG document's memory
     R["swap_noctx"].append(hotpotqa_f1(gen("", q, True), gold))
+    # zero-state: wrapper active, memory tensor zeroed -> isolates the trained adapter
+    # from anything the WRITE produced (no written content at all, not a wrong one)
+    write(wctx)
+    from deltamem.core.prefix_steer import iter_steer_modules as _ism
+    for _mm in _ism(m):
+        if _mm._frozen_prefix is not None:
+            _mm._frozen_prefix = torch.zeros_like(_mm._frozen_prefix)
+    R["zero_noctx"].append(hotpotqa_f1(gen("", q, True), gold))
     clear_frozen_memory(m)
     R["base_noctx"].append(hotpotqa_f1(gen("", q, False), gold))
     prev_ctx = wctx
@@ -108,11 +122,29 @@ def paired(a, b):
     return mu, t
 
 print(f"\n=== NO-CONTEXT test  (n={len(data)})  ckpt={Path(args.ckpt).name} bw={_bw} ===")
-for k in ["base_ctx","ours_ctx","base_noctx","wo_noctx","swap_noctx","ours_noctx"]:
+for k in ["base_ctx","ours_ctx","base_noctx","zero_noctx","wo_noctx","swap_noctx","ours_noctx"]:
     print(f"  {k:>12}  F1={st.mean(R[k]):.4f}")
 for a, b, tag in [("ours_noctx","base_noctx","prefix+steer - base"),
                   ("wo_noctx","base_noctx","steer-only  - base"),
                   ("ours_noctx","wo_noctx","prefix marginal(wo)"),
+                  ("ours_noctx","zero_noctx","prefix marginal(zero)"),
+                  ("ours_ctx","base_ctx","augmentation over full ctx"),
                   ("ours_noctx","swap_noctx","DOC-SPECIFIC memory")]:
     mu, t = paired(a, b)
     print(f"  >>> {tag} = {mu:+.4f}  (paired t={t:+.2f})")
+
+if args.output:
+    import json as _json
+    n = len(R["ours_noctx"])
+    recs = [{"i": i, **{k: R[k][i] for k in R if i < len(R[k])}} for i in range(n)]
+    _json.dump({"ckpt": args.ckpt, "n": n, "seed": args.seed,
+                "means": {k: st.mean(v) for k, v in R.items() if v},
+                "paired": {f"{a}-{b}": paired(a, b)[0]
+                           for a, b in [("ours_noctx","base_noctx"),
+                                        ("ours_noctx","swap_noctx"),
+                                        ("ours_noctx","zero_noctx"),
+                                        ("ours_noctx","wo_noctx"),
+                                        ("ours_ctx","base_ctx")]},
+                "per_example": recs},
+               open(args.output, "w"), indent=2)
+    print("wrote", args.output)
