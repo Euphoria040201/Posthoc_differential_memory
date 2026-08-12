@@ -213,12 +213,13 @@ seeds. Internal dev n=1000, same 1000 items, same base:
 The effect replicates and is *larger* on the seed that required no checkpoint
 selection. Full official dev + untouched-complement runs for seeds 1 and 2 are queued.
 
-**Seed variance is large and must temper the "+0.111 strongest config" claim.**
-On the identical 300-item sample (seed 777), the three P=64 seeds give
-`ours_fullctx − base_fullctx` of **+0.1204 / +0.0110 / +0.0939** (seeds 0 / 1 / 2).
-Seed 1 transfers barely at all. The unstable training (§2b) shows up as inconsistent
-transfer, not just as a bad final checkpoint — so the P=64 configuration's headline
-number is not something one run can be trusted to reproduce. The 3-seed full-dev
+**Seed variance, measured at two sample sizes.** On a 300-item sample (seed 777) the
+three P=64 seeds gave `ours_fullctx − base_fullctx` of +0.1204 / +0.0110 / +0.0939 —
+which looked like seed 1 barely transferring. At **n=1000** (seed 1234, the same 1000
+items for every seed) the picture is tighter: **+0.1008 / +0.0713 / +0.1182**, mean
++0.097. The n=300 spread was largely sampling noise, not seed failure; the honest
+statement is that P=64 transfers at **+0.07 to +0.12 depending on seed**, which is
+still visibly wider than the P=0 line's +0.049 to +0.065. The 3-seed full-dev
 confirmation now running is the number that should be quoted.
 
 **The memory verdict replicates on every seed.** Seed 1: correct − swap **−0.0433**,
