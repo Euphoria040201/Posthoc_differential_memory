@@ -1,0 +1,67 @@
+{
+  "files": [
+    "out_downstream_audit_20260812/hotpotFULL_preo_s0_merged.json",
+    "out_downstream_audit_20260812/hotpotFINAL_untouched_preo_s0.json"
+  ],
+  "arm": "ours",
+  "baseline": "base",
+  "metric": "f1",
+  "n_boot": 10000,
+  "per_file": [
+    {
+      "file": "out_downstream_audit_20260812/hotpotFULL_preo_s0_merged.json",
+      "n": 7405,
+      "ours_mean": 0.6209192991555588,
+      "base_mean": 0.5646792663049399,
+      "paired_bootstrap": {
+        "delta": 0.05624003285061656,
+        "ci95": [
+          0.04916960936270447,
+          0.06329803317161356
+        ],
+        "n": 7405,
+        "n_clusters": 7405,
+        "significant": true
+      },
+      "mcnemar": {
+        "b01": 675,
+        "b10": 241,
+        "p_value": 2.981289794498741e-48
+      },
+      "ours_em": 0.49047940580688726,
+      "base_em": 0.43187035786630656
+    },
+    {
+      "file": "out_downstream_audit_20260812/hotpotFINAL_untouched_preo_s0.json",
+      "n": 4678,
+      "ours_mean": 0.6216497275447649,
+      "base_mean": 0.5614770057555467,
+      "paired_bootstrap": {
+        "delta": 0.0601727217892173,
+        "ci95": [
+          0.051335712974021806,
+          0.06905008216999049
+        ],
+        "n": 4678,
+        "n_clusters": 4678,
+        "significant": true
+      },
+      "mcnemar": {
+        "b01": 445,
+        "b10": 156,
+        "p_value": 3.918688168310526e-33
+      },
+      "ours_em": 0.49059427105600684,
+      "base_em": 0.4288157332193245
+    }
+  ],
+  "hierarchical_bootstrap": {
+    "delta": 0.05820637731991693,
+    "ci95": [
+      0.05230367144163228,
+      0.06479693050420547
+    ],
+    "n_seeds": 2,
+    "significant": true
+  }
+}

@@ -4,7 +4,7 @@ node16 (8x H100 80GB) · env `/work/mingze/miniconda3/envs/deltamem` (torch 2.6.
 backbone `/work/mingze/models/Qwen3-4B-Instruct-2507` · branch `agent/downstream-audit-2026-08-12`
 Repo HEAD at start: `dc9269b` · outputs `out_downstream_audit_20260812/`
 
-**STATUS: IN PROGRESS** — this file is updated as evidence lands. Numbers below are
+**STATUS: IN PROGRESS** (headline results final; long-running arms still landing) — this file is updated as evidence lands. Numbers below are
 copied from result JSONs, never from memory.
 
 ## Direct answers (§13) — updated live
@@ -14,9 +14,9 @@ copied from result JSONs, never from memory.
 | 1 | Bug in the pre_o implementation? | **No.** On the live model the o_proj input equals `Z + g·C` with max abs residual **0.0**; widths are Z=C=4096 into a 4096→2560 bias-free `o_proj` (GQA 32 q / 8 kv heads). `a0_preo_graph.json` |
 | 2 | Is pre_o vs post_o_projected really just bf16? | **Yes as to correctness, no as to size.** In fp32 the two agree to 6.8e-3 max / 9.9e-6 mean with **top-1 disagreement 0.0000** — mathematically equivalent, differences are accumulation order. In bf16 they flip the top-1 token on **1.1%** of positions (max abs 10.2), which greedy decoding amplifies into visibly different generations (25% of 4 sampled generations differed). Calling it "bf16 noise" understates it: it is bf16-scale, but large enough to move small-n greedy F1. Both arms are internally deterministic (repeat runs bit-exact). `a1_numerics_numerics.json` |
 | 3 | Is the backbone fully frozen? | **Yes, bit-identical.** SHA256 over all 398 backbone tensors is unchanged across 4 real optimizer steps (`c894f7a1…` → `c894f7a1…`); 0 backbone params ever receive a gradient; the optimizer contains exactly the 48 sidecar tensors. `--lr 2e-5` applies to an empty parameter group for `swa_steer`. `a0b_frozen_frozen.json` |
-| 4 | Does the old Qasper +0.055 F1 hold on independent data? | **Partly, and larger than that on HotpotQA** — see §2. But it is NOT a memory effect (§1 F1/F2). |
+| 4 | Does the old Qasper +0.055 F1 hold on independent data? | **Yes — it replicates almost exactly in size on an untouched HotpotQA holdout**: +0.0602 F1 (CI [+0.051, +0.069], n=4678, official scorer). But it is a task-adapter effect, not memory (§2b). |
 | 5 | LoCoMo official | RUNNING |
-| 6 | HotpotQA official EM/F1 + Joint | **Official scorer run**: base EM .4340/F1 .5659 vs ours EM .4860-.4870/F1 .6156-.6256 on internal dev-1000. Joint/Support = **0.0** (no supporting-fact head, `sp` submitted empty). Untouched-final RUNNING |
+| 6 | HotpotQA official EM/F1 + Joint | **Untouched holdout (n=4678)**: base EM **0.4288** / F1 **0.5615**; ours EM **0.4906** / F1 **0.6216**. Full dev (n=7405): base .4319/.5647, ours .4905/.6209. Support/Joint = **0.0** everywhere (`sp` empty, no supporting-fact head). |
 | 7 | RULER 8K/16K/32K macro | 8K base **0.9288** / ours **0.9254**; 16K base **0.9439** / ours **0.9361**. Ours is at or below base at both lengths. 32K needs official generation (mirror has no 32k) — RUNNING |
 | 8–11 | strongest config, significance, memory vs task adaptation | Strongest so far: **P=64 noctx qkvo pre_o sidecar, full-context** — +0.1204 F1 over base_fullctx (t=+4.59, n=200 dev). Significance confirmed at n=1000 for the P=0 line (+0.050/+0.060, CI>0); n=1000 for P=64 RUNNING. **The gain is NOT from memory**: correct−swap = +0.0025 (t=0.34), see §2b |
 
@@ -111,11 +111,47 @@ retrieved content. Under §6's rule this is **task adaptation, not memory** — 
 that verdict rests on an architecture that genuinely has a written state, so it is
 not an artifact of the P=0 line.
 
+**Replicated at the other fusion position.** The same protocol on the P=64 `post_o`
+checkpoint gives correct−swap **−0.0034** (t=−0.32), correct−zero +0.0019 (t=+0.17),
+correct−window −0.0007 (t=−0.10), with ours_fullctx 0.6302 vs base 0.5439 (+0.0863,
+t=+3.35). Two architectures (P=0, P=64) x two fusion positions all agree: the written
+state is inert, the adapter is not.
+
 The same run shows the **largest positive result of the session**: with full context
 retained, this sidecar scores **+0.1204 F1 over the frozen full-context base**
 (t=+4.59, n=200 dev). That is a memory-*augmentation*-shaped number produced by a
 component that provably is not using its memory — it must be reported as an
 attention/task adapter. n=1000 confirmation is running.
+
+
+## 2c. FINAL — HotpotQA untouched holdout (official evaluator, config frozen)
+
+Config frozen before this run: `pre_o` + `fixed_add`, `swa_steer` P=0, gain 0.1,
+`delta_heads=o`, `main_v`, layers 0,3,…,33, seed 0 checkpoint
+`out_dex_fusion/preo_swa_steer_s0_steer.pt`; official 10-paragraph distractor
+context; greedy, 32 new tokens; parser `extract_first_line`; scorer
+`hotpot_evaluate_v1.py` SHA `3635853`. The **untouched complement** excludes every
+id used by any historical screening run and by this session's dev screens
+(2727 excluded → 4678 remain).
+
+| set | n | arm | official EM | official F1 | ΔF1 | 95% CI (paired bootstrap 10k) | McNemar (EM) |
+|---|---:|---|---:|---:|---:|---|---|
+| **untouched complement** | 4678 | base_fullctx | 0.4288 | 0.5615 | — | — | — |
+| **untouched complement** | 4678 | **ours_fullctx** | **0.4906** | **0.6216** | **+0.0602** | **[+0.0513, +0.0691]** | b01=445 b10=156, **p=3.9e-33** |
+| full official dev | 7405 | base_fullctx | 0.4319 | 0.5647 | — | — | — |
+| full official dev | 7405 | ours_fullctx | 0.4905 | 0.6209 | +0.0562 | [+0.0492, +0.0633] | b01=675 b10=241, p=3.0e-48 |
+
+Support/Joint are **0.0** on every arm: the method has no supporting-fact head and
+`sp` is submitted empty. These are **Answer** EM/F1 only and must never be quoted as
+HotpotQA Joint numbers.
+
+**This clears the §9 Stage-D bar**: significantly higher than the frozen full-context
+base, on data never used for any tuning decision, with the paired CI lower bound
++0.051 > 0, under an identical prompt/template/decoding/context budget.
+
+**It does not clear the §6 memory bar** — see §2b: the same family of sidecars scores
+identically when the written state is swapped, zeroed, or masked out. The honest
+label is a **task/attention adapter that improves full-context HotpotQA**, not memory.
 
 ## 3. RULER (mirror `simonjegou/ruler`, 13/13 official tasks, 40 samples/task)
 

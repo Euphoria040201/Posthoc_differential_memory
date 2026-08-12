@@ -1,0 +1,23 @@
+Loading weights:   0%|          | 0/398 [00:00<?, ?it/s]Loading weights: 100%|██████████| 398/398 [00:00<00:00, 15207.41it/s]
+[ours] loaded 324 steer tensors; prefix_write=True; cfg=PrefixSteerConfig(num_prefix_tokens=64, sliding_window_size=256, mem_num_heads=8, mem_head_dim=64, steer_mode='deltamem', normal_attends_prefix=True, prefix_sees_query=True, prefix_init_std=0.7, prefix_init_dist='normal', prefix_write=True, read_prefix_only=False, memory_mode='dynamic', write_ctx_only=True, prefix_write_layout='global', prefix_write_overlap_tokens=0, pool_reads=True, pool_gate=False, pool_gate_input='rm', pool_gate_max=2.0, pool_gate_bias=0.0, steer_layers=(), prefix_layers=(), steer_gain=0.1, share_qkv=False, memory_value_source='trainable', delta_heads='qkvo', delta_rank=0, read_proj_dim=0, output_fusion='fixed', o_fusion_position='pre_o', output_fusion_eps=1e-06, output_fusion_scale_max=10.0, fusion_lambda_init=0.1, fusion_lambda_max=1.0, fusion_ema_momentum=0.99, history_pool_mode='none', hybrid_read_mode='none', hybrid_prefix_gate_mode='fixed', hybrid_prefix_gate_init=0.1)
+Using the latest cached version of the dataset since hotpotqa/hotpot_qa couldn't be found on the Hugging Face Hub (offline mode is enabled).
+Found the latest cached dataset configuration 'distractor' at /home/mingze/.cache/huggingface/datasets/hotpotqa___hotpot_qa/distractor/0.0.0/1908d6afbbead072334abe2965f91bd2709910ab (last modified on Wed Aug 12 05:30:25 2026).
+[shard 0] 1000 examples
+[shard 0] 20/1000 baseF1=0.546 oursF1=0.736 ours_window_onlyF1=0.696 (0.5m)
+[shard 0] 40/1000 baseF1=0.482 oursF1=0.692 ours_window_onlyF1=0.652 (1.0m)
+[shard 0] 60/1000 baseF1=0.492 oursF1=0.628 ours_window_onlyF1=0.616 (1.5m)
+[shard 0] 80/1000 baseF1=0.508 oursF1=0.664 ours_window_onlyF1=0.638 (1.9m)
+[shard 0] 100/1000 baseF1=0.522 oursF1=0.676 ours_window_onlyF1=0.660 (2.5m)
+[shard 0] 120/1000 baseF1=0.507 oursF1=0.655 ours_window_onlyF1=0.642 (2.9m)
+[shard 0] 140/1000 baseF1=0.523 oursF1=0.648 ours_window_onlyF1=0.637 (3.2m)
+[shard 0] 160/1000 baseF1=0.534 oursF1=0.653 ours_window_onlyF1=0.646 (3.6m)
+[shard 0] 180/1000 baseF1=0.557 oursF1=0.665 ours_window_onlyF1=0.660 (4.1m)
+[shard 0] 200/1000 baseF1=0.544 oursF1=0.657 ours_window_onlyF1=0.645 (4.7m)
+[shard 0] 220/1000 baseF1=0.545 oursF1=0.652 ours_window_onlyF1=0.640 (5.1m)
+[shard 0] 240/1000 baseF1=0.550 oursF1=0.659 ours_window_onlyF1=0.646 (5.6m)
+[shard 0] 260/1000 baseF1=0.549 oursF1=0.656 ours_window_onlyF1=0.647 (6.0m)
+[shard 0] 280/1000 baseF1=0.556 oursF1=0.655 ours_window_onlyF1=0.651 (6.4m)
+[shard 0] 300/1000 baseF1=0.550 oursF1=0.656 ours_window_onlyF1=0.652 (6.8m)
+[shard 0] 320/1000 baseF1=0.546 oursF1=0.660 ours_window_onlyF1=0.655 (7.2m)
+[shard 0] 340/1000 baseF1=0.553 oursF1=0.665 ours_window_onlyF1=0.660 (7.6m)
+[shard 0] 360/1000 baseF1=0.562 oursF1=0.672 ours_window_onlyF1=0.665 (8.1m)

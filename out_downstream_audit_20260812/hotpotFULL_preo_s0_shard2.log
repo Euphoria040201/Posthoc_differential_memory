@@ -1,0 +1,30 @@
+Loading weights:   0%|          | 0/398 [00:00<?, ?it/s]Loading weights: 100%|██████████| 398/398 [00:00<00:00, 15841.53it/s]
+[ours] loaded 48 steer tensors; prefix_write=False; cfg=PrefixSteerConfig(num_prefix_tokens=0, sliding_window_size=256, mem_num_heads=1, mem_head_dim=128, steer_mode='deltamem', normal_attends_prefix=True, prefix_sees_query=True, prefix_init_std=0.7, prefix_init_dist='normal', prefix_write=False, read_prefix_only=False, memory_mode='dynamic', write_ctx_only=False, prefix_write_layout='global', prefix_write_overlap_tokens=0, pool_reads=False, pool_gate=False, pool_gate_input='rm', pool_gate_max=2.0, pool_gate_bias=0.0, steer_layers=(0, 3, 6, 9, 12, 15, 18, 21, 24, 27, 30, 33), prefix_layers=(), steer_gain=0.1, share_qkv=False, memory_value_source='main_v', delta_heads='o', delta_rank=0, read_proj_dim=0, output_fusion='fixed', o_fusion_position='pre_o', output_fusion_eps=1e-06, output_fusion_scale_max=10.0, fusion_lambda_init=0.1, fusion_lambda_max=1.0, fusion_ema_momentum=0.99, history_pool_mode='none', hybrid_read_mode='none', hybrid_prefix_gate_mode='fixed', hybrid_prefix_gate_init=0.1)
+[eval] checkpoint has no persistent history writer; skipping redundant context WRITE pass
+Using the latest cached version of the dataset since hotpotqa/hotpot_qa couldn't be found on the Hugging Face Hub (offline mode is enabled).
+Found the latest cached dataset configuration 'distractor' at /home/mingze/.cache/huggingface/datasets/hotpotqa___hotpot_qa/distractor/0.0.0/1908d6afbbead072334abe2965f91bd2709910ab (last modified on Wed Aug 12 05:30:25 2026).
+[shard 2] 2468 examples
+[shard 2] 20/2468 baseF1=0.806 oursF1=0.956 (0.3m)
+[shard 2] 40/2468 baseF1=0.693 oursF1=0.800 (0.7m)
+[shard 2] 60/2468 baseF1=0.682 oursF1=0.744 (1.1m)
+[shard 2] 80/2468 baseF1=0.643 oursF1=0.681 (1.6m)
+[shard 2] 100/2468 baseF1=0.628 oursF1=0.681 (2.0m)
+[shard 2] 120/2468 baseF1=0.593 oursF1=0.644 (2.3m)
+[shard 2] 140/2468 baseF1=0.591 oursF1=0.633 (2.8m)
+[shard 2] 160/2468 baseF1=0.581 oursF1=0.621 (3.2m)
+[shard 2] 180/2468 baseF1=0.587 oursF1=0.624 (3.6m)
+[shard 2] 200/2468 baseF1=0.609 oursF1=0.632 (3.9m)
+[shard 2] 220/2468 baseF1=0.602 oursF1=0.636 (4.2m)
+[shard 2] 240/2468 baseF1=0.604 oursF1=0.648 (4.6m)
+[shard 2] 260/2468 baseF1=0.597 oursF1=0.640 (4.9m)
+[shard 2] 280/2468 baseF1=0.591 oursF1=0.635 (5.2m)
+[shard 2] 300/2468 baseF1=0.588 oursF1=0.632 (5.5m)
+[shard 2] 320/2468 baseF1=0.582 oursF1=0.622 (5.8m)
+[shard 2] 340/2468 baseF1=0.582 oursF1=0.631 (6.1m)
+[shard 2] 360/2468 baseF1=0.587 oursF1=0.637 (6.5m)
+[shard 2] 380/2468 baseF1=0.585 oursF1=0.640 (6.8m)
+[shard 2] 400/2468 baseF1=0.582 oursF1=0.639 (7.2m)
+[shard 2] 420/2468 baseF1=0.584 oursF1=0.638 (7.5m)
+[shard 2] 440/2468 baseF1=0.577 oursF1=0.633 (7.9m)
+[shard 2] 460/2468 baseF1=0.577 oursF1=0.630 (8.2m)
+[shard 2] 480/2468 baseF1=0.574 oursF1=0.629 (8.5m)

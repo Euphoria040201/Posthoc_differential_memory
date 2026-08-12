@@ -11,3 +11,5 @@ Found the latest cached dataset configuration 'default' at /home/mingze/.cache/h
 [mem64_noctx_posto_s0] step 20/200 (micro 320) loss 1.0022 10.69s/update
 [mem64_noctx_posto_s0] step 40/200 (micro 640) loss 2.8958 10.63s/update
 [mem64_noctx_posto_s0] step 60/200 (micro 960) loss 3.2540 10.53s/update
+[mem64_noctx_posto_s0] step 80/200 (micro 1280) loss 2.8058 10.52s/update
+[mem64_noctx_posto_s0] step 100/200 (micro 1600) loss 1.3062 10.53s/update

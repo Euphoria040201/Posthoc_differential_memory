@@ -1,0 +1,18 @@
+Loading weights:   0%|          | 0/398 [00:00<?, ?it/s]Loading weights: 100%|██████████| 398/398 [00:00<00:00, 10495.58it/s]
+[ours] loaded 48 steer tensors; prefix_write=False; cfg=PrefixSteerConfig(num_prefix_tokens=0, sliding_window_size=256, mem_num_heads=1, mem_head_dim=128, steer_mode='deltamem', normal_attends_prefix=True, prefix_sees_query=True, prefix_init_std=0.7, prefix_init_dist='normal', prefix_write=False, read_prefix_only=False, memory_mode='dynamic', write_ctx_only=False, prefix_write_layout='global', prefix_write_overlap_tokens=0, pool_reads=False, pool_gate=False, pool_gate_input='rm', pool_gate_max=2.0, pool_gate_bias=0.0, steer_layers=(0, 3, 6, 9, 12, 15, 18, 21, 24, 27, 30, 33), prefix_layers=(), steer_gain=0.1, share_qkv=False, memory_value_source='main_v', delta_heads='o', delta_rank=0, read_proj_dim=0, output_fusion='fixed', o_fusion_position='pre_o', output_fusion_eps=1e-06, output_fusion_scale_max=10.0, fusion_lambda_init=0.1, fusion_lambda_max=1.0, fusion_ema_momentum=0.99, history_pool_mode='none', hybrid_read_mode='none', hybrid_prefix_gate_mode='fixed', hybrid_prefix_gate_init=0.1)
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Generating test split:   0%|          | 0/6500 [00:00<?, ? examples/s]Generating test split:  15%|█▌        | 1000/6500 [00:00<00:01, 3500.40 examples/s]Generating test split:  31%|███       | 2000/6500 [00:00<00:01, 4400.15 examples/s]Generating test split:  46%|████▌     | 3000/6500 [00:00<00:00, 5304.65 examples/s]Generating test split:  77%|███████▋  | 5000/6500 [00:00<00:00, 7762.83 examples/s]Generating test split: 100%|██████████| 6500/6500 [00:00<00:00, 7515.75 examples/s]
+[ruler-16384] 520 samples over 13 tasks
+  20/520  base=1.000 ours=1.000
+  40/520  base=1.000 ours=1.000
+  60/520  base=1.000 ours=1.000
+  80/520  base=1.000 ours=1.000
+  100/520  base=0.997 ours=1.000
+  120/520  base=0.997 ours=0.997
+  140/520  base=0.948 ours=0.969
+  160/520  base=0.935 ours=0.954
+  180/520  base=0.943 ours=0.959
+  200/520  base=0.948 ours=0.963
+  220/520  base=0.953 ours=0.967
+  240/520  base=0.957 ours=0.969
+  260/520  base=0.960 ours=0.972

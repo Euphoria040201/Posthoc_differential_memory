@@ -1,15 +1,12 @@
-Loading weights:   0%|          | 0/398 [00:00<?, ?it/s]Loading weights: 100%|██████████| 398/398 [00:00<00:00, 9925.69it/s]
+Loading weights:   0%|          | 0/398 [00:00<?, ?it/s]Loading weights: 100%|██████████| 398/398 [00:00<00:00, 10675.74it/s]
 Using the latest cached version of the dataset since allenai/qasper couldn't be found on the Hugging Face Hub (offline mode is enabled).
 Found the latest cached dataset configuration 'default' at /home/mingze/.cache/huggingface/datasets/allenai___qasper/default/0.0.0/06806e4608976fc2fac0a090ac425d5b2b29caf4 (last modified on Tue Jul 28 03:00:47 2026).
-[mem64_noctx_preo_s0] patched 36 layers, trainable=383,385,600 (gate_only=false)
+[mem64_swapc_b1_s0] patched 36 layers, trainable=355,074,048 (gate_only=false)
 loading data...
 [compose] total=935 (target_n=935) yes/no=132 (14.1%) ; pool yn=282 other=1711
 Using the latest cached version of the dataset since allenai/qasper couldn't be found on the Hugging Face Hub (offline mode is enabled).
 Found the latest cached dataset configuration 'default' at /home/mingze/.cache/huggingface/datasets/allenai___qasper/default/0.0.0/06806e4608976fc2fac0a090ac425d5b2b29caf4 (last modified on Tue Jul 28 03:00:47 2026).
-[mem64_noctx_preo_s0] train=935 val=187
-[mem64_noctx_preo_s0] optim: 288 tensors @ lr=0.0005; 36 prefix @ lr=0.01; 0 gate @ lr=0.0005
-[mem64_noctx_preo_s0] step 20/200 (micro 320) loss 0.9363 10.81s/update
-[mem64_noctx_preo_s0] step 40/200 (micro 640) loss 3.0113 10.76s/update
-[mem64_noctx_preo_s0] step 60/200 (micro 960) loss 3.1623 10.66s/update
-[mem64_noctx_preo_s0] step 80/200 (micro 1280) loss 2.6036 10.66s/update
-[mem64_noctx_preo_s0] step 100/200 (micro 1600) loss 1.5306 10.68s/update
+[mem64_swapc_b1_s0] train=935 val=187
+[mem64_swapc_b1_s0] optim: 288 tensors @ lr=0.0005; 36 prefix @ lr=0.01; 0 gate @ lr=0.0005
+[mem64_swapc_b1_s0] step 20/200 (micro 320) loss 0.9874 10.77s/update
+[mem64_swapc_b1_s0] step 40/200 (micro 640) loss 2.9428 10.73s/update

@@ -15,3 +15,5 @@ Found the latest cached dataset configuration 'default' at /home/mingze/.cache/h
 [mem64_ctxmask_posto_s0] step 20/200 (micro 320) loss 1.0079 10.75s/update mask_ratio=1.00 full_ctx_tok=1011 masked_ctx_tok=0 retained=0.00
 [mem64_ctxmask_posto_s0] step 40/200 (micro 640) loss 2.8317 10.70s/update mask_ratio=1.00 full_ctx_tok=4500 masked_ctx_tok=0 retained=0.00
 [mem64_ctxmask_posto_s0] step 60/200 (micro 960) loss 3.3228 10.60s/update mask_ratio=1.00 full_ctx_tok=4500 masked_ctx_tok=0 retained=0.00
+[mem64_ctxmask_posto_s0] step 80/200 (micro 1280) loss 2.6060 10.60s/update mask_ratio=1.00 full_ctx_tok=4500 masked_ctx_tok=0 retained=0.00
+[mem64_ctxmask_posto_s0] step 100/200 (micro 1600) loss 1.6153 10.62s/update mask_ratio=1.00 full_ctx_tok=2134 masked_ctx_tok=0 retained=0.00
