@@ -213,6 +213,17 @@ seeds. Internal dev n=1000, same 1000 items, same base:
 The effect replicates and is *larger* on the seed that required no checkpoint
 selection. Full official dev + untouched-complement runs for seeds 1 and 2 are queued.
 
+**Seed variance is large and must temper the "+0.111 strongest config" claim.**
+On the identical 300-item sample (seed 777), the three P=64 seeds give
+`ours_fullctx − base_fullctx` of **+0.1204 / +0.0110 / +0.0939** (seeds 0 / 1 / 2).
+Seed 1 transfers barely at all. The unstable training (§2b) shows up as inconsistent
+transfer, not just as a bad final checkpoint — so the P=64 configuration's headline
+number is not something one run can be trusted to reproduce. The 3-seed full-dev
+confirmation now running is the number that should be quoted.
+
+**The memory verdict replicates on every seed.** Seed 1: correct − swap **−0.0433**,
+correct − window −0.0253, correct − zero −0.0681.
+
 **The memory verdict replicates on that seed too.** Seed 2's own §6 arm set (n=300,
 no checkpoint selection anywhere in its history): base_ctx 0.5886, ours_ctx 0.6824
 (**+0.0939**), base_noctx 0.0726, ours_state_only 0.1611, swap 0.1726, zero 0.1965,
