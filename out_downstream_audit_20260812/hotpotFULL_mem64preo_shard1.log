@@ -1,0 +1,12 @@
+Loading weights:   0%|          | 0/398 [00:00<?, ?it/s]Loading weights: 100%|██████████| 398/398 [00:00<00:00, 10642.32it/s]
+[ours] loaded 324 steer tensors; prefix_write=True; cfg=PrefixSteerConfig(num_prefix_tokens=64, sliding_window_size=256, mem_num_heads=8, mem_head_dim=64, steer_mode='deltamem', normal_attends_prefix=True, prefix_sees_query=True, prefix_init_std=0.7, prefix_init_dist='normal', prefix_write=True, read_prefix_only=False, memory_mode='dynamic', write_ctx_only=True, prefix_write_layout='global', prefix_write_overlap_tokens=0, pool_reads=True, pool_gate=False, pool_gate_input='rm', pool_gate_max=2.0, pool_gate_bias=0.0, steer_layers=(), prefix_layers=(), steer_gain=0.1, share_qkv=False, memory_value_source='trainable', delta_heads='qkvo', delta_rank=0, read_proj_dim=0, output_fusion='fixed', o_fusion_position='pre_o', output_fusion_eps=1e-06, output_fusion_scale_max=10.0, fusion_lambda_init=0.1, fusion_lambda_max=1.0, fusion_ema_momentum=0.99, history_pool_mode='none', hybrid_read_mode='none', hybrid_prefix_gate_mode='fixed', hybrid_prefix_gate_init=0.1)
+Using the latest cached version of the dataset since hotpotqa/hotpot_qa couldn't be found on the Hugging Face Hub (offline mode is enabled).
+Found the latest cached dataset configuration 'distractor' at /home/mingze/.cache/huggingface/datasets/hotpotqa___hotpot_qa/distractor/0.0.0/1908d6afbbead072334abe2965f91bd2709910ab (last modified on Wed Aug 12 05:30:25 2026).
+[shard 1] 3702 examples
+[shard 1] 20/3702 baseF1=0.557 oursF1=0.680 (0.7m)
+[shard 1] 40/3702 baseF1=0.553 oursF1=0.673 (1.2m)
+[shard 1] 60/3702 baseF1=0.558 oursF1=0.638 (1.8m)
+[shard 1] 80/3702 baseF1=0.527 oursF1=0.649 (2.3m)
+[shard 1] 100/3702 baseF1=0.544 oursF1=0.637 (3.1m)
+[shard 1] 120/3702 baseF1=0.558 oursF1=0.635 (3.7m)
+[shard 1] 140/3702 baseF1=0.546 oursF1=0.636 (4.5m)

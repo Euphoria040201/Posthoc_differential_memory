@@ -1,0 +1,19 @@
+Loading weights:   0%|          | 0/398 [00:00<?, ?it/s]Loading weights: 100%|██████████| 398/398 [00:00<00:00, 10299.95it/s]
+[ours] loaded 48 steer tensors; prefix_write=False; cfg=PrefixSteerConfig(num_prefix_tokens=0, sliding_window_size=256, mem_num_heads=1, mem_head_dim=128, steer_mode='deltamem', normal_attends_prefix=True, prefix_sees_query=True, prefix_init_std=0.7, prefix_init_dist='normal', prefix_write=False, read_prefix_only=False, memory_mode='dynamic', write_ctx_only=False, prefix_write_layout='global', prefix_write_overlap_tokens=0, pool_reads=False, pool_gate=False, pool_gate_input='rm', pool_gate_max=2.0, pool_gate_bias=0.0, steer_layers=(0, 3, 6, 9, 12, 15, 18, 21, 24, 27, 30, 33), prefix_layers=(), steer_gain=0.1, share_qkv=False, memory_value_source='main_v', delta_heads='o', delta_rank=0, read_proj_dim=0, output_fusion='fixed', o_fusion_position='pre_o', output_fusion_eps=1e-06, output_fusion_scale_max=10.0, fusion_lambda_init=0.1, fusion_lambda_max=1.0, fusion_ema_momentum=0.99, history_pool_mode='none', hybrid_read_mode='none', hybrid_prefix_gate_mode='fixed', hybrid_prefix_gate_init=0.1)
+[ruler] loaded 1300 OFFICIAL samples from /work/mingze/ruler_official_data/ruler_data
+[ruler-32768_official] 325 samples over 13 tasks
+  20/325  base=0.850 ours=0.825
+  40/325  base=0.880 ours=0.845
+  60/325  base=0.898 ours=0.874
+  80/325  base=0.923 ours=0.906
+  100/325  base=0.939 ours=0.925
+  120/325  base=0.949 ours=0.937
+  140/325  base=0.954 ours=0.943
+  160/325  base=0.960 ours=0.948
+  180/325  base=0.965 ours=0.953
+  200/325  base=0.968 ours=0.957
+  220/325  base=0.971 ours=0.961
+  240/325  base=0.973 ours=0.964
+  260/325  base=0.960 ours=0.959
+  280/325  base=0.934 ours=0.941
+  300/325  base=0.909 ours=0.908

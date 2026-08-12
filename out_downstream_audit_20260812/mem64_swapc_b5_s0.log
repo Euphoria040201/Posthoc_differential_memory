@@ -10,3 +10,5 @@ Found the latest cached dataset configuration 'default' at /home/mingze/.cache/h
 [mem64_swapc_b5_s0] optim: 288 tensors @ lr=0.0005; 36 prefix @ lr=0.01; 0 gate @ lr=0.0005
 [mem64_swapc_b5_s0] step 20/200 (micro 320) loss 1.0445 10.81s/update
 [mem64_swapc_b5_s0] step 40/200 (micro 640) loss 2.8639 10.77s/update
+[mem64_swapc_b5_s0] step 60/200 (micro 960) loss 3.1446 10.67s/update
+[mem64_swapc_b5_s0] step 80/200 (micro 1280) loss 2.8293 10.67s/update

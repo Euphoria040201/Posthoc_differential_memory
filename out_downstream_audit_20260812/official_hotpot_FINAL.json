@@ -1,0 +1,97 @@
+{
+  "benchmark": "hotpotqa",
+  "evaluator": "/work/mingze/official_evaluators/hotpot/hotpot_evaluate_v1.py",
+  "evaluator_sha": "3635853403a8735609ee997664e1528f4480762a",
+  "gold_source": "HF hotpotqa/hotpot_qa distractor validation (official curtis.ml.cmu.edu file is offline)",
+  "sp_submitted": "EMPTY - method has no supporting-fact head; Support/Joint are therefore ~0 by construction",
+  "runs": [
+    {
+      "file": "out_downstream_audit_20260812/hotpotFINAL_untouched_preo_s0.json",
+      "arm": "base",
+      "n": 4678,
+      "n_gold_missing": 0,
+      "official_metrics": {
+        "em": 0.4288157332193245,
+        "f1": 0.5614770057555464,
+        "prec": 0.5797688846769512,
+        "recall": 0.5983082220496713,
+        "sp_em": 0.0,
+        "sp_f1": 0.0,
+        "sp_prec": 0.0,
+        "sp_recall": 0.0,
+        "joint_em": 0.0,
+        "joint_f1": 0.0,
+        "joint_prec": 0.0,
+        "joint_recall": 0.0
+      },
+      "stdout": "{'em': 0.4288157332193245, 'f1': 0.5614770057555464, 'prec': 0.5797688846769512, 'recall': 0.5983082220496713, 'sp_em': 0.0, 'sp_f1': 0.0, 'sp_prec': 0.0, 'sp_recall': 0.0, 'joint_em': 0.0, 'joint_f1': 0.0, 'joint_prec': 0.0, 'joint_recall': 0.0}",
+      "stderr": ""
+    },
+    {
+      "file": "out_downstream_audit_20260812/hotpotFINAL_untouched_preo_s0.json",
+      "arm": "ours",
+      "n": 4678,
+      "n_gold_missing": 0,
+      "official_metrics": {
+        "em": 0.49059427105600684,
+        "f1": 0.6216497275447648,
+        "prec": 0.6541157996378707,
+        "recall": 0.6269799861318676,
+        "sp_em": 0.0,
+        "sp_f1": 0.0,
+        "sp_prec": 0.0,
+        "sp_recall": 0.0,
+        "joint_em": 0.0,
+        "joint_f1": 0.0,
+        "joint_prec": 0.0,
+        "joint_recall": 0.0
+      },
+      "stdout": "{'em': 0.49059427105600684, 'f1': 0.6216497275447648, 'prec': 0.6541157996378707, 'recall': 0.6269799861318676, 'sp_em': 0.0, 'sp_f1': 0.0, 'sp_prec': 0.0, 'sp_recall': 0.0, 'joint_em': 0.0, 'joint_f1': 0.0, 'joint_prec': 0.0, 'joint_recall': 0.0}",
+      "stderr": ""
+    },
+    {
+      "file": "out_downstream_audit_20260812/hotpotFULL_preo_s0_merged.json",
+      "arm": "base",
+      "n": 7405,
+      "n_gold_missing": 0,
+      "official_metrics": {
+        "em": 0.43187035786630656,
+        "f1": 0.5646792663049393,
+        "prec": 0.5829711963960782,
+        "recall": 0.6013545721665232,
+        "sp_em": 0.0,
+        "sp_f1": 0.0,
+        "sp_prec": 0.0,
+        "sp_recall": 0.0,
+        "joint_em": 0.0,
+        "joint_f1": 0.0,
+        "joint_prec": 0.0,
+        "joint_recall": 0.0
+      },
+      "stdout": "{'em': 0.43187035786630656, 'f1': 0.5646792663049393, 'prec': 0.5829711963960782, 'recall': 0.6013545721665232, 'sp_em': 0.0, 'sp_f1': 0.0, 'sp_prec': 0.0, 'sp_recall': 0.0, 'joint_em': 0.0, 'joint_f1': 0.0, 'joint_prec': 0.0, 'joint_recall': 0.0}",
+      "stderr": ""
+    },
+    {
+      "file": "out_downstream_audit_20260812/hotpotFULL_preo_s0_merged.json",
+      "arm": "ours",
+      "n": 7405,
+      "n_gold_missing": 0,
+      "official_metrics": {
+        "em": 0.49047940580688726,
+        "f1": 0.620919299155558,
+        "prec": 0.653477241383036,
+        "recall": 0.6262752456861169,
+        "sp_em": 0.0,
+        "sp_f1": 0.0,
+        "sp_prec": 0.0,
+        "sp_recall": 0.0,
+        "joint_em": 0.0,
+        "joint_f1": 0.0,
+        "joint_prec": 0.0,
+        "joint_recall": 0.0
+      },
+      "stdout": "{'em': 0.49047940580688726, 'f1': 0.620919299155558, 'prec': 0.653477241383036, 'recall': 0.6262752456861169, 'sp_em': 0.0, 'sp_f1': 0.0, 'sp_prec': 0.0, 'sp_recall': 0.0, 'joint_em': 0.0, 'joint_f1': 0.0, 'joint_prec': 0.0, 'joint_recall': 0.0}",
+      "stderr": ""
+    }
+  ]
+}
