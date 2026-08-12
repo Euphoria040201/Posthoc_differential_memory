@@ -199,8 +199,19 @@ load-bearing, none of which the number itself shows:
 3. **Its memory is inert** — correct−swap +0.0025, CI [−0.012, +0.018] (§2e).
 4. **3.2x slower per query** than the base it beats (§6).
 
-Seeds 1 and 2 of this configuration are training now to test whether the effect
-replicates; until they land, this is a single-seed result.
+**Replication (and a cleaner protocol).** Seeds 1 and 2 were trained with
+`--steps 100` outright, so their *final* checkpoint IS the step-100 model — **no
+checkpoint selection is involved for them**, which removes caveat 2 above for those
+seeds. Internal dev n=1000, same 1000 items, same base:
+
+| seed | checkpoint provenance | base F1 | ours F1 | ΔF1 |
+|---|---|---:|---:|---:|
+| 0 | step-100 **selected** from a 200-step run | 0.5659 | 0.6667 | +0.1008 |
+| 2 | final of a 100-step run (**no selection**) | 0.5659 | 0.6841 | **+0.1182** |
+| 1 | final of a 100-step run (no selection) | — | RUNNING | — |
+
+The effect replicates and is *larger* on the seed that required no checkpoint
+selection. Full official dev + untouched-complement runs for seeds 1 and 2 are queued.
 
 **Multi-seed on the same untouched holdout** (§9 Stage-C: direction must agree across
 seeds; the hierarchical bootstrap resamples examples first, then seeds, so the same
