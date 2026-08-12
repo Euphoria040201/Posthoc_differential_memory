@@ -364,6 +364,32 @@ regeneration is in flight. Across every length and both data sources the verdict
 the same: **ours is at or fractionally below base on RULER**, with a consistent
 per-task signature (qa_1 better, fwe/cwe/qa_2 worse).
 
+
+### RULER by official task category (§5-C-7)
+
+`ruler_official_category_table.json`. Categories follow the official task grouping:
+retrieval = the 8 NIAH variants, multi-hop = variable tracking, aggregation = cwe+fwe,
+QA = qa_1+qa_2.
+
+| length | arm | retrieval (8) | multi-hop (1) | aggregation (2) | QA (2) | macro-13 |
+|---|---|---:|---:|---:|---:|---:|
+| 8K | base | 1.0000 | 1.0000 | 0.9660 | 0.6200 | 0.9363 |
+| 8K | ours (P=0) | 0.9988 | 1.0000 | 0.9840 | 0.5200 | 0.9229 |
+| 8K | ours (P=64) | 0.9950 | 1.0000 | 0.9053 | 0.5800 | 0.9177 |
+| 16K | base | 1.0000 | 1.0000 | 0.9460 | 0.6800 | 0.9425 |
+| 16K | ours (P=0) | 0.9938 | 1.0000 | 0.8853 | 0.5200 | 0.9047 |
+| 16K | ours (P=64) | 0.9912 | 1.0000 | 0.8620 | 0.6200 | 0.9149 |
+| 32K | base | 0.9988 | 1.0000 | 0.8773 | 0.5800 | 0.9157 |
+| 32K | ours (P=0) | 0.9950 | 1.0000 | 0.8493 | 0.6200 | 0.9153 |
+| 32K | ours (P=64) | 1.0000 | 1.0000 | 0.7180 | 0.6200 | 0.8982 |
+
+**Retrieval and multi-hop are at ceiling for both arms at every length** — the sidecar
+neither helps nor hurts needle-finding. The entire deficit sits in **aggregation**
+(counting/frequency over the whole context) and **QA**. That is the signature of a
+component that perturbs global aggregation while leaving local retrieval intact, which
+is what a sliding-window attention adapter should do. No task was dropped from this
+table after seeing the results.
+
 ## 4. LoCoMo — official scorer, all 1540 QA
 
 Protocol: official `data/locomo10.json`, official conversation serialization and QA

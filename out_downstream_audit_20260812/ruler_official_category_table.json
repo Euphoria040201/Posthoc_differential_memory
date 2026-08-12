@@ -1,0 +1,74 @@
+{
+  "ruler16k_official_mem64preo|ours": {
+    "retrieval (NIAH, 8)": 0.99125,
+    "multi-hop (VT, 1)": 1.0,
+    "aggregation (2)": 0.8620000000000001,
+    "QA (2)": 0.62,
+    "macro13": 0.914923076923077,
+    "n_tasks": 13
+  },
+  "ruler16k_official_preo|base": {
+    "retrieval (NIAH, 8)": 1.0,
+    "multi-hop (VT, 1)": 1.0,
+    "aggregation (2)": 0.946,
+    "QA (2)": 0.6799999999999999,
+    "macro13": 0.9424615384615384,
+    "n_tasks": 13
+  },
+  "ruler16k_official_preo|ours": {
+    "retrieval (NIAH, 8)": 0.99375,
+    "multi-hop (VT, 1)": 1.0,
+    "aggregation (2)": 0.8853333333333333,
+    "QA (2)": 0.52,
+    "macro13": 0.9046666666666667,
+    "n_tasks": 13
+  },
+  "ruler32k_official_mem64preo|ours": {
+    "retrieval (NIAH, 8)": 1.0,
+    "multi-hop (VT, 1)": 1.0,
+    "aggregation (2)": 0.7180000000000001,
+    "QA (2)": 0.62,
+    "macro13": 0.8981538461538462,
+    "n_tasks": 13
+  },
+  "ruler32k_official_preo|base": {
+    "retrieval (NIAH, 8)": 0.99875,
+    "multi-hop (VT, 1)": 1.0,
+    "aggregation (2)": 0.8773333333333335,
+    "QA (2)": 0.5800000000000001,
+    "macro13": 0.9157435897435898,
+    "n_tasks": 13
+  },
+  "ruler32k_official_preo|ours": {
+    "retrieval (NIAH, 8)": 0.9950000000000001,
+    "multi-hop (VT, 1)": 1.0,
+    "aggregation (2)": 0.8493333333333334,
+    "QA (2)": 0.62,
+    "macro13": 0.9152820512820513,
+    "n_tasks": 13
+  },
+  "ruler8k_official_mem64preo|ours": {
+    "retrieval (NIAH, 8)": 0.995,
+    "multi-hop (VT, 1)": 1.0,
+    "aggregation (2)": 0.9053333333333332,
+    "QA (2)": 0.5800000000000001,
+    "macro13": 0.9177435897435898,
+    "n_tasks": 13
+  },
+  "ruler8k_official_preo|base": {
+    "retrieval (NIAH, 8)": 1.0,
+    "multi-hop (VT, 1)": 1.0,
+    "aggregation (2)": 0.966,
+    "QA (2)": 0.6200000000000001,
+    "macro13": 0.9363076923076924,
+    "n_tasks": 13
+  },
+  "ruler8k_official_preo|ours": {
+    "retrieval (NIAH, 8)": 0.99875,
+    "multi-hop (VT, 1)": 1.0,
+    "aggregation (2)": 0.984,
+    "QA (2)": 0.52,
+    "macro13": 0.9229230769230768,
+    "n_tasks": 13
+  }
+}
