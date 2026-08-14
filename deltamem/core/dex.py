@@ -73,6 +73,7 @@ VARIANTS = (
     "attn_only",
     "adapter_only",
     "swa_steer",
+    "diff_split",
 )
 
 # ``ungated_adapter`` is NOT a capacity-matched control for DEX: it differs in
@@ -169,6 +170,12 @@ class DexConfig:
             # the forward is bit-identical to ``base`` until the sidecar is attached.
             resolved = replace(self, adapter_enabled=False, train_attn=False,
                                sign=0.0, train_steer=True)
+        elif self.variant == "diff_split":
+            # frozen backbone + post-hoc function-preserving differential head split.
+            # No DEX adapter and no prefix_steer sidecar: the split module is attached
+            # separately by the training entry, so the forward is bit-identical to
+            # ``base`` until delta_q leaves zero.
+            resolved = replace(self, adapter_enabled=False, train_attn=False, sign=0.0)
         else:  # pragma: no cover - guarded above
             raise AssertionError("unreachable")
 

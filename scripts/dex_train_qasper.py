@@ -129,6 +129,15 @@ def build_parser() -> argparse.ArgumentParser:
                          "checkpoints are not shape-compatible with post_o ones. "
                          "post_o_projected: Y = fuse(W_O Z, W_O C), the strict pre_o "
                          "control (identical for linear fusions).")
+    ap.add_argument("--diff-read-dim", type=int, default=128,
+                    help="local-reader width; 128 reproduces the old sidecar's exact "
+                         "14,155,776 parameter budget on Qwen3-4B")
+    ap.add_argument("--diff-window", type=int, default=256,
+                    help="causal local window w for the reader")
+    ap.add_argument("--diff-gamma", type=float, default=1.0,
+                    help="fixed gamma in O~ = O+ + gamma*(O+ - O-)")
+    ap.add_argument("--diff-dynamic-gate", type=str2bool, default=False,
+                    help="Stage B only: gamma_{t,h} = 2*sigmoid(gate(R_t))")
     ap.add_argument("--steer-value-source", default="main_v",
                     choices=["trainable", "main_v"])
     ap.add_argument("--steer-window", type=int, default=256)
@@ -258,9 +267,45 @@ def main() -> None:
               f"fusion={args.steer_output_fusion}@{args.steer_o_fusion_position})",
               flush=True)
 
+    diff_cfg = None
+    if args.variant == "diff_split":
+        from deltamem.core.diff_split import (
+            attach_diff_split, freeze_backbone_keep_diff, is_diff_param_name)
+        diff_layers = tuple(int(x) for x in args.steer_layers.split(",") if x.strip())
+        diff_cfg = {"layers": list(diff_layers), "read_dim": args.diff_read_dim,
+                    "window": args.diff_window, "gamma": args.diff_gamma,
+                    "dynamic_gate": args.diff_dynamic_gate}
+        patched = attach_diff_split(model, diff_layers, read_dim=args.diff_read_dim,
+                                    window=args.diff_window, gamma=args.diff_gamma,
+                                    dynamic_gate=args.diff_dynamic_gate)
+        freeze_backbone_keep_diff(model)
+        n_tr = sum(p.numel() for n, p in model.named_parameters() if is_diff_param_name(n))
+        print(f"[{args.tag}] diff-split on {len(patched)} layers "
+              f"(read_dim={args.diff_read_dim} w={args.diff_window} "
+              f"gamma={args.diff_gamma} dyn={args.diff_dynamic_gate}) "
+              f"trainable={n_tr:,}", flush=True)
+
     plan = load_head_plan(args.head_plan) if args.head_plan else None
     report = attach_dex(model, cfg, plan=plan)
     trainable_names = set_trainable(model, cfg)
+    if args.variant == "diff_split":
+        # set_trainable() only knows about DEX adapter / attention params and would
+        # leave EVERYTHING frozen for this variant, silently producing a run whose
+        # delta_q never leaves zero (i.e. a base-parity run reported as a result).
+        # Re-apply the split's own freeze AFTER it and assert the result.
+        from deltamem.core.diff_split import (
+            freeze_backbone_keep_diff as _fbkd, is_diff_param_name as _isd)
+        trainable_names = _fbkd(model)
+        n_tr = sum(p.numel() for n, p in model.named_parameters() if p.requires_grad)
+        assert trainable_names and all(_isd(n) for n in trainable_names), trainable_names[:5]
+        assert n_tr == args.diff_read_dim * (2 * model.config.hidden_size
+                                             + model.config.num_attention_heads
+                                             * getattr(model.config, "head_dim",
+                                                       model.config.hidden_size
+                                                       // model.config.num_attention_heads)
+                                             ) * len(diff_cfg["layers"]), n_tr
+        print(f"[{args.tag}] diff-split trainable after set_trainable: {n_tr:,} "
+              f"in {len(trainable_names)} tensors", flush=True)
 
     if args.negate_fd_init:
         from deltamem.core.dex import AttentionOutputAdapter
@@ -309,11 +354,12 @@ def main() -> None:
         from deltamem.core.prefix_steer import is_steer_param_name
         adapter_params = [p for n, p in model.named_parameters()
                           if p.requires_grad and is_dex_param_name(n)]
+        from deltamem.core.diff_split import is_diff_param_name as _isdiff
         steer_params = [p for n, p in model.named_parameters()
-                        if p.requires_grad and is_steer_param_name(n)]
+                        if p.requires_grad and (is_steer_param_name(n) or _isdiff(n))]
         attn_params = [p for n, p in model.named_parameters()
                        if p.requires_grad and not is_dex_param_name(n)
-                       and not is_steer_param_name(n)]
+                       and not is_steer_param_name(n) and not _isdiff(n)]
         a_lr = args.lr if args.adapter_lr < 0 else args.adapter_lr
         if attn_params:
             groups.append({"params": attn_params, "lr": args.lr, "peak_lr": args.lr})
@@ -471,6 +517,7 @@ def main() -> None:
         "config": {k: (list(v) if isinstance(v, tuple) else v) for k, v in vars(cfg).items()},
         "args": vars(args),
         "attach_report": report,
+        "diff_config": diff_cfg,
         "steer_config": (
             {k: (list(v) if isinstance(v, tuple) else v)
              for k, v in vars(steer_cfg).items()} if steer_cfg is not None else None
@@ -518,6 +565,14 @@ def main() -> None:
                     "config": payload["config"], "args": vars(args)},
                    out_dir / f"{args.tag}_steer.pt")
         print(f"[{args.tag}] saved {len(steer_state)} steer tensors", flush=True)
+    if args.variant == "diff_split":
+        from deltamem.core.diff_split import is_diff_param_name as _isdiff2
+        dstate = {n: p.detach().to(torch.bfloat16).cpu()
+                  for n, p in model.named_parameters() if _isdiff2(n)}
+        torch.save({"state": dstate, "diff_config": diff_cfg,
+                    "config": payload["config"], "args": vars(args)},
+                   out_dir / f"{args.tag}_diff.pt")
+        print(f"[{args.tag}] saved {len(dstate)} diff-split tensors", flush=True)
     if args.save_attn:
         # keys are post-wrap names (``...o_proj.base.weight``); reload order is
         # backbone -> attach_dex(config) -> load_state_dict(strict=False)
