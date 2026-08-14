@@ -1,0 +1,34 @@
+Loading weights:   0%|          | 0/398 [00:00<?, ?it/s]Loading weights: 100%|██████████| 398/398 [00:00<00:00, 10081.61it/s]
+[split_lr1.5e-3_s0] diff-split on 12 layers (read_dim=128 w=256 gamma=1.0 dyn=False) trainable=14,155,776
+[split_lr1.5e-3_s0] diff-split trainable after set_trainable: 14,155,776 in 36 tensors
+[split_lr1.5e-3_s0] variant=diff_split sign=0.0 adapter=False train_attn=False layers=36 heads/layer=0 trainable=14,155,776 (adapter=0, attn=7,864,320, steer=6,291,456) anneal_T=78 lr=2e-05 seed=0
+Using the latest cached version of the dataset since allenai/qasper couldn't be found on the Hugging Face Hub
+Found the latest cached dataset configuration 'default' at /home/mingze/.cache/huggingface/datasets/allenai___qasper/default/0.0.0/06806e4608976fc2fac0a090ac425d5b2b29caf4 (last modified on Tue Jul 28 03:00:47 2026).
+[compose] total=935 (target_n=935) yes/no=28 (3.0%) ; pool yn=282 other=1711
+Using the latest cached version of the dataset since allenai/qasper couldn't be found on the Hugging Face Hub
+Found the latest cached dataset configuration 'default' at /home/mingze/.cache/huggingface/datasets/allenai___qasper/default/0.0.0/06806e4608976fc2fac0a090ac425d5b2b29caf4 (last modified on Tue Jul 28 03:00:47 2026).
+[split_lr1.5e-3_s0] train=935 val=187
+[split_lr1.5e-3_s0] step 1/156 loss 1.4792 gnorm 0.712 lr 1.50e-03 (0.1m)
+[split_lr1.5e-3_s0] step 9/156 loss 1.5007 gnorm 0.476 lr 1.50e-03 (1.1m)
+[split_lr1.5e-3_s0] step 17/156 loss 1.2963 gnorm 1.018 lr 1.50e-03 (2.2m)
+[split_lr1.5e-3_s0] step 25/156 loss 1.4553 gnorm 0.478 lr 1.50e-03 (3.2m)
+[split_lr1.5e-3_s0] step 33/156 loss 1.2375 gnorm 0.480 lr 1.50e-03 (4.2m)
+[split_lr1.5e-3_s0] step 41/156 loss 1.1548 gnorm 0.460 lr 1.50e-03 (5.2m)
+[split_lr1.5e-3_s0] step 49/156 loss 1.1320 gnorm 0.300 lr 1.50e-03 (6.2m)
+[split_lr1.5e-3_s0] step 52 val_loss 0.8166
+[split_lr1.5e-3_s0] step 57/156 loss 1.3483 gnorm 0.510 lr 1.50e-03 (7.3m)
+[split_lr1.5e-3_s0] step 65/156 loss 1.0451 gnorm 1.270 lr 1.50e-03 (8.3m)
+[split_lr1.5e-3_s0] step 73/156 loss 0.9848 gnorm 1.914 lr 1.50e-03 (9.3m)
+[split_lr1.5e-3_s0] step 81/156 loss 1.0187 gnorm 0.596 lr 1.50e-03 (10.3m)
+[split_lr1.5e-3_s0] step 89/156 loss 1.0315 gnorm 0.479 lr 1.50e-03 (11.3m)
+[split_lr1.5e-3_s0] step 97/156 loss 0.9149 gnorm 5.511 lr 1.50e-03 (12.3m)
+[split_lr1.5e-3_s0] step 104 val_loss 0.7868
+[split_lr1.5e-3_s0] step 105/156 loss 1.0746 gnorm 2.548 lr 1.50e-03 (13.4m)
+[split_lr1.5e-3_s0] step 113/156 loss 1.0596 gnorm 1.554 lr 1.50e-03 (14.3m)
+[split_lr1.5e-3_s0] step 121/156 loss 0.8820 gnorm 0.670 lr 1.50e-03 (15.4m)
+[split_lr1.5e-3_s0] step 129/156 loss 1.0068 gnorm 0.658 lr 1.50e-03 (16.4m)
+[split_lr1.5e-3_s0] step 137/156 loss 0.9091 gnorm 2.464 lr 1.50e-03 (17.3m)
+[split_lr1.5e-3_s0] step 145/156 loss 0.8686 gnorm 1.038 lr 1.50e-03 (18.3m)
+[split_lr1.5e-3_s0] step 153/156 loss 0.9105 gnorm 0.521 lr 1.50e-03 (19.3m)
+[split_lr1.5e-3_s0] step 156/156 loss 0.5806 gnorm 0.391 lr 1.50e-03 (19.7m)
+[split_lr1.5e-3_s0] step 156 val_loss 0.7600

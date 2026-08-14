@@ -1,0 +1,3 @@
+[gpu3] START param_matched_additive_s2
+[gpu3] DONE param_matched_additive_s2 rc=0 F1=0.2943 val_loss=0.6610
+[gpu3] QUEUE EMPTY

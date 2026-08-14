@@ -1,0 +1,36 @@
+Loading weights:   0%|          | 0/398 [00:00<?, ?it/s]Loading weights: 100%|██████████| 398/398 [00:00<00:00, 12202.73it/s]
+[param_matched_additive_s1] steer sidecar on 12 layers (delta_heads=o gain=0.1 P=0 value=main_v fusion=fixed@pre_o)
+[param_matched_additive_s1] variant=swa_steer sign=0.0 adapter=False train_attn=False layers=36 heads/layer=0 trainable=14,155,776 (adapter=0, attn=0, steer=14,155,776) anneal_T=78 lr=2e-05 steer_lr=0.0005 seed=1
+Using the latest cached version of the dataset since allenai/qasper couldn't be found on the Hugging Face Hub
+Found the latest cached dataset configuration 'default' at /home/mingze/.cache/huggingface/datasets/allenai___qasper/default/0.0.0/06806e4608976fc2fac0a090ac425d5b2b29caf4 (last modified on Tue Jul 28 03:00:47 2026).
+[compose] total=935 (target_n=935) yes/no=28 (3.0%) ; pool yn=282 other=1711
+Using the latest cached version of the dataset since allenai/qasper couldn't be found on the Hugging Face Hub
+Found the latest cached dataset configuration 'default' at /home/mingze/.cache/huggingface/datasets/allenai___qasper/default/0.0.0/06806e4608976fc2fac0a090ac425d5b2b29caf4 (last modified on Tue Jul 28 03:00:47 2026).
+[param_matched_additive_s1] train=935 val=187
+[param_matched_additive_s1] step 1/156 loss 2.3682 gnorm 0.134 lr 5.00e-04 (0.1m)
+[param_matched_additive_s1] step 9/156 loss 2.1851 gnorm 0.201 lr 5.00e-04 (1.0m)
+[param_matched_additive_s1] step 17/156 loss 1.5771 gnorm 0.149 lr 5.00e-04 (2.0m)
+[param_matched_additive_s1] step 25/156 loss 1.5825 gnorm 0.208 lr 5.00e-04 (2.9m)
+[param_matched_additive_s1] step 33/156 loss 1.4349 gnorm 0.166 lr 5.00e-04 (4.1m)
+[param_matched_additive_s1] step 41/156 loss 1.1007 gnorm 0.418 lr 5.00e-04 (5.0m)
+[param_matched_additive_s1] step 49/156 loss 1.2146 gnorm 0.098 lr 5.00e-04 (5.9m)
+[param_matched_additive_s1] step 52 val_loss 0.7620
+[param_matched_additive_s1] step 57/156 loss 1.0684 gnorm 0.141 lr 5.00e-04 (7.1m)
+[param_matched_additive_s1] step 65/156 loss 1.1997 gnorm 0.204 lr 5.00e-04 (8.2m)
+[param_matched_additive_s1] step 73/156 loss 1.0014 gnorm 0.105 lr 5.00e-04 (9.1m)
+[param_matched_additive_s1] step 81/156 loss 0.9568 gnorm 0.213 lr 5.00e-04 (10.0m)
+[param_matched_additive_s1] step 89/156 loss 1.2429 gnorm 0.178 lr 5.00e-04 (10.9m)
+[param_matched_additive_s1] step 97/156 loss 1.0450 gnorm 0.095 lr 5.00e-04 (11.8m)
+[param_matched_additive_s1] step 104 val_loss 0.7008
+[param_matched_additive_s1] step 105/156 loss 0.7483 gnorm 0.136 lr 5.00e-04 (12.8m)
+[param_matched_additive_s1] step 113/156 loss 1.0548 gnorm 0.163 lr 5.00e-04 (13.7m)
+[param_matched_additive_s1] step 121/156 loss 1.1376 gnorm 0.181 lr 5.00e-04 (14.7m)
+[param_matched_additive_s1] step 129/156 loss 0.8686 gnorm 0.143 lr 5.00e-04 (15.6m)
+[param_matched_additive_s1] step 137/156 loss 0.9558 gnorm 0.080 lr 5.00e-04 (16.5m)
+[param_matched_additive_s1] step 145/156 loss 0.8713 gnorm 0.108 lr 5.00e-04 (17.4m)
+[param_matched_additive_s1] step 153/156 loss 1.0129 gnorm 0.133 lr 5.00e-04 (18.3m)
+[param_matched_additive_s1] step 156/156 loss 1.0031 gnorm 0.069 lr 5.00e-04 (18.7m)
+[param_matched_additive_s1] step 156 val_loss 0.6686
+[param_matched_additive_s1] FINAL val_loss=0.6686 F1=0.2981 EM=0.0 n=187
+[param_matched_additive_s1] saved 48 steer tensors
+[param_matched_additive_s1] DONE in 27.8 min -> /work/mingze/Posthoc_differential_memory/out_diffsplit_20260814/param_matched_additive_s1.json

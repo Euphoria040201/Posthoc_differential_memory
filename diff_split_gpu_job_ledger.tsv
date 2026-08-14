@@ -1,0 +1,9 @@
+run_id	pid	gpu	utc	status	log
+split_local256_fixed_s2	4141831	gpu0	2026-08-14T21:14:01Z	RUNNING	/work/mingze/Posthoc_differential_memory/out_diffsplit_20260814/logs/split_local256_fixed_s2.log
+param_matched_additive_s1	4141832	gpu2	2026-08-14T21:14:01Z	RUNNING	/work/mingze/Posthoc_differential_memory/out_diffsplit_20260814/logs/param_matched_additive_s1.log
+param_matched_additive_s2	4141833	gpu3	2026-08-14T21:14:01Z	RUNNING	/work/mingze/Posthoc_differential_memory/out_diffsplit_20260814/logs/param_matched_additive_s2.log
+param_matched_additive_s2	4141833	gpu3	2026-08-14T21:41:20Z	DONE(rc=0) F1=0.2943 val_loss=0.6610	/work/mingze/Posthoc_differential_memory/out_diffsplit_20260814/logs/param_matched_additive_s2.log
+param_matched_additive_s1	4141832	gpu2	2026-08-14T21:41:54Z	DONE(rc=0) F1=0.2981 val_loss=0.6686	/work/mingze/Posthoc_differential_memory/out_diffsplit_20260814/logs/param_matched_additive_s1.log
+split_local256_fixed_s2	4141831	gpu0	2026-08-14T21:43:42Z	DONE(rc=0) F1=0.2905 val_loss=0.7340	/work/mingze/Posthoc_differential_memory/out_diffsplit_20260814/logs/split_local256_fixed_s2.log
+split_lr1.5e-4_s0	66593	gpu0	2026-08-14T21:50:49Z	RUNNING	/work/mingze/Posthoc_differential_memory/out_diffsplit_20260814/logs/split_lr1.5e-4_s0.log
+split_lr1.5e-3_s0	66594	gpu1	2026-08-14T21:50:49Z	RUNNING	/work/mingze/Posthoc_differential_memory/out_diffsplit_20260814/logs/split_lr1.5e-3_s0.log

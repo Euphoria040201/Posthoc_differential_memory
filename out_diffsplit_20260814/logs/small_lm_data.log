@@ -1,0 +1,26 @@
+[data] tokenizer=/work/mingze/models/Qwen3-4B-Instruct-2507 vocab=151643 eos=151645
+[data] cached train shards: ['c4-train-00000-of-00002.arrow', 'c4-train-00001-of-00002.arrow']
+[data] docs={'train': 356318, 'validation': 45576}
+[data] c4_val.npy exists (4,194,304 tokens), reusing
+[data] train: doc 0 -> 81/160,000,000 tokens
+[data] train: doc 20,000 -> 9,178,916/160,000,000 tokens
+[data] train: doc 40,000 -> 18,678,097/160,000,000 tokens
+[data] train: doc 60,000 -> 27,961,950/160,000,000 tokens
+[data] train: doc 80,000 -> 37,423,148/160,000,000 tokens
+[data] train: doc 100,000 -> 46,932,058/160,000,000 tokens
+[data] train: doc 120,000 -> 56,098,271/160,000,000 tokens
+[data] train: doc 140,000 -> 65,283,996/160,000,000 tokens
+[data] train: doc 160,000 -> 74,849,447/160,000,000 tokens
+[data] train: doc 180,000 -> 84,205,558/160,000,000 tokens
+[data] train: doc 200,000 -> 93,546,732/160,000,000 tokens
+[data] train: doc 220,000 -> 102,732,051/160,000,000 tokens
+[data] train: doc 240,000 -> 112,221,124/160,000,000 tokens
+[data] train: doc 260,000 -> 121,766,232/160,000,000 tokens
+[data] train: doc 280,000 -> 131,145,084/160,000,000 tokens
+[data] train: doc 300,000 -> 140,497,624/160,000,000 tokens
+[data] train: doc 320,000 -> 149,926,080/160,000,000 tokens
+[data] train: doc 340,000 -> 159,325,719/160,000,000 tokens
+[data] wrote /work/mingze/Posthoc_differential_memory/out_smalllm_20260814/c4_train.npy (160,000,000 tokens)
+[data] train sha256 = 520ba25424e6be25e2a7c112ca14750cb1c70fa727d93c5b6476bb2272536a50
+[data] val sha256 = 259543d633bed4d684df6107997995f7bcbbbc25dc768a1fdb047926861a59f3
+[data] manifest -> /work/mingze/Posthoc_differential_memory/out_smalllm_20260814/data_manifest.json

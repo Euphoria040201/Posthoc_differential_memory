@@ -1,0 +1,5 @@
+[small_vanilla] arm=vanilla params={'total': 106500096, 'trainable': 106500096, 'attention': 5243904, 'ffn': 23592960, 'embedding': 77654528, 'non_embedding': 28845568} tokens/step=32,768 steps=14,648 start_tokens=0 total_tokens=480,000,000
+[small_vanilla] step 1/14648 tokens 32,768 loss 12.0230 gnorm 2.791 lr 2.05e-06 0 tok/s (0.1m)
+[small_vanilla] step 200/14648 tokens 6,553,600 loss 6.5864 gnorm 0.688 lr 3.00e-04 114,198 tok/s (1.0m)
+[small_vanilla] step 400/14648 tokens 13,107,200 loss 6.0666 gnorm 1.002 lr 3.00e-04 114,109 tok/s (2.0m)
+[small_vanilla] step 600/14648 tokens 19,660,800 loss 5.5617 gnorm 0.748 lr 2.99e-04 114,063 tok/s (2.9m)

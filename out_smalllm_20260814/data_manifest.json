@@ -1,0 +1,15 @@
+{
+ "tokenizer": "/work/mingze/models/Qwen3-4B-Instruct-2507",
+ "seq_len": 1024,
+ "corpus": "allenai/c4:en (HF cache, on-disk order, no shuffle)",
+ "val": {
+  "tokens": 4194304,
+  "path": "/work/mingze/Posthoc_differential_memory/out_smalllm_20260814/c4_val.npy",
+  "sha256": "259543d633bed4d684df6107997995f7bcbbbc25dc768a1fdb047926861a59f3"
+ },
+ "train": {
+  "tokens": 160000000,
+  "path": "/work/mingze/Posthoc_differential_memory/out_smalllm_20260814/c4_train.npy",
+  "sha256": "520ba25424e6be25e2a7c112ca14750cb1c70fa727d93c5b6476bb2272536a50"
+ }
+}

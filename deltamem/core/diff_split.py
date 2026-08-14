@@ -250,7 +250,10 @@ class DiffSplitAttention(nn.Module):
                 d = (o_plus - o_minus).detach().float()
                 t = (o_tilde - o_plus).detach().float()
                 na = a.norm(dim=-1).mean().clamp_min(1e-9)
+                cos = torch.nn.functional.cosine_similarity(
+                    a, o_minus.detach().float(), dim=-1)
                 self.last_stats = {
+                    "branch_cos": float(cos.mean()),
                     "branch_div_rel": float(d.norm(dim=-1).mean() / na),
                     "correction_rel": float(t.norm(dim=-1).mean() / na),
                     "delta_q_rel": float(dq.detach().float().norm(dim=-1).mean()

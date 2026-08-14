@@ -1,0 +1,2 @@
+split_lr1.5e-4_s0	--variant diff_split --diff-read-dim 128 --diff-gamma 1.0 --diff-window 256 --seed 0 --steer-lr 1.5e-4
+split_w64_s0	--variant diff_split --diff-read-dim 128 --diff-gamma 1.0 --diff-window 64 --seed 0

@@ -1,0 +1,117 @@
+{
+ "tag": "pilot_vanilla",
+ "arm": "vanilla",
+ "args": {
+  "arm": "vanilla",
+  "data_dir": "/work/mingze/Posthoc_differential_memory/out_smalllm_20260814",
+  "out_dir": "/work/mingze/Posthoc_differential_memory/out_smalllm_20260814",
+  "tag": "pilot_vanilla",
+  "tokenizer": "/work/mingze/models/Qwen3-4B-Instruct-2507",
+  "hidden": 512,
+  "layers": 8,
+  "heads": 8,
+  "kv_heads": 2,
+  "head_dim": 64,
+  "intermediate": 1920,
+  "seq_len": 1024,
+  "attn_impl": "sdpa",
+  "batch_size": 16,
+  "grad_accum": 2,
+  "total_tokens": 160000000,
+  "t0_tokens": 112000000,
+  "lr": 0.0003,
+  "branch_lr": 0.0005,
+  "warmup_frac": 0.01,
+  "weight_decay": 0.1,
+  "grad_clip": 1.0,
+  "seed": 0,
+  "log_every": 10,
+  "eval_every": 100000,
+  "eval_batches": 8,
+  "init_from": "",
+  "init_sha256": "",
+  "diff_read_dim": 64,
+  "diff_window": 256,
+  "diff_gamma": 1.0,
+  "pilot_steps": 40
+ },
+ "params": {
+  "total": 106500096,
+  "trainable": 106500096,
+  "attention": 5243904,
+  "ffn": 23592960,
+  "embedding": 77654528,
+  "non_embedding": 28845568
+ },
+ "final_val_loss": 8.270821154117584,
+ "final_val_ppl": 3908.1568740003067,
+ "tokens_seen": 1310720,
+ "steps": 40,
+ "log": [
+  {
+   "step": 1,
+   "tokens": 32768,
+   "loss": 12.022955417633057,
+   "gnorm": 2.791348695755005,
+   "lr": 0.0003,
+   "tok_per_s": 0
+  },
+  {
+   "step": 10,
+   "tokens": 327680,
+   "loss": 10.114463806152344,
+   "gnorm": 1.7430813312530518,
+   "lr": 0.0002660489510030986,
+   "tok_per_s": 114685.75785633463
+  },
+  {
+   "step": 20,
+   "tokens": 655360,
+   "loss": 9.025959014892578,
+   "gnorm": 1.5788763761520386,
+   "lr": 0.00017043590191477103,
+   "tok_per_s": 114026.04306291351
+  },
+  {
+   "step": 30,
+   "tokens": 983040,
+   "loss": 8.455356121063232,
+   "gnorm": 1.429182529449463,
+   "lr": 7.148221227620408e-05,
+   "tok_per_s": 113461.35764515697
+  },
+  {
+   "step": 40,
+   "tokens": 1310720,
+   "loss": 8.616542339324951,
+   "gnorm": 1.2067887783050537,
+   "lr": 2.9999999999999997e-05,
+   "tok_per_s": 113980.40662554307
+  }
+ ],
+ "t0_sha256": null,
+ "data_manifest": {
+  "tokenizer": "/work/mingze/models/Qwen3-4B-Instruct-2507",
+  "seq_len": 1024,
+  "corpus": "allenai/c4:en (HF cache, on-disk order, no shuffle)",
+  "val": {
+   "tokens": 4194304,
+   "path": "/work/mingze/Posthoc_differential_memory/out_smalllm_20260814/c4_val.npy",
+   "sha256": "259543d633bed4d684df6107997995f7bcbbbc25dc768a1fdb047926861a59f3"
+  },
+  "train": {
+   "tokens": 160000000,
+   "path": "/work/mingze/Posthoc_differential_memory/out_smalllm_20260814/c4_train.npy",
+   "sha256": "520ba25424e6be25e2a7c112ca14750cb1c70fa727d93c5b6476bb2272536a50"
+  }
+ },
+ "peak_vram_bytes": 36519026688,
+ "runtime_min": 0.25,
+ "env": {
+  "python": "3.10.20",
+  "torch": "2.6.0+cu124",
+  "gpu": "NVIDIA H100 80GB HBM3",
+  "cuda_visible": "2"
+ },
+ "git_commit": "40ee6d9084aed8eeac63955e0c7b04c34e966d7e"
+}

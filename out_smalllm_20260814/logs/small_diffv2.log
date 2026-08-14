@@ -1,0 +1,5 @@
+[small_diffv2] arm=diffv2 params={'total': 108630016, 'trainable': 108630016, 'attention': 7373824, 'ffn': 23592960, 'embedding': 77654528, 'non_embedding': 30975488} tokens/step=32,768 steps=14,648 start_tokens=0 total_tokens=480,000,000
+[small_diffv2] step 1/14648 tokens 32,768 loss 12.0440 gnorm 2.101 lr 2.05e-06 0 tok/s (0.1m)
+[small_diffv2] step 200/14648 tokens 6,553,600 loss 6.5476 gnorm 0.536 lr 3.00e-04 102,926 tok/s (1.1m)
+[small_diffv2] step 400/14648 tokens 13,107,200 loss 6.0334 gnorm 0.835 lr 3.00e-04 102,886 tok/s (2.2m)
+[small_diffv2] step 600/14648 tokens 19,660,800 loss 5.5298 gnorm 0.519 lr 2.99e-04 102,877 tok/s (3.2m)

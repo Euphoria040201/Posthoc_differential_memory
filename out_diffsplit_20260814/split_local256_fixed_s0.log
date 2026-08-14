@@ -1,0 +1,37 @@
+Loading weights:   0%|          | 0/398 [00:00<?, ?it/s]Loading weights: 100%|██████████| 398/398 [00:00<00:00, 10648.77it/s]
+[split_local256_fixed_s0] diff-split on 12 layers (read_dim=128 w=256 gamma=1.0 dyn=False) trainable=14,155,776
+[split_local256_fixed_s0] diff-split trainable after set_trainable: 14,155,776 in 36 tensors
+[split_local256_fixed_s0] variant=diff_split sign=0.0 adapter=False train_attn=False layers=36 heads/layer=0 trainable=14,155,776 (adapter=0, attn=7,864,320, steer=6,291,456) anneal_T=78 lr=2e-05 seed=0
+Using the latest cached version of the dataset since allenai/qasper couldn't be found on the Hugging Face Hub (offline mode is enabled).
+Found the latest cached dataset configuration 'default' at /home/mingze/.cache/huggingface/datasets/allenai___qasper/default/0.0.0/06806e4608976fc2fac0a090ac425d5b2b29caf4 (last modified on Tue Jul 28 03:00:47 2026).
+[compose] total=935 (target_n=935) yes/no=28 (3.0%) ; pool yn=282 other=1711
+Using the latest cached version of the dataset since allenai/qasper couldn't be found on the Hugging Face Hub (offline mode is enabled).
+Found the latest cached dataset configuration 'default' at /home/mingze/.cache/huggingface/datasets/allenai___qasper/default/0.0.0/06806e4608976fc2fac0a090ac425d5b2b29caf4 (last modified on Tue Jul 28 03:00:47 2026).
+[split_local256_fixed_s0] train=935 val=187
+[split_local256_fixed_s0] step 1/156 loss 1.4792 gnorm 0.712 lr 5.00e-04 (0.2m)
+[split_local256_fixed_s0] step 9/156 loss 1.8022 gnorm 1.162 lr 5.00e-04 (1.4m)
+[split_local256_fixed_s0] step 17/156 loss 1.5614 gnorm 0.711 lr 5.00e-04 (2.8m)
+[split_local256_fixed_s0] step 25/156 loss 1.6675 gnorm 0.440 lr 5.00e-04 (4.0m)
+[split_local256_fixed_s0] step 33/156 loss 1.3270 gnorm 0.657 lr 5.00e-04 (5.3m)
+[split_local256_fixed_s0] step 41/156 loss 1.2328 gnorm 0.683 lr 5.00e-04 (6.6m)
+[split_local256_fixed_s0] step 49/156 loss 1.2156 gnorm 0.397 lr 5.00e-04 (7.9m)
+[split_local256_fixed_s0] step 52 val_loss 0.8333
+[split_local256_fixed_s0] step 57/156 loss 1.4066 gnorm 0.476 lr 5.00e-04 (9.3m)
+[split_local256_fixed_s0] step 65/156 loss 1.1250 gnorm 0.939 lr 5.00e-04 (10.6m)
+[split_local256_fixed_s0] step 73/156 loss 1.0630 gnorm 0.558 lr 5.00e-04 (11.8m)
+[split_local256_fixed_s0] step 81/156 loss 1.0901 gnorm 0.424 lr 5.00e-04 (13.2m)
+[split_local256_fixed_s0] step 89/156 loss 1.0867 gnorm 0.303 lr 5.00e-04 (14.4m)
+[split_local256_fixed_s0] step 97/156 loss 0.9547 gnorm 1.317 lr 5.00e-04 (15.7m)
+[split_local256_fixed_s0] step 104 val_loss 0.8078
+[split_local256_fixed_s0] step 105/156 loss 1.1239 gnorm 0.529 lr 5.00e-04 (17.1m)
+[split_local256_fixed_s0] step 113/156 loss 1.0836 gnorm 0.649 lr 5.00e-04 (18.3m)
+[split_local256_fixed_s0] step 121/156 loss 0.9526 gnorm 0.333 lr 5.00e-04 (19.6m)
+[split_local256_fixed_s0] step 129/156 loss 1.1402 gnorm 0.375 lr 5.00e-04 (20.9m)
+[split_local256_fixed_s0] step 137/156 loss 0.9915 gnorm 0.396 lr 5.00e-04 (22.2m)
+[split_local256_fixed_s0] step 145/156 loss 0.9692 gnorm 0.352 lr 5.00e-04 (23.4m)
+[split_local256_fixed_s0] step 153/156 loss 0.9805 gnorm 0.389 lr 5.00e-04 (24.8m)
+[split_local256_fixed_s0] step 156/156 loss 0.6145 gnorm 0.348 lr 5.00e-04 (25.2m)
+[split_local256_fixed_s0] step 156 val_loss 0.7450
+[split_local256_fixed_s0] FINAL val_loss=0.7450 F1=0.2928 EM=0.0 n=187
+[split_local256_fixed_s0] saved 36 diff-split tensors
+[split_local256_fixed_s0] DONE in 37.8 min -> /work/mingze/Posthoc_differential_memory/out_diffsplit_20260814/split_local256_fixed_s0.json
