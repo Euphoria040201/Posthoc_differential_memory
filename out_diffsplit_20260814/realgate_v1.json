@@ -1,0 +1,350 @@
+{
+  "args": {
+    "model_path": "/work/mingze/models/Qwen3-4B-Instruct-2507",
+    "read_dim": 128,
+    "window": 256,
+    "gamma": 1.0,
+    "seq": 192,
+    "output": "out_diffsplit_20260814/realgate_v1.json"
+  },
+  "layers": [
+    0,
+    3,
+    6,
+    9,
+    12,
+    15,
+    18,
+    21,
+    24,
+    27,
+    30,
+    33
+  ],
+  "gates": {
+    "fp32_parity": {
+      "n_layers_wrapped": 12,
+      "max_abs_logit_err": 0.0,
+      "threshold": 1e-05,
+      "pass": true
+    },
+    "param_budget": {
+      "trainable_total": 14155776,
+      "old_budget": 14155776,
+      "delta": 0,
+      "rel_error": 0.0,
+      "n_tensors": 36,
+      "per_kind": {
+        "delta_q": {
+          "count": 12,
+          "each": 524288,
+          "sum": 6291456
+        },
+        "read_k": {
+          "count": 12,
+          "each": 327680,
+          "sum": 3932160
+        },
+        "read_q": {
+          "count": 12,
+          "each": 327680,
+          "sum": 3932160
+        }
+      },
+      "pass": true
+    },
+    "gqa_map": {
+      "n_q_heads": 32,
+      "n_kv_heads": 8,
+      "repeat_base": 4,
+      "repeat_split": 8,
+      "map": [
+        {
+          "head": 0,
+          "base_kv": 0,
+          "plus_kv": 0,
+          "minus_kv": 0
+        },
+        {
+          "head": 1,
+          "base_kv": 0,
+          "plus_kv": 0,
+          "minus_kv": 0
+        },
+        {
+          "head": 2,
+          "base_kv": 0,
+          "plus_kv": 0,
+          "minus_kv": 0
+        },
+        {
+          "head": 3,
+          "base_kv": 0,
+          "plus_kv": 0,
+          "minus_kv": 0
+        },
+        {
+          "head": 4,
+          "base_kv": 1,
+          "plus_kv": 1,
+          "minus_kv": 1
+        },
+        {
+          "head": 5,
+          "base_kv": 1,
+          "plus_kv": 1,
+          "minus_kv": 1
+        },
+        {
+          "head": 6,
+          "base_kv": 1,
+          "plus_kv": 1,
+          "minus_kv": 1
+        },
+        {
+          "head": 7,
+          "base_kv": 1,
+          "plus_kv": 1,
+          "minus_kv": 1
+        },
+        {
+          "head": 8,
+          "base_kv": 2,
+          "plus_kv": 2,
+          "minus_kv": 2
+        },
+        {
+          "head": 9,
+          "base_kv": 2,
+          "plus_kv": 2,
+          "minus_kv": 2
+        },
+        {
+          "head": 10,
+          "base_kv": 2,
+          "plus_kv": 2,
+          "minus_kv": 2
+        },
+        {
+          "head": 11,
+          "base_kv": 2,
+          "plus_kv": 2,
+          "minus_kv": 2
+        },
+        {
+          "head": 12,
+          "base_kv": 3,
+          "plus_kv": 3,
+          "minus_kv": 3
+        },
+        {
+          "head": 13,
+          "base_kv": 3,
+          "plus_kv": 3,
+          "minus_kv": 3
+        },
+        {
+          "head": 14,
+          "base_kv": 3,
+          "plus_kv": 3,
+          "minus_kv": 3
+        },
+        {
+          "head": 15,
+          "base_kv": 3,
+          "plus_kv": 3,
+          "minus_kv": 3
+        },
+        {
+          "head": 16,
+          "base_kv": 4,
+          "plus_kv": 4,
+          "minus_kv": 4
+        },
+        {
+          "head": 17,
+          "base_kv": 4,
+          "plus_kv": 4,
+          "minus_kv": 4
+        },
+        {
+          "head": 18,
+          "base_kv": 4,
+          "plus_kv": 4,
+          "minus_kv": 4
+        },
+        {
+          "head": 19,
+          "base_kv": 4,
+          "plus_kv": 4,
+          "minus_kv": 4
+        },
+        {
+          "head": 20,
+          "base_kv": 5,
+          "plus_kv": 5,
+          "minus_kv": 5
+        },
+        {
+          "head": 21,
+          "base_kv": 5,
+          "plus_kv": 5,
+          "minus_kv": 5
+        },
+        {
+          "head": 22,
+          "base_kv": 5,
+          "plus_kv": 5,
+          "minus_kv": 5
+        },
+        {
+          "head": 23,
+          "base_kv": 5,
+          "plus_kv": 5,
+          "minus_kv": 5
+        },
+        {
+          "head": 24,
+          "base_kv": 6,
+          "plus_kv": 6,
+          "minus_kv": 6
+        },
+        {
+          "head": 25,
+          "base_kv": 6,
+          "plus_kv": 6,
+          "minus_kv": 6
+        },
+        {
+          "head": 26,
+          "base_kv": 6,
+          "plus_kv": 6,
+          "minus_kv": 6
+        },
+        {
+          "head": 27,
+          "base_kv": 6,
+          "plus_kv": 6,
+          "minus_kv": 6
+        },
+        {
+          "head": 28,
+          "base_kv": 7,
+          "plus_kv": 7,
+          "minus_kv": 7
+        },
+        {
+          "head": 29,
+          "base_kv": 7,
+          "plus_kv": 7,
+          "minus_kv": 7
+        },
+        {
+          "head": 30,
+          "base_kv": 7,
+          "plus_kv": 7,
+          "minus_kv": 7
+        },
+        {
+          "head": 31,
+          "base_kv": 7,
+          "plus_kv": 7,
+          "minus_kv": 7
+        }
+      ],
+      "pass": true
+    },
+    "causality": {
+      "max_abs_past_change": 0.0,
+      "future_perturb_effect": 0.9787905812263489,
+      "pass": true
+    },
+    "gradient_frozen": {
+      "loss": 13.74732780456543,
+      "n_backbone_tensors": 398,
+      "backbone_sha_before": "c894f7a1772f4c01f4e6ef2c9c503a1d2fef1d05fe5f9610f01965c81f03bf1c",
+      "backbone_sha_after": "c894f7a1772f4c01f4e6ef2c9c503a1d2fef1d05fe5f9610f01965c81f03bf1c",
+      "backbone_bit_identical": true,
+      "n_backbone_params_with_grad": 0,
+      "per_layer_grad_abs_sum": {
+        "layer0": {
+          "delta_q": 0.6091470122337341,
+          "read_q": 2.4968914658529684e-05,
+          "read_k": 3.0279205020633526e-05
+        },
+        "layer3": {
+          "delta_q": 2.5433833599090576,
+          "read_q": 0.0,
+          "read_k": 0.0
+        },
+        "layer6": {
+          "delta_q": 3.757376194000244,
+          "read_q": 0.0,
+          "read_k": 0.0
+        },
+        "layer9": {
+          "delta_q": 6.487247943878174,
+          "read_q": 0.0,
+          "read_k": 0.0
+        },
+        "layer12": {
+          "delta_q": 8.46407699584961,
+          "read_q": 0.0,
+          "read_k": 0.0
+        },
+        "layer15": {
+          "delta_q": 10.340339660644531,
+          "read_q": 0.0,
+          "read_k": 0.0
+        },
+        "layer18": {
+          "delta_q": 7.991641998291016,
+          "read_q": 0.0,
+          "read_k": 0.0
+        },
+        "layer21": {
+          "delta_q": 17.823627471923828,
+          "read_q": 0.0,
+          "read_k": 0.0
+        },
+        "layer24": {
+          "delta_q": 20.715314865112305,
+          "read_q": 0.0,
+          "read_k": 0.0
+        },
+        "layer27": {
+          "delta_q": 23.036590576171875,
+          "read_q": 0.0,
+          "read_k": 0.0
+        },
+        "layer30": {
+          "delta_q": 39.2851448059082,
+          "read_q": 0.0,
+          "read_k": 0.0
+        },
+        "layer33": {
+          "delta_q": 274.71026611328125,
+          "read_q": 0.0,
+          "read_k": 0.0
+        }
+      },
+      "pass": false
+    },
+    "bf16": {
+      "max_abs_logit_err": 0.203125,
+      "mean_abs_logit_err": 0.012796415947377682,
+      "greedy_token_agreement": true,
+      "kv_cache_bytes_base": 28311552,
+      "kv_cache_bytes_split": 28311552,
+      "kv_cache_identical": true,
+      "pass": true
+    },
+    "cache_decode": {
+      "max_abs": 0.09375,
+      "threshold": 0.05,
+      "note": "bf16; nonzero delta_q; prefill vs cached decode",
+      "pass": false
+    }
+  },
+  "all_pass": false
+}
