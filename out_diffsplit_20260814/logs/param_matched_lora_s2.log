@@ -1,0 +1,35 @@
+Loading weights:   0%|          | 0/398 [00:00<?, ?it/s]Loading weights: 100%|██████████| 398/398 [00:00<00:00, 10515.55it/s]
+[param_matched_lora_s2] LoRA r=58 on 12 layers x q,k,v,o -> trainable=14,254,080 (+0.69% vs 14,155,776)
+[param_matched_lora_s2] variant=lora sign=0.0 adapter=False train_attn=False layers=36 heads/layer=0 trainable=14,254,080 (adapter=0, attn=14,254,080, steer=0) anneal_T=78 lr=2e-05 seed=2
+Using the latest cached version of the dataset since allenai/qasper couldn't be found on the Hugging Face Hub
+Found the latest cached dataset configuration 'default' at /home/mingze/.cache/huggingface/datasets/allenai___qasper/default/0.0.0/06806e4608976fc2fac0a090ac425d5b2b29caf4 (last modified on Tue Jul 28 03:00:47 2026).
+[compose] total=935 (target_n=935) yes/no=28 (3.0%) ; pool yn=282 other=1711
+Using the latest cached version of the dataset since allenai/qasper couldn't be found on the Hugging Face Hub
+Found the latest cached dataset configuration 'default' at /home/mingze/.cache/huggingface/datasets/allenai___qasper/default/0.0.0/06806e4608976fc2fac0a090ac425d5b2b29caf4 (last modified on Tue Jul 28 03:00:47 2026).
+[param_matched_lora_s2] train=935 val=187
+[param_matched_lora_s2] step 1/156 loss 4.6769 gnorm 10.377 lr 5.00e-04 (0.1m)
+[param_matched_lora_s2] step 9/156 loss 1.2177 gnorm 2.525 lr 5.00e-04 (1.0m)
+[param_matched_lora_s2] step 17/156 loss 1.0605 gnorm 0.983 lr 5.00e-04 (1.9m)
+[param_matched_lora_s2] step 25/156 loss 1.0697 gnorm 1.259 lr 5.00e-04 (2.8m)
+[param_matched_lora_s2] step 33/156 loss 1.1884 gnorm 1.865 lr 5.00e-04 (3.7m)
+[param_matched_lora_s2] step 41/156 loss 1.1325 gnorm 0.972 lr 5.00e-04 (4.6m)
+[param_matched_lora_s2] step 49/156 loss 0.9607 gnorm 0.799 lr 5.00e-04 (5.5m)
+[param_matched_lora_s2] step 52 val_loss 0.7238
+[param_matched_lora_s2] step 57/156 loss 1.0400 gnorm 2.092 lr 5.00e-04 (6.5m)
+[param_matched_lora_s2] step 65/156 loss 0.8051 gnorm 1.375 lr 5.00e-04 (7.4m)
+[param_matched_lora_s2] step 73/156 loss 0.9195 gnorm 0.912 lr 5.00e-04 (8.4m)
+[param_matched_lora_s2] step 81/156 loss 0.7122 gnorm 0.970 lr 5.00e-04 (9.3m)
+[param_matched_lora_s2] step 89/156 loss 0.8010 gnorm 1.445 lr 5.00e-04 (10.2m)
+[param_matched_lora_s2] step 97/156 loss 0.8046 gnorm 1.265 lr 5.00e-04 (11.1m)
+[param_matched_lora_s2] step 104 val_loss 0.8063
+[param_matched_lora_s2] step 105/156 loss 0.7236 gnorm 1.820 lr 5.00e-04 (12.1m)
+[param_matched_lora_s2] step 113/156 loss 0.6504 gnorm 1.249 lr 5.00e-04 (12.9m)
+[param_matched_lora_s2] step 121/156 loss 0.5816 gnorm 1.105 lr 5.00e-04 (13.8m)
+[param_matched_lora_s2] step 129/156 loss 0.5036 gnorm 0.964 lr 5.00e-04 (14.7m)
+[param_matched_lora_s2] step 137/156 loss 0.5990 gnorm 1.270 lr 5.00e-04 (15.6m)
+[param_matched_lora_s2] step 145/156 loss 0.4629 gnorm 1.309 lr 5.00e-04 (16.6m)
+[param_matched_lora_s2] step 153/156 loss 0.4390 gnorm 1.127 lr 5.00e-04 (17.4m)
+[param_matched_lora_s2] step 156/156 loss 0.5847 gnorm 1.243 lr 5.00e-04 (17.8m)
+[param_matched_lora_s2] step 156 val_loss 0.7722
+[param_matched_lora_s2] FINAL val_loss=0.7722 F1=0.2887 EM=0.0 n=187
+[param_matched_lora_s2] DONE in 26.6 min -> /work/mingze/Posthoc_differential_memory/out_diffsplit_20260814/param_matched_lora_s2.json

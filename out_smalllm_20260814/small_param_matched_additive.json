@@ -1,0 +1,280 @@
+{
+ "tag": "small_param_matched_additive",
+ "arm": "additive",
+ "args": {
+  "arm": "additive",
+  "data_dir": "/work/mingze/Posthoc_differential_memory/out_smalllm_20260814",
+  "out_dir": "/work/mingze/Posthoc_differential_memory/out_smalllm_20260814",
+  "tag": "small_param_matched_additive",
+  "tokenizer": "/work/mingze/models/Qwen3-4B-Instruct-2507",
+  "hidden": 512,
+  "layers": 8,
+  "heads": 8,
+  "kv_heads": 2,
+  "head_dim": 64,
+  "intermediate": 1920,
+  "seq_len": 1024,
+  "attn_impl": "sdpa",
+  "batch_size": 16,
+  "grad_accum": 2,
+  "total_tokens": 480000000,
+  "t0_tokens": 336000000,
+  "lr": 0.0003,
+  "branch_lr": 0.0005,
+  "warmup_frac": 0.01,
+  "weight_decay": 0.1,
+  "grad_clip": 1.0,
+  "seed": 0,
+  "log_every": 200,
+  "eval_every": 1000,
+  "eval_batches": 24,
+  "init_from": "/work/mingze/Posthoc_differential_memory/out_smalllm_20260814/small_vanilla_T0.pt",
+  "init_sha256": "b9399955b8551413dedbfbebdfbb4c79a72d67e485958da74313c4ab3176c509",
+  "diff_read_dim": 64,
+  "diff_window": 256,
+  "diff_gamma": 1.0,
+  "pilot_steps": 0
+ },
+ "params": {
+  "total": 107286528,
+  "trainable": 786432,
+  "attention": 6030336,
+  "ffn": 23592960,
+  "embedding": 77654528,
+  "non_embedding": 29632000
+ },
+ "final_val_loss": 4.078857267896335,
+ "final_val_ppl": 59.07792102515437,
+ "tokens_seen": 479985664,
+ "steps": 4394,
+ "log": [
+  {
+   "step": 1,
+   "tokens": 336035840,
+   "loss": 3.5288091897964478,
+   "gnorm": 0.03429258614778519,
+   "lr": 1.1627906976744185e-05,
+   "tok_per_s": 0
+  },
+  {
+   "step": 200,
+   "tokens": 342556672,
+   "loss": 4.14799952507019,
+   "gnorm": 0.021842261776328087,
+   "lr": 0.0004985558633820232,
+   "tok_per_s": 124151.37494371498
+  },
+  {
+   "step": 400,
+   "tokens": 349110272,
+   "loss": 3.8373920917510986,
+   "gnorm": 0.1714625358581543,
+   "lr": 0.0004925663090851505,
+   "tok_per_s": 124193.87593473174
+  },
+  {
+   "step": 600,
+   "tokens": 355663872,
+   "loss": 4.1204530000686646,
+   "gnorm": 0.025522541254758835,
+   "lr": 0.00048204758746589796,
+   "tok_per_s": 124198.43356876439
+  },
+  {
+   "step": 800,
+   "tokens": 362217472,
+   "loss": 4.251231670379639,
+   "gnorm": 0.023328537121415138,
+   "lr": 0.00046721867107765155,
+   "tok_per_s": 124198.62548829764
+  },
+  {
+   "step": 1000,
+   "tokens": 368771072,
+   "loss": 4.281186580657959,
+   "gnorm": 0.02181837521493435,
+   "lr": 0.00044838825957071267,
+   "tok_per_s": 124199.25063381388
+  },
+  {
+   "step": 1000,
+   "tokens": 368771072,
+   "val_loss": 4.089288999636968,
+   "val_ppl": 59.69743171577832
+  },
+  {
+   "step": 1200,
+   "tokens": 375324672,
+   "loss": 4.007920145988464,
+   "gnorm": 0.023132499307394028,
+   "lr": 0.0004259483533647364,
+   "tok_per_s": 120539.23094604508
+  },
+  {
+   "step": 1400,
+   "tokens": 381878272,
+   "loss": 3.9649254083633423,
+   "gnorm": 0.023288732394576073,
+   "lr": 0.00040036609321479985,
+   "tok_per_s": 124207.60821043304
+  },
+  {
+   "step": 1600,
+   "tokens": 388431872,
+   "loss": 3.9106537103652954,
+   "gnorm": 0.024841496720910072,
+   "lr": 0.0003721740355502093,
+   "tok_per_s": 124198.45152612246
+  },
+  {
+   "step": 1800,
+   "tokens": 394985472,
+   "loss": 3.8784899711608887,
+   "gnorm": 0.02259158343076706,
+   "lr": 0.00034195906602831663,
+   "tok_per_s": 124190.23040499263
+  },
+  {
+   "step": 2000,
+   "tokens": 401539072,
+   "loss": 3.775404930114746,
+   "gnorm": 0.027237242087721825,
+   "lr": 0.0003103501820944558,
+   "tok_per_s": 124191.5725545089
+  },
+  {
+   "step": 2000,
+   "tokens": 401539072,
+   "val_loss": 4.087340861558914,
+   "val_ppl": 59.58124608546213
+  },
+  {
+   "step": 2200,
+   "tokens": 408092672,
+   "loss": 3.8190540075302124,
+   "gnorm": 0.026727622374892235,
+   "lr": 0.00027800539888347064,
+   "tok_per_s": 120531.29525381565
+  },
+  {
+   "step": 2400,
+   "tokens": 414646272,
+   "loss": 3.9830909967422485,
+   "gnorm": 0.02292240597307682,
+   "lr": 0.0002455980510480683,
+   "tok_per_s": 124190.996301978
+  },
+  {
+   "step": 2600,
+   "tokens": 421199872,
+   "loss": 3.8524338006973267,
+   "gnorm": 0.02619473822414875,
+   "lr": 0.00021380277567447005,
+   "tok_per_s": 124181.24009790731
+  },
+  {
+   "step": 2800,
+   "tokens": 427753472,
+   "loss": 4.036924123764038,
+   "gnorm": 0.02404683269560337,
+   "lr": 0.00018328146808476724,
+   "tok_per_s": 124197.20350209683
+  },
+  {
+   "step": 3000,
+   "tokens": 434307072,
+   "loss": 3.967031478881836,
+   "gnorm": 0.02598143368959427,
+   "lr": 0.00015466950288982163,
+   "tok_per_s": 124245.02456382345
+  },
+  {
+   "step": 3000,
+   "tokens": 434307072,
+   "val_loss": 4.086973150571187,
+   "val_ppl": 59.55934143415133
+  },
+  {
+   "step": 3200,
+   "tokens": 440860672,
+   "loss": 4.077611684799194,
+   "gnorm": 0.030117223039269447,
+   "lr": 0.00012856250713471628,
+   "tok_per_s": 120579.92742847423
+  },
+  {
+   "step": 3400,
+   "tokens": 447414272,
+   "loss": 4.0736846923828125,
+   "gnorm": 0.02612980641424656,
+   "lr": 0.00010550396088562837,
+   "tok_per_s": 124246.21345797609
+  },
+  {
+   "step": 3600,
+   "tokens": 453967872,
+   "loss": 4.008978724479675,
+   "gnorm": 0.0249258391559124,
+   "lr": 8.597388338180542e-05,
+   "tok_per_s": 124231.5125302725
+  },
+  {
+   "step": 3800,
+   "tokens": 460521472,
+   "loss": 3.947151303291321,
+   "gnorm": 0.02759893238544464,
+   "lr": 7.03788402776717e-05,
+   "tok_per_s": 124246.22749795794
+  },
+  {
+   "step": 4000,
+   "tokens": 467075072,
+   "loss": 4.076106309890747,
+   "gnorm": 0.050206009298563004,
+   "lr": 5.9043479998414636e-05,
+   "tok_per_s": 124266.12084635926
+  },
+  {
+   "step": 4000,
+   "tokens": 467075072,
+   "val_loss": 4.0875372389952345,
+   "val_ppl": 59.59294764674486
+  },
+  {
+   "step": 4200,
+   "tokens": 473628672,
+   "loss": 3.9737088680267334,
+   "gnorm": 0.02807587943971157,
+   "lr": 5.2203775400218156e-05,
+   "tok_per_s": 120592.02507652341
+  }
+ ],
+ "t0_sha256": null,
+ "data_manifest": {
+  "tokenizer": "/work/mingze/models/Qwen3-4B-Instruct-2507",
+  "seq_len": 1024,
+  "corpus": "allenai/c4:en (HF cache, on-disk order, no shuffle)",
+  "val": {
+   "tokens": 4194304,
+   "path": "/work/mingze/Posthoc_differential_memory/out_smalllm_20260814/c4_val.npy",
+   "sha256": "259543d633bed4d684df6107997995f7bcbbbc25dc768a1fdb047926861a59f3"
+  },
+  "train": {
+   "tokens": 160000000,
+   "path": "/work/mingze/Posthoc_differential_memory/out_smalllm_20260814/c4_train.npy",
+   "sha256": "520ba25424e6be25e2a7c112ca14750cb1c70fa727d93c5b6476bb2272536a50"
+  }
+ },
+ "peak_vram_bytes": 34958608384,
+ "runtime_min": 19.54,
+ "env": {
+  "python": "3.10.20",
+  "torch": "2.6.0+cu124",
+  "gpu": "NVIDIA H100 80GB HBM3",
+  "cuda_visible": "3"
+ },
+ "init_from": "/work/mingze/Posthoc_differential_memory/out_smalllm_20260814/small_vanilla_T0.pt",
+ "init_sha256": "b9399955b8551413dedbfbebdfbb4c79a72d67e485958da74313c4ab3176c509",
+ "init_tokens": 336003072,
+ "git_commit": "8d065c2e1f943bb3aeb53b79064dfffc3cdefb79"
+}

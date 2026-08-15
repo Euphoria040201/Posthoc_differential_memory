@@ -3,3 +3,90 @@
 [small_vanilla] step 200/14648 tokens 6,553,600 loss 6.5864 gnorm 0.688 lr 3.00e-04 114,198 tok/s (1.0m)
 [small_vanilla] step 400/14648 tokens 13,107,200 loss 6.0666 gnorm 1.002 lr 3.00e-04 114,109 tok/s (2.0m)
 [small_vanilla] step 600/14648 tokens 19,660,800 loss 5.5617 gnorm 0.748 lr 2.99e-04 114,063 tok/s (2.9m)
+[small_vanilla] step 800/14648 tokens 26,214,400 loss 5.6236 gnorm 0.640 lr 2.99e-04 114,144 tok/s (3.9m)
+[small_vanilla] step 1000/14648 tokens 32,768,000 loss 5.6369 gnorm 0.728 lr 2.98e-04 114,179 tok/s (4.8m)
+[small_vanilla] step 1000 tokens 32,768,000 VAL loss 5.3598 ppl 212.68
+[small_vanilla] step 1200/14648 tokens 39,321,600 loss 5.2990 gnorm 0.843 lr 2.96e-04 111,412 tok/s (5.8m)
+[small_vanilla] step 1400/14648 tokens 45,875,200 loss 4.8681 gnorm 0.685 lr 2.95e-04 114,166 tok/s (6.8m)
+[small_vanilla] step 1600/14648 tokens 52,428,800 loss 5.0347 gnorm 0.653 lr 2.93e-04 114,173 tok/s (7.7m)
+[small_vanilla] step 1800/14648 tokens 58,982,400 loss 4.9072 gnorm 0.622 lr 2.91e-04 114,117 tok/s (8.7m)
+[small_vanilla] step 2000/14648 tokens 65,536,000 loss 4.8055 gnorm 0.610 lr 2.89e-04 114,127 tok/s (9.6m)
+[small_vanilla] step 2000 tokens 65,536,000 VAL loss 4.8038 ppl 121.97
+[small_vanilla] step 2200/14648 tokens 72,089,600 loss 4.7767 gnorm 0.771 lr 2.87e-04 111,380 tok/s (10.6m)
+[small_vanilla] step 2400/14648 tokens 78,643,200 loss 4.8705 gnorm 0.687 lr 2.84e-04 114,116 tok/s (11.6m)
+[small_vanilla] step 2600/14648 tokens 85,196,800 loss 4.7031 gnorm 0.662 lr 2.81e-04 114,064 tok/s (12.5m)
+[small_vanilla] step 2800/14648 tokens 91,750,400 loss 4.5036 gnorm 0.576 lr 2.78e-04 114,124 tok/s (13.5m)
+[small_vanilla] step 3000/14648 tokens 98,304,000 loss 4.5485 gnorm 0.588 lr 2.75e-04 114,109 tok/s (14.4m)
+[small_vanilla] step 3000 tokens 98,304,000 VAL loss 4.5622 ppl 95.79
+[small_vanilla] step 3200/14648 tokens 104,857,600 loss 4.4337 gnorm 0.575 lr 2.72e-04 111,368 tok/s (15.4m)
+[small_vanilla] step 3400/14648 tokens 111,411,200 loss 4.5307 gnorm 0.647 lr 2.68e-04 114,108 tok/s (16.4m)
+[small_vanilla] step 3600/14648 tokens 117,964,800 loss 4.4307 gnorm 0.592 lr 2.64e-04 114,121 tok/s (17.3m)
+[small_vanilla] step 3800/14648 tokens 124,518,400 loss 4.4609 gnorm 0.572 lr 2.60e-04 114,116 tok/s (18.3m)
+[small_vanilla] step 4000/14648 tokens 131,072,000 loss 4.5133 gnorm 0.651 lr 2.56e-04 114,107 tok/s (19.3m)
+[small_vanilla] step 4000 tokens 131,072,000 VAL loss 4.4265 ppl 83.63
+[small_vanilla] step 4200/14648 tokens 137,625,600 loss 4.4170 gnorm 0.629 lr 2.51e-04 111,374 tok/s (20.2m)
+[small_vanilla] step 4400/14648 tokens 144,179,200 loss 4.6327 gnorm 0.734 lr 2.47e-04 114,122 tok/s (21.2m)
+[small_vanilla] step 4600/14648 tokens 150,732,800 loss 4.5941 gnorm 1.132 lr 2.42e-04 114,135 tok/s (22.2m)
+[small_vanilla] step 4800/14648 tokens 157,286,400 loss 4.4763 gnorm 0.647 lr 2.37e-04 114,098 tok/s (23.1m)
+[small_vanilla] step 5000/14648 tokens 163,840,000 loss 4.2960 gnorm 0.604 lr 2.32e-04 114,137 tok/s (24.1m)
+[small_vanilla] step 5000 tokens 163,840,000 VAL loss 4.3315 ppl 76.06
+[small_vanilla] step 5200/14648 tokens 170,393,600 loss 4.1990 gnorm 0.691 lr 2.27e-04 111,390 tok/s (25.0m)
+[small_vanilla] step 5400/14648 tokens 176,947,200 loss 4.2711 gnorm 0.751 lr 2.22e-04 114,163 tok/s (26.0m)
+[small_vanilla] step 5600/14648 tokens 183,500,800 loss 4.3823 gnorm 0.719 lr 2.16e-04 114,157 tok/s (27.0m)
+[small_vanilla] step 5800/14648 tokens 190,054,400 loss 4.2710 gnorm 0.648 lr 2.11e-04 114,170 tok/s (27.9m)
+[small_vanilla] step 6000/14648 tokens 196,608,000 loss 4.3440 gnorm 0.749 lr 2.05e-04 114,148 tok/s (28.9m)
+[small_vanilla] step 6000 tokens 196,608,000 VAL loss 4.2656 ppl 71.21
+[small_vanilla] step 6200/14648 tokens 203,161,600 loss 4.2297 gnorm 0.644 lr 2.00e-04 111,382 tok/s (29.9m)
+[small_vanilla] step 6400/14648 tokens 209,715,200 loss 4.2600 gnorm 0.603 lr 1.94e-04 114,133 tok/s (30.8m)
+[small_vanilla] step 6600/14648 tokens 216,268,800 loss 4.4021 gnorm 0.613 lr 1.88e-04 114,152 tok/s (31.8m)
+[small_vanilla] step 6800/14648 tokens 222,822,400 loss 4.1542 gnorm 0.679 lr 1.82e-04 114,182 tok/s (32.7m)
+[small_vanilla] step 7000/14648 tokens 229,376,000 loss 4.1351 gnorm 0.667 lr 1.77e-04 114,192 tok/s (33.7m)
+[small_vanilla] step 7000 tokens 229,376,000 VAL loss 4.2102 ppl 67.37
+[small_vanilla] step 7200/14648 tokens 235,929,600 loss 4.2584 gnorm 0.800 lr 1.71e-04 111,412 tok/s (34.7m)
+[small_vanilla] step 7400/14648 tokens 242,483,200 loss 4.2213 gnorm 0.672 lr 1.65e-04 114,176 tok/s (35.6m)
+[small_vanilla] step 7600/14648 tokens 249,036,800 loss 3.9823 gnorm 0.694 lr 1.59e-04 114,187 tok/s (36.6m)
+[small_vanilla] step 7800/14648 tokens 255,590,400 loss 4.0706 gnorm 0.620 lr 1.53e-04 114,186 tok/s (37.5m)
+[small_vanilla] step 8000/14648 tokens 262,144,000 loss 3.9693 gnorm 0.671 lr 1.47e-04 114,173 tok/s (38.5m)
+[small_vanilla] step 8000 tokens 262,144,000 VAL loss 4.1717 ppl 64.83
+[small_vanilla] step 8200/14648 tokens 268,697,600 loss 4.2099 gnorm 0.663 lr 1.42e-04 111,422 tok/s (39.5m)
+[small_vanilla] step 8400/14648 tokens 275,251,200 loss 4.1058 gnorm 0.617 lr 1.36e-04 114,170 tok/s (40.4m)
+[small_vanilla] step 8600/14648 tokens 281,804,800 loss 4.1072 gnorm 0.892 lr 1.30e-04 114,190 tok/s (41.4m)
+[small_vanilla] step 8800/14648 tokens 288,358,400 loss 4.1914 gnorm 0.703 lr 1.25e-04 114,167 tok/s (42.3m)
+[small_vanilla] step 9000/14648 tokens 294,912,000 loss 3.9652 gnorm 0.721 lr 1.19e-04 114,171 tok/s (43.3m)
+[small_vanilla] step 9000 tokens 294,912,000 VAL loss 4.1388 ppl 62.72
+[small_vanilla] step 9200/14648 tokens 301,465,600 loss 4.0330 gnorm 0.624 lr 1.14e-04 111,381 tok/s (44.3m)
+[small_vanilla] step 9400/14648 tokens 308,019,200 loss 4.1936 gnorm 0.708 lr 1.08e-04 114,143 tok/s (45.2m)
+[small_vanilla] step 9600/14648 tokens 314,572,800 loss 3.9138 gnorm 0.701 lr 1.03e-04 114,126 tok/s (46.2m)
+[small_vanilla] step 9800/14648 tokens 321,126,400 loss 4.1841 gnorm 0.707 lr 9.79e-05 114,145 tok/s (47.1m)
+[small_vanilla] step 10000/14648 tokens 327,680,000 loss 3.7902 gnorm 0.717 lr 9.28e-05 114,155 tok/s (48.1m)
+[small_vanilla] step 10000 tokens 327,680,000 VAL loss 4.1061 ppl 60.71
+[small_vanilla] step 10200/14648 tokens 334,233,600 loss 4.1149 gnorm 0.716 lr 8.80e-05 111,377 tok/s (49.1m)
+[small_vanilla] saved T0 @ 336,003,072 tokens -> /work/mingze/Posthoc_differential_memory/out_smalllm_20260814/small_vanilla_T0.pt
+[small_vanilla] T0 sha256 = b9399955b8551413dedbfbebdfbb4c79a72d67e485958da74313c4ab3176c509
+[small_vanilla] step 10400/14648 tokens 340,787,200 loss 4.0017 gnorm 0.654 lr 8.32e-05 112,727 tok/s (50.1m)
+[small_vanilla] step 10600/14648 tokens 347,340,800 loss 4.1355 gnorm 0.674 lr 7.87e-05 114,076 tok/s (51.0m)
+[small_vanilla] step 10800/14648 tokens 353,894,400 loss 4.1522 gnorm 0.784 lr 7.43e-05 114,135 tok/s (52.0m)
+[small_vanilla] step 11000/14648 tokens 360,448,000 loss 3.9817 gnorm 0.669 lr 7.00e-05 114,149 tok/s (52.9m)
+[small_vanilla] step 11000 tokens 360,448,000 VAL loss 4.0835 ppl 59.35
+[small_vanilla] step 11200/14648 tokens 367,001,600 loss 4.0820 gnorm 0.658 lr 6.59e-05 111,334 tok/s (53.9m)
+[small_vanilla] step 11400/14648 tokens 373,555,200 loss 4.2717 gnorm 0.705 lr 6.21e-05 114,082 tok/s (54.9m)
+[small_vanilla] step 11600/14648 tokens 380,108,800 loss 3.9456 gnorm 0.696 lr 5.84e-05 113,976 tok/s (55.8m)
+[small_vanilla] step 11800/14648 tokens 386,662,400 loss 4.1734 gnorm 1.041 lr 5.49e-05 113,996 tok/s (56.8m)
+[small_vanilla] step 12000/14648 tokens 393,216,000 loss 4.4400 gnorm 0.736 lr 5.16e-05 114,087 tok/s (57.7m)
+[small_vanilla] step 12000 tokens 393,216,000 VAL loss 4.0641 ppl 58.21
+[small_vanilla] step 12200/14648 tokens 399,769,600 loss 4.0142 gnorm 0.676 lr 4.85e-05 111,274 tok/s (58.7m)
+[small_vanilla] step 12400/14648 tokens 406,323,200 loss 3.9971 gnorm 0.730 lr 4.57e-05 113,960 tok/s (59.7m)
+[small_vanilla] step 12600/14648 tokens 412,876,800 loss 3.7455 gnorm 0.715 lr 4.31e-05 113,979 tok/s (60.6m)
+[small_vanilla] step 12800/14648 tokens 419,430,400 loss 3.9618 gnorm 0.900 lr 4.07e-05 113,967 tok/s (61.6m)
+[small_vanilla] step 13000/14648 tokens 425,984,000 loss 3.8412 gnorm 0.930 lr 3.85e-05 113,983 tok/s (62.6m)
+[small_vanilla] step 13000 tokens 425,984,000 VAL loss 4.0517 ppl 57.49
+[small_vanilla] step 13200/14648 tokens 432,537,600 loss 3.9900 gnorm 0.826 lr 3.66e-05 111,362 tok/s (63.5m)
+[small_vanilla] step 13400/14648 tokens 439,091,200 loss 3.9892 gnorm 0.705 lr 3.49e-05 114,139 tok/s (64.5m)
+[small_vanilla] step 13600/14648 tokens 445,644,800 loss 3.9647 gnorm 0.833 lr 3.35e-05 114,160 tok/s (65.4m)
+[small_vanilla] step 13800/14648 tokens 452,198,400 loss 3.6353 gnorm 0.786 lr 3.23e-05 114,154 tok/s (66.4m)
+[small_vanilla] step 14000/14648 tokens 458,752,000 loss 4.0903 gnorm 0.728 lr 3.13e-05 114,156 tok/s (67.4m)
+[small_vanilla] step 14000 tokens 458,752,000 VAL loss 4.0452 ppl 57.12
+[small_vanilla] step 14200/14648 tokens 465,305,600 loss 3.9696 gnorm 0.737 lr 3.06e-05 111,379 tok/s (68.3m)
+[small_vanilla] step 14400/14648 tokens 471,859,200 loss 4.0349 gnorm 0.739 lr 3.02e-05 114,159 tok/s (69.3m)
+[small_vanilla] step 14600/14648 tokens 478,412,800 loss 3.8205 gnorm 0.721 lr 3.00e-05 114,160 tok/s (70.3m)
+[small_vanilla] FINAL val_loss=4.0307 ppl=56.30 tokens=479,985,664 in 70.53m -> /work/mingze/Posthoc_differential_memory/out_smalllm_20260814/small_vanilla.json

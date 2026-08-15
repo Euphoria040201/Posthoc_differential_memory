@@ -138,6 +138,9 @@ def build_parser() -> argparse.ArgumentParser:
                     help="fixed gamma in O~ = O+ + gamma*(O+ - O-)")
     ap.add_argument("--diff-dynamic-gate", type=str2bool, default=False,
                     help="Stage B only: gamma_{t,h} = 2*sigmoid(gate(R_t))")
+    ap.add_argument("--lora-rank", type=int, default=58,
+                    help="r=58 on q,k,v,o x 12 layers = 14,254,080 params, "
+                         "+0.69%% vs the 14,155,776 budget")
     ap.add_argument("--steer-value-source", default="main_v",
                     choices=["trainable", "main_v"])
     ap.add_argument("--steer-window", type=int, default=256)
@@ -285,9 +288,34 @@ def main() -> None:
               f"gamma={args.diff_gamma} dyn={args.diff_dynamic_gate}) "
               f"trainable={n_tr:,}", flush=True)
 
+    lora_cfg = None
+    if args.variant == "lora":
+        from peft import LoraConfig, get_peft_model
+        lora_layers = [int(x) for x in args.steer_layers.split(",") if x.strip()]
+        targets = [f"model.layers.{i}.self_attn.{p}"
+                   for i in lora_layers for p in ("q_proj", "k_proj", "v_proj", "o_proj")]
+        lora_cfg = {"rank": args.lora_rank, "alpha": args.lora_rank * 2,
+                    "layers": lora_layers,
+                    "targets": ["q_proj", "k_proj", "v_proj", "o_proj"]}
+        model = get_peft_model(model, LoraConfig(
+            r=args.lora_rank, lora_alpha=args.lora_rank * 2, lora_dropout=0.0,
+            bias="none", task_type="CAUSAL_LM", target_modules=targets))
+        n_tr = sum(p.numel() for p in model.parameters() if p.requires_grad)
+        print(f"[{args.tag}] LoRA r={args.lora_rank} on {len(lora_layers)} layers "
+              f"x q,k,v,o -> trainable={n_tr:,} "
+              f"({100*(n_tr-14155776)/14155776:+.2f}% vs 14,155,776)", flush=True)
+
     plan = load_head_plan(args.head_plan) if args.head_plan else None
     report = attach_dex(model, cfg, plan=plan)
     trainable_names = set_trainable(model, cfg)
+    if args.variant == "lora":
+        # set_trainable() knows nothing about PEFT and would freeze the adapters,
+        # producing a silent base-parity run -- the same failure mode diff_split
+        # hit.  Re-assert the LoRA trainable set and check it is non-empty.
+        for n, p in model.named_parameters():
+            p.requires_grad_("lora_" in n)
+        trainable_names = [n for n, p in model.named_parameters() if p.requires_grad]
+        assert trainable_names, "LoRA adapters ended up frozen"
     if args.variant == "diff_split":
         # set_trainable() only knows about DEX adapter / attention params and would
         # leave EVERYTHING frozen for this variant, silently producing a run whose
@@ -355,11 +383,17 @@ def main() -> None:
         adapter_params = [p for n, p in model.named_parameters()
                           if p.requires_grad and is_dex_param_name(n)]
         from deltamem.core.diff_split import is_diff_param_name as _isdiff
+        # LoRA adapters are randomly initialised like the sidecar/split, so they
+        # belong in the 5e-4 group; leaving them in the 2e-5 "pretrained weights"
+        # group would handicap the PEFT control against the arms it must rebut.
+        _islora = lambda n: "lora_" in n  # noqa: E731
         steer_params = [p for n, p in model.named_parameters()
-                        if p.requires_grad and (is_steer_param_name(n) or _isdiff(n))]
+                        if p.requires_grad
+                        and (is_steer_param_name(n) or _isdiff(n) or _islora(n))]
         attn_params = [p for n, p in model.named_parameters()
                        if p.requires_grad and not is_dex_param_name(n)
-                       and not is_steer_param_name(n) and not _isdiff(n)]
+                       and not is_steer_param_name(n) and not _isdiff(n)
+                       and not _islora(n)]
         a_lr = args.lr if args.adapter_lr < 0 else args.adapter_lr
         if attn_params:
             groups.append({"params": attn_params, "lr": args.lr, "peak_lr": args.lr})

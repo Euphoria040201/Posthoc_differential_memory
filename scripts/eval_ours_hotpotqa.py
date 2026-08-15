@@ -29,6 +29,7 @@ from deltamem.core.prefix_steer import (
     set_write_freeze, clear_frozen_memory, set_gate_off, set_window_only,
 )
 from deltamem.core.global_prefix import SEG_CTX, SEG_ANS
+from deltamem.core.diff_split import set_diff_enabled as _set_diff_enabled
 
 
 def get_dtype(n):
@@ -37,6 +38,28 @@ def get_dtype(n):
 
 def load_ours(model, ckpt_path, steer_gain_override=None, pool_override=None):
     ck = torch.load(ckpt_path, map_location="cpu")
+    if isinstance(ck, dict) and "diff_config" in ck and "state" in ck:
+        # post-hoc differential head split: a different module family than the
+        # prefix sidecar, so it is attached and loaded through its own helpers.
+        from deltamem.core.diff_split import (
+            attach_diff_split, freeze_backbone_keep_diff)
+        dc = ck["diff_config"]
+        attach_diff_split(model, tuple(dc["layers"]), read_dim=dc["read_dim"],
+                          window=dc["window"], gamma=dc["gamma"],
+                          dynamic_gate=dc["dynamic_gate"])
+        freeze_backbone_keep_diff(model)
+        missing, unexpected = model.load_state_dict(ck["state"], strict=False)
+        assert not unexpected, unexpected[:5]
+        loaded = [k for k in ck["state"] if k in dict(model.named_parameters())]
+        assert len(loaded) == len(ck["state"]), (len(loaded), len(ck["state"]))
+        print(f"[ours] loaded {len(ck['state'])} diff-split tensors; cfg={dc}",
+              flush=True)
+        # The split has P=0 and no WRITE path at all, so the prefix-sidecar
+        # branches downstream (write pass, pooling) must all resolve to "off".
+        from types import SimpleNamespace
+        return SimpleNamespace(prefix_write=False, write_ctx_only=False,
+                               num_prefix_tokens=0, history_pool_mode="none",
+                               diff_config=dc)
     if not isinstance(ck, dict) or "cfg" not in ck or "state" not in ck:
         raise ValueError("prefix checkpoint must contain cfg and state mappings")
     cfg = restore_prefix_steer_config(
@@ -197,6 +220,11 @@ def main():
             #                    this is a WHOLE-READ-branch ablation, NOT a prefix ablation.
             #                    (Any past "ours_zp = prefix ablation" claim is really this.)
             set_steer_enabled(model, c != "base")
+            # set_steer_enabled() only reaches PrefixMemSteerAttention.  A
+            # diff_split checkpoint installs a DIFFERENT module family, which it
+            # leaves untouched -- so without this the "base" condition silently
+            # re-runs the split model and reports it as the baseline.
+            _set_diff_enabled(model, c != "base")
             set_steer_zero_prefix(model, c == "ours_zero_read")
             set_window_only(model, c == "ours_window_only")
             clear_frozen_memory(model)

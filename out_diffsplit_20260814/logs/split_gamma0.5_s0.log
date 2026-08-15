@@ -1,0 +1,37 @@
+Loading weights:   0%|          | 0/398 [00:00<?, ?it/s]Loading weights: 100%|██████████| 398/398 [00:00<00:00, 10284.21it/s]
+[split_gamma0.5_s0] diff-split on 12 layers (read_dim=128 w=256 gamma=0.5 dyn=False) trainable=14,155,776
+[split_gamma0.5_s0] diff-split trainable after set_trainable: 14,155,776 in 36 tensors
+[split_gamma0.5_s0] variant=diff_split sign=0.0 adapter=False train_attn=False layers=36 heads/layer=0 trainable=14,155,776 (adapter=0, attn=7,864,320, steer=6,291,456) anneal_T=78 lr=2e-05 seed=0
+Using the latest cached version of the dataset since allenai/qasper couldn't be found on the Hugging Face Hub
+Found the latest cached dataset configuration 'default' at /home/mingze/.cache/huggingface/datasets/allenai___qasper/default/0.0.0/06806e4608976fc2fac0a090ac425d5b2b29caf4 (last modified on Tue Jul 28 03:00:47 2026).
+[compose] total=935 (target_n=935) yes/no=28 (3.0%) ; pool yn=282 other=1711
+Using the latest cached version of the dataset since allenai/qasper couldn't be found on the Hugging Face Hub
+Found the latest cached dataset configuration 'default' at /home/mingze/.cache/huggingface/datasets/allenai___qasper/default/0.0.0/06806e4608976fc2fac0a090ac425d5b2b29caf4 (last modified on Tue Jul 28 03:00:47 2026).
+[split_gamma0.5_s0] train=935 val=187
+[split_gamma0.5_s0] step 1/156 loss 1.4792 gnorm 0.356 lr 5.00e-04 (0.1m)
+[split_gamma0.5_s0] step 9/156 loss 1.9577 gnorm 0.635 lr 5.00e-04 (1.1m)
+[split_gamma0.5_s0] step 17/156 loss 1.8178 gnorm 0.404 lr 5.00e-04 (2.1m)
+[split_gamma0.5_s0] step 25/156 loss 1.9454 gnorm 0.260 lr 5.00e-04 (3.2m)
+[split_gamma0.5_s0] step 33/156 loss 1.4761 gnorm 0.340 lr 5.00e-04 (4.2m)
+[split_gamma0.5_s0] step 41/156 loss 1.3681 gnorm 0.952 lr 5.00e-04 (5.2m)
+[split_gamma0.5_s0] step 49/156 loss 1.3616 gnorm 0.511 lr 5.00e-04 (6.2m)
+[split_gamma0.5_s0] step 52 val_loss 0.9840
+[split_gamma0.5_s0] step 57/156 loss 1.5029 gnorm 0.353 lr 5.00e-04 (7.3m)
+[split_gamma0.5_s0] step 65/156 loss 1.2905 gnorm 0.756 lr 5.00e-04 (8.3m)
+[split_gamma0.5_s0] step 73/156 loss 1.1702 gnorm 0.313 lr 5.00e-04 (9.3m)
+[split_gamma0.5_s0] step 81/156 loss 1.2166 gnorm 0.371 lr 5.00e-04 (10.3m)
+[split_gamma0.5_s0] step 89/156 loss 1.1799 gnorm 0.203 lr 5.00e-04 (11.3m)
+[split_gamma0.5_s0] step 97/156 loss 1.0494 gnorm 0.403 lr 5.00e-04 (12.3m)
+[split_gamma0.5_s0] step 104 val_loss 0.8908
+[split_gamma0.5_s0] step 105/156 loss 1.2234 gnorm 1.309 lr 5.00e-04 (13.4m)
+[split_gamma0.5_s0] step 113/156 loss 1.1495 gnorm 0.256 lr 5.00e-04 (14.3m)
+[split_gamma0.5_s0] step 121/156 loss 1.0581 gnorm 0.227 lr 5.00e-04 (15.4m)
+[split_gamma0.5_s0] step 129/156 loss 1.2552 gnorm 0.333 lr 5.00e-04 (16.4m)
+[split_gamma0.5_s0] step 137/156 loss 1.1363 gnorm 0.216 lr 5.00e-04 (17.3m)
+[split_gamma0.5_s0] step 145/156 loss 1.0742 gnorm 0.188 lr 5.00e-04 (18.3m)
+[split_gamma0.5_s0] step 153/156 loss 1.0759 gnorm 0.309 lr 5.00e-04 (19.3m)
+[split_gamma0.5_s0] step 156/156 loss 0.7070 gnorm 0.383 lr 5.00e-04 (19.7m)
+[split_gamma0.5_s0] step 156 val_loss 0.7740
+[split_gamma0.5_s0] FINAL val_loss=0.7740 F1=0.284 EM=0.0 n=187
+[split_gamma0.5_s0] saved 36 diff-split tensors
+[split_gamma0.5_s0] DONE in 29.5 min -> /work/mingze/Posthoc_differential_memory/out_diffsplit_20260814/split_gamma0.5_s0.json

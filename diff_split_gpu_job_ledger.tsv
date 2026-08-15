@@ -7,3 +7,19 @@ param_matched_additive_s1	4141832	gpu2	2026-08-14T21:41:54Z	DONE(rc=0) F1=0.2981
 split_local256_fixed_s2	4141831	gpu0	2026-08-14T21:43:42Z	DONE(rc=0) F1=0.2905 val_loss=0.7340	/work/mingze/Posthoc_differential_memory/out_diffsplit_20260814/logs/split_local256_fixed_s2.log
 split_lr1.5e-4_s0	66593	gpu0	2026-08-14T21:50:49Z	RUNNING	/work/mingze/Posthoc_differential_memory/out_diffsplit_20260814/logs/split_lr1.5e-4_s0.log
 split_lr1.5e-3_s0	66594	gpu1	2026-08-14T21:50:49Z	RUNNING	/work/mingze/Posthoc_differential_memory/out_diffsplit_20260814/logs/split_lr1.5e-3_s0.log
+split_lr1.5e-3_s0	66594	gpu1	2026-08-14T22:20:23Z	DONE(rc=0) F1=0.2803 val_loss=0.7600	/work/mingze/Posthoc_differential_memory/out_diffsplit_20260814/logs/split_lr1.5e-3_s0.log
+split_gamma0.5_s0	66594	gpu1	2026-08-14T22:20:23Z	RUNNING	/work/mingze/Posthoc_differential_memory/out_diffsplit_20260814/logs/split_gamma0.5_s0.log
+split_lr1.5e-4_s0	66593	gpu0	2026-08-14T22:20:27Z	DONE(rc=0) F1=0.2622 val_loss=0.8461	/work/mingze/Posthoc_differential_memory/out_diffsplit_20260814/logs/split_lr1.5e-4_s0.log
+split_w64_s0	66593	gpu0	2026-08-14T22:20:27Z	RUNNING	/work/mingze/Posthoc_differential_memory/out_diffsplit_20260814/logs/split_w64_s0.log
+split_gamma0.5_s0	66594	gpu1	2026-08-14T22:49:56Z	DONE(rc=0) F1=0.2840 val_loss=0.7740	/work/mingze/Posthoc_differential_memory/out_diffsplit_20260814/logs/split_gamma0.5_s0.log
+split_w64_s0	66593	gpu0	2026-08-14T22:50:07Z	DONE(rc=0) F1=0.2930 val_loss=0.7327	/work/mingze/Posthoc_differential_memory/out_diffsplit_20260814/logs/split_w64_s0.log
+smoke_lora	194164	gpu0	2026-08-14T22:52:50Z	RUNNING	/work/mingze/Posthoc_differential_memory/out_diffsplit_20260814/logs/smoke_lora.log
+param_matched_lora_s1	194165	gpu1	2026-08-14T22:52:50Z	RUNNING	/work/mingze/Posthoc_differential_memory/out_diffsplit_20260814/logs/param_matched_lora_s1.log
+smoke_lora	194164	gpu0	2026-08-14T22:54:10Z	DONE(rc=0) F1=0.4982 val_loss=0.8193	/work/mingze/Posthoc_differential_memory/out_diffsplit_20260814/logs/smoke_lora.log
+param_matched_lora_s0	194164	gpu0	2026-08-14T22:54:10Z	RUNNING	/work/mingze/Posthoc_differential_memory/out_diffsplit_20260814/logs/param_matched_lora_s0.log
+param_matched_lora_s1	194165	gpu1	2026-08-14T23:19:31Z	DONE(rc=0) F1=0.2960 val_loss=0.6925	/work/mingze/Posthoc_differential_memory/out_diffsplit_20260814/logs/param_matched_lora_s1.log
+split_gamma0.25_s0	194165	gpu1	2026-08-14T23:19:31Z	RUNNING	/work/mingze/Posthoc_differential_memory/out_diffsplit_20260814/logs/split_gamma0.25_s0.log
+param_matched_lora_s0	194164	gpu0	2026-08-14T23:20:57Z	DONE(rc=0) F1=0.2876 val_loss=0.9426	/work/mingze/Posthoc_differential_memory/out_diffsplit_20260814/logs/param_matched_lora_s0.log
+param_matched_lora_s2	194164	gpu0	2026-08-14T23:20:57Z	RUNNING	/work/mingze/Posthoc_differential_memory/out_diffsplit_20260814/logs/param_matched_lora_s2.log
+param_matched_lora_s2	194164	gpu0	2026-08-14T23:47:41Z	DONE(rc=0) F1=0.2887 val_loss=0.7722	/work/mingze/Posthoc_differential_memory/out_diffsplit_20260814/logs/param_matched_lora_s2.log
+split_gamma0.25_s0	194165	gpu1	2026-08-14T23:49:00Z	DONE(rc=0) F1=0.2639 val_loss=0.9128	/work/mingze/Posthoc_differential_memory/out_diffsplit_20260814/logs/split_gamma0.25_s0.log

@@ -1,2 +1,3 @@
-split_lr1.5e-4_s0	--variant diff_split --diff-read-dim 128 --diff-gamma 1.0 --diff-window 256 --seed 0 --steer-lr 1.5e-4
-split_w64_s0	--variant diff_split --diff-read-dim 128 --diff-gamma 1.0 --diff-window 64 --seed 0
+smoke_lora	--variant lora --lora-rank 58 --seed 0 --steps 4 --val-every 1000 --eval-examples 8
+param_matched_lora_s0	--variant lora --lora-rank 58 --seed 0
+param_matched_lora_s2	--variant lora --lora-rank 58 --seed 2

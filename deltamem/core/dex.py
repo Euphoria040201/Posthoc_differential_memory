@@ -74,6 +74,7 @@ VARIANTS = (
     "adapter_only",
     "swa_steer",
     "diff_split",
+    "lora",
 )
 
 # ``ungated_adapter`` is NOT a capacity-matched control for DEX: it differs in
@@ -175,6 +176,12 @@ class DexConfig:
             # No DEX adapter and no prefix_steer sidecar: the split module is attached
             # separately by the training entry, so the forward is bit-identical to
             # ``base`` until delta_q leaves zero.
+            resolved = replace(self, adapter_enabled=False, train_attn=False, sign=0.0)
+        elif self.variant == "lora":
+            # frozen backbone + standard PEFT LoRA on the same 12 layers; adapters
+            # are attached by the training entry.  B is zero-init, so the forward is
+            # bit-identical to ``base`` until the first update, exactly like the
+            # split and the additive sidecar.
             resolved = replace(self, adapter_enabled=False, train_attn=False, sign=0.0)
         else:  # pragma: no cover - guarded above
             raise AssertionError("unreachable")

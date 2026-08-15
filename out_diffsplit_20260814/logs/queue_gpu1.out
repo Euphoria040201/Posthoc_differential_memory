@@ -1,1 +1,5 @@
-[gpu1] START split_lr1.5e-3_s0
+[gpu1] START param_matched_lora_s1
+[gpu1] DONE param_matched_lora_s1 rc=0 F1=0.2960 val_loss=0.6925
+[gpu1] START split_gamma0.25_s0
+[gpu1] DONE split_gamma0.25_s0 rc=0 F1=0.2639 val_loss=0.9128
+[gpu1] QUEUE EMPTY

@@ -1,0 +1,13 @@
+Loading weights:   0%|          | 0/398 [00:00<?, ?it/s]Loading weights: 100%|██████████| 398/398 [00:00<00:00, 10439.33it/s]
+[smoke_lora] LoRA r=58 on 12 layers x q,k,v,o -> trainable=14,254,080 (+0.69% vs 14,155,776)
+[smoke_lora] variant=lora sign=0.0 adapter=False train_attn=False layers=36 heads/layer=0 trainable=14,254,080 (adapter=0, attn=14,254,080, steer=0) anneal_T=2 lr=2e-05 seed=0
+Using the latest cached version of the dataset since allenai/qasper couldn't be found on the Hugging Face Hub
+Found the latest cached dataset configuration 'default' at /home/mingze/.cache/huggingface/datasets/allenai___qasper/default/0.0.0/06806e4608976fc2fac0a090ac425d5b2b29caf4 (last modified on Tue Jul 28 03:00:47 2026).
+[compose] total=935 (target_n=935) yes/no=28 (3.0%) ; pool yn=282 other=1711
+Using the latest cached version of the dataset since allenai/qasper couldn't be found on the Hugging Face Hub
+Found the latest cached dataset configuration 'default' at /home/mingze/.cache/huggingface/datasets/allenai___qasper/default/0.0.0/06806e4608976fc2fac0a090ac425d5b2b29caf4 (last modified on Tue Jul 28 03:00:47 2026).
+[smoke_lora] train=935 val=187
+[smoke_lora] step 1/4 loss 1.4792 gnorm 3.130 lr 5.00e-04 (0.1m)
+[smoke_lora] step 4/4 loss 1.4322 gnorm 2.609 lr 5.00e-04 (0.5m)
+[smoke_lora] FINAL val_loss=0.8193 F1=0.4982 EM=0.0 n=8
+[smoke_lora] DONE in 1.2 min -> /work/mingze/Posthoc_differential_memory/out_diffsplit_20260814/smoke_lora.json

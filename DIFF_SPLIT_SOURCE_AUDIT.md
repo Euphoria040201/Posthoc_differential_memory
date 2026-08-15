@@ -199,3 +199,38 @@ audited official reference. Only data handling and the optimisation loop are new
 5. **151k-vocab OOM** — a materialised fp32 logits tensor at batch 32 × seq 1024
    is ~20 GB, larger than the rest of training combined. Switched to HF's fused
    chunked cross-entropy.
+
+### 6.5 Additional defects (second half of session)
+
+7. **HotpotQA "base" condition was not base for diff_split checkpoints.**
+   `scripts/eval_ours_hotpotqa.py` switches conditions with
+   `set_steer_enabled(model, c != "base")`, which only reaches
+   `PrefixMemSteerAttention`. A `diff_split` checkpoint installs a different
+   module family that this call leaves untouched, so the "base" cell silently
+   re-ran the split model and would have been reported as the baseline. Detected
+   because base and ours agreed to four decimals across 300 examples. Fixed by
+   also calling `set_diff_enabled`; the two arms' base predictions are now
+   bit-identical, which is the standing check. The bad run is retained as
+   `hotpot_split_s0_INVALID_base_was_split.json` rather than deleted.
+8. **LoRA hit the same `set_trainable()` freeze trap as diff_split** — PEFT
+   adapters would have been frozen, producing a silent base-parity run. Asserted.
+
+### 6.6 Missing official evaluator
+
+`scripts/official_score.py` expects
+`/work/mingze/official_evaluators/hotpot/hotpot_evaluate_v1.py` (SHA
+`3635853403a8735609ee997664e1528f4480762a`). **That directory does not exist on
+this machine**, so the HotpotQA numbers in this session were produced with the
+in-repo metric. The previous session recorded that the two agree to four
+decimals; that equivalence could NOT be re-verified here. HotpotQA is therefore
+reported as a screening subset with an in-repo scorer, not as an official result.
+
+### 6.7 Not run, and why
+
+| item | status |
+|---|---|
+| LoCoMo official (`--max-context-tokens 32000`) | **not run** — out of time |
+| RULER 4K/8K | **not run** — out of time |
+| dynamic gate (Stage B) | **not run** — pre-registered as gated on the fixed-gamma version working, which it did not |
+| chain A 5 seeds | 3 seeds only |
+| chain B multi-seed | 1 seed per arm |

@@ -1,1 +1,7 @@
-[gpu0] START split_lr1.5e-4_s0
+[gpu0] START smoke_lora
+[gpu0] DONE smoke_lora rc=0 F1=0.4982 val_loss=0.8193
+[gpu0] START param_matched_lora_s0
+[gpu0] DONE param_matched_lora_s0 rc=0 F1=0.2876 val_loss=0.9426
+[gpu0] START param_matched_lora_s2
+[gpu0] DONE param_matched_lora_s2 rc=0 F1=0.2887 val_loss=0.7722
+[gpu0] QUEUE EMPTY

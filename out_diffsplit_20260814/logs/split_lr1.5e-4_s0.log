@@ -32,3 +32,6 @@ Found the latest cached dataset configuration 'default' at /home/mingze/.cache/h
 [split_lr1.5e-4_s0] step 153/156 loss 1.1366 gnorm 0.499 lr 1.50e-04 (19.4m)
 [split_lr1.5e-4_s0] step 156/156 loss 0.7339 gnorm 0.689 lr 1.50e-04 (19.8m)
 [split_lr1.5e-4_s0] step 156 val_loss 0.8461
+[split_lr1.5e-4_s0] FINAL val_loss=0.8461 F1=0.2622 EM=0.0 n=187
+[split_lr1.5e-4_s0] saved 36 diff-split tensors
+[split_lr1.5e-4_s0] DONE in 29.6 min -> /work/mingze/Posthoc_differential_memory/out_diffsplit_20260814/split_lr1.5e-4_s0.json
