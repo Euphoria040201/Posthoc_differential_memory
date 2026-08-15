@@ -11,6 +11,7 @@ from transformers import AutoModelForCausalLM, AutoTokenizer
 from eval_ours_hotpotqa import load_ours
 from deltamem.core.prefix_steer import set_steer_segments, set_steer_enabled, set_mem_cache, set_window_only
 from deltamem.core.global_prefix import SEG_CTX, SEG_ANS
+from deltamem.core.diff_split import set_diff_enabled as _set_diff_enabled
 
 
 def get_dtype(n): return {"bfloat16": torch.bfloat16, "float16": torch.float16, "float32": torch.float32}[n]
@@ -42,6 +43,9 @@ def generate(model, tok, input_ids, dev, max_new, eos, steer):
     # multi-answer RULER tasks (multivalue/multiquery) and base's "colon\n\nanswer" formatting put
     # the answer AFTER a newline, so any newline-stop truncates unfairly. Generate to max_new / eos.
     set_steer_enabled(model, steer)
+    # set_steer_enabled() does not reach DiffSplitAttention; without this the
+    # base condition silently re-runs the split model as its own baseline.
+    _set_diff_enabled(model, steer)
     set_mem_cache(model, steer)
     L = input_ids.shape[1]
     set_steer_segments(model, torch.full((1, L), SEG_CTX, dtype=torch.long, device=dev),
@@ -149,7 +153,7 @@ def main():
         if (k + 1) % 20 == 0:
             m = {c: sum(v for vs in agg[c].values() for v in vs)/max(1, sum(len(vs) for vs in agg[c].values())) for c in conds}
             print(f"  {k+1}/{len(rows)}  " + " ".join(f"{c}={m[c]:.3f}" for c in conds), flush=True)
-    set_steer_enabled(model, True); set_window_only(model, False)
+    set_steer_enabled(model, True); _set_diff_enabled(model, True); set_window_only(model, False)
 
     out = {"config": args.config, "by_task": {}, "overall": {}, "records": recs}
     for c in conds:

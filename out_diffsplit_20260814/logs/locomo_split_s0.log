@@ -1,0 +1,66 @@
+Loading weights:   0%|          | 0/398 [00:00<?, ?it/s]Loading weights: 100%|██████████| 398/398 [00:00<00:00, 10768.22it/s]
+[ours] loaded 36 diff-split tensors; cfg={'layers': [0, 3, 6, 9, 12, 15, 18, 21, 24, 27, 30, 33], 'read_dim': 128, 'window': 256, 'gamma': 1.0, 'dynamic_gate': False}
+[shard 0] 1540/1540 questions
+[shard 0] 25/1540 overall={'base': 0.3457, 'ours': 0.4623}
+[shard 0] 50/1540 overall={'base': 0.3492, 'ours': 0.4282}
+[shard 0] 75/1540 overall={'base': 0.3343, 'ours': 0.4147}
+[shard 0] 100/1540 overall={'base': 0.3703, 'ours': 0.4386}
+[shard 0] 125/1540 overall={'base': 0.3898, 'ours': 0.4432}
+[shard 0] 150/1540 overall={'base': 0.3885, 'ours': 0.4393}
+[shard 0] 175/1540 overall={'base': 0.4071, 'ours': 0.4503}
+[shard 0] 200/1540 overall={'base': 0.4181, 'ours': 0.4574}
+[shard 0] 225/1540 overall={'base': 0.4051, 'ours': 0.4504}
+[shard 0] 250/1540 overall={'base': 0.4012, 'ours': 0.4482}
+[shard 0] 275/1540 overall={'base': 0.3864, 'ours': 0.4404}
+[shard 0] 300/1540 overall={'base': 0.3864, 'ours': 0.4353}
+[shard 0] 325/1540 overall={'base': 0.3989, 'ours': 0.4465}
+[shard 0] 350/1540 overall={'base': 0.4082, 'ours': 0.458}
+[shard 0] 375/1540 overall={'base': 0.411, 'ours': 0.4645}
+[shard 0] 400/1540 overall={'base': 0.399, 'ours': 0.4516}
+[shard 0] 425/1540 overall={'base': 0.394, 'ours': 0.4463}
+[shard 0] 450/1540 overall={'base': 0.3834, 'ours': 0.4362}
+[shard 0] 475/1540 overall={'base': 0.3753, 'ours': 0.4299}
+[shard 0] 500/1540 overall={'base': 0.3794, 'ours': 0.436}
+[shard 0] 525/1540 overall={'base': 0.3808, 'ours': 0.4369}
+[shard 0] 550/1540 overall={'base': 0.3854, 'ours': 0.4424}
+[shard 0] 575/1540 overall={'base': 0.3897, 'ours': 0.4435}
+[shard 0] 600/1540 overall={'base': 0.388, 'ours': 0.4409}
+[shard 0] 625/1540 overall={'base': 0.3848, 'ours': 0.438}
+[shard 0] 650/1540 overall={'base': 0.3795, 'ours': 0.4366}
+[shard 0] 675/1540 overall={'base': 0.388, 'ours': 0.4428}
+[shard 0] 700/1540 overall={'base': 0.3959, 'ours': 0.4496}
+[shard 0] 725/1540 overall={'base': 0.3967, 'ours': 0.4503}
+[shard 0] 750/1540 overall={'base': 0.3987, 'ours': 0.4535}
+[shard 0] 775/1540 overall={'base': 0.3994, 'ours': 0.4549}
+[shard 0] 800/1540 overall={'base': 0.3976, 'ours': 0.4536}
+[shard 0] 825/1540 overall={'base': 0.3958, 'ours': 0.4523}
+[shard 0] 850/1540 overall={'base': 0.404, 'ours': 0.4588}
+[shard 0] 875/1540 overall={'base': 0.4067, 'ours': 0.4595}
+[shard 0] 900/1540 overall={'base': 0.4051, 'ours': 0.457}
+[shard 0] 925/1540 overall={'base': 0.3996, 'ours': 0.4523}
+[shard 0] 950/1540 overall={'base': 0.3976, 'ours': 0.4497}
+[shard 0] 975/1540 overall={'base': 0.4004, 'ours': 0.453}
+[shard 0] 1000/1540 overall={'base': 0.4009, 'ours': 0.455}
+[shard 0] 1025/1540 overall={'base': 0.402, 'ours': 0.4589}
+[shard 0] 1050/1540 overall={'base': 0.4011, 'ours': 0.4569}
+[shard 0] 1075/1540 overall={'base': 0.4001, 'ours': 0.4535}
+[shard 0] 1100/1540 overall={'base': 0.3992, 'ours': 0.451}
+[shard 0] 1125/1540 overall={'base': 0.3979, 'ours': 0.4491}
+[shard 0] 1150/1540 overall={'base': 0.4007, 'ours': 0.4494}
+[shard 0] 1175/1540 overall={'base': 0.403, 'ours': 0.4503}
+[shard 0] 1200/1540 overall={'base': 0.4064, 'ours': 0.4517}
+[shard 0] 1225/1540 overall={'base': 0.405, 'ours': 0.452}
+[shard 0] 1250/1540 overall={'base': 0.4057, 'ours': 0.4529}
+[shard 0] 1275/1540 overall={'base': 0.4035, 'ours': 0.4502}
+[shard 0] 1300/1540 overall={'base': 0.3999, 'ours': 0.446}
+[shard 0] 1325/1540 overall={'base': 0.4032, 'ours': 0.4488}
+[shard 0] 1350/1540 overall={'base': 0.4029, 'ours': 0.4482}
+[shard 0] 1375/1540 overall={'base': 0.402, 'ours': 0.4461}
+[shard 0] 1400/1540 overall={'base': 0.4036, 'ours': 0.4462}
+[shard 0] 1425/1540 overall={'base': 0.4034, 'ours': 0.4453}
+[shard 0] 1450/1540 overall={'base': 0.4008, 'ours': 0.4432}
+[shard 0] 1475/1540 overall={'base': 0.4019, 'ours': 0.444}
+[shard 0] 1500/1540 overall={'base': 0.4035, 'ours': 0.446}
+[shard 0] 1525/1540 overall={'base': 0.4035, 'ours': 0.4454}
+[shard 0] base overall=0.4045 (n=1540)
+[shard 0] ours overall=0.4468 (n=1540)

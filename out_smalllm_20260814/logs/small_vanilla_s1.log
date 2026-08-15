@@ -1,0 +1,18 @@
+[small_vanilla_s1] arm=vanilla params={'total': 106500096, 'trainable': 106500096, 'attention': 5243904, 'ffn': 23592960, 'embedding': 77654528, 'non_embedding': 28845568} tokens/step=32,768 steps=14,648 start_tokens=0 total_tokens=480,000,000
+[small_vanilla_s1] step 1/14648 tokens 32,768 loss 12.0111 gnorm 2.958 lr 2.05e-06 0 tok/s (0.1m)
+[small_vanilla_s1] step 500/14648 tokens 16,384,000 loss 5.5196 gnorm 0.897 lr 3.00e-04 69,903 tok/s (4.0m)
+[small_vanilla_s1] step 1000/14648 tokens 32,768,000 loss 5.6437 gnorm 0.653 lr 2.98e-04 68,989 tok/s (7.9m)
+[small_vanilla_s1] step 1500/14648 tokens 49,152,000 loss 5.1304 gnorm 0.669 lr 2.94e-04 68,977 tok/s (11.9m)
+[small_vanilla_s1] step 2000/14648 tokens 65,536,000 loss 4.7947 gnorm 0.604 lr 2.89e-04 69,277 tok/s (15.8m)
+[small_vanilla_s1] step 2000 tokens 65,536,000 VAL loss 4.7876 ppl 120.01
+[small_vanilla_s1] step 2500/14648 tokens 81,920,000 loss 4.8116 gnorm 0.607 lr 2.83e-04 68,225 tok/s (19.8m)
+[small_vanilla_s1] step 3000/14648 tokens 98,304,000 loss 4.5418 gnorm 0.598 lr 2.75e-04 69,435 tok/s (23.7m)
+[small_vanilla_s1] step 3500/14648 tokens 114,688,000 loss 4.5953 gnorm 0.595 lr 2.66e-04 68,740 tok/s (27.7m)
+[small_vanilla_s1] step 4000/14648 tokens 131,072,000 loss 4.5093 gnorm 0.650 lr 2.56e-04 69,050 tok/s (31.7m)
+[small_vanilla_s1] step 4000 tokens 131,072,000 VAL loss 4.4198 ppl 83.08
+[small_vanilla_s1] step 4500/14648 tokens 147,456,000 loss 4.2172 gnorm 0.686 lr 2.44e-04 68,233 tok/s (35.7m)
+[small_vanilla_s1] step 5000/14648 tokens 163,840,000 loss 4.2907 gnorm 0.594 lr 2.32e-04 68,769 tok/s (39.6m)
+[small_vanilla_s1] step 5500/14648 tokens 180,224,000 loss 4.0611 gnorm 0.625 lr 2.19e-04 68,994 tok/s (43.6m)
+[small_vanilla_s1] step 6000/14648 tokens 196,608,000 loss 4.3271 gnorm 0.723 lr 2.05e-04 68,777 tok/s (47.6m)
+[small_vanilla_s1] step 6000 tokens 196,608,000 VAL loss 4.2556 ppl 70.50
+[small_vanilla_s1] step 6500/14648 tokens 212,992,000 loss 4.3395 gnorm 0.579 lr 1.91e-04 69,022 tok/s (51.5m)

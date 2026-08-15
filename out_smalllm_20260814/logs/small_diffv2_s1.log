@@ -1,0 +1,17 @@
+[small_diffv2_s1] arm=diffv2 params={'total': 108630016, 'trainable': 108630016, 'attention': 7373824, 'ffn': 23592960, 'embedding': 77654528, 'non_embedding': 30975488} tokens/step=32,768 steps=14,648 start_tokens=0 total_tokens=480,000,000
+[small_diffv2_s1] step 1/14648 tokens 32,768 loss 12.0372 gnorm 2.064 lr 2.05e-06 0 tok/s (0.1m)
+[small_diffv2_s1] step 500/14648 tokens 16,384,000 loss 5.4772 gnorm 0.745 lr 3.00e-04 63,031 tok/s (4.4m)
+[small_diffv2_s1] step 1000/14648 tokens 32,768,000 loss 5.6062 gnorm 0.579 lr 2.98e-04 63,564 tok/s (8.7m)
+[small_diffv2_s1] step 1500/14648 tokens 49,152,000 loss 5.1153 gnorm 0.579 lr 2.94e-04 63,610 tok/s (13.0m)
+[small_diffv2_s1] step 2000/14648 tokens 65,536,000 loss 4.7806 gnorm 0.524 lr 2.89e-04 62,559 tok/s (17.3m)
+[small_diffv2_s1] step 2000 tokens 65,536,000 VAL loss 4.7862 ppl 119.85
+[small_diffv2_s1] step 2500/14648 tokens 81,920,000 loss 4.8104 gnorm 0.517 lr 2.83e-04 60,615 tok/s (21.8m)
+[small_diffv2_s1] step 3000/14648 tokens 98,304,000 loss 4.5512 gnorm 0.523 lr 2.75e-04 61,415 tok/s (26.3m)
+[small_diffv2_s1] step 3500/14648 tokens 114,688,000 loss 4.6028 gnorm 0.504 lr 2.66e-04 61,414 tok/s (30.7m)
+[small_diffv2_s1] step 4000/14648 tokens 131,072,000 loss 4.5181 gnorm 0.586 lr 2.56e-04 61,428 tok/s (35.2m)
+[small_diffv2_s1] step 4000 tokens 131,072,000 VAL loss 4.4243 ppl 83.45
+[small_diffv2_s1] step 4500/14648 tokens 147,456,000 loss 4.2165 gnorm 0.612 lr 2.44e-04 62,888 tok/s (39.5m)
+[small_diffv2_s1] step 5000/14648 tokens 163,840,000 loss 4.2882 gnorm 0.528 lr 2.32e-04 63,351 tok/s (43.8m)
+[small_diffv2_s1] step 5500/14648 tokens 180,224,000 loss 4.0557 gnorm 0.528 lr 2.19e-04 63,384 tok/s (48.1m)
+[small_diffv2_s1] step 6000/14648 tokens 196,608,000 loss 4.3252 gnorm 0.573 lr 2.05e-04 62,945 tok/s (52.5m)
+[small_diffv2_s1] step 6000 tokens 196,608,000 VAL loss 4.2562 ppl 70.54

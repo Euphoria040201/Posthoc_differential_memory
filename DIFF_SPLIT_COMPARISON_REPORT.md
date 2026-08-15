@@ -107,6 +107,38 @@ Divergence grows with depth (layer 0 = 0.0036 → layer 33 = 0.766). Shuffling t
 window destroys 61% of it, so the reader uses window content and order — it has
 not collapsed to a constant bias.
 
+### LoCoMo (official protocol, full 1540 questions, `--max-context-tokens 32000`)
+
+Scored with `deltamem/eval/locomo_protocol.py::score_locomo_prediction` on the
+canonicalised predictions; an independent re-score reproduces the evaluator's own
+`by_cat` figure exactly (0.4045, match to 1e-9). Both runs' base predictions are
+bit-identical, which is the check that the condition switch works.
+
+| arm | F1 | vs base | 95% CI | p |
+|---|---:|---:|---|---:|
+| base | 0.4045 | — | — | — |
+| split | 0.4468 | **+0.0423** | [+0.0319, +0.0530] | <0.0001 |
+| additive | 0.4780 | **+0.0735** | [+0.0595, +0.0875] | <0.0001 |
+
+**split − additive = −0.0312, 95% CI [−0.0429, −0.0199], p<0.0001.**
+
+This is the **only comparison in the whole study whose confidence interval
+excludes zero**, and it runs *against* the differential split. It is consistent
+across all four question categories:
+
+| category | n | base | split | additive |
+|---|---:|---:|---:|---:|
+| 1 (multi-hop) | 282 | 0.3799 | 0.4801 | **0.5089** |
+| 2 (temporal) | 321 | 0.3206 | 0.3424 | **0.3791** |
+| 3 (open-domain) | 96 | 0.1073 | 0.1038 | **0.1231** |
+| 4 (single-hop) | 841 | 0.4787 | 0.5146 | **0.5459** |
+
+So LoCoMo upgrades the finding from "no evidence of a differential-specific
+benefit" to "significant evidence of a differential-specific *disadvantage*"
+against the parameter-matched additive sidecar. Caveat: questions are nested
+within 10 conversations and this bootstrap resamples questions independently, so
+a conversation-clustered interval would be wider than the one quoted.
+
 ### HotpotQA zero-shot transfer (300-example screening subset, seed 0)
 
 | arm | F1 | vs base | 95% CI | p | predictions changed |
@@ -181,10 +213,12 @@ or any percentage would be division on noise.
 4. **Beats attention-only / additive / LoRA?** **No.** −0.0018 vs additive
    (p=0.85), +0.0032 vs LoRA (p=0.77), +0.0007 vs attn_only (p=0.95) — every CI
    spans zero and every gap is smaller than seed noise.
-5. **Across Qasper / HotpotQA / LoCoMo / RULER?** Qasper and a HotpotQA screening
-   subset only. On HotpotQA the split is −0.0111 below base and −0.0186 below
-   additive. **LoCoMo and RULER were not run** — out of time, and the official
-   HotpotQA scorer is missing from this machine.
+5. **Across Qasper / HotpotQA / LoCoMo / RULER?** Qasper, a HotpotQA screening
+   subset, and **full LoCoMo (1540 questions)**. The split beats base on Qasper
+   (+0.0496) and LoCoMo (+0.0423) and is level on HotpotQA (−0.0111, n.s.). It
+   loses to the additive control on all three, and on LoCoMo that loss is
+   **significant**: −0.0312, CI [−0.0429, −0.0199], p<0.0001. **RULER was not
+   run** — its generated data is absent from this machine.
 6. **Small DIFF V2 > small vanilla?** Only by **0.0041 nats**, for +40.6%
    attention parameters and +10.9% wall time. Effectively a tie at this scale.
 7. **How much of the from-scratch gain does ours recover?** **N/A** — see §4.
@@ -197,10 +231,12 @@ or any percentage would be division on noise.
 10. **Worth continuing?** On this evidence, **not in this form.** The engineering
     is sound and the KV-cache-free property is genuinely attractive, but across
     two independent evidence chains, four parameter-matched controls, three seeds,
-    an exhausted rescue tree and one transfer benchmark, the differential split
-    never separates from simply spending the same parameters additively. The
-    honest reading is that on an already-trained model the gain comes from the
-    added capacity, not from the differential structure.
+    an exhausted rescue tree and two transfer benchmarks, the differential split
+    never beats simply spending the same parameters additively — and on LoCoMo it
+    is significantly *worse*. The honest reading is that on an already-trained
+    model the gain comes from the added capacity, not from the differential
+    structure, and that forcing the correction through a second attention pass
+    costs something relative to applying it directly.
 
 ## 6. Defects found and fixed this session
 

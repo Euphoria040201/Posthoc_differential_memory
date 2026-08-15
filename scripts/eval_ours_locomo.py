@@ -28,6 +28,7 @@ from deltamem.core.prefix_steer import (
     set_steer_segments, set_steer_enabled, set_mem_cache, set_window_only,
 )
 from deltamem.core.global_prefix import SEG_CTX, SEG_ANS
+from deltamem.core.diff_split import set_diff_enabled as _set_diff_enabled
 
 
 def get_dtype(n):
@@ -36,6 +37,11 @@ def get_dtype(n):
 
 def load_ours(model, ckpt_path):
     ck = torch.load(ckpt_path, map_location="cpu")
+    if isinstance(ck, dict) and "diff_config" in ck:
+        # diff_split checkpoints are a different module family; reuse the single
+        # loader in eval_ours_hotpotqa so all three evaluators stay in step.
+        from eval_ours_hotpotqa import load_ours as _load_any
+        return _load_any(model, ckpt_path)
     if not isinstance(ck, dict) or "cfg" not in ck or "state" not in ck:
         raise ValueError("prefix checkpoint must contain cfg and state mappings")
     cfg = restore_prefix_steer_config(ck["cfg"])
@@ -53,6 +59,9 @@ def load_ours(model, ckpt_path):
 def gen_ours(model, tok, input_ids, dev, max_new, eos, steer):
     # KV-cached generation: prefill once, then decode with cache (backbone + memory).
     set_steer_enabled(model, steer)
+    # set_steer_enabled() does not reach DiffSplitAttention; without this the
+    # base condition silently re-runs the split model as its own baseline.
+    _set_diff_enabled(model, steer)
     set_mem_cache(model, steer)
     L = input_ids.shape[1]
     set_steer_segments(model, torch.full((1, L), SEG_CTX, dtype=torch.long, device=dev),
