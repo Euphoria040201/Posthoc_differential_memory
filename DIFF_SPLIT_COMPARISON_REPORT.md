@@ -8,10 +8,18 @@ Registry: `diff_split_experiment_registry.jsonl` (28 runs). Ledger:
 ## Headline
 
 The method is **implemented correctly**, **preserves the base function exactly**
-at initialisation, and **beats the frozen base by a wide margin**. It does **not**
-beat any parameter-matched control, on either evidence chain, on any benchmark
-measured. The mechanism demonstrably works — the branches diverge, the reader is
-content-dependent — and that divergence does not convert into accuracy.
+at initialisation, and **beats the frozen base by a wide margin** on Qasper
+(+0.0496) and LoCoMo (+0.0423). It **never beats a parameter-matched control** —
+on either evidence chain, on any benchmark measured — and on LoCoMo, the only
+comparison in the study with enough power to resolve the difference, it is
+**significantly worse** than the additive control (−0.0312, CI [−0.0429,
+−0.0199], p<0.0001).
+
+The mechanism demonstrably works: the branches diverge, and the reader is
+content-dependent. That is what makes the null informative rather than a
+debugging story. The divergence simply does not convert into accuracy, and
+routing the correction through a second attention pass appears to cost something
+relative to applying the same parameters directly to the output.
 
 ---
 
