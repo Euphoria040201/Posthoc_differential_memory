@@ -192,12 +192,30 @@ asserted at load) and both start at **exactly loss 3.5288** with identical
 786,432 trainable parameters — a free step-0 parity gate — while their step-1
 gradient norms differ (0.006 vs 0.034), confirming genuinely different paths.
 
+### Seed replication (2 seeds per from-scratch arm)
+
+The single-seed claim was too thin to stand, so both from-scratch arms were run
+again at seed 1 under the identical protocol:
+
+| arm | seed 0 | seed 1 | mean | within-arm spread |
+|---|---:|---:|---:|---:|
+| `small_vanilla` | 4.0307 | 4.0273 | **4.0290** | 0.0035 |
+| `small_diffv2_from_scratch` | 4.0267 | 4.0210 | **4.0239** | 0.0056 |
+
+DiffV2 − Vanilla: **−0.0041** (s0), **−0.0062** (s1), mean **−0.0051**.
+
+The **direction replicates** — DiffV2 is better in both seeds — but the effect
+(0.0051 nats) is the same order as the within-arm seed spread (0.0035–0.0056).
+With n=2 per arm no meaningful confidence interval is available, so the correct
+reading is "consistently but marginally better at this scale", not "a wash" and
+not "a real gain". A verdict would need more seeds and more tokens.
+
 Three results:
 
-1. **DIFF V2 from scratch barely beats vanilla: −0.0041 nats**, for +40.6%
-   attention parameters and +10.9% wall time. At this scale the architecture is
-   essentially a wash. (It is also undertrained — 480M tokens over a 28.8M-param
-   body — so this is a small-scale pilot, not a verdict on DIFF V2.)
+1. **DIFF V2 from scratch beats vanilla by only ~0.005 nats**, consistently in
+   direction across 2 seeds, for +40.6% attention parameters and +10.9% wall
+   time. (It is also undertrained — 480M tokens over a 28.8M-param body — so
+   this is a small-scale pilot, not a verdict on DIFF V2.)
 2. **Both post-hoc arms are worse than vanilla** (+0.0553 and +0.0482 nats). This
    is expected and is not an architecture comparison: vanilla kept training all
    106M parameters through T1 while the forks trained 786K with a frozen backbone.
@@ -206,10 +224,12 @@ Three results:
 
 ### Recovery ratio: **N/A**
 
-`(M_ours − M_vanilla) / (M_DiffV2 − M_vanilla) = +0.0553 / −0.0041 = −13.6`.
-The denominator is 0.0041 nats (near zero) **and** the numerator has the wrong
-sign. Per the pre-registered rule this must be reported as **N/A**; quoting −13.6
-or any percentage would be division on noise.
+Using seed means: `(M_ours − M_vanilla) / (M_DiffV2 − M_vanilla)
+= +0.0570 / −0.0051 = −11.2`. The denominator is ~0.005 nats — the same size as
+the seed noise measured above — **and** the numerator has the wrong sign (ours is
+*worse* than vanilla, not partway toward DiffV2). Per the pre-registered rule
+this must be reported as **N/A**; quoting −11.2 or any percentage would be
+division on noise.
 
 ## 5. The ten questions
 
@@ -227,8 +247,10 @@ or any percentage would be division on noise.
    loses to the additive control on all three, and on LoCoMo that loss is
    **significant**: −0.0312, CI [−0.0429, −0.0199], p<0.0001. **RULER was not
    run** — its generated data is absent from this machine.
-6. **Small DIFF V2 > small vanilla?** Only by **0.0041 nats**, for +40.6%
-   attention parameters and +10.9% wall time. Effectively a tie at this scale.
+6. **Small DIFF V2 > small vanilla?** Directionally yes and it replicates across
+   2 seeds (−0.0041, −0.0062; mean −0.0051), but the margin is the same order as
+   the within-arm seed spread (0.0035–0.0056), for +40.6% attention parameters
+   and +10.9% wall time. Consistent but marginal; n=2 supports no interval.
 7. **How much of the from-scratch gain does ours recover?** **N/A** — see §4.
 8. **Is that ratio statistically credible?** No. It is not reportable at all.
 9. **Extra cost.** Inference: KV cache **unchanged** (28,311,552 bytes, identical

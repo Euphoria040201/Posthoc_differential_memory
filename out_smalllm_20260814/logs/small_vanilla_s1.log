@@ -16,3 +16,26 @@
 [small_vanilla_s1] step 6000/14648 tokens 196,608,000 loss 4.3271 gnorm 0.723 lr 2.05e-04 68,777 tok/s (47.6m)
 [small_vanilla_s1] step 6000 tokens 196,608,000 VAL loss 4.2556 ppl 70.50
 [small_vanilla_s1] step 6500/14648 tokens 212,992,000 loss 4.3395 gnorm 0.579 lr 1.91e-04 69,022 tok/s (51.5m)
+[small_vanilla_s1] step 7000/14648 tokens 229,376,000 loss 4.1290 gnorm 0.668 lr 1.77e-04 70,390 tok/s (55.4m)
+[small_vanilla_s1] step 7500/14648 tokens 245,760,000 loss 4.2525 gnorm 1.291 lr 1.62e-04 70,418 tok/s (59.3m)
+[small_vanilla_s1] step 8000/14648 tokens 262,144,000 loss 3.9631 gnorm 0.621 lr 1.47e-04 70,376 tok/s (63.2m)
+[small_vanilla_s1] step 8000 tokens 262,144,000 VAL loss 4.1653 ppl 64.41
+[small_vanilla_s1] step 8500/14648 tokens 278,528,000 loss 4.0729 gnorm 0.619 lr 1.33e-04 69,421 tok/s (67.1m)
+[small_vanilla_s1] step 9000/14648 tokens 294,912,000 loss 3.9627 gnorm 0.726 lr 1.19e-04 70,342 tok/s (71.0m)
+[small_vanilla_s1] step 9500/14648 tokens 311,296,000 loss 4.2718 gnorm 2.184 lr 1.06e-04 70,414 tok/s (74.9m)
+[small_vanilla_s1] step 10000/14648 tokens 327,680,000 loss 3.7879 gnorm 0.675 lr 9.28e-05 70,333 tok/s (78.7m)
+[small_vanilla_s1] step 10000 tokens 327,680,000 VAL loss 4.0999 ppl 60.34
+[small_vanilla_s1] saved T0 @ 336,003,072 tokens -> /work/mingze/Posthoc_differential_memory/out_smalllm_20260814/small_vanilla_s1_T0.pt
+[small_vanilla_s1] T0 sha256 = 9b2a86bc0fd163aa9c83c34212010b8c1ba296aaf406a1f9a2bb125f40f835bc
+[small_vanilla_s1] step 10500/14648 tokens 344,064,000 loss 4.0494 gnorm 0.656 lr 8.09e-05 67,078 tok/s (82.8m)
+[small_vanilla_s1] step 11000/14648 tokens 360,448,000 loss 3.9785 gnorm 0.661 lr 7.00e-05 70,215 tok/s (86.7m)
+[small_vanilla_s1] step 11500/14648 tokens 376,832,000 loss 3.9952 gnorm 0.740 lr 6.02e-05 69,424 tok/s (90.6m)
+[small_vanilla_s1] step 12000/14648 tokens 393,216,000 loss 4.4377 gnorm 0.720 lr 5.16e-05 68,709 tok/s (94.6m)
+[small_vanilla_s1] step 12000 tokens 393,216,000 VAL loss 4.0585 ppl 57.89
+[small_vanilla_s1] step 12500/14648 tokens 409,600,000 loss 3.7576 gnorm 1.145 lr 4.44e-05 68,220 tok/s (98.6m)
+[small_vanilla_s1] step 13000/14648 tokens 425,984,000 loss 3.8400 gnorm 0.916 lr 3.85e-05 68,729 tok/s (102.6m)
+[small_vanilla_s1] step 13500/14648 tokens 442,368,000 loss 3.9198 gnorm 0.739 lr 3.42e-05 68,721 tok/s (106.6m)
+[small_vanilla_s1] step 14000/14648 tokens 458,752,000 loss 4.0828 gnorm 0.697 lr 3.13e-05 68,724 tok/s (110.5m)
+[small_vanilla_s1] step 14000 tokens 458,752,000 VAL loss 4.0380 ppl 56.71
+[small_vanilla_s1] step 14500/14648 tokens 475,136,000 loss 3.9076 gnorm 0.725 lr 3.01e-05 68,321 tok/s (114.5m)
+[small_vanilla_s1] FINAL val_loss=4.0273 ppl=56.11 tokens=479,985,664 in 115.73m -> /work/mingze/Posthoc_differential_memory/out_smalllm_20260814/small_vanilla_s1.json

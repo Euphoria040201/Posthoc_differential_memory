@@ -1,0 +1,44 @@
+Loading weights:   0%|          | 0/398 [00:00<?, ?it/s]Loading weights: 100%|██████████| 398/398 [00:00<00:00, 11167.38it/s]
+[ours] loaded 36 diff-split tensors; cfg={'layers': [0, 3, 6, 9, 12, 15, 18, 21, 24, 27, 30, 33], 'read_dim': 128, 'window': 256, 'gamma': 1.0, 'dynamic_gate': False}
+[shard 0] 1540/1540 questions
+[shard 0] 25/1540 overall={'base': 0.3457, 'ours': 0.4039}
+[shard 0] 50/1540 overall={'base': 0.3492, 'ours': 0.383}
+[shard 0] 75/1540 overall={'base': 0.3343, 'ours': 0.3762}
+[shard 0] 100/1540 overall={'base': 0.3703, 'ours': 0.3942}
+[shard 0] 125/1540 overall={'base': 0.3898, 'ours': 0.4105}
+[shard 0] 150/1540 overall={'base': 0.3885, 'ours': 0.4005}
+[shard 0] 175/1540 overall={'base': 0.4071, 'ours': 0.4191}
+[shard 0] 200/1540 overall={'base': 0.4181, 'ours': 0.4294}
+[shard 0] 225/1540 overall={'base': 0.4051, 'ours': 0.4215}
+[shard 0] 250/1540 overall={'base': 0.4012, 'ours': 0.4155}
+[shard 0] 275/1540 overall={'base': 0.3864, 'ours': 0.4097}
+[shard 0] 300/1540 overall={'base': 0.3864, 'ours': 0.4084}
+[shard 0] 325/1540 overall={'base': 0.3989, 'ours': 0.4204}
+[shard 0] 350/1540 overall={'base': 0.4082, 'ours': 0.4319}
+[shard 0] 375/1540 overall={'base': 0.411, 'ours': 0.4349}
+[shard 0] 400/1540 overall={'base': 0.399, 'ours': 0.4238}
+[shard 0] 425/1540 overall={'base': 0.394, 'ours': 0.4175}
+[shard 0] 450/1540 overall={'base': 0.3834, 'ours': 0.4088}
+[shard 0] 475/1540 overall={'base': 0.3753, 'ours': 0.4034}
+[shard 0] 500/1540 overall={'base': 0.3794, 'ours': 0.4112}
+[shard 0] 525/1540 overall={'base': 0.3808, 'ours': 0.412}
+[shard 0] 550/1540 overall={'base': 0.3854, 'ours': 0.4175}
+[shard 0] 575/1540 overall={'base': 0.3897, 'ours': 0.4169}
+[shard 0] 600/1540 overall={'base': 0.388, 'ours': 0.4136}
+[shard 0] 625/1540 overall={'base': 0.3848, 'ours': 0.41}
+[shard 0] 650/1540 overall={'base': 0.3795, 'ours': 0.4084}
+[shard 0] 675/1540 overall={'base': 0.388, 'ours': 0.4148}
+[shard 0] 700/1540 overall={'base': 0.3959, 'ours': 0.4201}
+[shard 0] 725/1540 overall={'base': 0.3967, 'ours': 0.4206}
+[shard 0] 750/1540 overall={'base': 0.3987, 'ours': 0.4243}
+[shard 0] 775/1540 overall={'base': 0.3994, 'ours': 0.4261}
+[shard 0] 800/1540 overall={'base': 0.3976, 'ours': 0.425}
+[shard 0] 825/1540 overall={'base': 0.3958, 'ours': 0.4237}
+[shard 0] 850/1540 overall={'base': 0.404, 'ours': 0.4308}
+[shard 0] 875/1540 overall={'base': 0.4067, 'ours': 0.4318}
+[shard 0] 900/1540 overall={'base': 0.4051, 'ours': 0.4297}
+[shard 0] 925/1540 overall={'base': 0.3996, 'ours': 0.4267}
+[shard 0] 950/1540 overall={'base': 0.3976, 'ours': 0.4252}
+[shard 0] 975/1540 overall={'base': 0.4004, 'ours': 0.4283}
+[shard 0] 1000/1540 overall={'base': 0.4009, 'ours': 0.4304}
+[shard 0] 1025/1540 overall={'base': 0.402, 'ours': 0.4337}
