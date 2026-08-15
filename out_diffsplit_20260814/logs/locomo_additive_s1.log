@@ -45,3 +45,22 @@
 [shard 0] 1050/1540 overall={'base': 0.4011, 'ours': 0.4837}
 [shard 0] 1075/1540 overall={'base': 0.4001, 'ours': 0.4803}
 [shard 0] 1100/1540 overall={'base': 0.3992, 'ours': 0.4777}
+[shard 0] 1125/1540 overall={'base': 0.3979, 'ours': 0.4762}
+[shard 0] 1150/1540 overall={'base': 0.4007, 'ours': 0.4774}
+[shard 0] 1175/1540 overall={'base': 0.403, 'ours': 0.48}
+[shard 0] 1200/1540 overall={'base': 0.4064, 'ours': 0.482}
+[shard 0] 1225/1540 overall={'base': 0.405, 'ours': 0.4822}
+[shard 0] 1250/1540 overall={'base': 0.4057, 'ours': 0.484}
+[shard 0] 1275/1540 overall={'base': 0.4035, 'ours': 0.4812}
+[shard 0] 1300/1540 overall={'base': 0.3999, 'ours': 0.4775}
+[shard 0] 1325/1540 overall={'base': 0.4032, 'ours': 0.4793}
+[shard 0] 1350/1540 overall={'base': 0.4029, 'ours': 0.4795}
+[shard 0] 1375/1540 overall={'base': 0.402, 'ours': 0.4791}
+[shard 0] 1400/1540 overall={'base': 0.4036, 'ours': 0.4795}
+[shard 0] 1425/1540 overall={'base': 0.4034, 'ours': 0.4785}
+[shard 0] 1450/1540 overall={'base': 0.4008, 'ours': 0.4772}
+[shard 0] 1475/1540 overall={'base': 0.4019, 'ours': 0.4781}
+[shard 0] 1500/1540 overall={'base': 0.4035, 'ours': 0.4802}
+[shard 0] 1525/1540 overall={'base': 0.4035, 'ours': 0.4805}
+[shard 0] base overall=0.4045 (n=1540)
+[shard 0] ours overall=0.4812 (n=1540)

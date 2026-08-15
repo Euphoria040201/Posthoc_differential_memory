@@ -12,8 +12,8 @@ at initialisation, and **beats the frozen base by a wide margin** on Qasper
 (+0.0496) and LoCoMo (+0.0423). It **never beats a parameter-matched control** —
 on either evidence chain, on any benchmark measured — and on LoCoMo, the only
 comparison in the study with enough power to resolve the difference, it is
-**significantly worse** than the additive control (−0.0312, CI [−0.0429,
-−0.0199], p<0.0001).
+**significantly worse** than the additive control (−0.0388, CI [−0.0526,
+−0.0251], p<0.0001, replicated across 2 seeds).
 
 The mechanism demonstrably works: the branches diverge, and the reader is
 content-dependent. That is what makes the null informative rather than a
@@ -115,24 +115,35 @@ Divergence grows with depth (layer 0 = 0.0036 → layer 33 = 0.766). Shuffling t
 window destroys 61% of it, so the reader uses window content and order — it has
 not collapsed to a constant bias.
 
-### LoCoMo (official protocol, full 1540 questions, `--max-context-tokens 32000`)
+### LoCoMo (official protocol, full 1540 questions, 2 seeds, `--max-context-tokens 32000`)
 
 Scored with `deltamem/eval/locomo_protocol.py::score_locomo_prediction` on the
 canonicalised predictions; an independent re-score reproduces the evaluator's own
-`by_cat` figure exactly (0.4045, match to 1e-9). Both runs' base predictions are
-bit-identical, which is the check that the condition switch works.
+`by_cat` figure to 1e-9. The base predictions are **bit-identical across all four
+runs** (2 arms x 2 seeds) — the standing proof that the condition switch really
+toggles the split and that base is a shared reference.
 
-| arm | F1 | vs base | 95% CI | p |
-|---|---:|---:|---|---:|
-| base | 0.4045 | — | — | — |
-| split | 0.4468 | **+0.0423** | [+0.0319, +0.0530] | <0.0001 |
-| additive | 0.4780 | **+0.0735** | [+0.0595, +0.0875] | <0.0001 |
+| arm | seed 0 | seed 1 | mean | vs base |
+|---|---:|---:|---:|---:|
+| base | 0.4045 | 0.4045 | **0.4045** | — |
+| split | 0.4468 | 0.4350 | **0.4409** | +0.0364 |
+| additive | 0.4780 | 0.4812 | **0.4796** | +0.0751 |
 
-**split − additive = −0.0312, 95% CI [−0.0429, −0.0199], p<0.0001.**
+Hierarchical bootstrap (examples x seeds, 20,000 draws):
 
-This is the **only comparison in the whole study whose confidence interval
-excludes zero**, and it runs *against* the differential split. It is consistent
-across all four question categories:
+| comparison | delta | 95% CI | p |
+|---|---:|---|---:|
+| split − base | +0.0364 | [+0.0227, +0.0498] | <0.0001 |
+| additive − base | +0.0751 | [+0.0615, +0.0889] | <0.0001 |
+| **split − additive** | **−0.0388** | **[−0.0526, −0.0251]** | **<0.0001** |
+
+**The result replicates and strengthens**: split − additive is −0.0312 at seed 0
+and −0.0463 at seed 1, both negative, and the two-seed interval excludes zero by
+a wide margin. This is the only comparison in the study with enough power to
+resolve a difference between the split and a parameter-matched control, and it
+resolves *against* the split.
+
+Per-category at seed 0 (all four categories favour additive):
 
 | category | n | base | split | additive |
 |---|---:|---:|---:|---:|
@@ -141,11 +152,9 @@ across all four question categories:
 | 3 (open-domain) | 96 | 0.1073 | 0.1038 | **0.1231** |
 | 4 (single-hop) | 841 | 0.4787 | 0.5146 | **0.5459** |
 
-So LoCoMo upgrades the finding from "no evidence of a differential-specific
-benefit" to "significant evidence of a differential-specific *disadvantage*"
-against the parameter-matched additive sidecar. Caveat: questions are nested
-within 10 conversations and this bootstrap resamples questions independently, so
-a conversation-clustered interval would be wider than the one quoted.
+Caveat: questions nest within 10 conversations and this bootstrap resamples
+questions independently, so a conversation-clustered interval would be wider.
+The seed-level replication is not subject to that caveat.
 
 ### HotpotQA zero-shot transfer (300-example screening subset, seed 0)
 
@@ -245,8 +254,9 @@ division on noise.
    subset, and **full LoCoMo (1540 questions)**. The split beats base on Qasper
    (+0.0496) and LoCoMo (+0.0423) and is level on HotpotQA (−0.0111, n.s.). It
    loses to the additive control on all three, and on LoCoMo that loss is
-   **significant**: −0.0312, CI [−0.0429, −0.0199], p<0.0001. **RULER was not
-   run** — its generated data is absent from this machine.
+   **significant and replicated**: −0.0388, CI [−0.0526, −0.0251], p<0.0001 over
+   2 seeds (−0.0312 and −0.0463 individually). **RULER was not run** — its
+   generated data is absent from this machine.
 6. **Small DIFF V2 > small vanilla?** Directionally yes and it replicates across
    2 seeds (−0.0041, −0.0062; mean −0.0051), but the margin is the same order as
    the within-arm seed spread (0.0035–0.0056), for +40.6% attention parameters
