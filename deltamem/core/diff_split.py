@@ -86,6 +86,20 @@ class DiffSplitAttention(nn.Module):
         self.enabled = enabled
         self.dynamic_gate = dynamic_gate
 
+        # audit issue 3 (2026-08-17): the reader's values are the frozen backbone V
+        # averaged over kv heads, i.e. a vector of width head_dim, and are consumed
+        # by delta_q whose in_features is read_dim.  The module therefore only makes
+        # sense when read_dim == head_dim; with any other value `_read_core` returns
+        # a [.., head_dim] tensor into a [read_dim -> ..] projection and the failure
+        # is a shape error far from its cause (or, worse, silently valid when the
+        # two happen to be broadcastable).  Enforce it at construction.
+        if read_dim != self.head_dim:
+            raise ValueError(
+                f"DiffSplitAttention requires read_dim == head_dim "
+                f"(reader values are backbone V of width {self.head_dim}); "
+                f"got read_dim={read_dim}. This constraint was implicit before "
+                f"2026-08-17 and unenforced.")
+
         # --- local reader: one attention head over the last `window` hidden states.
         # Values are the FROZEN backbone v_proj output (memory_value_source="main_v"
         # in the old sidecar), so the reader adds no value projection of its own and
@@ -112,6 +126,16 @@ class DiffSplitAttention(nn.Module):
         self._read_override: torch.Tensor | None = None
         self._zero_read = False
         self._shuffle_read = False
+        self._shuffle_causal = False
+        # audit issue 1 (2026-08-17): these two tensors ARE per-sequence inference
+        # state.  The KV cache is unchanged, but the module is NOT state-free, so
+        # "KV-cache-free" must not be read as "no extra inference state".  Total
+        # state is measured by scripts/measure_inference_state.py.
+        # audit issue 4: `_read_core` applies only the causal-window mask and
+        # ignores attention_mask, so PADDED positions are attended by the reader
+        # and left-padded batches change dQ at real positions.  The training and
+        # evaluation paths used packed, unpadded sequences, so no reported number
+        # is affected, but the module must not be used with padded batches.
         self._read_h = None
         self._read_v = None
 
@@ -163,9 +187,45 @@ class DiffSplitAttention(nn.Module):
                                alpha=self.read_dim ** -0.5, beta=1.0)
         probs = torch.softmax(scores, dim=-1)
         if self._shuffle_read:
-            perm = torch.randperm(T, device=q.device)
-            probs = probs[:, :, perm]
+            # audit issue 2 (2026-08-17): INVALID.  `probs[:, :, perm]` permutes
+            # the whole key axis AFTER causal masking, so probability mass that
+            # belonged to a past key lands on a FUTURE key.  The ablation could
+            # therefore leak future tokens and cannot support any claim about the
+            # reader's use of window content.  Use shuffle_causal instead.
+            raise RuntimeError(
+                "diff_split: the post-softmax full-axis shuffle is not a valid "
+                "causal ablation (it can move probability mass onto future "
+                "positions). Use set_read_control(shuffle_causal=True).")
+        if self._shuffle_causal:
+            probs = self._permute_within_window(probs, qi, kj, keep)
         return torch.bmm(probs, v)
+
+    @staticmethod
+    def _permute_within_window(probs, qi, kj, keep):
+        """Valid ablation: permute probabilities only WITHIN each query's window.
+
+        For query t the allowed key set is exactly {t-w+1..t}.  Permuting inside
+        that set destroys which position in the window a probability was assigned
+        to, while making it impossible for mass to reach a key the causal mask
+        forbids: masked entries are zero before and after, so no future token can
+        contribute.  This is the ablation the shuffle claim needed.
+        """
+        n_query, T = keep.shape
+        out = torch.zeros_like(probs)
+        # random permutation of the allowed indices, per query row
+        noise = torch.rand(n_query, T, device=probs.device).masked_fill(~keep, 2.0)
+        order = noise.argsort(dim=-1)                    # allowed idx first, shuffled
+        n_allowed = keep.sum(-1)                         # [n_query]
+        src_pos = keep.float().cumsum(-1).long() - 1     # rank of each allowed key
+        valid = keep & (src_pos >= 0)
+        rows = torch.arange(n_query, device=probs.device)[:, None].expand(n_query, T)
+        tgt = order.gather(1, src_pos.clamp(min=0))      # where each key's mass goes
+        out[:, rows[valid], tgt[valid]] = probs[:, rows[valid], kj.expand(n_query, T)[valid]]
+        assert torch.allclose(out.sum(-1), probs.sum(-1), atol=1e-4)
+        assert int((out * (~keep).to(out.dtype)).abs().sum()) == 0, \
+            "shuffle_causal leaked mass outside the causal window"
+        _ = n_allowed
+        return out
 
     def _local_read(self, hidden_states: torch.Tensor, v_main: torch.Tensor) -> torch.Tensor:
         """R_t over H[t-w+1..t]; values are the frozen backbone V (mean over kv heads).
@@ -340,8 +400,14 @@ def collect_diff_stats(model) -> dict:
     return out
 
 
-def set_read_control(model, *, zero=False, shuffle=False):
-    """Ablation switches for the local reader (zero window / shuffled window)."""
+def set_read_control(model, *, zero=False, shuffle=False, shuffle_causal=False):
+    """Ablation switches for the local reader.
+
+    zero            reader output forced to 0
+    shuffle         DEPRECATED/INVALID -- raises when used (see audit issue 2)
+    shuffle_causal  permute probabilities within each query's causal window only
+    """
     for m in iter_diff_modules(model):
         m._zero_read = bool(zero)
         m._shuffle_read = bool(shuffle)
+        m._shuffle_causal = bool(shuffle_causal)

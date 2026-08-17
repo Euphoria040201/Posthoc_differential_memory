@@ -326,12 +326,19 @@ def main() -> None:
         trainable_names = _fbkd(model)
         n_tr = sum(p.numel() for n, p in model.named_parameters() if p.requires_grad)
         assert trainable_names and all(_isd(n) for n in trainable_names), trainable_names[:5]
-        assert n_tr == args.diff_read_dim * (2 * model.config.hidden_size
-                                             + model.config.num_attention_heads
-                                             * getattr(model.config, "head_dim",
-                                                       model.config.hidden_size
-                                                       // model.config.num_attention_heads)
-                                             ) * len(diff_cfg["layers"]), n_tr
+        # audit issue 6 (fixed 2026-08-17): the expected-count formula covered
+        # read_q + read_k + delta_q only.  With --diff-dynamic-gate the module
+        # also builds gate: Linear(read_dim, n_heads, bias=False), so the
+        # assertion contradicted the very configuration it was meant to guard
+        # and any dynamic-gate run would have died on its own sanity check.
+        _hd = getattr(model.config, "head_dim",
+                      model.config.hidden_size // model.config.num_attention_heads)
+        _H = model.config.num_attention_heads
+        _per_layer = args.diff_read_dim * (2 * model.config.hidden_size + _H * _hd)
+        if args.diff_dynamic_gate:
+            _per_layer += args.diff_read_dim * _H          # gate weight
+        assert n_tr == _per_layer * len(diff_cfg["layers"]), (
+            n_tr, _per_layer * len(diff_cfg["layers"]), args.diff_dynamic_gate)
         print(f"[{args.tag}] diff-split trainable after set_trainable: {n_tr:,} "
               f"in {len(trainable_names)} tensors", flush=True)
 

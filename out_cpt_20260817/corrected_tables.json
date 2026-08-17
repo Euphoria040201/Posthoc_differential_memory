@@ -1,0 +1,183 @@
+{
+ "qasper": {
+  "split_local256_fixed": {
+   "seeds": 3,
+   "per_seed": [
+    0.2928,
+    0.2987,
+    0.2905
+   ],
+   "mean": 0.294,
+   "sd": 0.0042,
+   "trainable": 14155776
+  },
+  "param_matched_additive": {
+   "seeds": 3,
+   "per_seed": [
+    0.295,
+    0.2981,
+    0.2943
+   ],
+   "mean": 0.2958,
+   "sd": 0.002,
+   "trainable": 14155776
+  },
+  "param_matched_lora": {
+   "seeds": 3,
+   "per_seed": [
+    0.2876,
+    0.296,
+    0.2887
+   ],
+   "mean": 0.2908,
+   "sd": 0.0046,
+   "trainable": 14254080
+  }
+ },
+ "hotpot_screening_subset": {
+  "base": {
+   "f1": 0.5939,
+   "em": 0.4767,
+   "n": 300,
+   "runs": [
+    "hotpot_split_s0",
+    "hotpot_additive_s0"
+   ],
+   "f1_per_run": [
+    0.593931,
+    0.593931
+   ]
+  },
+  "split": {
+   "f1": 0.5796,
+   "em": 0.4667,
+   "n": 300,
+   "runs": [
+    "hotpot_split_s0"
+   ],
+   "f1_per_run": [
+    0.579591
+   ]
+  },
+  "additive": {
+   "f1": 0.6012,
+   "em": 0.4867,
+   "n": 300,
+   "runs": [
+    "hotpot_additive_s0"
+   ],
+   "f1_per_run": [
+    0.601246
+   ]
+  },
+  "_base_bit_identical_across_runs": true
+ },
+ "locomo_full": {
+  "base": {
+   "per_seed": [
+    0.4045,
+    0.4045
+   ],
+   "mean": 0.4045,
+   "seeds": 2
+  },
+  "split": {
+   "per_seed": [
+    0.4468,
+    0.435
+   ],
+   "mean": 0.4409,
+   "seeds": 2
+  },
+  "additive": {
+   "per_seed": [
+    0.478,
+    0.4812
+   ],
+   "mean": 0.4796,
+   "seeds": 2
+  },
+  "split_minus_base_mean": 0.0364,
+  "additive_minus_base_mean": 0.0751,
+  "split_minus_additive_mean": -0.0387,
+  "_note": "seed-0-only split-base is 0.0423; the two-seed mean is 0.0364 and is the number that belongs in prose"
+ },
+ "provenance": [
+  {
+   "path": "out_diffsplit_20260814/split_local256_fixed_s0.json",
+   "sha256": "6e5630c79872ac0f9167ae37c947cbb944bd071f678a0393f80c2703ea21352b",
+   "bytes": 65755
+  },
+  {
+   "path": "out_diffsplit_20260814/split_local256_fixed_s1.json",
+   "sha256": "5cea56de6e5154f5eab37d1142d4a120d1521ec99962c2452b8b3540aba299b5",
+   "bytes": 65525
+  },
+  {
+   "path": "out_diffsplit_20260814/split_local256_fixed_s2.json",
+   "sha256": "7c17a53a074f6f2de438329464655bcd807c6fc2db73d28d762d72d62c05925d",
+   "bytes": 65739
+  },
+  {
+   "path": "out_diffsplit_20260814/param_matched_additive_s0.json",
+   "sha256": "f070ff94549c4899f1f65a18e703773d6f76cd93facf9043e6d9db4cd52346af",
+   "bytes": 66897
+  },
+  {
+   "path": "out_diffsplit_20260814/param_matched_additive_s1.json",
+   "sha256": "dcf994922f9980702f171a58c9f92b925d539099529b541c8019d4839864d5b0",
+   "bytes": 66947
+  },
+  {
+   "path": "out_diffsplit_20260814/param_matched_additive_s2.json",
+   "sha256": "a0c3c3b32694bc382979b0893fca8a298d48c3f251fd3c066809b90ab121e718",
+   "bytes": 67166
+  },
+  {
+   "path": "out_diffsplit_20260814/param_matched_lora_s0.json",
+   "sha256": "122a1ce5fed9eab69829d5e96ddc5a497bdc3dbfec57bfa399f0b54288428979",
+   "bytes": 66956
+  },
+  {
+   "path": "out_diffsplit_20260814/param_matched_lora_s1.json",
+   "sha256": "5dc93d82fee9ccf917bde6b953a44cb03f8d457b4f0b2078a34d10af637e35f7",
+   "bytes": 66444
+  },
+  {
+   "path": "out_diffsplit_20260814/param_matched_lora_s2.json",
+   "sha256": "52adced0d57d0c5e5c6c0198142a23315df7023476d66309069b0afc7db8b4aa",
+   "bytes": 66874
+  },
+  {
+   "path": "out_diffsplit_20260814/hotpot_split_s0.json",
+   "sha256": "f39bc32538427ba20421fb7eccb7a8f686dee50d2d91f609d0bb93a3409e744c",
+   "bytes": 35860
+  },
+  {
+   "path": "out_diffsplit_20260814/hotpot_additive_s0.json",
+   "sha256": "f10c368eff4be40fc8cd549af692217ef88eac12d4f82ffe6a7cf186b8db672d",
+   "bytes": 35349
+  },
+  {
+   "path": "out_diffsplit_20260814/locomo_split_s0.json",
+   "sha256": "075baba3fef61ea8c9490da0be3850e5f5169b5f2e3eb6b4b283621941636faf",
+   "bytes": 587498
+  },
+  {
+   "path": "out_diffsplit_20260814/locomo_split_s1.json",
+   "sha256": "4d36200954f4aa7f84f7e78771d3d8c3154149b925e93cb9e833d07ae0cca799",
+   "bytes": 595048
+  },
+  {
+   "path": "out_diffsplit_20260814/locomo_additive_s0.json",
+   "sha256": "501809e26be33f8765517a855b0950e7ae4bfc9fa162bd51034beb374f5b898d",
+   "bytes": 566961
+  },
+  {
+   "path": "out_diffsplit_20260814/locomo_additive_s1.json",
+   "sha256": "d11f06ea9eaedb869bf8fc0e3e6c7f0e400bf184b3e8cb20b6a25129a9c8d254",
+   "bytes": 570631
+  }
+ ],
+ "_disclaimer": "Derived from the 2026-08-14 artifacts; no historical JSON was modified. HotpotQA is a 300-example SCREENING SUBSET scored with the in-repo metric, not the official hotpot_evaluate_v1.py, and must not be called an official benchmark result."
+}

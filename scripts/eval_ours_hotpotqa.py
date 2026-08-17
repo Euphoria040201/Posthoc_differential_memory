@@ -52,6 +52,22 @@ def load_ours(model, ckpt_path, steer_gain_override=None, pool_override=None):
         assert not unexpected, unexpected[:5]
         loaded = [k for k in ck["state"] if k in dict(model.named_parameters())]
         assert len(loaded) == len(ck["state"]), (len(loaded), len(ck["state"]))
+        # FAIL-CLOSED (audit issue 5, fixed 2026-08-17).  The checks above only
+        # verify that every key IN the checkpoint exists in the model; they never
+        # verify the converse.  A checkpoint missing some or all diff tensors
+        # therefore loaded "cleanly" and those tensors silently kept their init
+        # values (delta_q is zero-init, i.e. the split degenerates to base and
+        # reports base numbers as a result).  `missing` cannot be asserted empty
+        # because it legitimately contains every backbone key, so the check is
+        # made against the diff parameter set specifically.
+        from deltamem.core.diff_split import is_diff_param_name
+        expected_diff = {n for n, _ in model.named_parameters() if is_diff_param_name(n)}
+        absent = sorted(expected_diff - set(ck["state"]))
+        if absent:
+            raise RuntimeError(
+                f"[ours] fail-closed: {len(absent)}/{len(expected_diff)} diff tensors "
+                f"are absent from the checkpoint and would keep their init values: "
+                f"{absent[:4]}")
         print(f"[ours] loaded {len(ck['state'])} diff-split tensors; cfg={dc}",
               flush=True)
         # The split has P=0 and no WRITE path at all, so the prefix-sidecar
