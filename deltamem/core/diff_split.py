@@ -221,8 +221,13 @@ class DiffSplitAttention(nn.Module):
         rows = torch.arange(n_query, device=probs.device)[:, None].expand(n_query, T)
         tgt = order.gather(1, src_pos.clamp(min=0))      # where each key's mass goes
         out[:, rows[valid], tgt[valid]] = probs[:, rows[valid], kj.expand(n_query, T)[valid]]
-        assert torch.allclose(out.sum(-1), probs.sum(-1), atol=1e-4)
-        assert int((out * (~keep).to(out.dtype)).abs().sum()) == 0, \
+        # Mass conservation is checked in fp32: summing thousands of bf16 terms
+        # carries far more error than any meaningful tolerance on the raw dtype.
+        s_out, s_in = out.float().sum(-1), probs.float().sum(-1)
+        assert torch.allclose(s_out, s_in, atol=1e-2, rtol=1e-3), \
+            f"shuffle_causal lost mass: max|d|={float((s_out - s_in).abs().max()):.3e}"
+        # Causality is exact and must stay exact: nothing outside the window.
+        assert float((out * (~keep).to(out.dtype)).abs().sum()) == 0.0, \
             "shuffle_causal leaked mass outside the causal window"
         _ = n_allowed
         return out

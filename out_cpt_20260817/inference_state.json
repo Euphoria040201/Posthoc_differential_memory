@@ -1,0 +1,62 @@
+{
+ "model": "/work/mingze/models/Qwen3-4B-Instruct-2507",
+ "seq_len": 1024,
+ "layers": [
+  0,
+  3,
+  6,
+  9,
+  12,
+  15,
+  18,
+  21,
+  24,
+  27,
+  30,
+  33
+ ],
+ "window": 256,
+ "rank": 177,
+ "base": {
+  "kv_cache_bytes": 151142400,
+  "module_state_bytes": 0,
+  "total_state_bytes": 151142400,
+  "module_state_detail": {},
+  "overhead_vs_kv_pct": 0.0
+ },
+ "localreader_split": {
+  "kv_cache_bytes": 151142400,
+  "module_state_bytes": 21934080,
+  "total_state_bytes": 173076480,
+  "module_state_detail": {
+   "_read_h": {
+    "tensors": 12,
+    "bytes": 15667200,
+    "shape": [
+     1,
+     255,
+     2560
+    ]
+   },
+   "_read_v": {
+    "tensors": 12,
+    "bytes": 6266880,
+    "shape": [
+     1,
+     8,
+     255,
+     128
+    ]
+   }
+  },
+  "overhead_vs_kv_pct": 14.512
+ },
+ "lowrank_split": {
+  "kv_cache_bytes": 151142400,
+  "module_state_bytes": 0,
+  "total_state_bytes": 151142400,
+  "module_state_detail": {},
+  "overhead_vs_kv_pct": 0.0
+ },
+ "summary": "At seq_len 1024, LocalRead adds 21,934,080 B of per-sequence reader state (14.512% of its KV cache) on top of an unchanged KV cache; the token-local low-rank split adds 0 B."
+}
