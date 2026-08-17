@@ -1,0 +1,59 @@
+{
+ "scorer": "third_party/hotpot/hotpot_evaluate_v1.py (official, answers only)",
+ "sha256": "d35fc91a6db21d791dbdda11daf3856e9359f5701d54e3eefba20d88fecc02c0",
+ "arms": {
+  "base": {
+   "hotpot_split_s0": {
+    "official": {
+     "em": 0.4766666666666667,
+     "f1": 0.5939313220807501,
+     "n": 300
+    },
+    "in_repo": {
+     "f1": 0.5939313220807501,
+     "em": 0.4766666666666667
+    },
+    "f1_delta_official_minus_inrepo": 0.0
+   },
+   "hotpot_additive_s0": {
+    "official": {
+     "em": 0.4766666666666667,
+     "f1": 0.5939313220807501,
+     "n": 300
+    },
+    "in_repo": {
+     "f1": 0.5939313220807501,
+     "em": 0.4766666666666667
+    },
+    "f1_delta_official_minus_inrepo": 0.0
+   }
+  },
+  "split": {
+   "official": {
+    "em": 0.4666666666666667,
+    "f1": 0.5795906673248779,
+    "n": 300
+   },
+   "in_repo": {
+    "f1": 0.5795906673248779,
+    "em": 0.4666666666666667
+   },
+   "f1_delta_official_minus_inrepo": 0.0,
+   "official_minus_base_f1": -0.014340654755872206
+  },
+  "additive": {
+   "official": {
+    "em": 0.4866666666666667,
+    "f1": 0.6012457912457911,
+    "n": 300
+   },
+   "in_repo": {
+    "f1": 0.6012457912457911,
+    "em": 0.4866666666666667
+   },
+   "f1_delta_official_minus_inrepo": 0.0,
+   "official_minus_base_f1": 0.007314469165041082
+  }
+ },
+ "note": "300-example screening subset, NOT the official dev set"
+}
