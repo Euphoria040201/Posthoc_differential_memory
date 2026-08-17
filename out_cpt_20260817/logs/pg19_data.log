@@ -1,0 +1,41 @@
+train shards: 8  val(test) shards: 1
+[transformers] Token indices sequence length is longer than the specified maximum sequence length for this model (1153002 > 1010000). Running this sequence through the model will result in indexing errors
+[val] shard 1/1 books=93 tokens=9,555,968 (9s)
+VAL (2048, 4096) from 93 books
+downloaded data/train-00000-of-00023-5263dc4323e881d2.parquet (9s)
+downloaded data/train-00001-of-00023-2b13c68dbeba63b5.parquet (10s)
+downloaded data/train-00002-of-00023-8e4dd6b70d51dfcf.parquet (10s)
+downloaded data/train-00003-of-00023-e7f0ba0d3c2eb6c0.parquet (10s)
+downloaded data/train-00004-of-00023-3f9e7e096fa07f4b.parquet (10s)
+downloaded data/train-00005-of-00023-87dece6a0ab708e8.parquet (10s)
+downloaded data/train-00006-of-00023-c50fea56d0518a87.parquet (10s)
+downloaded data/train-00007-of-00023-e9fea5c158e172e2.parquet (10s)
+[train] shard 1/8 books=1167 tokens=116,473,856 (74s)
+[train] shard 2/8 books=2364 tokens=235,266,048 (146s)
+[train] shard 3/8 books=3517 tokens=338,239,488 (206s)
+[train] shard 4/8 books=4674 tokens=441,630,720 (264s)
+[train] shard 5/8 books=5851 tokens=551,514,112 (329s)
+[[train] shard 6/8 books=7045 tokens=670,404,608 (443s)[[train] shard 7/8 books=8217 tokens=781,910,016 (513s)[[train] shard 8/8 books=9403 tokens=899,002,368 (593s)
+TRAIN (219483, 4096) from 9403 books
+{
+ "train": {
+  "path": "/work/mingze/Posthoc_differential_memory/out_cpt_20260817/pg19_train.npy",
+  "shape": [
+   219483,
+   4096
+  ],
+  "tokens": 899002368,
+  "books": 9403,
+  "sha256": "074fb7ed1909e5b69fbef35bd0d535d4d685f0a06b909a02b1a984ef7b6bd61d"
+ },
+ "val": {
+  "path": "/work/mingze/Posthoc_differential_memory/out_cpt_20260817/pg19_val.npy",
+  "shape": [
+   2048,
+   4096
+  ],
+  "tokens": 8388608,
+  "books": 93,
+  "sha256": "e164318e2bde77711e5053bc3533ebcc9df2bba866db4425fbb88694385d277d"
+ }
+}

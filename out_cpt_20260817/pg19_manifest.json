@@ -1,0 +1,47 @@
+{
+ "corpus": "emozilla/pg19 (parquet mirror of deepmind/pg19), books",
+ "packing": "intra-book windows only; a sequence never crosses a book boundary",
+ "tokenizer": "/work/mingze/models/Qwen3-4B-Instruct-2507",
+ "seq_len": 4096,
+ "min_book_tokens": 8192,
+ "eos_id": 151645,
+ "train_shards": [
+  "data/train-00000-of-00023-5263dc4323e881d2.parquet",
+  "data/train-00001-of-00023-2b13c68dbeba63b5.parquet",
+  "data/train-00002-of-00023-8e4dd6b70d51dfcf.parquet",
+  "data/train-00003-of-00023-e7f0ba0d3c2eb6c0.parquet",
+  "data/train-00004-of-00023-3f9e7e096fa07f4b.parquet",
+  "data/train-00005-of-00023-87dece6a0ab708e8.parquet",
+  "data/train-00006-of-00023-c50fea56d0518a87.parquet",
+  "data/train-00007-of-00023-e9fea5c158e172e2.parquet"
+ ],
+ "val_shards": [
+  "data/test-00000-of-00001-29a571947c0b5ccc.parquet"
+ ],
+ "train": {
+  "path": "/work/mingze/Posthoc_differential_memory/out_cpt_20260817/pg19_train.npy",
+  "shape": [
+   219483,
+   4096
+  ],
+  "tokens": 899002368,
+  "books": 9403,
+  "sha256": "074fb7ed1909e5b69fbef35bd0d535d4d685f0a06b909a02b1a984ef7b6bd61d"
+ },
+ "val": {
+  "path": "/work/mingze/Posthoc_differential_memory/out_cpt_20260817/pg19_val.npy",
+  "shape": [
+   2048,
+   4096
+  ],
+  "tokens": 8388608,
+  "books": 93,
+  "sha256": "e164318e2bde77711e5053bc3533ebcc9df2bba866db4425fbb88694385d277d"
+ },
+ "val_bookid": {
+  "path": "/work/mingze/Posthoc_differential_memory/out_cpt_20260817/pg19_val_bookid.npy",
+  "sha256": "904a49ec90120fa255e7c8bc9301ba1ba31dee74d68f4878314efc7aaf81cf7b"
+ },
+ "built_utc": "2026-08-17T16:37:26Z",
+ "build_seconds": 639.0
+}
