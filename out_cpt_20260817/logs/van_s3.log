@@ -1,0 +1,13 @@
+[van_s3] arm=vanilla params={'total': 106500096, 'trainable': 106500096, 'attention': 5243904, 'embedding': 77654528, 'non_embedding': 28845568} tokens/step=131,072 steps=6,103 0->800,000,000 stage2@None
+Traceback (most recent call last):
+  File "/work/mingze/Posthoc_differential_memory_diffsplit/scripts/cpt_train.py", line 387, in <module>
+    main()
+  File "/work/mingze/Posthoc_differential_memory_diffsplit/scripts/cpt_train.py", line 325, in main
+    (loss / args.grad_accum).backward()
+  File "/work/mingze/miniconda3/envs/deltamem/lib/python3.10/site-packages/torch/_tensor.py", line 626, in backward
+    torch.autograd.backward(
+  File "/work/mingze/miniconda3/envs/deltamem/lib/python3.10/site-packages/torch/autograd/__init__.py", line 347, in backward
+    _engine_run_backward(
+  File "/work/mingze/miniconda3/envs/deltamem/lib/python3.10/site-packages/torch/autograd/graph.py", line 823, in _engine_run_backward
+    return Variable._execution_engine.run_backward(  # Calls into the C++ engine to run the backward pass
+torch.OutOfMemoryError: CUDA out of memory. Tried to allocate 4.63 GiB. GPU 0 has a total capacity of 79.19 GiB of which 2.36 GiB is free. Process 1165347 has 64.00 GiB memory in use. Including non-PyTorch memory, this process has 12.81 GiB memory in use. Of the allocated memory 12.07 GiB is allocated by PyTorch, and 82.40 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)

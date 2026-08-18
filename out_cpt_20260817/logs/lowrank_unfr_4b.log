@@ -1,0 +1,3 @@
+Loading weights:   0%|          | 0/398 [00:00<?, ?it/s]Loading weights: 100%|██████████| 398/398 [00:00<00:00, 10645.44it/s]
+[lowrank_unfr_4b] arm=lowrank_unfreeze params={'total': 4036605440, 'trainable': 14137344, 'attention': 957864960, 'embedding': 388956160, 'non_embedding': 3647649280} tokens/step=32,768 steps=1,525 0->50,000,000 stage2@228
+[lowrank_unfr_4b] step 1/1525 tok 32,768 loss 2.7617 gn 0.24 lr 1.67e-05 0 tok/s (0.1m)

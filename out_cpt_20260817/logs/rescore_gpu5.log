@@ -1,0 +1,4 @@
+nohup: failed to run command '/work/mingze/miniconda3/envs/deltamem/bin/env': No such file or directory
+nohup: failed to run command '/work/mingze/miniconda3/envs/deltamem/bin/env': No such file or directory
+[diffv2_s2] arm=native_diffv2 nll=3.47696 ppl=32.36 n=2048 bypos={'0-128': 3.7636701114231874, '128-512': 3.526559719845448, '512-1024': 3.4834917904287095, '1024-2048': 3.4696389580489067, '2048-4096': 3.4517651218191157} -> out_cpt_20260817/diffv2_s2_final_eval.json
+[lowrank_unfreeze_s1] arm=lowrank_unfreeze nll=3.52448 ppl=33.94 n=2048 bypos={'0-128': 3.823855071924183, '128-512': 3.5722638381567564, '512-1024': 3.5254638658243103, '1024-2048': 3.5148231991826244, '2048-4096': 3.5013851557529825} -> out_cpt_20260817/lowrank_unfreeze_s1_final_eval.json

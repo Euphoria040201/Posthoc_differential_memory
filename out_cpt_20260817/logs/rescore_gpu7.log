@@ -1,0 +1,4 @@
+nohup: failed to run command '/work/mingze/miniconda3/envs/deltamem/bin/env': No such file or directory
+nohup: failed to run command '/work/mingze/miniconda3/envs/deltamem/bin/env': No such file or directory
+[localreader_s1] arm=localreader nll=3.53391 ppl=34.26 n=2048 bypos={'0-128': 3.8348826602669193, '128-512': 3.5810809434731397, '512-1024': 3.534399088993904, '1024-2048': 3.5242344763060194, '2048-4096': 3.5109639014532603} -> out_cpt_20260817/localreader_s1_final_eval.json
+[van_s0] arm=vanilla nll=3.49556 ppl=32.97 n=2048 bypos={'0-128': 3.797618378090047, '128-512': 3.5415893392129725, '512-1024': 3.496477083087205, '1024-2048': 3.4861508425586782, '2048-4096': 3.4725047309342805} -> out_cpt_20260817/van_s0_final_eval.json

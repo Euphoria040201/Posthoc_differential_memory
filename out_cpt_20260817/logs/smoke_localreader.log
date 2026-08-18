@@ -1,0 +1,6 @@
+[smoke_localreader] arm=localreader params={'total': 107286528, 'trainable': 786432, 'attention': 6030336, 'embedding': 77654528, 'non_embedding': 29632000} tokens/step=131,072 steps=61 30,015,488->38,015,488 stage2@None
+[smoke_localreader] step 1/61 tok 30,146,560 loss 5.5950 gn 0.01 lr 5.00e-04 0 tok/s (0.1m)
+[smoke_localreader] step 20/61 tok 32,636,928 loss 5.7250 gn 0.01 lr 3.98e-04 86,912 tok/s (0.6m)
+[smoke_localreader] step 40/61 tok 35,258,368 loss 5.8561 gn 0.01 lr 1.73e-04 86,739 tok/s (1.1m)
+[smoke_localreader] step 60/61 tok 37,879,808 loss 5.6978 gn 0.01 lr 5.03e-05 86,714 tok/s (1.6m)
+[smoke_localreader] FINAL nll=5.5618 ppl=260.28 bypos={'0-128': 6.0208556450743345, '128-512': 5.55622673678469, '512-1024': 5.587270241887381, '1024-2048': 5.467403475455285, '2048-4096': 5.574907513340352} in 1.6m

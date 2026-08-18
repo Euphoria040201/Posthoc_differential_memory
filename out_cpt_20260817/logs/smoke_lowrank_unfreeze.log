@@ -1,0 +1,7 @@
+[smoke_lowrank_unfreeze] arm=lowrank_unfreeze params={'total': 107286528, 'trainable': 786432, 'attention': 6030336, 'embedding': 77654528, 'non_embedding': 29632000} tokens/step=131,072 steps=61 30,015,488->38,015,488 stage2@9
+[smoke_lowrank_unfreeze] step 1/61 tok 30,146,560 loss 5.5950 gn 0.04 lr 5.00e-04 0 tok/s (0.1m)
+[smoke_lowrank_unfreeze] STAGE2 @step 10: unfroze 48 tensors (5,243,904 params) at lr 1e-05
+[smoke_lowrank_unfreeze] step 20/61 tok 32,636,928 loss 5.7221 gn 0.43 lr 3.98e-04 93,932 tok/s (0.5m)
+[smoke_lowrank_unfreeze] step 40/61 tok 35,258,368 loss 5.8499 gn 0.34 lr 1.73e-04 92,123 tok/s (1.0m)
+[smoke_lowrank_unfreeze] step 60/61 tok 37,879,808 loss 5.6911 gn 0.26 lr 5.03e-05 91,962 tok/s (1.5m)
+[smoke_lowrank_unfreeze] FINAL nll=5.5565 ppl=258.93 bypos={'0-128': 6.009819037375564, '128-512': 5.547617676980735, '512-1024': 5.582123728017905, '1024-2048': 5.461889263844569, '2048-4096': 5.570826791371999} in 1.5m

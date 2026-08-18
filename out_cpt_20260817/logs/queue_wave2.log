@@ -1,0 +1,32 @@
+[queue] 15 jobs over GPUs ['2', '3'] on lux-2-node-16
+[queue] start vanilla_continue_s0 on gpu2 pid=1670450 (14 pending)
+[queue] start lowrank_s0 on gpu3 pid=1670451 (13 pending)
+[queue] DONE(rc=0) nll=3.6785 lowrank_s0 on gpu3 in 2071s
+[queue] start additive_s0 on gpu3 pid=1935315 (12 pending)
+[queue] DONE(rc=0) nll=3.6096 vanilla_continue_s0 on gpu2 in 2151s
+[queue] start localreader_s0 on gpu2 pid=1937030 (11 pending)
+[queue] DONE(rc=0) nll=3.6785 additive_s0 on gpu3 in 2252s
+[queue] start lowrank_unfreeze_s0 on gpu3 pid=2412441 (10 pending)
+[queue] DONE(rc=0) nll=3.6828 localreader_s0 on gpu2 in 2332s
+[queue] start vanilla_continue_s1 on gpu2 pid=2416887 (9 pending)
+[queue] DONE(rc=0) nll=3.6738 lowrank_unfreeze_s0 on gpu3 in 2132s
+[queue] start lowrank_s1 on gpu3 pid=2465399 (8 pending)
+[queue] DONE(rc=0) nll=3.6059 vanilla_continue_s1 on gpu2 in 2182s
+[queue] start additive_s1 on gpu2 pid=2470669 (7 pending)
+[queue] DONE(rc=0) nll=3.6721 lowrank_s1 on gpu3 in 2072s
+[queue] start localreader_s1 on gpu3 pid=2513700 (6 pending)
+[queue] DONE(rc=0) nll=3.6717 additive_s1 on gpu2 in 2262s
+[queue] start lowrank_unfreeze_s1 on gpu2 pid=2524391 (5 pending)
+[queue] DONE(rc=0) nll=3.6761 localreader_s1 on gpu3 in 2352s
+[queue] start vanilla_continue_s2 on gpu3 pid=2984240 (4 pending)
+[queue] DONE(rc=0) nll=3.6674 lowrank_unfreeze_s1 on gpu2 in 2132s
+[queue] start lowrank_s2 on gpu2 pid=2989292 (3 pending)
+[queue] DONE(rc=0) nll=3.6041 vanilla_continue_s2 on gpu3 in 2182s
+[queue] start additive_s2 on gpu3 pid=3446811 (2 pending)
+[queue] DONE(rc=0) nll=3.6700 lowrank_s2 on gpu2 in 2072s
+[queue] start localreader_s2 on gpu2 pid=3449438 (1 pending)
+[queue] DONE(rc=0) nll=3.6698 additive_s2 on gpu3 in 2242s
+[queue] start lowrank_unfreeze_s2 on gpu3 pid=3680408 (0 pending)
+[queue] DONE(rc=0) nll=3.6738 localreader_s2 on gpu2 in 2342s
+[queue] DONE(rc=0) nll=3.6655 lowrank_unfreeze_s2 on gpu3 in 2142s
+[queue] complete: 15 done, 0 failed []

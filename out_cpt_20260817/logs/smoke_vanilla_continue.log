@@ -1,0 +1,6 @@
+[smoke_vanilla_continue] arm=vanilla_continue params={'total': 106500096, 'trainable': 106500096, 'attention': 5243904, 'embedding': 77654528, 'non_embedding': 28845568} tokens/step=131,072 steps=61 30,015,488->38,015,488 stage2@None
+[smoke_vanilla_continue] step 1/61 tok 30,146,560 loss 5.5950 gn 0.72 lr 3.00e-04 0 tok/s (0.1m)
+[smoke_vanilla_continue] step 20/61 tok 32,636,928 loss 5.8429 gn 0.80 lr 2.39e-04 105,521 tok/s (0.5m)
+[smoke_vanilla_continue] step 40/61 tok 35,258,368 loss 5.8263 gn 0.44 lr 1.04e-04 105,619 tok/s (0.9m)
+[smoke_vanilla_continue] step 60/61 tok 37,879,808 loss 5.6394 gn 0.42 lr 3.02e-05 105,617 tok/s (1.3m)
+[smoke_vanilla_continue] FINAL nll=5.6098 ppl=273.09 bypos={'0-128': 5.832253273343667, '128-512': 5.625848291500006, '512-1024': 5.706917989708018, '1024-2048': 5.581870862870346, '2048-4096': 5.582577408787771} in 1.33m

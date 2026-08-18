@@ -1,0 +1,6 @@
+[smoke_lowrank_b1] arm=lowrank params={'total': 107286528, 'trainable': 786432, 'attention': 6030336, 'embedding': 77654528, 'non_embedding': 29632000} tokens/step=131,072 steps=61 30,015,488->38,015,488 stage2@None
+[smoke_lowrank_b1] step 1/61 tok 30,146,560 loss 5.5950 gn 0.04 lr 5.00e-04 0 tok/s (0.1m)
+[smoke_lowrank_b1] step 20/61 tok 32,636,928 loss 5.7233 gn 0.03 lr 3.98e-04 97,606 tok/s (0.5m)
+[smoke_lowrank_b1] step 40/61 tok 35,258,368 loss 5.8526 gn 0.03 lr 1.73e-04 97,510 tok/s (1.0m)
+[smoke_lowrank_b1] step 60/61 tok 37,879,808 loss 5.6937 gn 0.02 lr 5.03e-05 96,741 tok/s (1.4m)
+[smoke_lowrank_b1] FINAL nll=5.5581 ppl=259.34 bypos={'0-128': 6.014115676378424, '128-512': 5.54914154930763, '512-1024': 5.584135527760736, '1024-2048': 5.463816322363527, '2048-4096': 5.5720017597640705} in 1.43m

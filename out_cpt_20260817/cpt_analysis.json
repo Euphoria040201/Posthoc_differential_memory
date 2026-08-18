@@ -1,0 +1,298 @@
+{
+ "n_runs": 21,
+ "arms": {
+  "additive": {
+   "seeds": [
+    0,
+    1,
+    2
+   ],
+   "n_runs": 3,
+   "per_seed_nll": [
+    3.53372,
+    3.52948,
+    3.52269
+   ],
+   "mean_nll": 3.52863,
+   "seed_sd": 0.00556,
+   "seed_spread": 0.01103,
+   "tokens_seen": 799932416,
+   "nll_by_position": {
+    "0-128": 3.83078,
+    "128-512": 3.5766,
+    "512-1024": 3.53014,
+    "1024-2048": 3.51921,
+    "2048-4096": 3.50507
+   }
+  },
+  "localreader": {
+   "seeds": [
+    0,
+    1,
+    2
+   ],
+   "n_runs": 3,
+   "per_seed_nll": [
+    3.5381,
+    3.53391,
+    3.52726
+   ],
+   "mean_nll": 3.53309,
+   "seed_sd": 0.00546,
+   "seed_spread": 0.01083,
+   "tokens_seen": 799932416,
+   "nll_by_position": {
+    "0-128": 3.83482,
+    "128-512": 3.58117,
+    "512-1024": 3.53464,
+    "1024-2048": 3.52393,
+    "2048-4096": 3.5094
+   }
+  },
+  "lowrank": {
+   "seeds": [
+    0,
+    1,
+    2
+   ],
+   "n_runs": 3,
+   "per_seed_nll": [
+    3.53356,
+    3.52947,
+    3.52295
+   ],
+   "mean_nll": 3.52866,
+   "seed_sd": 0.00535,
+   "seed_spread": 0.01061,
+   "tokens_seen": 799932416,
+   "nll_by_position": {
+    "0-128": 3.83185,
+    "128-512": 3.57737,
+    "512-1024": 3.53063,
+    "1024-2048": 3.51951,
+    "2048-4096": 3.50465
+   }
+  },
+  "lowrank_unfreeze": {
+   "seeds": [
+    0,
+    1,
+    2
+   ],
+   "n_runs": 3,
+   "per_seed_nll": [
+    3.52808,
+    3.52448,
+    3.51776
+   ],
+   "mean_nll": 3.52344,
+   "seed_sd": 0.00524,
+   "seed_spread": 0.01031,
+   "tokens_seen": 799932416,
+   "nll_by_position": {
+    "0-128": 3.82388,
+    "128-512": 3.57193,
+    "512-1024": 3.5256,
+    "1024-2048": 3.51437,
+    "2048-4096": 3.49955
+   }
+  },
+  "native_diffv2": {
+   "seeds": [
+    0,
+    1,
+    2
+   ],
+   "n_runs": 3,
+   "per_seed_nll": [
+    3.48594,
+    3.48927,
+    3.47696
+   ],
+   "mean_nll": 3.48406,
+   "seed_sd": 0.00637,
+   "seed_spread": 0.0123,
+   "tokens_seen": 799932416,
+   "nll_by_position": {
+    "0-128": 3.77073,
+    "128-512": 3.53299,
+    "512-1024": 3.48943,
+    "1024-2048": 3.47629,
+    "2048-4096": 3.4595
+   }
+  },
+  "vanilla": {
+   "seeds": [
+    0,
+    1,
+    2
+   ],
+   "n_runs": 3,
+   "per_seed_nll": [
+    3.49556,
+    3.49192,
+    3.48594
+   ],
+   "mean_nll": 3.49114,
+   "seed_sd": 0.00485,
+   "seed_spread": 0.00961,
+   "tokens_seen": 799932416,
+   "nll_by_position": {
+    "0-128": 3.79522,
+    "128-512": 3.53931,
+    "512-1024": 3.49308,
+    "1024-2048": 3.48199,
+    "2048-4096": 3.46718
+   }
+  },
+  "vanilla_continue": {
+   "seeds": [
+    0,
+    1,
+    2
+   ],
+   "n_runs": 3,
+   "per_seed_nll": [
+    3.45602,
+    3.45327,
+    3.44961
+   ],
+   "mean_nll": 3.45297,
+   "seed_sd": 0.00321,
+   "seed_spread": 0.0064,
+   "tokens_seen": 799932416,
+   "nll_by_position": {
+    "0-128": 3.76038,
+    "128-512": 3.50246,
+    "512-1024": 3.45536,
+    "1024-2048": 3.44401,
+    "2048-4096": 3.42834
+   }
+  }
+ },
+ "provenance": [
+  "out_cpt_20260817/additive_s0_final_eval.json",
+  "out_cpt_20260817/additive_s1_final_eval.json",
+  "out_cpt_20260817/additive_s2_final_eval.json",
+  "out_cpt_20260817/diffv2_s0_final_eval.json",
+  "out_cpt_20260817/diffv2_s1_final_eval.json",
+  "out_cpt_20260817/diffv2_s2_final_eval.json",
+  "out_cpt_20260817/localreader_s0_final_eval.json",
+  "out_cpt_20260817/localreader_s1_final_eval.json",
+  "out_cpt_20260817/localreader_s2_final_eval.json",
+  "out_cpt_20260817/lowrank_s0_final_eval.json",
+  "out_cpt_20260817/lowrank_s1_final_eval.json",
+  "out_cpt_20260817/lowrank_s2_final_eval.json",
+  "out_cpt_20260817/lowrank_unfreeze_s0_final_eval.json",
+  "out_cpt_20260817/lowrank_unfreeze_s1_final_eval.json",
+  "out_cpt_20260817/lowrank_unfreeze_s2_final_eval.json",
+  "out_cpt_20260817/van_s0_final_eval.json",
+  "out_cpt_20260817/van_s1_final_eval.json",
+  "out_cpt_20260817/van_s2_final_eval.json",
+  "out_cpt_20260817/vanilla_continue_s0_final_eval.json",
+  "out_cpt_20260817/vanilla_continue_s1_final_eval.json",
+  "out_cpt_20260817/vanilla_continue_s2_final_eval.json"
+ ],
+ "seed_noise_floor": 0.0123,
+ "seed_noise_floor_note": "largest within-arm seed spread across all arms; an effect smaller than this is not distinguishable from initialization noise at this seed count",
+ "comparisons": {
+  "native_diffv2_minus_vanilla": {
+   "delta": -0.007080442698983003,
+   "ci_lo": -0.014606293789984192,
+   "ci_hi": 0.00010068235472634289,
+   "p_two_sided": 0.0541,
+   "n_seeds": [
+    3,
+    3
+   ],
+   "n_windows": 2048
+  },
+  "native_diffv2_minus_vanilla_perseed": [
+   -0.00961,
+   -0.00265,
+   -0.00898
+  ],
+  "lowrank_minus_vanilla_continue": {
+   "delta": 0.07569463878947635,
+   "ci_lo": 0.0698186676420543,
+   "ci_hi": 0.08128940767589178,
+   "p_two_sided": 0.0,
+   "n_seeds": [
+    3,
+    3
+   ],
+   "n_windows": 2048
+  },
+  "lowrank_minus_additive": {
+   "delta": 3.168272087350488e-05,
+   "ci_lo": -0.007149131282737453,
+   "ci_hi": 0.0072397563747169215,
+   "p_two_sided": 0.9608,
+   "n_seeds": [
+    3,
+    3
+   ],
+   "n_windows": 2048
+  },
+  "lowrank_unfreeze_minus_vanilla_continue": {
+   "delta": 0.07047393813263625,
+   "ci_lo": 0.06465713932654263,
+   "ci_hi": 0.07593998555967119,
+   "p_two_sided": 0.0,
+   "n_seeds": [
+    3,
+    3
+   ],
+   "n_windows": 2048
+  },
+  "lowrank_unfreeze_minus_additive": {
+   "delta": -0.0051890179359666,
+   "ci_lo": -0.012319412435560317,
+   "ci_hi": 0.0018791512586177831,
+   "p_two_sided": 0.1475,
+   "n_seeds": [
+    3,
+    3
+   ],
+   "n_windows": 2048
+  },
+  "localreader_minus_vanilla_continue": {
+   "delta": 0.0801247168565169,
+   "ci_lo": 0.07415841208858168,
+   "ci_hi": 0.08579728659387925,
+   "p_two_sided": 0.0,
+   "n_seeds": [
+    3,
+    3
+   ],
+   "n_windows": 2048
+  },
+  "localreader_minus_additive": {
+   "delta": 0.004461760787914049,
+   "ci_lo": -0.0027878538525934913,
+   "ci_hi": 0.011731462251918996,
+   "p_two_sided": 0.2347,
+   "n_seeds": [
+    3,
+    3
+   ],
+   "n_windows": 2048
+  },
+  "additive_minus_vanilla_continue": {
+   "delta": 0.07566295606860285,
+   "ci_lo": 0.0696167681671794,
+   "ci_hi": 0.08139224974293015,
+   "p_two_sided": 0.0,
+   "n_seeds": [
+    3,
+    3
+   ],
+   "n_windows": 2048
+  }
+ },
+ "recovery_ratio": {
+  "computed": false,
+  "value": null,
+  "reason": "denominator 0.00708 does not exceed the measured seed-noise floor 0.01230; ratio would be division on noise"
+ }
+}

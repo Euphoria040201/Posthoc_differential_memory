@@ -176,6 +176,10 @@ def main():
     ap.add_argument("--window", type=int, default=256)
     ap.add_argument("--init-from", default="")
     ap.add_argument("--init-sha256", default="")
+    ap.add_argument("--pretrained-model", default="",
+                    help="4B port: continue from a real HF checkpoint instead of a "
+                         "from-scratch T0. The pretrained weights ARE T0.")
+    ap.add_argument("--grad-checkpointing", type=int, default=0)
     ap.add_argument("--log-every", type=int, default=25)
     ap.add_argument("--eval-every", type=int, default=400)
     ap.add_argument("--eval-batches", type=int, default=32)
@@ -199,15 +203,38 @@ def main():
     val_npy = str(Path(args.data_dir) / Path(man["val"]["path"]).name)
     assert man["seq_len"] == args.seq_len, (man["seq_len"], args.seq_len)
 
+    extra, groups = {}, None
     tok = AutoTokenizer.from_pretrained(args.tokenizer)
-    cfg = build_config(len(tok), args)
-    torch.manual_seed(args.seed)
-    model = Qwen3ForCausalLM(cfg).to(dev, torch.float32)
+    if args.pretrained_model:
+        # 4B port: the pretrained checkpoint IS T0.  bf16 weights, adapter-only
+        # arms keep the backbone frozen so no optimizer state is allocated for it.
+        from transformers import AutoModelForCausalLM
+        assert args.arm in CONTINUATION, "--pretrained-model is for continuation arms"
+        assert args.tokenizer == args.pretrained_model or True
+        torch.manual_seed(args.seed)
+        model = AutoModelForCausalLM.from_pretrained(
+            args.pretrained_model, dtype=torch.bfloat16,
+            attn_implementation=args.attn_impl).to(dev)
+        cfg = model.config
+        if args.grad_checkpointing:
+            model.gradient_checkpointing_enable()
+            model.config.use_cache = False
+        extra["pretrained_model"] = args.pretrained_model
+        extra["pretraining_overlap_caveat"] = (
+            "PG19 is public-domain Gutenberg text and is very likely inside this "
+            "model's own pretraining corpus, so continued pretraining here is "
+            "in-domain refresh, not exposure to unseen data. Arms are still "
+            "compared under identical conditions, but absolute gains must not be "
+            "read as learning new material.")
+    else:
+        cfg = build_config(len(tok), args)
+        torch.manual_seed(args.seed)
+        model = Qwen3ForCausalLM(cfg).to(dev, torch.float32)
 
     tokens_per_step = args.batch_size * args.seq_len * args.grad_accum
-    extra, groups = {}, None
+    n_model_layers = getattr(cfg, "num_hidden_layers", args.layers)
     split_layers = ([int(x) for x in args.split_layers.split(",")] if args.split_layers
-                    else list(range(args.layers)))
+                    else list(range(n_model_layers)))
 
     # ------------------------------------------------------------- from scratch
     if args.arm in ("vanilla", "native_diffv2"):
@@ -215,24 +242,27 @@ def main():
             from deltamem.core.diffv2_native import convert_to_native_diffv2, init_stats
             torch.manual_seed(args.seed)
             extra["converted_layers"] = len(convert_to_native_diffv2(model))
-            model = model.to(dev, torch.float32)
+            model = model.to(dev) if args.pretrained_model else model.to(dev, torch.float32)
             extra["init_stats_sample"] = {
                 k: v for k, v in list(init_stats(model).items())[:4]}
         start_tokens, end_tokens = 0, args.total_tokens
         groups = [{"params": list(model.parameters()), "lr": args.lr, "name": "all"}]
     # ------------------------------------------------------------ continuation
     else:
-        assert args.init_from, "continuation arms require --init-from (shared T0)"
-        got = sha256_file(args.init_from)
-        if args.init_sha256:
-            assert got == args.init_sha256, f"T0 mismatch {got} != {args.init_sha256}"
-        blob = torch.load(args.init_from, map_location="cpu", weights_only=False)
-        model.load_state_dict(blob["model"])
-        model = model.to(dev, torch.float32)
-        extra.update(init_from=args.init_from, init_sha256=got,
-                     init_tokens=blob["tokens_seen"])
-        start_tokens = blob["tokens_seen"]
-        end_tokens = start_tokens + args.continue_tokens
+        if args.pretrained_model:
+            start_tokens, end_tokens = 0, args.continue_tokens
+        else:
+            assert args.init_from, "continuation arms require --init-from (shared T0)"
+            got = sha256_file(args.init_from)
+            if args.init_sha256:
+                assert got == args.init_sha256, f"T0 mismatch {got} != {args.init_sha256}"
+            blob = torch.load(args.init_from, map_location="cpu", weights_only=False)
+            model.load_state_dict(blob["model"])
+            model = model.to(dev) if args.pretrained_model else model.to(dev, torch.float32)
+            extra.update(init_from=args.init_from, init_sha256=got,
+                         init_tokens=blob["tokens_seen"])
+            start_tokens = blob["tokens_seen"]
+            end_tokens = start_tokens + args.continue_tokens
 
         if args.arm == "vanilla_continue":
             groups = [{"params": list(model.parameters()), "lr": args.lr, "name": "all"}]
@@ -242,7 +272,7 @@ def main():
                 freeze_backbone_keep_split)
             attach_lowrank_split(model, split_layers, rank=args.rank, gamma=args.gamma,
                                  delta_pre_norm=bool(args.delta_pre_norm))
-            model = model.to(dev, torch.float32)
+            model = model.to(dev) if args.pretrained_model else model.to(dev, torch.float32)
             freeze_backbone_keep_split(model)
             extra["split_layers"] = split_layers
             extra["split_params_expected"] = expected_split_param_count(model)
@@ -253,7 +283,7 @@ def main():
                                                   freeze_backbone_keep_diff)
             attach_diff_split(model, split_layers, read_dim=args.read_dim,
                               window=args.window, gamma=args.gamma, dynamic_gate=False)
-            model = model.to(dev, torch.float32)
+            model = model.to(dev) if args.pretrained_model else model.to(dev, torch.float32)
             freeze_backbone_keep_diff(model)
             extra["split_layers"] = split_layers
             groups = [{"params": [p for p in model.parameters() if p.requires_grad],
@@ -263,7 +293,7 @@ def main():
                                                       freeze_backbone_keep_sidecar)
             attach_additive_sidecar(model, split_layers, read_dim=args.read_dim,
                                     window=args.window)
-            model = model.to(dev, torch.float32)
+            model = model.to(dev) if args.pretrained_model else model.to(dev, torch.float32)
             freeze_backbone_keep_sidecar(model)
             extra["split_layers"] = split_layers
             groups = [{"params": [p for p in model.parameters() if p.requires_grad],

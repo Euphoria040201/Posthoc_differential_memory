@@ -1,0 +1,37 @@
+[lowrank_unfreeze_s0] arm=lowrank_unfreeze params={'total': 107286528, 'trainable': 786432, 'attention': 6030336, 'embedding': 77654528, 'non_embedding': 29632000} tokens/step=131,072 steps=1,525 600,047,616->800,047,616 stage2@228
+[lowrank_unfreeze_s0] step 1/1525 tok 600,178,688 loss 3.5461 gn 0.01 lr 1.67e-05 0 tok/s (0.1m)
+[lowrank_unfreeze_s0] step 50/1525 tok 606,601,216 loss 3.4716 gn 0.02 lr 5.00e-04 97,818 tok/s (1.2m)
+[lowrank_unfreeze_s0] step 100/1525 tok 613,154,816 loss 3.4414 gn 0.01 lr 4.98e-04 97,843 tok/s (2.3m)
+[lowrank_unfreeze_s0] step 150/1525 tok 619,708,416 loss 3.5636 gn 0.01 lr 4.93e-04 97,848 tok/s (3.4m)
+[lowrank_unfreeze_s0] step 200/1525 tok 626,262,016 loss 3.4927 gn 0.01 lr 4.86e-04 98,025 tok/s (4.5m)
+[lowrank_unfreeze_s0] STAGE2 @step 229: unfroze 48 tensors (5,243,904 params) at lr 1e-05
+[lowrank_unfreeze_s0] step 250/1525 tok 632,815,616 loss 3.5903 gn 0.29 lr 4.76e-04 96,173 tok/s (5.7m)
+[lowrank_unfreeze_s0] step 300/1525 tok 639,369,216 loss 3.3857 gn 0.26 lr 4.65e-04 94,056 tok/s (6.8m)
+[lowrank_unfreeze_s0] step 350/1525 tok 645,922,816 loss 3.6228 gn 0.26 lr 4.51e-04 94,140 tok/s (8.0m)
+[lowrank_unfreeze_s0] step 400/1525 tok 652,476,416 loss 3.6127 gn 0.26 lr 4.35e-04 94,006 tok/s (9.1m)
+[lowrank_unfreeze_s0] step 450/1525 tok 659,030,016 loss 3.5310 gn 0.27 lr 4.18e-04 94,009 tok/s (10.3m)
+[lowrank_unfreeze_s0] step 500/1525 tok 665,583,616 loss 3.5716 gn 0.25 lr 3.99e-04 94,047 tok/s (11.5m)
+[lowrank_unfreeze_s0] step 500 VAL nll 3.7577 ppl 42.85 bypos {'0-128': 3.9626811438409995, '128-512': 3.7127043198259995, '512-1024': 3.7849986881249595, '1024-2048': 3.755904101104205, '2048-4096': 3.7473022965101705}
+[lowrank_unfreeze_s0] step 550/1525 tok 672,137,216 loss 3.5328 gn 0.25 lr 3.79e-04 93,217 tok/s (12.6m)
+[lowrank_unfreeze_s0] step 600/1525 tok 678,690,816 loss 3.4882 gn 0.27 lr 3.57e-04 94,031 tok/s (13.8m)
+[lowrank_unfreeze_s0] step 650/1525 tok 685,244,416 loss 3.4472 gn 0.26 lr 3.35e-04 93,932 tok/s (15.0m)
+[lowrank_unfreeze_s0] step 700/1525 tok 691,798,016 loss 3.5283 gn 0.25 lr 3.11e-04 93,899 tok/s (16.1m)
+[lowrank_unfreeze_s0] step 750/1525 tok 698,351,616 loss 3.4536 gn 0.26 lr 2.88e-04 93,944 tok/s (17.3m)
+[lowrank_unfreeze_s0] step 800/1525 tok 704,905,216 loss 3.5655 gn 0.26 lr 2.64e-04 93,601 tok/s (18.5m)
+[lowrank_unfreeze_s0] step 850/1525 tok 711,458,816 loss 3.4535 gn 0.24 lr 2.41e-04 94,047 tok/s (19.6m)
+[lowrank_unfreeze_s0] step 900/1525 tok 718,012,416 loss 3.5020 gn 0.26 lr 2.18e-04 94,048 tok/s (20.8m)
+[lowrank_unfreeze_s0] step 950/1525 tok 724,566,016 loss 3.5076 gn 0.24 lr 1.95e-04 94,055 tok/s (21.9m)
+[lowrank_unfreeze_s0] step 1000/1525 tok 731,119,616 loss 3.5652 gn 0.26 lr 1.74e-04 94,063 tok/s (23.1m)
+[lowrank_unfreeze_s0] step 1000 VAL nll 3.7554 ppl 42.75 bypos {'0-128': 3.9609215422830175, '128-512': 3.7103922159899976, '512-1024': 3.7831598995247977, '1024-2048': 3.7531828561144827, '2048-4096': 3.745103838893798}
+[lowrank_unfreeze_s0] step 1050/1525 tok 737,673,216 loss 3.5064 gn 0.24 lr 1.53e-04 93,221 tok/s (24.3m)
+[lowrank_unfreeze_s0] step 1100/1525 tok 744,226,816 loss 3.4721 gn 0.26 lr 1.34e-04 94,065 tok/s (25.4m)
+[lowrank_unfreeze_s0] step 1150/1525 tok 750,780,416 loss 3.4102 gn 0.27 lr 1.16e-04 94,064 tok/s (26.6m)
+[lowrank_unfreeze_s0] step 1200/1525 tok 757,334,016 loss 3.5110 gn 0.27 lr 1.00e-04 94,052 tok/s (27.8m)
+[lowrank_unfreeze_s0] step 1250/1525 tok 763,887,616 loss 3.5113 gn 0.25 lr 8.65e-05 94,048 tok/s (28.9m)
+[lowrank_unfreeze_s0] step 1300/1525 tok 770,441,216 loss 3.5174 gn 0.24 lr 7.47e-05 94,042 tok/s (30.1m)
+[lowrank_unfreeze_s0] step 1350/1525 tok 776,994,816 loss 3.5378 gn 0.24 lr 6.50e-05 94,045 tok/s (31.2m)
+[lowrank_unfreeze_s0] step 1400/1525 tok 783,548,416 loss 3.5669 gn 0.25 lr 5.77e-05 94,045 tok/s (32.4m)
+[lowrank_unfreeze_s0] step 1450/1525 tok 790,102,016 loss 3.6092 gn 0.28 lr 5.28e-05 94,046 tok/s (33.6m)
+[lowrank_unfreeze_s0] step 1500/1525 tok 796,655,616 loss 3.5908 gn 0.27 lr 5.03e-05 94,052 tok/s (34.7m)
+[lowrank_unfreeze_s0] step 1500 VAL nll 3.7551 ppl 42.74 bypos {'0-128': 3.9617248752571186, '128-512': 3.710256532519093, '512-1024': 3.7826510416277146, '1024-2048': 3.7531035766244356, '2048-4096': 3.7446528127666165}
+[lowrank_unfreeze_s0] FINAL nll=3.6738 ppl=39.40 bypos={'0-128': 3.949052960260739, '128-512': 3.7011714197108057, '512-1024': 3.657835341926177, '1024-2048': 3.6511918586829704, '2048-4096': 3.666699657071842} in 35.35m

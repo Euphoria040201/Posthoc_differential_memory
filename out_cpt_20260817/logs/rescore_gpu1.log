@@ -1,0 +1,6 @@
+nohup: failed to run command '/work/mingze/miniconda3/envs/deltamem/bin/env': No such file or directory
+nohup: failed to run command '/work/mingze/miniconda3/envs/deltamem/bin/env': No such file or directory
+nohup: failed to run command '/work/mingze/miniconda3/envs/deltamem/bin/env': No such file or directory
+[additive_s1] arm=additive nll=3.52948 ppl=34.11 n=2048 bypos={'0-128': 3.8303819800818424, '128-512': 3.5766700731939576, '512-1024': 3.5301608606658847, '1024-2048': 3.5195470138844076, '2048-4096': 3.506616874590255} -> out_cpt_20260817/additive_s1_final_eval.json
+[lowrank_s0] arm=lowrank nll=3.53356 ppl=34.25 n=2048 bypos={'0-128': 3.835255564252917, '128-512': 3.5802878637766455, '512-1024': 3.5345344165736945, '1024-2048': 3.5239466877353705, '2048-4096': 3.5104962216749818} -> out_cpt_20260817/lowrank_s0_final_eval.json
+[van_s2] arm=vanilla nll=3.48594 ppl=32.65 n=2048 bypos={'0-128': 3.792527380559645, '128-512': 3.5365560931234925, '512-1024': 3.4896575529220515, '1024-2048': 3.477746131419208, '2048-4096': 3.4604440430939802} -> out_cpt_20260817/van_s2_final_eval.json
