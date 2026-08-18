@@ -46,8 +46,27 @@ advantage as p grows.
 | localreader_minus_vanilla_continue | **+0.08012** | [+0.07416, +0.08580] | 0.0000 | [3, 3] |
 | localreader_minus_additive | **+0.00446** | [-0.00279, +0.01173] | 0.2347 | [3, 3] |
 | additive_minus_vanilla_continue | **+0.07566** | [+0.06962, +0.08139] | 0.0000 | [3, 3] |
+| lowrank_minus_localreader | **-0.00443** | [-0.01154, +0.00271] | 0.2283 | [3, 3] |
+| lowrank_unfreeze_minus_lowrank | **-0.00522** | [-0.01222, +0.00170] | 0.1447 | [3, 3] |
 
 native DiffV2 - vanilla, per seed: [-0.00961, -0.00265, -0.00898] (negative = DiffV2 better)
+
+### Paired-by-seed comparisons (continuation arms share a T0)
+
+Continuation arms with the same seed load the SAME T0 file (sha256 asserted) and consume the same token stream, so they are a matched design and these are the intervals that apply to them. The unpaired hierarchical intervals above are reported too because they are the correct ones for the from-scratch arms, which share no checkpoint.
+
+| comparison | delta NLL | 95% CI | p | per-seed | same sign |
+|---|---|---|---|---|---|
+| lowrank_minus_vanilla_continue | **+0.07569** | [+0.07345, +0.07762] | 0.0000 | [0.077544, 0.076205, 0.073335] | True |
+| lowrank_minus_lowrank_unfreeze | **+0.00522** | [+0.00499, +0.00547] | 0.0000 | [0.005486, 0.004988, 0.005188] | True |
+| additive_minus_vanilla_continue | **+0.07566** | [+0.07320, +0.07776] | 0.0000 | [0.077699, 0.076218, 0.073072] | True |
+| additive_minus_lowrank | **-0.00003** | [-0.00026, +0.00017] | 0.7759 | [0.000155, 1.3e-05, -0.000263] | False |
+| additive_minus_localreader | **-0.00446** | [-0.00460, -0.00434] | 0.0000 | [-0.004379, -0.004429, -0.004577] | True |
+| additive_minus_lowrank_unfreeze | **+0.00519** | [+0.00489, +0.00561] | 0.0000 | [0.005641, 0.005001, 0.004925] | True |
+| localreader_minus_vanilla_continue | **+0.08012** | [+0.07778, +0.08216] | 0.0000 | [0.082078, 0.080647, 0.077649] | True |
+| localreader_minus_lowrank | **+0.00443** | [+0.00429, +0.00456] | 0.0000 | [0.004534, 0.004442, 0.004314] | True |
+| localreader_minus_lowrank_unfreeze | **+0.00965** | [+0.00937, +0.00999] | 0.0000 | [0.01002, 0.00943, 0.009502] | True |
+| lowrank_unfreeze_minus_vanilla_continue | **+0.07047** | [+0.06827, +0.07224] | 0.0000 | [0.072058, 0.071217, 0.068147] | True |
 
 ## Recovery ratio
 

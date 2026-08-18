@@ -74,6 +74,42 @@ def hier_boot_diff(arm_a_runs, arm_b_runs, n=20000, seed=0):
             "n_seeds": [len(A), len(B)], "n_windows": int(L)}
 
 
+def paired_seed_boot(arm_a_runs, arm_b_runs, n=20000, seed=0):
+    """Bootstrap that RESPECTS the seed pairing.
+
+    Continuation arms with the same seed fork from the same T0 file (sha256
+    asserted) and consume the same token stream, so seed i of arm A and seed i
+    of arm B differ only by method.  Resampling seeds independently from each
+    arm, as `hier_boot_diff` does, throws that pairing away and inflates the
+    interval by the full between-seed variance -- which here is an order of
+    magnitude larger than the effect.  This resamples seed PAIRS and windows
+    jointly, which is the correct interval for a matched design.
+    """
+    rng = np.random.default_rng(seed)
+    A = [np.asarray(r["per_seq_nll"]) for r in arm_a_runs]
+    B = [np.asarray(r["per_seq_nll"]) for r in arm_b_runs]
+    k = min(len(A), len(B))
+    if k == 0:
+        return None
+    L = min(min(len(x) for x in A), min(len(x) for x in B))
+    D = np.stack([A[i][:L] - B[i][:L] for i in range(k)])      # [seeds, windows]
+    means = np.empty(n)
+    for i in range(n):
+        s = rng.integers(0, k, k)
+        w = rng.integers(0, L, L)
+        means[i] = D[np.ix_(s, w)].mean()
+    per_seed = [float(d.mean()) for d in D]
+    return {"delta": float(D.mean()),
+            "ci_lo": float(np.percentile(means, 2.5)),
+            "ci_hi": float(np.percentile(means, 97.5)),
+            "p_two_sided": float(2 * min((means <= 0).mean(), (means >= 0).mean())),
+            "per_seed_delta": [round(x, 6) for x in per_seed],
+            "per_seed_sd": round(float(np.std(per_seed, ddof=1)), 6) if k > 1 else None,
+            "same_sign_all_seeds": bool(all(x < 0 for x in per_seed)
+                                        or all(x > 0 for x in per_seed)),
+            "n_seed_pairs": k, "n_windows": int(L), "design": "paired by seed"}
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--dir", default=str(REPO / "out_cpt_20260817"))
@@ -127,7 +163,35 @@ def main():
             cmp_[f"{arm}_minus_{base}"] = hier_boot_diff(by_arm[arm], by_arm[base])
         if arm in by_arm and "additive" in by_arm and arm != "additive":
             cmp_[f"{arm}_minus_additive"] = hier_boot_diff(by_arm[arm], by_arm["additive"])
+    # the direct method-vs-method comparison: faithful split vs the LocalRead
+    # split it replaces, at identical trainable budget and identical T0/stream
+    if "lowrank" in by_arm and "localreader" in by_arm:
+        cmp_["lowrank_minus_localreader"] = hier_boot_diff(
+            by_arm["lowrank"], by_arm["localreader"])
+        cmp_["lowrank_minus_localreader_perseed"] = [
+            round(a["val_nll"] - b["val_nll"], 5)
+            for a, b in zip(by_arm["lowrank"], by_arm["localreader"])]
+    if "lowrank_unfreeze" in by_arm and "lowrank" in by_arm:
+        cmp_["lowrank_unfreeze_minus_lowrank"] = hier_boot_diff(
+            by_arm["lowrank_unfreeze"], by_arm["lowrank"])
     res["comparisons"] = cmp_
+
+    # ---- paired-by-seed intervals for the arms that genuinely share a T0
+    CONT = ("vanilla_continue", "lowrank", "additive", "localreader",
+            "lowrank_unfreeze")
+    paired = {}
+    for a in CONT:
+        for b in CONT:
+            if a >= b or a not in by_arm or b not in by_arm:
+                continue
+            paired[f"{a}_minus_{b}"] = paired_seed_boot(by_arm[a], by_arm[b])
+    res["paired_comparisons"] = paired
+    res["paired_note"] = (
+        "Continuation arms with the same seed load the SAME T0 file (sha256 "
+        "asserted) and consume the same token stream, so they are a matched "
+        "design and these are the intervals that apply to them. The unpaired "
+        "hierarchical intervals above are reported too because they are the "
+        "correct ones for the from-scratch arms, which share no checkpoint.")
 
     # ---- recovery ratio, GATED
     rec = {"computed": False, "value": None, "reason": ""}
@@ -193,6 +257,18 @@ def main():
     if "native_diffv2_minus_vanilla_perseed" in cmp_:
         L += ["", f"native DiffV2 - vanilla, per seed: "
               f"{cmp_['native_diffv2_minus_vanilla_perseed']} (negative = DiffV2 better)"]
+
+    if res.get("paired_comparisons"):
+        L += ["", "### Paired-by-seed comparisons (continuation arms share a T0)", "",
+              res["paired_note"], "",
+              "| comparison | delta NLL | 95% CI | p | per-seed | same sign |",
+              "|---|---|---|---|---|---|"]
+        for k, v in res["paired_comparisons"].items():
+            if not v:
+                continue
+            L.append(f"| {k} | **{v['delta']:+.5f}** | [{v['ci_lo']:+.5f}, "
+                     f"{v['ci_hi']:+.5f}] | {v['p_two_sided']:.4f} | "
+                     f"{v['per_seed_delta']} | {v['same_sign_all_seeds']} |")
 
     L += ["", "## Recovery ratio", ""]
     if rec["computed"]:

@@ -288,8 +288,198 @@
     3
    ],
    "n_windows": 2048
+  },
+  "lowrank_minus_localreader": {
+   "delta": -0.004430078067040544,
+   "ci_lo": -0.011541047456073095,
+   "ci_hi": 0.0027148766899093395,
+   "p_two_sided": 0.2283,
+   "n_seeds": [
+    3,
+    3
+   ],
+   "n_windows": 2048
+  },
+  "lowrank_minus_localreader_perseed": [
+   -0.00453,
+   -0.00444,
+   -0.00431
+  ],
+  "lowrank_unfreeze_minus_lowrank": {
+   "delta": -0.005220700656840105,
+   "ci_lo": -0.01221630830356526,
+   "ci_hi": 0.0016986647121182803,
+   "p_two_sided": 0.1447,
+   "n_seeds": [
+    3,
+    3
+   ],
+   "n_windows": 2048
   }
  },
+ "paired_comparisons": {
+  "lowrank_minus_vanilla_continue": {
+   "delta": 0.0756946387894762,
+   "ci_lo": 0.07344985125673702,
+   "ci_hi": 0.07762232766690431,
+   "p_two_sided": 0.0,
+   "per_seed_delta": [
+    0.077544,
+    0.076205,
+    0.073335
+   ],
+   "per_seed_sd": 0.00215,
+   "same_sign_all_seeds": true,
+   "n_seed_pairs": 3,
+   "n_windows": 2048,
+   "design": "paired by seed"
+  },
+  "lowrank_minus_lowrank_unfreeze": {
+   "delta": 0.0052207006568399566,
+   "ci_lo": 0.004994108616665471,
+   "ci_hi": 0.0054699948625057,
+   "p_two_sided": 0.0,
+   "per_seed_delta": [
+    0.005486,
+    0.004988,
+    0.005188
+   ],
+   "per_seed_sd": 0.000251,
+   "same_sign_all_seeds": true,
+   "n_seed_pairs": 3,
+   "n_windows": 2048,
+   "design": "paired by seed"
+  },
+  "additive_minus_vanilla_continue": {
+   "delta": 0.0756629560686027,
+   "ci_lo": 0.07320231599587715,
+   "ci_hi": 0.0777601092660916,
+   "p_two_sided": 0.0,
+   "per_seed_delta": [
+    0.077699,
+    0.076218,
+    0.073072
+   ],
+   "per_seed_sd": 0.002363,
+   "same_sign_all_seeds": true,
+   "n_seed_pairs": 3,
+   "n_windows": 2048,
+   "design": "paired by seed"
+  },
+  "additive_minus_lowrank": {
+   "delta": -3.168272087350488e-05,
+   "ci_lo": -0.0002551216733991168,
+   "ci_hi": 0.00017197878429821327,
+   "p_two_sided": 0.7759,
+   "per_seed_delta": [
+    0.000155,
+    1.3e-05,
+    -0.000263
+   ],
+   "per_seed_sd": 0.000213,
+   "same_sign_all_seeds": false,
+   "n_seed_pairs": 3,
+   "n_windows": 2048,
+   "design": "paired by seed"
+  },
+  "additive_minus_localreader": {
+   "delta": -0.004461760787914197,
+   "ci_lo": -0.004603459345040998,
+   "ci_hi": -0.004338918836826148,
+   "p_two_sided": 0.0,
+   "per_seed_delta": [
+    -0.004379,
+    -0.004429,
+    -0.004577
+   ],
+   "per_seed_sd": 0.000103,
+   "same_sign_all_seeds": true,
+   "n_seed_pairs": 3,
+   "n_windows": 2048,
+   "design": "paired by seed"
+  },
+  "additive_minus_lowrank_unfreeze": {
+   "delta": 0.005189017935966452,
+   "ci_lo": 0.004893548916152212,
+   "ci_hi": 0.005612073824158869,
+   "p_two_sided": 0.0,
+   "per_seed_delta": [
+    0.005641,
+    0.005001,
+    0.004925
+   ],
+   "per_seed_sd": 0.000393,
+   "same_sign_all_seeds": true,
+   "n_seed_pairs": 3,
+   "n_windows": 2048,
+   "design": "paired by seed"
+  },
+  "localreader_minus_vanilla_continue": {
+   "delta": 0.0801247168565169,
+   "ci_lo": 0.07778124471660704,
+   "ci_hi": 0.08215748658306742,
+   "p_two_sided": 0.0,
+   "per_seed_delta": [
+    0.082078,
+    0.080647,
+    0.077649
+   ],
+   "per_seed_sd": 0.00226,
+   "same_sign_all_seeds": true,
+   "n_seed_pairs": 3,
+   "n_windows": 2048,
+   "design": "paired by seed"
+  },
+  "localreader_minus_lowrank": {
+   "delta": 0.004430078067040692,
+   "ci_lo": 0.004289679861782739,
+   "ci_hi": 0.004564795680926182,
+   "p_two_sided": 0.0,
+   "per_seed_delta": [
+    0.004534,
+    0.004442,
+    0.004314
+   ],
+   "per_seed_sd": 0.000111,
+   "same_sign_all_seeds": true,
+   "n_seed_pairs": 3,
+   "n_windows": 2048,
+   "design": "paired by seed"
+  },
+  "localreader_minus_lowrank_unfreeze": {
+   "delta": 0.009650778723880649,
+   "ci_lo": 0.009374164765661892,
+   "ci_hi": 0.009994883618492167,
+   "p_two_sided": 0.0,
+   "per_seed_delta": [
+    0.01002,
+    0.00943,
+    0.009502
+   ],
+   "per_seed_sd": 0.000322,
+   "same_sign_all_seeds": true,
+   "n_seed_pairs": 3,
+   "n_windows": 2048,
+   "design": "paired by seed"
+  },
+  "lowrank_unfreeze_minus_vanilla_continue": {
+   "delta": 0.07047393813263625,
+   "ci_lo": 0.06827306914783549,
+   "ci_hi": 0.07223821960700055,
+   "p_two_sided": 0.0,
+   "per_seed_delta": [
+    0.072058,
+    0.071217,
+    0.068147
+   ],
+   "per_seed_sd": 0.002059,
+   "same_sign_all_seeds": true,
+   "n_seed_pairs": 3,
+   "n_windows": 2048,
+   "design": "paired by seed"
+  }
+ },
+ "paired_note": "Continuation arms with the same seed load the SAME T0 file (sha256 asserted) and consume the same token stream, so they are a matched design and these are the intervals that apply to them. The unpaired hierarchical intervals above are reported too because they are the correct ones for the from-scratch arms, which share no checkpoint.",
  "recovery_ratio": {
   "computed": false,
   "value": null,
