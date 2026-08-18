@@ -124,3 +124,34 @@ being compared, while the effect under measurement was 0.005 nats.
 `deltamem/core/diffv2_native.py` initialises every new tensor the way HF
 initialises the tensor it replaces (measured 0.01997) and is used for all new
 runs. The old module is left untouched so its artifacts remain reproducible.
+
+## 7. The native-DiffV2 arm is a reimplementation, not an official model
+
+Added 2026-08-18 after verifying against the official source, now vendored at
+`third_party/diff_transformer/` with `PROVENANCE.md`.
+
+* **No official checkpoint exists.** The Diff-Transformer README publishes module
+  code only, no weights. "native_diffv2" is therefore necessarily our own
+  reimplementation trained from scratch (108.6M params, Qwen3 blocks, 800M PG19
+  tokens), not an official model.
+* **The official codebase was never run.** It requires `flash_attn` and the
+  repo's own rotary kernel. We reimplemented the module on Qwen3 blocks. The
+  core algebra was verified line-by-line against the official file: doubled query
+  heads, unchanged KV heads, undoubled o_proj, interleaved `0::2`/`1::2` split,
+  and `attn1 - sigmoid(lambda_proj(x)) * attn2`. All match.
+* **Two deviations** (both applied to the vanilla control as well, so the
+  contrast is clean while absolute numbers are not comparable to published ones):
+  the official module has no q/k normalization whereas ours inherits Qwen3's
+  per-head RMSNorm, and ours zero-inits `lambda_proj` where the official leaves
+  PyTorch's default.
+* **The evaluation is not an official benchmark.** Arm B was scored only on
+  held-out PG19 language-modelling NLL (93 books disjoint from training, 2048
+  windows x 4096 tokens) plus position-stratified NLL. No downstream task was
+  run for it.
+* **Scope of the null.** The Differential Transformer papers argue for gains in
+  long-context retrieval, needle-in-a-haystack, hallucination and in-context
+  learning robustness, at multi-billion parameters and ~1T tokens. This study
+  measures LM NLL at 108.6M parameters and 800M tokens. Our result -- that the
+  advantage is a convergence-speed effect that decays into seed noise -- is a
+  statement about THIS scale and THIS metric. It is not a refutation of those
+  papers' claims.
