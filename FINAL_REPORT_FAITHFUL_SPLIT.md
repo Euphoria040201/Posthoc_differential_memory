@@ -19,9 +19,20 @@ Branch `agent/faithful-lowrank-split-cpt-2026-08-17`. Every number is generated 
 | arm | trainable | seeds | per-seed val NLL | mean | seed sd |
 |---|---|---|---|---|---|
 | `additive` | 786,432 | 3 | [3.53372, 3.52948, 3.52269] | **3.52863** | 0.00556 |
+| `additive_4b` | - | 1 | [2.55522] | **2.55522** | None |
+| `base_4b_no_continuation` | - | 1 | [2.72612] | **2.72612** | None |
+| `layout_evidence4` | - | 1 | [3.53542] | **3.53542** | None |
+| `layout_first4` | - | 1 | [3.53572] | **3.53572** | None |
+| `layout_last4` | - | 1 | [3.53646] | **3.53646** | None |
+| `layout_midlate4` | - | 1 | [3.53532] | **3.53532** | None |
 | `localreader` | 786,432 | 3 | [3.5381, 3.53391, 3.52726] | **3.53309** | 0.00546 |
+| `localreader_4b` | - | 1 | [2.59861] | **2.59861** | None |
 | `lowrank` | 786,432 | 3 | [3.53356, 3.52947, 3.52295] | **3.52866** | 0.00535 |
+| `lowrank_4b` | - | 1 | [2.56642] | **2.56642** | None |
+| `lowrank_postnorm` | - | 3 | [3.53388, 3.52957, 3.52322] | **3.52889** | 0.00536 |
+| `lowrank_r192` | - | 1 | [3.53244] | **3.53244** | None |
 | `lowrank_unfreeze` | 786,432 -> +5,243,904 at stage 2 | 3 | [3.52808, 3.52448, 3.51776] | **3.52344** | 0.00524 |
+| `lowrank_unfreeze_4b` | - | 1 | [2.55853] | **2.55853** | None |
 | `native_diffv2` | 108,630,016 (all) | 3 | [3.48594, 3.48927, 3.47696] | **3.48406** | 0.00637 |
 | `vanilla` | 106,500,096 (all) | 3 | [3.49556, 3.49192, 3.48594] | **3.49114** | 0.00485 |
 | `vanilla_continue` | 106,500,096 (all) | 3 | [3.45602, 3.45327, 3.44961] | **3.45297** | 0.00321 |
@@ -36,14 +47,19 @@ Continuation arms with the same seed load the SAME T0 file (sha256 asserted) and
 |---|---|---|---|---|---|
 | lowrank_minus_vanilla_continue | **+0.07569** | [+0.07345, +0.07762] | 0.0000 | [0.077544, 0.076205, 0.073335] | True |
 | lowrank_minus_lowrank_unfreeze | **+0.00522** | [+0.00499, +0.00547] | 0.0000 | [0.005486, 0.004988, 0.005188] | True |
+| lowrank_minus_lowrank_postnorm | **-0.00023** | [-0.00034, -0.00011] | 0.0000 | [-0.000323, -9.6e-05, -0.000273] | True |
 | additive_minus_vanilla_continue | **+0.07566** | [+0.07320, +0.07776] | 0.0000 | [0.077699, 0.076218, 0.073072] | True |
 | additive_minus_lowrank | **-0.00003** | [-0.00026, +0.00017] | 0.7759 | [0.000155, 1.3e-05, -0.000263] | False |
 | additive_minus_localreader | **-0.00446** | [-0.00460, -0.00434] | 0.0000 | [-0.004379, -0.004429, -0.004577] | True |
 | additive_minus_lowrank_unfreeze | **+0.00519** | [+0.00489, +0.00561] | 0.0000 | [0.005641, 0.005001, 0.004925] | True |
+| additive_minus_lowrank_postnorm | **-0.00026** | [-0.00052, -0.00006] | 0.0049 | [-0.000168, -8.3e-05, -0.000536] | True |
 | localreader_minus_vanilla_continue | **+0.08012** | [+0.07778, +0.08216] | 0.0000 | [0.082078, 0.080647, 0.077649] | True |
 | localreader_minus_lowrank | **+0.00443** | [+0.00429, +0.00456] | 0.0000 | [0.004534, 0.004442, 0.004314] | True |
 | localreader_minus_lowrank_unfreeze | **+0.00965** | [+0.00937, +0.00999] | 0.0000 | [0.01002, 0.00943, 0.009502] | True |
+| localreader_minus_lowrank_postnorm | **+0.00420** | [+0.00404, +0.00435] | 0.0000 | [0.004211, 0.004347, 0.004041] | True |
 | lowrank_unfreeze_minus_vanilla_continue | **+0.07047** | [+0.06827, +0.07224] | 0.0000 | [0.072058, 0.071217, 0.068147] | True |
+| lowrank_postnorm_minus_vanilla_continue | **+0.07593** | [+0.07372, +0.07791] | 0.0000 | [0.077867, 0.076301, 0.073608] | True |
+| lowrank_postnorm_minus_lowrank_unfreeze | **+0.00545** | [+0.00510, +0.00579] | 0.0000 | [0.005809, 0.005084, 0.005461] | True |
 
 ### Unpaired hierarchical bootstrap (applies to the from-scratch arms)
 
@@ -67,9 +83,20 @@ Every validation window lies inside ONE book, so position p carries p tokens of 
 | arm | 0-128 | 128-512 | 512-1024 | 1024-2048 | 2048-4096 |
 |---|---|---|---|---|---|
 | `additive` | 3.8308 | 3.5766 | 3.5301 | 3.5192 | 3.5051 |
+| `additive_4b` | 3.0381 | 2.6422 | 2.5776 | 2.5447 | 2.5084 |
+| `base_4b_no_continuation` | 3.2668 | 2.8217 | 2.7494 | 2.7126 | 2.6753 |
+| `layout_evidence4` | 3.8365 | 3.5821 | 3.5363 | 3.5259 | 3.5124 |
+| `layout_first4` | 3.8364 | 3.5819 | 3.5364 | 3.5261 | 3.5129 |
+| `layout_last4` | 3.8371 | 3.5828 | 3.5371 | 3.5268 | 3.5136 |
+| `layout_midlate4` | 3.8367 | 3.5819 | 3.5362 | 3.5257 | 3.5123 |
 | `localreader` | 3.8348 | 3.5812 | 3.5346 | 3.5239 | 3.5094 |
+| `localreader_4b` | 3.1510 | 2.6947 | 2.6221 | 2.5853 | 2.5468 |
 | `lowrank` | 3.8319 | 3.5774 | 3.5306 | 3.5195 | 3.5046 |
+| `lowrank_4b` | 3.0924 | 2.6613 | 2.5886 | 2.5544 | 2.5162 |
+| `lowrank_postnorm` | 3.8322 | 3.5777 | 3.5309 | 3.5198 | 3.5048 |
+| `lowrank_r192` | 3.8341 | 3.5793 | 3.5335 | 3.5229 | 3.5093 |
 | `lowrank_unfreeze` | 3.8239 | 3.5719 | 3.5256 | 3.5144 | 3.4996 |
+| `lowrank_unfreeze_4b` | 3.0715 | 2.6503 | 2.5805 | 2.5471 | 2.5095 |
 | `native_diffv2` | 3.7707 | 3.5330 | 3.4894 | 3.4763 | 3.4595 |
 | `vanilla` | 3.7952 | 3.5393 | 3.4931 | 3.4820 | 3.4672 |
 | `vanilla_continue` | 3.7604 | 3.5025 | 3.4554 | 3.4440 | 3.4283 |
@@ -78,9 +105,49 @@ native DiffV2 - vanilla by position: 0-128 -0.0245, 128-512 -0.0063, 512-1024 -0
 
 **The advantage is largest where context is shortest.** The corpus was built specifically to give long-range dependencies the best possible chance, and the long-range buckets are where the differential architecture helps least.
 
+## Layer-placement screen (parameter-matched at 786,432)
+
+Selection evidence is training-data only (attention entropy, which is the statistic the DiffV2 paper itself selects on, plus relative q_proj gradient norm); no validation or test result informed it.
+
+| layout | layers | rank | val NLL |
+|---|---|---|---|
+| `layout_midlate4_s0` | 2,3,4,5 | 192 | **3.53532** |
+| `layout_evidence4_s0` | 0,2,4,6 | 192 | **3.53542** |
+| `layout_first4_s0` | 0,1,2,3 | 192 | **3.53572** |
+| `layout_last4_s0` | 4,5,6,7 | 192 | **3.53646** |
+| `all8` (reference, seed 0) | 0-7 | 96 | **3.53356** |
+
+## Does the *faithful* placement matter? (pre-norm vs post-norm delta)
+
+The central design claim is that adding the delta BEFORE `q_norm` makes the module a reparameterization of one query matrix, `q_norm((Wq+BA)h)`, which is the native DiffV2 query path, whereas adding it after `q_norm` (what LocalRead does) is an additive patch on an already-normalized vector. This ablation runs the identical module with the delta moved after the norm, same rank, same T0, same stream, 3 seeds.
+
+| arm | mean val NLL |
+|---|---|
+| `lowrank` | **3.52866** |
+| `lowrank_postnorm` | **3.52889** |
+| `localreader` | **3.53309** |
+
+Paired: **-0.00023** nats, CI [-0.00034, -0.00011], p=0.0000, per-seed [-0.000323, -9.6e-05, -0.000273], same sign True.
+
+**Read this carefully.** Pre-norm is *statistically* better -- the paired interval excludes zero and the sign is the same in every seed -- but the magnitude is 0.00023 nats, which is 5% of the gap this method opens over LocalRead (0.00443) and 1/53 of the seed-noise floor. So the faithfulness argument that motivated this design is vindicated in direction and almost irrelevant in size: essentially all of the improvement over LocalRead comes from the negative query being **token-local** (no window reader at all), not from where the delta sits relative to `q_norm`.
+
+## Capacity probe (NOT parameter-matched)
+
+`lowrank_r192_s0` doubles the split budget to 1,572,864 parameters (r=192, all 8 layers) to test whether the tie with the additive control is an artifact of the 786,432 budget: **3.53244** vs `lowrank` seed 0 at **3.53356**. This arm has no parameter-matched additive counterpart and is reported as a probe only.
+
 ## Qwen3-4B port
 
-_4B arms still running; this section is generated when their `*_4b_final_eval.json` artifacts exist._
+Continue-pretraining Qwen3-4B-Instruct-2507 on PG19, 50M tokens, uniform 12-layer placement, adapter-only unless noted.
+
+| arm | trainable | val NLL | vs base |
+|---|---|---|---|
+| `additive_4b` | 14,155,776 | **2.55522** | -0.17090 |
+| `lowrank_unfr_4b` | 14,137,344 | **2.55853** | -0.16759 |
+| `lowrank_4b` | 14,137,344 | **2.56642** | -0.15971 |
+| `localreader_4b` | 14,155,776 | **2.59861** | -0.12751 |
+| `base_4b` | 0 (no continuation) | **2.72612** | +0.00000 |
+
+**Caveat that must not be dropped:** PG19 is public-domain Gutenberg text and is almost certainly inside Qwen3-4B's own pretraining corpus. These arms are compared under identical conditions to one another, but absolute movement here is in-domain refresh, not learning new material.
 
 ## Correctness gates (Qwen3-4B, `realgate_lowrank.json`)
 

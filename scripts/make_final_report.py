@@ -213,10 +213,26 @@ def main():
             if a_ in A["arms"]:
                 add(f"| `{a_}` | **{A['arms'][a_]['mean_nll']}** |")
         if pn:
+            gap_lr = None
+            pl2 = A.get("paired_comparisons", {}).get("localreader_minus_lowrank")
+            if pl2:
+                gap_lr = abs(pl2["delta"])
             add("")
             add(f"Paired: **{fmt(pn['delta'])}** nats, CI [{fmt(pn['ci_lo'])}, "
                 f"{fmt(pn['ci_hi'])}], p={pn['p_two_sided']:.4f}, per-seed "
                 f"{pn['per_seed_delta']}, same sign {pn['same_sign_all_seeds']}.")
+            add("")
+            add(f"**Read this carefully.** Pre-norm is *statistically* better -- the "
+                f"paired interval excludes zero and the sign is the same in every "
+                f"seed -- but the magnitude is {abs(pn['delta']):.5f} nats, which is "
+                + (f"{abs(pn['delta'])/gap_lr*100:.0f}% of the gap this method opens "
+                   f"over LocalRead ({gap_lr:.5f}) and " if gap_lr else "")
+                + f"1/{A['seed_noise_floor']/abs(pn['delta']):.0f} of the seed-noise "
+                f"floor. So the faithfulness argument that motivated this design is "
+                f"vindicated in direction and almost irrelevant in size: essentially "
+                f"all of the improvement over LocalRead comes from the negative query "
+                f"being **token-local** (no window reader at all), not from where the "
+                f"delta sits relative to `q_norm`.")
         add("")
 
     # ---------------------------------------------------- capacity probe
@@ -243,11 +259,15 @@ def main():
         add("Continue-pretraining Qwen3-4B-Instruct-2507 on PG19, 50M tokens, "
             "uniform 12-layer placement, adapter-only unless noted.")
         add("")
-        add("| arm | trainable | val NLL |")
-        add("|---|---|---|")
+        add("| arm | trainable | val NLL | vs base |")
+        add("|---|---|---|---|")
         for tag, r in sorted(fourb.items(), key=lambda kv: kv[1]["val_nll"]):
-            add(f"| `{tag}` | {jload(f'{tag}.json', {}).get('params', {}).get('trainable', '-'):,} "
-                f"| **{r['val_nll']:.5f}** |")
+            tr = jload(f"{tag}.json", {}).get("params", {}).get("trainable")
+            base_nll = fourb.get("base_4b", {}).get("val_nll")
+            vs = (f" | {r['val_nll'] - base_nll:+.5f}" if base_nll is not None else " | -")
+            add(f"| `{tag}` | {tr:,} | **{r['val_nll']:.5f}**{vs} |"
+                if isinstance(tr, int) else
+                f"| `{tag}` | 0 (no continuation) | **{r['val_nll']:.5f}**{vs} |")
         add("")
         add("**Caveat that must not be dropped:** PG19 is public-domain Gutenberg "
             "text and is almost certainly inside Qwen3-4B's own pretraining corpus. "

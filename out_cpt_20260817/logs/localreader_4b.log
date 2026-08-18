@@ -1,3 +1,22 @@
 Loading weights:   0%|          | 0/398 [00:00<?, ?it/s]Loading weights: 100%|██████████| 398/398 [00:00<00:00, 10434.37it/s]
 [localreader_4b] arm=localreader params={'total': 4036623872, 'trainable': 14155776, 'attention': 957883392, 'embedding': 388956160, 'non_embedding': 3647667712} tokens/step=32,768 steps=1,525 0->50,000,000 stage2@None
 [localreader_4b] step 1/1525 tok 32,768 loss 2.7617 gn 0.06 lr 1.67e-05 0 tok/s (0.1m)
+[localreader_4b] step 100/1525 tok 3,276,800 loss 2.6633 gn 0.04 lr 4.98e-04 8,631 tok/s (6.4m)
+[localreader_4b] step 200/1525 tok 6,553,600 loss 2.5679 gn 0.05 lr 4.86e-04 8,637 tok/s (12.7m)
+[localreader_4b] step 300/1525 tok 9,830,400 loss 2.4462 gn 0.06 lr 4.65e-04 8,638 tok/s (19.0m)
+[localreader_4b] step 400/1525 tok 13,107,200 loss 2.3540 gn 0.06 lr 4.35e-04 8,637 tok/s (25.4m)
+[localreader_4b] step 500/1525 tok 16,384,000 loss 2.6753 gn 0.06 lr 3.99e-04 8,640 tok/s (31.7m)
+[localreader_4b] step 500 VAL nll 2.8314 ppl 16.97 bypos {'0-128': 3.330072047412451, '128-512': 2.8352305625795773, '512-1024': 2.885357372476493, '1024-2048': 2.8267225093073054, '2048-4096': 2.788252771718605}
+[localreader_4b] step 600/1525 tok 19,660,800 loss 2.5019 gn 0.07 lr 3.57e-04 8,537 tok/s (38.1m)
+[localreader_4b] step 700/1525 tok 22,937,600 loss 2.4304 gn 0.05 lr 3.11e-04 8,632 tok/s (44.4m)
+[localreader_4b] step 800/1525 tok 26,214,400 loss 2.6061 gn 0.07 lr 2.64e-04 8,636 tok/s (50.7m)
+[localreader_4b] step 900/1525 tok 29,491,200 loss 2.5543 gn 0.05 lr 2.18e-04 8,636 tok/s (57.1m)
+[localreader_4b] step 1000/1525 tok 32,768,000 loss 2.8169 gn 0.05 lr 1.74e-04 8,635 tok/s (63.4m)
+[localreader_4b] step 1000 VAL nll 2.8251 ppl 16.86 bypos {'0-128': 3.323354694519392, '128-512': 2.828612847655961, '512-1024': 2.8797716839805885, '1024-2048': 2.8200996390684407, '2048-4096': 2.7820343077584377}
+[localreader_4b] step 1100/1525 tok 36,044,800 loss 2.6376 gn 0.05 lr 1.34e-04 8,537 tok/s (69.8m)
+[localreader_4b] step 1200/1525 tok 39,321,600 loss 2.5973 gn 0.04 lr 1.00e-04 8,636 tok/s (76.1m)
+[localreader_4b] step 1300/1525 tok 42,598,400 loss 2.2743 gn 0.07 lr 7.47e-05 8,639 tok/s (82.4m)
+[localreader_4b] step 1400/1525 tok 45,875,200 loss 2.5323 gn 0.04 lr 5.77e-05 8,638 tok/s (88.7m)
+[localreader_4b] step 1500/1525 tok 49,152,000 loss 2.6096 gn 0.05 lr 5.03e-05 8,642 tok/s (95.1m)
+[localreader_4b] step 1500 VAL nll 2.8243 ppl 16.85 bypos {'0-128': 3.3223295698048347, '128-512': 2.829021753373501, '512-1024': 2.8795490858721493, '1024-2048': 2.818651227604131, '2048-4096': 2.7812041072014053}
+[localreader_4b] FINAL nll=2.8502 ppl=17.29 bypos={'0-128': 3.3221492291268815, '128-512': 2.845759810721089, '512-1024': 2.8604100911831063, '1024-2048': 2.839480301983718, '2048-4096': 2.824411827781034} in 96.86m

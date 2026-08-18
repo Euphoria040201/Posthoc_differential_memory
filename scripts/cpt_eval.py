@@ -114,6 +114,15 @@ def main():
     tag = a["tag"]
     if tag.startswith("layout_"):
         arm = tag.rsplit("_s", 1)[0]          # layout_last4_s0 -> layout_last4
+    else:
+        # General rule for any other variant that reuses an --arm value: if the
+        # tag carries extra tokens beyond the arm name (e.g. lowrank_r192_s0),
+        # keep them.  Without this the capacity probe is pooled into `lowrank`,
+        # which shifts that arm's mean AND its seed spread -- and the spread is
+        # what the noise floor, hence the recovery-ratio gate, is computed from.
+        stem = tag.rsplit("_s", 1)[0] if tag.rsplit("_s", 1)[-1].isdigit() else tag
+        if stem != raw_arm and raw_arm in stem:
+            arm = stem + ("_4b" if a.get("pretrained_model") else "")
     res = evaluate(model, val, args.batch_size, "cuda", args.max_seqs)
     res.update(ckpt=args.ckpt, arm=arm, raw_arm=raw_arm, tag=blob["args"]["tag"],
                seed=blob["args"].get("seed"), tokens_seen=blob.get("tokens_seen"),

@@ -1,7 +1,7 @@
 # STATUS — faithful low-rank split + continue pretraining
 
 Branch `agent/faithful-lowrank-split-cpt-2026-08-17` (from `8115e6d`).
-Last updated 2026-08-18 00:15 UTC.
+Last updated 2026-08-18 02:10 UTC. **All planned runs complete.**
 
 ## One-paragraph state
 
@@ -31,12 +31,14 @@ than contradicting it.
 | analysis + bootstrap | see below | `cpt_analysis.json`, `CPT_RESULTS.md` |
 | audit items 1-9 | all fixed or explicitly quarantined | `SOURCE_AUDIT_FAITHFUL_SPLIT.md` |
 
-## Running (node16, launched 2026-08-18 00:0x UTC)
+## Completed since (all finished)
 
-| GPUs | jobs | ETA |
-|---|---|---|
-| 4-7 | layer-placement screen: `evidence4` [0,2,4,6], `last4`, `midlate4`, `first4`, all r=192 = 786,432 params | ~00:50 |
-| 0-3 | 4B arms on Qwen3-4B-Instruct-2507: `lowrank` (r=177), `additive`, `localreader`, `lowrank_unfreeze`, 50M tokens each @ 8.6k tok/s | ~01:50 |
+| jobs | result |
+|---|---|
+| layer-placement screen: `evidence4` [0,2,4,6], `last4`, `midlate4`, `first4`, all r=192 = 786,432 | **null**: spread 0.0011 nats across four very different placements (3.53532-3.53646), 1/11 of the noise floor. Where the split goes does not matter at matched budget. |
+| pre-norm vs post-norm delta ablation, 3 seeds | pre-norm better by **0.00023** nats (paired CI [-0.00034,-0.00011], p<0.0001, same sign all seeds) -- statistically real, 5% of the gap over LocalRead. The faithfulness argument is vindicated in direction and nearly irrelevant in size. |
+| capacity probe r=192 all-8 (1,572,864 params, 2x budget) | 3.53244 vs 3.53356 at 1x: doubling the budget buys 0.001 nats. The additive tie is not a budget artifact. |
+| 4B port: `lowrank`, `additive`, `localreader`, `lowrank_unfreeze` + base reference | conclusion replicates at 4B with a wider margin (table below) |
 
 ## Headline numbers (full 2048-window val, 3 seeds, paired hierarchical bootstrap)
 
@@ -102,3 +104,17 @@ rule this is not reported; quoting a ratio would be division on noise.
   compared under identical conditions to each other, but absolute gains there
   must not be read as learning new material.
 * FlashAttention is untested; only eager and sdpa were run.
+
+## 4B port (Qwen3-4B-Instruct-2507, 50M tokens, 512 val windows)
+
+| arm | trainable | val NLL | vs base |
+|---|---|---|---|
+| `additive_4b` | 14,155,776 | **2.55522** | -0.17090 |
+| `lowrank_unfreeze_4b` | 14,137,344 | 2.55853 | -0.16759 |
+| `lowrank_4b` | 14,137,344 | 2.56642 | -0.15971 |
+| `localreader_4b` | 14,155,776 | 2.59861 | -0.12751 |
+| base, no continuation | 0 | 2.72612 | - |
+
+Same ordering as the small model, with a wider margin: additive beats the
+differential split by 0.0112 and the split beats LocalRead by 0.0322. Single
+seed per arm, so this replicates the direction, not a new interval.
