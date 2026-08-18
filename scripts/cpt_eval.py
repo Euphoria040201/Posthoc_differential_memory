@@ -101,8 +101,21 @@ def main():
     man = json.loads((Path(args.data_dir) / "pg19_manifest.json").read_text())
     val = str(Path(args.data_dir) / Path(man["val"]["path"]).name)
     model, blob, arm = rebuild(args.ckpt)
+    # Distinguish variants that share an --arm value.  Layout-screen runs, the
+    # post-norm ablation and the 4B port are all `--arm lowrank`; pooling them
+    # into one "lowrank" group would silently corrupt that arm's mean and its
+    # seed spread, which is what the noise floor is computed from.
+    a = blob["args"]
+    raw_arm = arm
+    if a.get("pretrained_model"):
+        arm = f"{arm}_4b"
+    if arm.startswith("lowrank") and not a.get("delta_pre_norm", 1):
+        arm = f"{arm}_postnorm"
+    tag = a["tag"]
+    if tag.startswith("layout_"):
+        arm = tag.rsplit("_s", 1)[0]          # layout_last4_s0 -> layout_last4
     res = evaluate(model, val, args.batch_size, "cuda", args.max_seqs)
-    res.update(ckpt=args.ckpt, arm=arm, tag=blob["args"]["tag"],
+    res.update(ckpt=args.ckpt, arm=arm, raw_arm=raw_arm, tag=blob["args"]["tag"],
                seed=blob["args"].get("seed"), tokens_seen=blob.get("tokens_seen"),
                val_sha256=man["val"]["sha256"], data_seed=blob["args"].get("data_seed"))
     out = args.out or str(Path(args.ckpt).with_suffix("")) + "_eval.json"

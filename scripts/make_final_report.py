@@ -194,6 +194,44 @@ def main():
                 f"**{A['arms']['lowrank']['per_seed_nll'][0]:.5f}** |")
         add("")
 
+    # ------------------------------------------------- pre-norm vs post-norm
+    if A and "lowrank_postnorm" in A.get("arms", {}):
+        pn = A.get("paired_comparisons", {}).get("lowrank_minus_lowrank_postnorm") \
+            or A.get("paired_comparisons", {}).get("lowrank_postnorm_minus_lowrank")
+        add("## Does the *faithful* placement matter? (pre-norm vs post-norm delta)")
+        add("")
+        add("The central design claim is that adding the delta BEFORE `q_norm` makes "
+            "the module a reparameterization of one query matrix, `q_norm((Wq+BA)h)`, "
+            "which is the native DiffV2 query path, whereas adding it after `q_norm` "
+            "(what LocalRead does) is an additive patch on an already-normalized "
+            "vector. This ablation runs the identical module with the delta moved "
+            "after the norm, same rank, same T0, same stream, 3 seeds.")
+        add("")
+        add(f"| arm | mean val NLL |")
+        add("|---|---|")
+        for a_ in ("lowrank", "lowrank_postnorm", "localreader"):
+            if a_ in A["arms"]:
+                add(f"| `{a_}` | **{A['arms'][a_]['mean_nll']}** |")
+        if pn:
+            add("")
+            add(f"Paired: **{fmt(pn['delta'])}** nats, CI [{fmt(pn['ci_lo'])}, "
+                f"{fmt(pn['ci_hi'])}], p={pn['p_two_sided']:.4f}, per-seed "
+                f"{pn['per_seed_delta']}, same sign {pn['same_sign_all_seeds']}.")
+        add("")
+
+    # ---------------------------------------------------- capacity probe
+    r192 = jload("lowrank_r192_s0_final_eval.json")
+    if r192 and A and "lowrank" in A["arms"]:
+        add("## Capacity probe (NOT parameter-matched)")
+        add("")
+        add(f"`lowrank_r192_s0` doubles the split budget to 1,572,864 parameters "
+            f"(r=192, all 8 layers) to test whether the tie with the additive "
+            f"control is an artifact of the 786,432 budget: **{r192['val_nll']:.5f}** "
+            f"vs `lowrank` seed 0 at **{A['arms']['lowrank']['per_seed_nll'][0]:.5f}**. "
+            f"This arm has no parameter-matched additive counterpart and is reported "
+            f"as a probe only.")
+        add("")
+
     # ------------------------------------------------------------------- 4B
     fourb = {}
     for p in sorted(D.glob("*_4b_final_eval.json")):

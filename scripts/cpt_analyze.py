@@ -178,7 +178,7 @@ def main():
 
     # ---- paired-by-seed intervals for the arms that genuinely share a T0
     CONT = ("vanilla_continue", "lowrank", "additive", "localreader",
-            "lowrank_unfreeze")
+            "lowrank_unfreeze", "lowrank_postnorm")
     paired = {}
     for a in CONT:
         for b in CONT:
