@@ -61,6 +61,9 @@ context budget), regenerate a new manifest, and rerun every arm.
 
 ## Execution
 
+For Narval, use the [Slurm array setup](differential_narval.md), which preserves
+Slurm-assigned GPU identifiers and runs one arm/seed per allocated GPU.
+
 Use the project's existing GPU environment. CPU validation used torch 2.6.0 and
 transformers 5.9.0; `requirements.txt` is the original environment freeze and
 contains platform-specific CUDA/FlashAttention entries, so do not blindly install
