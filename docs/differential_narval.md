@@ -47,7 +47,9 @@ python scripts/prepare_differential_data.py \
 
 Submit **from the repository root**. The pilot has six array tasks: base, add,
 sub, add_aug, sub_aug, sub_nui, each seed 0. Each requests one full A100, six CPU
-cores, 64 GB host memory and a six-hour time limit. At most two run simultaneously.
+cores, 64 GB host memory and a six-hour time limit. There is no application-level
+array concurrency cap: all six pilot tasks are eligible to start together,
+subject to Slurm availability and account/QOS limits.
 These are initial resource requests, not a measured runtime or memory guarantee.
 Use measured pilot time and memory to size main jobs.
 
@@ -77,11 +79,13 @@ python scripts/summarize_differential_v2.py \
 ```
 
 Main is an explicit new submission, not automatic promotion. Its 16 tasks are
-one base and five sidecars times three seeds. Override the array range; adjust the
-time request using pilot measurements. No task accesses test scores.
+one base and five sidecars times three seeds. All 16 tasks are eligible to start
+together, subject to Slurm availability and account/QOS limits. Override the
+array range; adjust the time request using pilot measurements. No task accesses
+test scores.
 
 ```bash
-sbatch --account="$DIFF_ACCOUNT" --job-name=diff-main --array=0-15%2 \
+sbatch --account="$DIFF_ACCOUNT" --job-name=diff-main --array=0-15 \
   scripts/slurm/differential_narval.sbatch \
   main "$DIFF_MODEL" "$DIFF_RUN_ROOT/data.json" "$DIFF_RUN_ROOT" "$DIFF_VENV"
 ```

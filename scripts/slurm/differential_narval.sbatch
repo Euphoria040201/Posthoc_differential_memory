@@ -2,7 +2,7 @@
 # Submit from the repository root after loading the modules used by your venv.
 # sbatch --account=ACCOUNT scripts/slurm/differential_narval.sbatch \
 #   pilot /absolute/model /absolute/data.json /absolute/run_root /absolute/venv
-# For main, also pass --array=0-15%2 to sbatch (before the script path).
+# For main, also pass --array=0-15 to sbatch (before the script path).
 #SBATCH --job-name=diff-pilot
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
@@ -10,7 +10,7 @@
 #SBATCH --cpus-per-task=6
 #SBATCH --mem=64G
 #SBATCH --time=06:00:00
-#SBATCH --array=0-5%2
+#SBATCH --array=0-5
 #SBATCH --output=slurm-diff-%A_%a.log
 
 set -euo pipefail
@@ -44,13 +44,13 @@ done
 arms=(base add sub add_aug sub_aug sub_nui)
 case "$phase" in
     pilot)
-        (( task_id < 6 )) || { echo "Pilot requires --array=0-5%2" >&2; exit 2; }
+        (( task_id < 6 )) || { echo "Pilot requires --array=0-5" >&2; exit 2; }
         arm=${arms[$task_id]}
         seed=0
         ;;
     main)
         [[ ${SLURM_ARRAY_TASK_COUNT:-0} -eq 16 ]] || {
-            echo "Main requires --array=0-15%2; do not use the pilot default" >&2; exit 2;
+            echo "Main requires --array=0-15; do not use the pilot default" >&2; exit 2;
         }
         (( task_id < 16 )) || { echo "Invalid main task ID" >&2; exit 2; }
         if (( task_id == 0 )); then
