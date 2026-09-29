@@ -15,6 +15,7 @@ from typing import Any, Mapping
 from deltamem.core.prefix_steer import (
     PrefixSteerConfig,
     is_steer_param_name,
+    is_steer_state_name,
 )
 
 
@@ -124,17 +125,27 @@ def load_steer_state_strict(
     state: Mapping[str, Any],
     *,
     label: str = "ours",
+    allow_new_fusion: bool = False,
 ) -> None:
     """Load steer tensors and reject both dropped and randomly missing tensors."""
 
     if not isinstance(state, Mapping):
         raise ValueError("checkpoint state must be a tensor mapping")
+    parameters = dict(model.named_parameters())
+    parameters.update(getattr(model, "named_buffers", lambda: [])())
+    for name, value in state.items():
+        if name in parameters and value.is_floating_point():
+            parameters[name].data = parameters[name].data.to(dtype=value.dtype)
     _, unexpected = model.load_state_dict(state, strict=False)
     steer_names = {
         name
         for name, _ in model.named_parameters()
         if is_steer_param_name(name)
     }
+    steer_names.update(n for n, _ in getattr(model, "named_buffers", lambda: [])()
+                       if is_steer_state_name(n))
+    if allow_new_fusion:
+        steer_names = {n for n in steer_names if ".fusion_" not in n}
     missing_steer = sorted(steer_names - set(state))
     dropped = sorted(str(name) for name in unexpected)
     if missing_steer:

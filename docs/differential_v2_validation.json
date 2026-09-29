@@ -1,0 +1,86 @@
+{
+  "date": "2026-09-29",
+  "base_commit": "dc9269ba2325c615dcbfdc6215deb8e6fd11cd21",
+  "source_sha256": "edf6718bab03d50a11d064d0b9d479af09fc24aa3e32f98fc43486aa344c043e",
+  "python": "3.12.14",
+  "torch": "2.6.0+cpu",
+  "transformers": "5.9.0",
+  "cuda_available": false,
+  "unit_tests": {
+    "passed": 126,
+    "skipped": 1,
+    "failed": 0,
+    "files": [
+      "tests/test_dex.py",
+      "tests/test_dex_swa_steer.py",
+      "tests/test_o_fusion_position.py",
+      "tests/test_fusion_differential.py",
+      "tests/test_differential_audit.py",
+      "tests/test_prefix_steer_shared_main_v.py",
+      "tests/test_prefix_steer_write_only.py"
+    ]
+  },
+  "additional_suite_not_executed": {
+    "file": "tests/test_eval_steer_checkpoint_loaders.py",
+    "reason": "collection requires peft, which is not installed in this CPU validation environment; strict restoration is exercised by test_differential_audit.py"
+  },
+  "integration": {
+    "command": "OMP_NUM_THREADS=2 TOKENIZERS_PARALLELISM=false python scripts/smoke_differential_v2.py",
+    "status": "PASS",
+    "backbone": "random tiny Qwen3: hidden_size=32, layers=2, heads=4",
+    "data": "synthetic offline data, 2 examples/split",
+    "jobs": [
+      {
+        "arm": "add_aug_s0",
+        "status": "COMPLETE",
+        "optimizer_updates": 2,
+        "trainable_parameters": 1536,
+        "checkpoint_reload_and_perturbation_eval": "PASS"
+      },
+      {
+        "arm": "add_s0",
+        "status": "COMPLETE",
+        "optimizer_updates": 2,
+        "trainable_parameters": 1536,
+        "checkpoint_reload_and_perturbation_eval": "PASS"
+      },
+      {
+        "arm": "base_s0",
+        "status": "COMPLETE",
+        "optimizer_updates": 0,
+        "trainable_parameters": 0,
+        "checkpoint_reload_and_perturbation_eval": "PASS"
+      },
+      {
+        "arm": "sub_aug_s0",
+        "status": "COMPLETE",
+        "optimizer_updates": 2,
+        "trainable_parameters": 1536,
+        "checkpoint_reload_and_perturbation_eval": "PASS"
+      },
+      {
+        "arm": "sub_nui_s0",
+        "status": "COMPLETE",
+        "optimizer_updates": 2,
+        "trainable_parameters": 1536,
+        "checkpoint_reload_and_perturbation_eval": "PASS"
+      },
+      {
+        "arm": "sub_s0",
+        "status": "COMPLETE",
+        "optimizer_updates": 2,
+        "trainable_parameters": 1536,
+        "checkpoint_reload_and_perturbation_eval": "PASS"
+      }
+    ],
+    "frozen_control_arms": [
+      "learned_diff: PASS",
+      "variance_diff: PASS"
+    ]
+  },
+  "real_qwen3_4b_qasper_experiment": {
+    "status": "NOT_STARTED",
+    "reason": "No CUDA GPU or configured GPU host in this execution environment; real tokenizer/data materialization did not complete."
+  },
+  "downstream_quality_claim": false
+}

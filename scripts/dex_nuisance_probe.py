@@ -166,35 +166,25 @@ def load_variant(name: str, path: str, args, plan):
         attach_dex(model, DexConfig(variant="base"), plan=plan)
         return model, DexConfig(variant="base").resolve()
 
+    from deltamem.eval.dex_checkpoint import restore_dex_config, load_dex_state_strict
+    complete_ckpt = Path(f"{path}_model.pt")
     adapter_ckpt = Path(f"{path}_adapter.pt")
     attn_ckpt = Path(f"{path}_attn.pt")
-    src = adapter_ckpt if adapter_ckpt.exists() else attn_ckpt
+    src = complete_ckpt if complete_ckpt.exists() else (adapter_ckpt if adapter_ckpt.exists() else attn_ckpt)
     saved = torch.load(src, map_location="cpu", weights_only=False)
-    saved_cfg = saved["config"]
-    cfg = DexConfig(
-        variant=saved_cfg["variant"],
-        head_selection=saved_cfg["head_selection"],
-        heads_per_layer=saved_cfg["heads_per_layer"],
-        lambda_init_mode=saved_cfg["lambda_init_mode"],
-        lambda_init=saved_cfg["lambda_init"],
-        lambda_learn_init=saved_cfg["lambda_learn_init"],
-        lambda_learnable=saved_cfg["lambda_learnable"],
-        lambda_anneal_steps=saved_cfg["lambda_anneal_steps"],
-        allow_no_anneal=True,
-    )
+    cfg = restore_dex_config(saved["config"])
+    if cfg.train_steer:
+        raise ValueError("use eval_differential_checkpoint.py for memory sidecar checkpoints")
     attach_dex(model, cfg, plan=plan)
-    state = {}
-    if adapter_ckpt.exists():
-        state.update(torch.load(adapter_ckpt, map_location="cpu", weights_only=False)["state"])
-    if attn_ckpt.exists():
-        state.update(torch.load(attn_ckpt, map_location="cpu", weights_only=False)["state"])
-    missing, unexpected = model.load_state_dict(state, strict=False)
-    assert not unexpected, f"unexpected keys: {unexpected[:4]}"
-    loaded = len(state)
-    print(f"[probe] {name}: loaded {loaded} tensors from {src.name}", flush=True)
-    # lambda(t) at the end of training
-    set_dex_step(model, saved["args"]["steps"])
-    return model, cfg.resolve()
+    state = dict(saved["state"]) if complete_ckpt.exists() else {}
+    if not complete_ckpt.exists():
+        for checkpoint in (adapter_ckpt, attn_ckpt):
+            if checkpoint.exists():
+                state.update(torch.load(checkpoint, map_location="cpu", weights_only=False)["state"])
+    load_dex_state_strict(model, state, cfg)
+    print(f"[probe] {name}: strictly restored {len(state)} tensors from {src.name}", flush=True)
+    return model, cfg
+
 
 
 def main() -> None:

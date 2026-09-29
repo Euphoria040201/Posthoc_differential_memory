@@ -57,6 +57,7 @@ from deltamem.core.prefix_steer import (  # noqa: E402
     set_fusion_calibrating,
     set_steer_enabled,
     set_steer_segments,
+    steer_state_dict,
 )
 
 ARMS = ("base",) + OUTPUT_FUSIONS
@@ -109,6 +110,8 @@ def build_parser() -> argparse.ArgumentParser:
     ap.add_argument("--grad-accum", type=int, default=16)
     ap.add_argument("--output-dir", default=str(REPO / "out_dex_fusion"))
     ap.add_argument("--tag", required=True)
+    from deltamem.kv_binding.qa_protocol import add_manifest_arguments
+    add_manifest_arguments(ap)
     return ap
 
 
@@ -159,14 +162,14 @@ def main() -> None:
     model.config.use_cache = False
     attach_prefix_steer(model, steer_cfg)
 
-    state = {k: v.to(args.device) for k, v in ckpt["state"].items()}
-    missing, unexpected = model.load_state_dict(state, strict=False)
-    loaded = [k for k in state if k not in set(unexpected)]
-    if not loaded:
-        raise SystemExit("no steer tensor from the checkpoint matched the model")
-    if unexpected:
-        raise SystemExit(f"checkpoint tensors did not match the rebuilt sidecar: "
-                         f"{unexpected[:5]}")
+    from deltamem.eval.steer_checkpoint import load_steer_state_strict
+    # Changing the fusion creates new fusion state, but never permits missing memory weights.
+    replacing_fusion = saved.get("output_fusion", "fixed") != fusion
+    state = {k: v for k, v in ckpt["state"].items()
+             if not (replacing_fusion and ".fusion_" in k)}
+    load_steer_state_strict(model, state, label="stage1",
+                           allow_new_fusion=replacing_fusion)
+    loaded = list(state)
     # The memory path is frozen; only a learned_diff lambda may train.
     trainable = freeze_steer_keep_fusion(model)
     if args.arm != "learned_diff" and trainable:
@@ -179,39 +182,58 @@ def main() -> None:
           f"tensors trainable={len(trainable)} "
           f"layers={len(list(iter_steer_modules(model)))}", flush=True)
 
-    train = build_examples(
-        "train", args.train_papers, tok, args.max_chunk_tok, args.max_ctx_tok,
-        args.max_ans_tok, data=args.data, max_yesno_frac=args.max_yesno_frac,
-        yesno_seed=args.data_compose_seed, train_target_n=args.train_target_n,
-        mix_temporal_n=args.mix_temporal_n,
-    )
-    val = build_examples(
-        "validation", args.val_papers, tok, args.max_chunk_tok, args.max_ctx_tok,
-        args.max_ans_tok, data=args.data,
-    )
+    from deltamem.kv_binding.qa_protocol import data_from_manifest, PROTOCOL_VERSION
+    data_info = {"protocol_version": PROTOCOL_VERSION}
+    if args.data_manifest:
+        train, val, data_info = data_from_manifest(args, tok)
+    else:
+        train = build_examples(
+            "train", args.train_papers, tok, args.max_chunk_tok, args.max_ctx_tok,
+            args.max_ans_tok, data=args.data, max_yesno_frac=args.max_yesno_frac,
+            yesno_seed=args.data_compose_seed, train_target_n=args.train_target_n,
+            mix_temporal_n=args.mix_temporal_n,
+        )
+        val = build_examples(
+            "validation", args.val_papers, tok, args.max_chunk_tok, args.max_ctx_tok,
+            args.max_ans_tok, data=args.data,
+        )
+    if args.data_manifest and ckpt.get("data_protocol", {}).get("manifest_sha256") != data_info["manifest_sha256"]:
+        raise ValueError("stage1 source checkpoint must use this exact v2 data manifest")
+    if args.max_new_tokens < max(len(ex["ids"]) - len(ex["prompt_ids"]) for ex in val):
+        raise ValueError("max-new-tokens must cover the supervised answer including EOS")
     eval_set = val if args.eval_examples <= 0 else val[: args.eval_examples]
     pad_id = tok.pad_token_id if tok.pad_token_id is not None else tok.eos_token_id
     eos = tok.eos_token_id
-    amp = lambda: torch.autocast("cuda", dtype=torch.bfloat16)  # noqa: E731
+    amp = lambda: torch.autocast(torch.device(args.device).type, dtype=get_dtype(args.dtype),
+                                enabled=args.dtype != "float32")  # noqa: E731
     rng = random.Random(args.seed)
 
     def feed(seg, valid):
         set_steer_segments(model, seg, valid)
 
-    # ---- calibration: populate mu_Y / mu_C on TRAIN data, then freeze ----
+    # ---- calibration: prompts from held-out training papers; freeze moments AND lambda ----
     calib = {}
     if args.arm == "variance_diff":
         model.eval()
         set_fusion_calibrating(model, True)
-        order = list(range(len(train)))
+        if not args.data_manifest:
+            raise ValueError("variance calibration requires a manifest with a held-out calibration split")
+        from deltamem.kv_binding.qa_protocol import read_manifest
+        calibration = read_manifest(args.data_manifest)["splits"]["calibration"]
+        if args.calibrate_batches < 1:
+            raise ValueError("variance_diff requires at least one calibration prompt")
+        order = list(range(len(calibration)))
         rng.shuffle(order)
         with torch.no_grad(), amp():
             for i in range(min(args.calibrate_batches, len(order))):
-                ids, seg, valid, lab = collate([train[order[i]]], pad_id, args.device)
+                ex = calibration[order[i]]
+                prompt = {"ids": ex["prompt_ids"], "seg": ex["prompt_seg"],
+                          "labels": [-100] * len(ex["prompt_ids"])}
+                ids, seg, valid, lab = collate([prompt], pad_id, args.device)
                 feed(seg, valid)
                 model(input_ids=ids, use_cache=False)
         set_fusion_calibrating(model, False)
-        calib = collect_fusion_stats(model)
+        calib = {**collect_fusion_stats(model), "batches": min(args.calibrate_batches, len(order))}
         print(f"[{args.tag}] calibrated on {args.calibrate_batches} batches: {calib}",
               flush=True)
 
@@ -263,7 +285,9 @@ def main() -> None:
             f, e = f1_em(pred, ex["answer"])
             f1s.append(f)
             ems.append(e)
-            per_example.append({"i": i, "f1": f, "em": e, "pred": pred[:200]})
+            per_example.append({"i": i, "sample_id": ex.get("sample_id", str(i)),
+                                "f1": f, "em": e, "pred": pred, "gold": ex["answer"],
+                                **ex.get("last_generation", {})})
 
     # branch strength on a fixed example, so |delta|/|Y| is comparable across arms
     set_collect_fusion_norms(model, True)
@@ -293,6 +317,7 @@ def main() -> None:
 
     payload = {
         "tag": args.tag,
+        "data_protocol": data_info,
         "arm": args.arm,
         "fusion": fusion,
         "o_fusion_position": pos,
@@ -322,6 +347,10 @@ def main() -> None:
         },
         "runtime_min": round((time.time() - t_start) / 60, 2),
     }
+    torch.save({"checkpoint_version": 2, "state": steer_state_dict(model),
+                "cfg": payload["steer_config"], "steer_config": payload["steer_config"],
+                "args": vars(args), "data_protocol": data_info,
+                "steer_enabled": args.arm != "base"}, out_dir / f"{args.tag}_steer.pt")
     with open(out_dir / f"{args.tag}.json", "w") as fh:
         json.dump(payload, fh, indent=2)
     print(f"[{args.tag}] FINAL arm={args.arm}@{pos} F1={payload['final']['qa']['F1']} "

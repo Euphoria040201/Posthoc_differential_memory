@@ -16,18 +16,14 @@ trained to be subtractable:
 The only way the subtraction can carry meaning is if C is DEFINED as the thing
 that should be removed.  This script does that.
 
-Construction.  A nuisance group is one Qasper (paper, question, answer) rendered
-K ways: the SAME context chunks in K different orders.  Evidence content, the
-question and the answer are identical across the group; only which filler
-surrounds the evidence and how deep it sits change.  Reordering permutes whole
-chunk spans, so every variant has an identical token count and the K sequences
-are aligned position-by-position -- the group mean is well defined without any
-padding or masking.
+Construction. A nuisance group renders the same question with shuffled context
+chunks. Only the final query token is aligned for the auxiliary objectives;
+context positions contain different words after shuffling and are never compared.
 
 Objective, per steer layer l:
 
     r_l   = Y_l - mean_k Y_l                      (group-centred nuisance residual)
-    L_nui = || C_l - stopgrad(r_l) ||^2           (C must predict it)
+    L_nui = || lambda C_l - stopgrad(r_l) ||^2           (C must predict it)
     L_inv = Var_k [ Y_l - lambda C_l ]            (and removing it must flatten Y)
 
     L = L_QA + beta * L_nui + gamma * L_inv
@@ -36,9 +32,6 @@ Objective, per steer layer l:
 actually want (a corrected representation that stops moving with nuisance) rather
 than the proxy; ``L_nui`` gives C a dense, well-posed target to start from.
 
-If AntiAlign/VRR/NSR still do not improve after this, the differential route is
-finished for real: C will have been handed the residual on a plate and still not
-have cancelled it.
 """
 from __future__ import annotations
 
@@ -63,6 +56,7 @@ from deltamem.core.prefix_steer import (  # noqa: E402
     collect_fusion_tensors,
     freeze_backbone_keep_steer,
     is_steer_param_name,
+    steer_state_dict,
     set_collect_fusion_tensors,
     set_steer_segments,
 )
@@ -72,7 +66,7 @@ def str2bool(v: str) -> bool:
     return str(v).strip().lower() in {"1", "true", "yes", "y", "t"}
 
 
-def build_nuisance_group(ex, k: int, rng: random.Random):
+def build_nuisance_group(ex, k: int, rng: random.Random, augment: bool = True):
     """K permutations of one example's context chunks; identical token count.
 
     Returns a list of K dicts shaped like the trainer's collate input.  Variant 0
@@ -95,7 +89,7 @@ def build_nuisance_group(ex, k: int, rng: random.Random):
     variants = []
     for ki in range(k):
         idx = list(range(len(chunks)))
-        if ki > 0:
+        if ki > 0 and augment:
             rng.shuffle(idx)
         new_ctx = list(head)
         for j in idx:
@@ -124,26 +118,35 @@ def stack_group(variants, device):
     return ids, seg, valid, lab
 
 
-def nuisance_losses(model, lam: float):
-    """L_nui and L_inv summed over steer layers, from the last forward's (Y, C).
+def aligned_query_positions(seg, valid):
+    """One prediction position per variant, before ANY teacher-forced answer token."""
+    from deltamem.core.global_prefix import SEG_QRY
+    query = (seg == SEG_QRY) & valid.bool()
+    if not query.any(dim=1).all():
+        raise ValueError("each nuisance variant must have at least one query token")
+    positions = torch.arange(seg.shape[1], device=seg.device).expand_as(seg)
+    return positions.masked_fill(~query, -1).max(dim=1).values
 
-    Y is detached inside the target (stopgrad) but NOT inside L_inv: flattening the
-    corrected representation is a property of C, and C is the only trainable thing
-    here, so the gradient path through C is the one that matters.
-    """
+
+def nuisance_losses(model, lam: float, positions):
+    """Match the actual correction lambda*C to the residual at aligned query ends."""
+    if lam <= 0:
+        raise ValueError("nuisance subtraction requires a positive fusion coefficient")
     rows = collect_fusion_tensors(model)
     if not rows:
         raise RuntimeError("no fusion tensors captured; set_collect_fusion_tensors first")
-    l_nui = 0.0
-    l_inv = 0.0
+    l_nui, l_inv = 0.0, 0.0
     for _, y, c in rows:
-        y32, c32 = y.float(), c.float()
-        r = y32 - y32.mean(dim=0, keepdim=True)           # group-centred, over K
-        l_nui = l_nui + (c32 - r.detach()).pow(2).mean()
-        corrected = y32.detach() - lam * c32
+        if y.shape[0] < 2 or positions.shape != (y.shape[0],):
+            raise ValueError("nuisance loss needs >=2 variants and one query index per variant")
+        batch = torch.arange(y.shape[0], device=y.device)
+        y32, c32 = y[batch, positions].float(), c[batch, positions].float()
+        r = y32 - y32.mean(dim=0, keepdim=True)
+        correction = lam * c32
+        l_nui = l_nui + (correction - r.detach()).pow(2).mean()
+        corrected = y32.detach() - correction
         l_inv = l_inv + corrected.var(dim=0, unbiased=False).mean()
-    n = len(rows)
-    return l_nui / n, l_inv / n, n
+    return l_nui / len(rows), l_inv / len(rows), len(rows)
 
 
 def main() -> None:
@@ -180,7 +183,11 @@ def main() -> None:
     ap.add_argument("--grad-checkpointing", type=str2bool, default=True)
     # sidecar (same as the additive runs)
     ap.add_argument("--steer-layers", default="0,3,6,9,12,15,18,21,24,27,30,33")
-    ap.add_argument("--steer-gain", type=float, default=0.1)
+    ap.add_argument("--steer-gain", type=float, default=None,
+                    help="deprecated alias; if set it must equal --fusion-lambda")
+    ap.add_argument("--output-fusion", choices=["fixed_add", "fixed_sub"], default="fixed_sub")
+    ap.add_argument("--context-augmentation", choices=["none", "shuffle"], default="shuffle")
+    ap.add_argument("--o-fusion-position", choices=["pre_o", "post_o"], default="pre_o")
     ap.add_argument("--steer-window", type=int, default=256)
     ap.add_argument("--steer-mem-heads", type=int, default=1)
     ap.add_argument("--steer-mem-head-dim", type=int, default=128)
@@ -191,7 +198,17 @@ def main() -> None:
     ap.add_argument("--log-every", type=int, default=4)
     ap.add_argument("--output-dir", default=str(REPO / "out_dex_fusion"))
     ap.add_argument("--tag", required=True)
+    from deltamem.kv_binding.qa_protocol import add_manifest_arguments, data_from_manifest, PROTOCOL_VERSION
+    add_manifest_arguments(ap)
     args = ap.parse_args()
+    if args.steer_gain is not None and args.steer_gain != args.fusion_lambda:
+        ap.error("--steer-gain and --fusion-lambda must agree; there is only one coefficient")
+    if args.group_k < 2 or args.grad_accum < 1 or args.fusion_lambda <= 0:
+        ap.error("group-k >= 2, grad-accum >= 1 and fusion-lambda > 0 are required")
+    if args.output_fusion != "fixed_sub" and (args.beta or args.gamma):
+        ap.error("the nuisance objective defines a subtractive correction; use beta=gamma=0 for add")
+    if args.max_new_tokens < args.max_ans_tok and not args.data_manifest:
+        ap.error("max-new-tokens must cover the answer budget including EOS")
 
     from transformers import AutoModelForCausalLM, AutoTokenizer
     from qasper_prefix_steer import build_examples, collate, f1_em, generate, get_dtype
@@ -200,8 +217,11 @@ def main() -> None:
     out_dir.mkdir(parents=True, exist_ok=True)
     t_start = time.time()
     torch.manual_seed(args.seed)
+    if torch.cuda.is_available():
+        torch.cuda.reset_peak_memory_stats()
     torch.cuda.manual_seed_all(args.seed)
     rng = random.Random(args.seed)
+    augmentation_rng = random.Random(args.seed + 100000)
 
     tok = AutoTokenizer.from_pretrained(args.model_path)
     model = AutoModelForCausalLM.from_pretrained(
@@ -216,10 +236,11 @@ def main() -> None:
         num_prefix_tokens=0, sliding_window_size=args.steer_window,
         mem_num_heads=args.steer_mem_heads, mem_head_dim=args.steer_mem_head_dim,
         steer_mode="deltamem", memory_mode="dynamic", memory_value_source="main_v",
-        delta_heads="o", steer_gain=args.steer_gain,
+        delta_heads="o", steer_gain=args.fusion_lambda,
+        o_fusion_position=args.o_fusion_position,
         # the branch is applied subtractively at a FIXED lambda: this arm is about
         # what C is trained to be, not about who picks the coefficient
-        output_fusion="fixed_sub",
+        output_fusion=args.output_fusion,
         steer_layers=tuple(int(x) for x in args.steer_layers.split(",") if x.strip()),
         prefix_write=False, write_ctx_only=False, read_prefix_only=False,
         pool_reads=False, pool_gate=False,
@@ -233,25 +254,34 @@ def main() -> None:
     print(f"[{args.tag}] trainable={n_tr:,} lambda={args.fusion_lambda} "
           f"K={args.group_k} beta={args.beta} gamma={args.gamma}", flush=True)
 
-    train = build_examples(
-        "train", args.train_papers, tok, args.max_chunk_tok, args.max_ctx_tok,
-        args.max_ans_tok, data=args.data, max_yesno_frac=args.max_yesno_frac,
-        yesno_seed=args.data_compose_seed, train_target_n=args.train_target_n,
-    )
-    val = build_examples(
-        "validation", args.val_papers, tok, args.max_chunk_tok, args.max_ctx_tok,
-        args.max_ans_tok, data=args.data,
-    )
+    data_info = {"protocol_version": PROTOCOL_VERSION}
+    if args.data_manifest:
+        train, val, data_info = data_from_manifest(args, tok)
+    else:
+        train = build_examples(
+            "train", args.train_papers, tok, args.max_chunk_tok, args.max_ctx_tok,
+            args.max_ans_tok, data=args.data, max_yesno_frac=args.max_yesno_frac,
+            yesno_seed=args.data_compose_seed, train_target_n=args.train_target_n,
+        )
+        val = build_examples(
+            "validation", args.val_papers, tok, args.max_chunk_tok, args.max_ctx_tok,
+            args.max_ans_tok, data=args.data,
+        )
     groupable = [ex for ex in train if ex.get("ctx_chunk_spans")
                  and len(ex["ctx_chunk_spans"]) >= 2]
     print(f"[{args.tag}] train={len(train)} groupable={len(groupable)} val={len(val)}",
           flush=True)
+    if args.data_manifest and len(groupable) != len(train):
+        raise ValueError("manifest train split must be groupable for EVERY arm")
+    if args.max_new_tokens < max(len(ex["ids"]) - len(ex["prompt_ids"]) for ex in val):
+        raise ValueError("max-new-tokens is smaller than the supervised answer/EOS budget")
     if not groupable:
         raise SystemExit("no example has >=2 context chunks; cannot form nuisance groups")
 
     pad_id = tok.pad_token_id if tok.pad_token_id is not None else tok.eos_token_id
     eos = tok.eos_token_id
-    amp = lambda: torch.autocast("cuda", dtype=torch.bfloat16)  # noqa: E731
+    amp = lambda: torch.autocast(torch.device(args.device).type, dtype=get_dtype(args.dtype),
+                                enabled=args.dtype != "float32")  # noqa: E731
     params = [p for p in model.parameters() if p.requires_grad]
     opt = torch.optim.AdamW(params, lr=args.steer_lr)
 
@@ -271,15 +301,21 @@ def main() -> None:
                 cursor = 0
             ex = groupable[order[cursor]]
             cursor += 1
-            variants = build_nuisance_group(ex, args.group_k, rng)
+            variants = build_nuisance_group(ex, args.group_k, augmentation_rng,
+                                            augment=args.context_augmentation == "shuffle")
             if variants is None:
                 continue
             ids, seg, valid, lab = stack_group(variants, args.device)
             set_steer_segments(model, seg, valid)
-            set_collect_fusion_tensors(model, True)
+            auxiliary = bool(args.beta or args.gamma)
+            set_collect_fusion_tensors(model, auxiliary)
             with amp():
                 out = model(input_ids=ids, labels=lab, use_cache=False)
-            l_nui, l_inv, n_layers = nuisance_losses(model, args.fusion_lambda)
+            if auxiliary:
+                l_nui, l_inv, n_layers = nuisance_losses(
+                    model, args.fusion_lambda, aligned_query_positions(seg, valid))
+            else:
+                l_nui, l_inv, n_layers = 0.0, 0.0, 0
             set_collect_fusion_tensors(model, False)
             loss = (args.qa_weight * out.loss
                     + args.beta * l_nui
@@ -316,10 +352,13 @@ def main() -> None:
             pred = generate(model, tok, ex, args.device, args.max_new_tokens, eos)
             f, e = f1_em(pred, ex["answer"])
             f1s.append(f); ems.append(e)
-            per_example.append({"i": i, "f1": f, "em": e, "pred": pred[:200]})
+            per_example.append({"i": i, "sample_id": ex.get("sample_id", str(i)),
+                                "f1": f, "em": e, "pred": pred, "gold": ex["answer"],
+                                **ex.get("last_generation", {})})
 
     payload = {
-        "tag": args.tag, "arm": "nuisance_subtractive", "args": vars(args),
+        "tag": args.tag, "arm": args.output_fusion, "args": vars(args),
+        "data_protocol": data_info,
         "steer_config": {k: (list(v) if isinstance(v, tuple) else v)
                          for k, v in vars(steer_cfg).items()},
         "trainable_param_count": n_tr, "log": log,
@@ -332,13 +371,17 @@ def main() -> None:
                 "cuda_visible_devices": os.environ.get("CUDA_VISIBLE_DEVICES", ""),
                 "command": " ".join(sys.argv)},
         "runtime_min": round((time.time() - t_start) / 60, 2),
+        "peak_gpu_memory_gib": torch.cuda.max_memory_allocated() / 2**30 if torch.cuda.is_available() else None,
+        "processed_training_sequences": args.steps * args.grad_accum * args.group_k,
+        "processed_training_groups": args.steps * args.grad_accum,
+        "optimizer": {"name": "AdamW", "lr": args.steer_lr, "weight_decay": 0.01},
     }
     with open(out_dir / f"{args.tag}.json", "w") as fh:
         json.dump(payload, fh, indent=2)
-    steer_state = {n_: p.detach().to(torch.bfloat16).cpu()
-                   for n_, p in model.named_parameters() if is_steer_param_name(n_)}
+    steer_state = steer_state_dict(model)
     torch.save({"state": steer_state, "cfg": payload["steer_config"],
-                "steer_config": payload["steer_config"], "args": vars(args)},
+                "steer_config": payload["steer_config"], "args": vars(args),
+                "data_protocol": data_info, "checkpoint_version": 2},
                out_dir / f"{args.tag}_steer.pt")
     print(f"[{args.tag}] FINAL F1={payload['final']['qa']['F1']} val_loss={v_loss:.4f} "
           f"({payload['runtime_min']:.1f} min)", flush=True)

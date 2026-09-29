@@ -1,3 +1,8 @@
+> **2026-09-29 audit revision:** the corrected Qasper protocol, matched-parameter
+> experiment matrix, and launch commands are in
+> [docs/differential_v2_experiments.md](docs/differential_v2_experiments.md).
+> Existing result files use the earlier protocol and must not be pooled with v2 runs.
+
 # delta-mem prefix-memory: investigation bundle
 
 Frozen Qwen3-4B + attached SWA/prefix memory steering (delta_q/k/v/o corrections, gain 0.1),

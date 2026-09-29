@@ -42,9 +42,13 @@ from transformers import AutoModelForCausalLM, AutoTokenizer
 from deltamem.core.prefix_steer import (
     PrefixSteerConfig, attach_prefix_steer, freeze_backbone_keep_steer,
     set_steer_segments, set_steer_zero_prefix, set_steer_enabled, iter_steer_modules,
+    steer_state_dict,
 )
 from deltamem.core.global_prefix import SEG_CTX, SEG_QRY, SEG_ANS
 from deltamem.kv_binding.qasper_episodes import build_fulldoc_episodes
+from deltamem.kv_binding.qa_protocol import (
+    PROTOCOL_VERSION, answer_ids, evidence_is_visible, example_id,
+)
 
 SYS = "Answer the question using the context. Give a short answer."
 
@@ -153,7 +157,9 @@ def _episode_to_examples(chunks, queries, tok, max_ctx_tok, max_ans_tok):
     out = []
     for q in queries:
         q_ids = tok(f"\n\n{SYS}\nQuestion: {q['question']}\nAnswer:", add_special_tokens=False)["input_ids"]
-        a_ids = tok(" " + q["answer"], add_special_tokens=False)["input_ids"][:max_ans_tok]
+        a_ids = answer_ids(tok, q["answer"], max_ans_tok)
+        if a_ids is None:
+            continue
         ids = c_ids + q_ids + a_ids
         seg = [SEG_CTX] * len(c_ids) + [SEG_QRY] * len(q_ids) + [SEG_ANS] * len(a_ids)
         out.append({"ids": ids, "seg": seg, "labels": [-100] * (len(c_ids) + len(q_ids)) + list(a_ids),
@@ -165,7 +171,8 @@ def _episode_to_examples(chunks, queries, tok, max_ctx_tok, max_ans_tok):
 
 
 def build_examples(split, max_papers, tok, max_chunk_tok, max_ctx_tok, max_ans_tok, data="qasper",
-                   max_yesno_frac=1.0, yesno_seed=0, train_target_n=0, mix_temporal_n=0):
+                   max_yesno_frac=1.0, yesno_seed=0, train_target_n=0, mix_temporal_n=0,
+                   audit_stats=None):
     if data == "memalpha":
         from deltamem.kv_binding.memalpha_episodes import build_memalpha_episodes
         # split passes through: "train"/"validation" -> 90/10 of official train; never test.
@@ -178,16 +185,30 @@ def build_examples(split, max_papers, tok, max_chunk_tok, max_ctx_tok, max_ans_t
               f"({ma_stats['ctx_over_by_source']}) no_qa_dropped={ma_stats['drop_no_qa']}", flush=True)
     else:
         eps = build_fulldoc_episodes(split, max_papers=max_papers, tokenizer=tok, max_chunk_tok=max_chunk_tok)
+    stats = {"protocol_version": PROTOCOL_VERSION, "split": split, "candidates": 0,
+             "dropped_missing_evidence": 0, "dropped_long_answer": 0}
     out = []
     for ep in eps:
         c_ids, c_spans = _ctx_with_spans(ep["chunks"], tok, max_ctx_tok)
-        for q in ep["queries"]:
+        visible_context = tok.decode(c_ids, skip_special_tokens=True)
+        for qi, q in enumerate(ep["queries"]):
+            stats["candidates"] += 1
+            if data == "qasper" and not evidence_is_visible(q.get("evidence", []), visible_context):
+                stats["dropped_missing_evidence"] += 1
+                continue
             q_ids = tok(f"\n\n{SYS}\nQuestion: {q['question']}\nAnswer:", add_special_tokens=False)["input_ids"]
-            a_ids = tok(" " + q["answer"], add_special_tokens=False)["input_ids"][:max_ans_tok]
+            a_ids = answer_ids(tok, q["answer"], max_ans_tok)
+            if a_ids is None:
+                stats["dropped_long_answer"] += 1
+                continue
             ids = c_ids + q_ids + a_ids
             seg = [SEG_CTX] * len(c_ids) + [SEG_QRY] * len(q_ids) + [SEG_ANS] * len(a_ids)
             labels = [-100] * (len(c_ids) + len(q_ids)) + list(a_ids)
-            out.append({"ids": ids, "seg": seg, "labels": labels,
+            out.append({"sample_id": example_id(data, split, ep.get("paper_id", ""),
+                                                q.get("question_id", qi), q["question"], q["answer"]),
+                        "paper_id": ep.get("paper_id", ""), "question": q["question"],
+                        "evidence": q.get("evidence", []), "protocol_version": PROTOCOL_VERSION,
+                        "ids": ids, "seg": seg, "labels": labels,
                         "prompt_ids": c_ids + q_ids,
                         "prompt_seg": [SEG_CTX] * len(c_ids) + [SEG_QRY] * len(q_ids),
                         # pieces for write->drop->read (no-context) training: memory is
@@ -227,6 +248,9 @@ def build_examples(split, max_papers, tok, max_chunk_tok, max_ctx_tok, max_ans_t
             n_yn = min(len(yn), int(round(frac * N)))
             n_other = min(len(other), N - n_yn)
             out = other[:n_other] + yn[:n_yn]
+            if len(out) != N:
+                raise ValueError(f"only {len(out)} eligible examples for train_target_n={N}; "
+                                 "increase train-papers or explicitly choose a smaller shared budget")
         else:
             keep = int(max_yesno_frac * len(other) / max(1e-9, 1.0 - max_yesno_frac))
             out = other + yn[:keep]
@@ -247,6 +271,12 @@ def build_examples(split, max_papers, tok, max_chunk_tok, max_ctx_tok, max_ans_t
         import random as _r
         _r.Random(yesno_seed + 3).shuffle(out)
         print(f"[mix-temporal] added {len(tex)} synthetic temporal examples -> total {len(out)}", flush=True)
+    stats["kept"] = len(out)
+    print("[data-audit] " + json.dumps(stats, sort_keys=True), flush=True)
+    if audit_stats is not None:
+        audit_stats.update(stats)
+    if not out:
+        raise ValueError(f"no eligible {data}/{split} examples after protocol filtering")
     return out
 
 
@@ -280,6 +310,9 @@ def generate(model, tok, ex, device, max_new_tokens, eos, noctx=False, prompt=No
         ids = list(ex["prompt_ids"][nc:]); seg = [SEG_QRY] * len(ids)
     else:
         ids = list(ex["prompt_ids"]); seg = list(ex["prompt_seg"])
+    if max_new_tokens < 1:
+        raise ValueError("max_new_tokens must be positive")
+    eos_ids = set(eos if isinstance(eos, (list, tuple, set)) else ([] if eos is None else [eos]))
     gen = []
     for _ in range(max_new_tokens):
         iid = torch.tensor([ids], device=device)
@@ -289,8 +322,11 @@ def generate(model, tok, ex, device, max_new_tokens, eos, noctx=False, prompt=No
         logits = model(input_ids=iid, use_cache=False).logits
         nxt = int(logits[0, -1].argmax())
         gen.append(nxt); ids.append(nxt); seg.append(SEG_ANS)
-        if eos is not None and nxt == eos:
+        if nxt in eos_ids:
             break
+    ex["last_generation"] = {"generated_tokens": len(gen),
+                             "stopped_on_eos": bool(gen and gen[-1] in eos_ids),
+                             "hit_length_cap": len(gen) == max_new_tokens and gen[-1] not in eos_ids}
     return tok.decode(gen, skip_special_tokens=True)
 
 
@@ -850,7 +886,7 @@ def main():
         from deltamem.core.prefix_steer import is_steer_param_name
         # save ALL steer params (not just trainable) so gate-only ckpts carry the frozen
         # plain-pool weights too and are self-contained for eval
-        st = {n: p.detach().cpu() for n, p in base.named_parameters() if is_steer_param_name(n)}
+        st = steer_state_dict(base)
         torch.save({"state": st, "cfg": vars(cfg) if not isinstance(cfg, dict) else cfg,
                     "args": {k: getattr(args, k) for k in vars(args)}}, out / f"{args.tag}{suffix}_ckpt.pt")
         print(f"[{args.tag}] saved ckpt{suffix} ({len(st)} tensors)", flush=True)
@@ -1048,7 +1084,7 @@ def main():
         json.dump(result, f, indent=2)
     # save trainable steer weights (prefix + mem_* + delta_*/res_*) so we can reload
     from deltamem.core.prefix_steer import is_steer_param_name
-    steer_state = {n: p.detach().cpu() for n, p in base.named_parameters() if is_steer_param_name(n)}
+    steer_state = steer_state_dict(base)
     torch.save({"state": steer_state, "cfg": vars(cfg) if not isinstance(cfg, dict) else cfg,
                 "args": {k: getattr(args, k) for k in vars(args)}}, out / f"{args.tag}_ckpt.pt")
     print(f"[{args.tag}] saved ckpt ({len(steer_state)} tensors) -> {out/f'{args.tag}_ckpt.pt'}")

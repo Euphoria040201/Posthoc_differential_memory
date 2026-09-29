@@ -62,9 +62,9 @@ def build_fulldoc_episodes(split="train", max_papers=None, tokenizer=None, max_c
         if len(paras) < 3:
             continue
         chunks = paras
-        if tokenizer is not None:
-            chunks = [tokenizer.decode(tokenizer(p).input_ids[:max_chunk_tok])
-                      if len(tokenizer(p).input_ids) > max_chunk_tok else p for p in paras]
+        if tokenizer is not None and max_chunk_tok and max_chunk_tok > 0:
+            chunks = [tokenizer.decode(tokenizer(p, add_special_tokens=False).input_ids[:max_chunk_tok])
+                      if len(tokenizer(p, add_special_tokens=False).input_ids) > max_chunk_tok else p for p in paras]
         qas = paper["qas"]; queries = []
         for k in range(len(qas["question"])):
             a = qas["answers"][k]["answer"][0]; ans = resolve_answer(a); ev = _clean_ev(a.get("evidence", []))
@@ -72,36 +72,7 @@ def build_fulldoc_episodes(split="train", max_papers=None, tokenizer=None, max_c
                 continue
             gold = [i for i, c in enumerate(paras) if any(e[:80] in c or c[:80] in e for e in ev)]
             if gold:
-                queries.append({"question": qas["question"][k].strip(), "answer": ans, "gold": sorted(set(gold))})
-        if queries:
-            eps.append({"paper_id": paper["id"], "chunks": chunks, "queries": queries})
-    return eps
-
-
-def build_fulldoc_episodes(split="train", max_papers=None, tokenizer=None, max_chunk_tok=256,
-                           max_chunks=60, seed=0):
-    """Full-document episodes: chunks = ALL paper paragraphs; each query keeps gold-chunk indices
-    (for retrieval supervision / diagnostics only, NOT used to restrict the memory)."""
-    ds = load_dataset("allenai/qasper", split=split)
-    eps = []
-    for paper in ds:
-        if max_papers and len(eps) >= max_papers:
-            break
-        paras = paper_paragraphs(paper)[:max_chunks]
-        if len(paras) < 3:
-            continue
-        chunks = paras
-        if tokenizer is not None:
-            chunks = [tokenizer.decode(tokenizer(p).input_ids[:max_chunk_tok])
-                      if len(tokenizer(p).input_ids) > max_chunk_tok else p for p in paras]
-        qas = paper["qas"]; queries = []
-        for k in range(len(qas["question"])):
-            a = qas["answers"][k]["answer"][0]; ans = resolve_answer(a); ev = _clean_ev(a.get("evidence", []))
-            if not ans or a["unanswerable"] or not ev:
-                continue
-            gold = [i for i, c in enumerate(paras) if any(e[:80] in c or c[:80] in e for e in ev)]
-            if gold:
-                queries.append({"question": qas["question"][k].strip(), "answer": ans, "gold": sorted(set(gold))})
+                queries.append({"question": qas["question"][k].strip(), "answer": ans, "gold": sorted(set(gold)), "evidence": ev, "question_id": k})
         if queries:
             eps.append({"paper_id": paper["id"], "chunks": chunks, "queries": queries})
     return eps

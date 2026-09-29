@@ -211,8 +211,8 @@ class PrefixSteerConfig:
     fusion_lambda_max: float = 1.0        # variance_diff: upper clamp on lambda*
     # EMA momentum for the mu_Y / mu_C running means used by variance_diff.  The probe
     # in the DEX study could centre within a nuisance group; real inference has no such
-    # group, so the deployable estimator is a running mean maintained during training
-    # (or during an explicit calibration pass) and frozen at eval.
+    # group, so moments AND lambda are estimated on explicit calibration prompts
+    # and remain frozen during all subsequent training/evaluation forwards.
     fusion_ema_momentum: float = 0.99
     # Strong P=0 baseline: summarize the WRITE-only history into one per-layer,
     # query-independent vector, then broadcast that vector directly into the existing
@@ -545,6 +545,9 @@ class PrefixMemSteerAttention(nn.Module):
             # batch instead of centring on a spurious zero (cf. BatchNorm running stats).
             self.register_buffer("fusion_ema_seen",
                                  torch.zeros((), dtype=torch.long), persistent=True)
+            self.register_buffer("fusion_cross_moment", torch.zeros(()), persistent=True)
+            self.register_buffer("fusion_second_c", torch.zeros(()), persistent=True)
+            self.register_buffer("fusion_coefficient", torch.zeros(()), persistent=True)
         # Set True to update the EMAs without training anything -- the calibration
         # pass used when the sidecar is frozen and the fusion has no parameters.
         self._fusion_calibrating = False
@@ -664,52 +667,50 @@ class PrefixMemSteerAttention(nn.Module):
         return Qm, Km, Vm
 
     def _variance_diff(self, out, delta_o, eps):
-        """out - lambda* (C - mu_C) with the closed-form regression coefficient.
+        """Calibrate on separate prompts, then use a fixed, causal coefficient.
 
-        lambda* = <r_Y, r_C> / (<r_C, r_C> + eps) is the least-squares coefficient of
-        the control on the signal, i.e. exactly the scalar that removes the component
-        of Y that co-varies with C and nothing else.  It is DETACHED for the same
-        reason the rms_match/cosine coefficients are: an attached coefficient could be
-        driven by shrinking its own denominator rather than by explaining Y.
-
-        mu_Y / mu_C are running means, updated while training or calibrating and frozen
-        at eval.  The DEX nuisance probe could centre within a nuisance group; a
-        deployed model sees one sequence at a time and has no group to average over, so
-        the running mean is the estimator that actually survives deployment.
+        Calibration follows the unchanged additive path at every layer. Moments
+        may observe a whole prompt, but NEVER determine that prompt's outputs.
+        Training/evaluation forwards do not update these persistent buffers.
         """
-        y32 = out.detach().float()
-        c32 = delta_o.detach().float()
-        flat_y = y32.reshape(-1, y32.shape[-1])
-        flat_c = c32.reshape(-1, c32.shape[-1])
-
-        if self.training or self._fusion_calibrating:
+        if self._fusion_calibrating:
+            if self.training:
+                raise RuntimeError("variance calibration requires model.eval() and frozen weights")
             with torch.no_grad():
+                y = out.detach().float().reshape(-1, out.shape[-1])
+                c = delta_o.detach().float().reshape(-1, delta_o.shape[-1])
+                if self._valid is not None and self._valid.numel() == y.shape[0]:
+                    keep = self._valid.reshape(-1).to(y.device).bool()
+                    y, c = y[keep], c[keep]
+                if y.shape[0] == 0:
+                    raise ValueError("variance calibration has no valid tokens")
+                moments = (y.mean(0), c.mean(0), (y * c).mean(), c.square().mean())
+                buffers = (self.fusion_mu_y, self.fusion_mu_c,
+                           self.fusion_cross_moment, self.fusion_second_c)
                 m = self.cfg.fusion_ema_momentum
-                by, bc = flat_y.mean(0), flat_c.mean(0)
-                if int(self.fusion_ema_seen) == 0:
-                    self.fusion_mu_y.copy_(by)      # seed, do not decay towards zero
-                    self.fusion_mu_c.copy_(bc)
-                else:
-                    self.fusion_mu_y.mul_(m).add_(by, alpha=1.0 - m)
-                    self.fusion_mu_c.mul_(m).add_(bc, alpha=1.0 - m)
+                for dest, value in zip(buffers, moments):
+                    # Keep calibration statistics in fp32 even on a bf16 backbone.
+                    if dest.dtype != torch.float32:
+                        dest.data = dest.data.float()
+                    if int(self.fusion_ema_seen) == 0:
+                        dest.copy_(value)
+                    else:
+                        dest.mul_(m).add_(value, alpha=1.0 - m)
                 self.fusion_ema_seen += 1
-
-        if int(self.fusion_ema_seen) == 0:
-            # never calibrated: fall back to the additive baseline rather than
-            # silently subtracting against an all-zero mean
+                cov = self.fusion_cross_moment - (self.fusion_mu_y * self.fusion_mu_c).mean()
+                var = (self.fusion_second_c - self.fusion_mu_c.square().mean()).clamp_min(0)
+                raw = cov / (var + eps)
+                self.fusion_coefficient.data = self.fusion_coefficient.data.float()
+                self.fusion_coefficient.copy_(raw.clamp(0.0, self.cfg.fusion_lambda_max))
+                self.last_fusion_stats = {"lambda": float(self.fusion_coefficient),
+                                          "cov": float(cov), "var": float(var),
+                                          "raw_lambda": float(raw)}
             return out + self.cfg.steer_gain * delta_o
-
-        r_y = flat_y - self.fusion_mu_y.float()
-        r_c = flat_c - self.fusion_mu_c.float()
-        cov = (r_y * r_c).mean()
-        var = r_c.square().mean()
-        lam = (cov / (var + eps)).clamp(0.0, self.cfg.fusion_lambda_max)
-        self.last_fusion_stats = {
-            "lambda": float(lam), "cov": float(cov), "var": float(var),
-            "raw_lambda": float(cov / (var + eps)),
-        }
+        if int(self.fusion_ema_seen) == 0:
+            raise RuntimeError("variance_diff is uncalibrated; calibrate on training prompts first")
+        self.last_fusion_stats["lambda"] = float(self.fusion_coefficient)
         centred = delta_o - self.fusion_mu_c.to(dtype=delta_o.dtype)
-        return out - lam.to(dtype=delta_o.dtype) * centred
+        return out - self.fusion_coefficient.to(dtype=delta_o.dtype) * centred
 
     def _fuse_delta_o(self, out, delta_o):
         """Fuse one raw delta-O branch into the frozen main-attention output.
@@ -1603,7 +1604,7 @@ def is_fusion_param_name(name: str) -> bool:
 
 
 def set_fusion_calibrating(model, flag: bool):
-    """Update the variance_diff running means without training anything."""
+    """Collect calibration moments on an additive path; normal forwards never update them."""
     n = 0
     for m in iter_steer_modules(model):
         m._fusion_calibrating = bool(flag)
@@ -1678,6 +1679,16 @@ def freeze_steer_keep_fusion(model):
 
 def is_steer_param_name(name: str) -> bool:
     return any(mk in name for mk in _STEER_MARKERS)
+
+
+def is_steer_state_name(name: str) -> bool:
+    return is_steer_param_name(name) or ".fusion_" in name
+
+
+def steer_state_dict(model):
+    """All sidecar parameters AND persistent calibration buffers, without quantizing masters."""
+    return {n: t.detach().cpu().clone() for n, t in model.state_dict().items()
+            if is_steer_state_name(n)}
 
 
 def freeze_backbone_keep_steer(model):

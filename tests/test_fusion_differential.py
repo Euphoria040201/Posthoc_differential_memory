@@ -42,12 +42,12 @@ def cfg(fusion, **kw):
 def build(fusion, **kw):
     model = tiny_model()
     attach_prefix_steer(model, cfg(fusion, **kw))
-    return model
+    return model.eval()
 
 
 def run(model, ids=None):
     ids = torch.randint(0, 64, (1, 12)) if ids is None else ids
-    set_steer_segments(model, torch.zeros_like(ids),
+    set_steer_segments(model, torch.ones_like(ids),
                        torch.ones_like(ids, dtype=torch.bool))
     with torch.no_grad():
         return model(input_ids=ids, use_cache=False).logits
@@ -93,10 +93,12 @@ def test_variance_diff_cancels_a_covarying_control():
     control = torch.randn(64, 32) + 3.0            # non-zero mean, so centring matters
     y = signal + a * (control - control.mean(0))
 
-    mod.train()
+    mod.eval()
+    mod._fusion_calibrating = True
     for _ in range(50):                            # calibrate the running means
         mod._fuse_delta_o(y, control)
     mod.eval()
+    mod._fusion_calibrating = False
     out = mod._fuse_delta_o(y, control)
 
     lam = mod.last_fusion_stats["lambda"]
@@ -115,10 +117,12 @@ def test_variance_diff_leaves_an_uncorrelated_control_alone():
     mod = a_module(build("variance_diff"))
     y = torch.randn(256, 32)
     c = torch.randn(256, 32)
-    mod.train()
+    mod.eval()
+    mod._fusion_calibrating = True
     for _ in range(50):
         mod._fuse_delta_o(y, c)
     mod.eval()
+    mod._fusion_calibrating = False
     out = mod._fuse_delta_o(y, c)
     assert abs(mod.last_fusion_stats["lambda"]) < 0.1, mod.last_fusion_stats
     assert (out - y).abs().max() < 0.1 * y.abs().max()
@@ -129,27 +133,30 @@ def test_variance_diff_clamps_lambda():
     mod = a_module(build("variance_diff", fusion_lambda_max=0.5))
     c = torch.randn(64, 32)
     y = 5.0 * (c - c.mean(0))                      # raw lambda* would be ~5
-    mod.train()
+    mod.eval()
+    mod._fusion_calibrating = True
     for _ in range(20):
         mod._fuse_delta_o(y, c)
     assert mod.last_fusion_stats["lambda"] == pytest.approx(0.5)
     assert mod.last_fusion_stats["raw_lambda"] > 1.0
 
 
-def test_variance_diff_falls_back_to_additive_before_calibration():
+def test_variance_diff_rejects_uncalibrated_inference():
     mod = a_module(build("variance_diff"))
-    mod.eval()                                     # never trained, never calibrated
     y, c = torch.randn(2, 5, 32), torch.randn(2, 5, 32)
-    torch.testing.assert_close(mod._fuse_delta_o(y, c), y + 0.1 * c)
+    with pytest.raises(RuntimeError, match="uncalibrated"):
+        mod._fuse_delta_o(y, c)
 
 
 def test_running_means_freeze_at_eval():
     mod = a_module(build("variance_diff"))
     y, c = torch.randn(8, 32), torch.randn(8, 32)
-    mod.train()
+    mod.eval()
+    mod._fusion_calibrating = True
     mod._fuse_delta_o(y, c)
     seen = int(mod.fusion_ema_seen)
     mu = mod.fusion_mu_c.clone()
+    mod._fusion_calibrating = False
     mod.eval()
     mod._fuse_delta_o(torch.randn(8, 32), torch.randn(8, 32) + 50.0)
     assert int(mod.fusion_ema_seen) == seen
@@ -177,6 +184,10 @@ def test_calibration_flag_updates_means_outside_training():
                          ["fixed_add", "fixed_sub", "learned_diff", "variance_diff"])
 def test_every_fusion_runs_end_to_end(fusion):
     model = build(fusion)
+    if fusion == "variance_diff":
+        set_fusion_calibrating(model, True)
+        run(model)
+        set_fusion_calibrating(model, False)
     logits = run(model)
     assert torch.isfinite(logits).all()
 
@@ -204,7 +215,12 @@ def test_untrained_sidecar_makes_every_fusion_a_no_op():
     ids = torch.randint(0, 64, (1, 12))
     ref = run(build("fixed_add"), ids)
     for fusion in ("fixed_sub", "learned_diff", "variance_diff"):
-        assert torch.equal(run(build(fusion), ids), ref), fusion
+        model = build(fusion)
+        if fusion == "variance_diff":
+            set_fusion_calibrating(model, True)
+            run(model, ids)
+            set_fusion_calibrating(model, False)
+        assert torch.equal(run(model, ids), ref), fusion
 
 
 def test_add_and_sub_differ_once_the_control_is_non_zero():

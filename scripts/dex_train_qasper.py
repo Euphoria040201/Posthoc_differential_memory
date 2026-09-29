@@ -43,6 +43,7 @@ from deltamem.core.dex import (  # noqa: E402
     set_dex_step,
     set_trainable,
     trainable_report,
+    is_dex_param_name,
 )
 
 
@@ -151,9 +152,11 @@ def build_parser() -> argparse.ArgumentParser:
     ap.add_argument("--output-dir", default=str(REPO / "out_dex"))
     ap.add_argument("--tag", required=True)
     ap.add_argument("--save-adapter", type=str2bool, default=True)
-    ap.add_argument("--save-attn", type=str2bool, default=False,
-                    help="also checkpoint the trained W_K/W_V/W_O (bf16, ~1.1GB) so the "
+    ap.add_argument("--save-attn", type=str2bool, default=True,
+                    help="also checkpoint the trained W_K/W_V/W_O (fp32 masters, ~2.2GB) so the "
                          "run can be reloaded for diagnostics without retraining")
+    from deltamem.kv_binding.qa_protocol import add_manifest_arguments
+    add_manifest_arguments(ap)
     return ap
 
 
@@ -202,6 +205,10 @@ def main() -> None:
         lambda_anneal_steps=anneal_steps,
         allow_no_anneal=args.allow_no_anneal,
     ).resolve()
+    if cfg.train_attn and not args.save_attn:
+        raise ValueError("attention was trained: --save-attn false would make an incomplete checkpoint")
+    if args.steer_output_fusion == "variance_diff" and cfg.train_steer:
+        raise ValueError("train an additive/subtractive sidecar first; calibrate variance_diff with dex_stage1_fusion.py")
 
     # ---- determinism ----------------------------------------------------
     torch.manual_seed(args.seed)
@@ -288,19 +295,26 @@ def main() -> None:
           f"seed={args.seed}", flush=True)
 
     # ---- data (identical across variants and seeds-per-order) -----------
-    train = build_examples(
-        "train", args.train_papers, tok, args.max_chunk_tok, args.max_ctx_tok,
-        args.max_ans_tok, data=args.data, max_yesno_frac=args.max_yesno_frac,
-        yesno_seed=args.data_compose_seed, train_target_n=args.train_target_n,
-        mix_temporal_n=args.mix_temporal_n,
-    )
-    val = build_examples(
-        "validation", args.val_papers, tok, args.max_chunk_tok, args.max_ctx_tok,
-        args.max_ans_tok, data=args.data,
-    )
+    from deltamem.kv_binding.qa_protocol import data_from_manifest, PROTOCOL_VERSION
+    data_info = {"protocol_version": PROTOCOL_VERSION}
+    if args.data_manifest:
+        train, val, data_info = data_from_manifest(args, tok)
+    else:
+        train = build_examples(
+            "train", args.train_papers, tok, args.max_chunk_tok, args.max_ctx_tok,
+            args.max_ans_tok, data=args.data, max_yesno_frac=args.max_yesno_frac,
+            yesno_seed=args.data_compose_seed, train_target_n=args.train_target_n,
+            mix_temporal_n=args.mix_temporal_n,
+        )
+        val = build_examples(
+            "validation", args.val_papers, tok, args.max_chunk_tok, args.max_ctx_tok,
+            args.max_ans_tok, data=args.data,
+        )
     print(f"[{args.tag}] train={len(train)} val={len(val)}", flush=True)
     val_loss_set = val[: args.val_loss_examples]
     eval_set = val if args.eval_examples <= 0 else val[: args.eval_examples]
+    if args.max_new_tokens < max(len(ex["ids"]) - len(ex["prompt_ids"]) for ex in val):
+        raise ValueError("max-new-tokens is smaller than the supervised answer/EOS budget")
 
     params = [p for p in model.parameters() if p.requires_grad]
     groups = []
@@ -329,7 +343,8 @@ def main() -> None:
 
     pad_id = tok.pad_token_id if tok.pad_token_id is not None else tok.eos_token_id
     eos = tok.eos_token_id
-    amp = lambda: torch.autocast("cuda", dtype=torch.bfloat16)  # noqa: E731
+    amp = lambda: torch.autocast(torch.device(args.device).type, dtype=get_dtype(args.dtype),
+                                enabled=args.dtype != "float32")  # noqa: E731
 
     if cfg.train_steer:
         from deltamem.core.prefix_steer import set_steer_segments
@@ -368,8 +383,9 @@ def main() -> None:
                 f, e = f1_em(pred, ex["answer"])
                 f1s.append(f)
                 ems.append(e)
-                per_example.append({"i": i, "f1": f, "em": e,
-                                    "pred": pred[:200], "gold": str(ex["answer"])[:200]})
+                per_example.append({"i": i, "sample_id": ex.get("sample_id", str(i)),
+                                    "f1": f, "em": e, "pred": pred, "gold": ex["answer"],
+                                    **ex.get("last_generation", {})})
         model.train()
         return {"F1": round(sum(f1s) / len(f1s), 4), "EM": round(sum(ems) / len(ems), 4),
                 "n": len(f1s), "per_example": per_example}
@@ -467,6 +483,7 @@ def main() -> None:
 
     payload = {
         "tag": args.tag,
+        "data_protocol": data_info,
         "variant": cfg.variant,
         "config": {k: (list(v) if isinstance(v, tuple) else v) for k, v in vars(cfg).items()},
         "args": vars(args),
@@ -496,7 +513,7 @@ def main() -> None:
 
     if args.save_adapter and cfg.adapter_enabled:
         from deltamem.core.dex import is_dex_param_name
-        state = {n: p.detach().cpu() for n, p in model.named_parameters()
+        state = {n: p.detach().cpu().clone() for n, p in model.state_dict().items()
                  if is_dex_param_name(n)}
         torch.save({"state": state, "config": payload["config"], "args": vars(args)},
                    out_dir / f"{args.tag}_adapter.pt")
@@ -506,8 +523,8 @@ def main() -> None:
         # run CAN be reloaded and re-probed without retraining.  Reload order is
         # backbone -> attach_prefix_steer(steer_config) -> load_state_dict(strict=False).
         from deltamem.core.prefix_steer import is_steer_param_name
-        steer_state = {n: p.detach().to(torch.bfloat16).cpu()
-                       for n, p in model.named_parameters() if is_steer_param_name(n)}
+        from deltamem.core.prefix_steer import steer_state_dict
+        steer_state = steer_state_dict(model)
         torch.save({"state": steer_state,
                     # "cfg" is the key the eval ecosystem expects
                     # (deltamem/eval/steer_checkpoint.py, eval_ours_locomo.py,
@@ -518,16 +535,23 @@ def main() -> None:
                     "config": payload["config"], "args": vars(args)},
                    out_dir / f"{args.tag}_steer.pt")
         print(f"[{args.tag}] saved {len(steer_state)} steer tensors", flush=True)
-    if args.save_attn:
+    if args.save_attn and cfg.train_attn:
         # keys are post-wrap names (``...o_proj.base.weight``); reload order is
         # backbone -> attach_dex(config) -> load_state_dict(strict=False)
         from deltamem.core.prefix_steer import is_steer_param_name as _is_steer
-        attn = {n: p.detach().to(torch.bfloat16).cpu()
+        attn = {n: p.detach().cpu().clone()
                 for n, p in model.named_parameters()
                 if p.requires_grad and not is_dex_param_name(n) and not _is_steer(n)}
         torch.save({"state": attn, "config": payload["config"], "args": vars(args)},
                    out_dir / f"{args.tag}_attn.pt")
         print(f"[{args.tag}] saved {len(attn)} attention tensors", flush=True)
+    from deltamem.eval.dex_checkpoint import dex_state_dict
+    complete_state = dex_state_dict(model, cfg)
+    torch.save({"checkpoint_version": 2, "state": complete_state,
+                "required_state_names": sorted(complete_state),
+                "config": payload["config"], "steer_config": payload["steer_config"],
+                "args": vars(args), "data_protocol": data_info},
+               out_dir / f"{args.tag}_model.pt")
     print(f"[{args.tag}] DONE in {payload['runtime_min']:.1f} min -> {out_dir / (args.tag + '.json')}",
           flush=True)
 
